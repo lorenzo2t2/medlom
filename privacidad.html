@@ -1,0 +1,110 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MedLoM · Privacidad</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: single readable column; a short product intro, then the privacy policy as the long-form body. Same identity as the app: amber dimension marks on graphite. */
+:root{
+  --bg:#f3f2ee; --surface:#ffffff; --fg:#1b1d20; --muted:#5d6168; --line:#d9d6ce;
+  --accent:#f5a300; --accent-text:#8f5a00; --ink:#1b1400;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141619; --surface:#1d2024; --fg:#ecebe6; --muted:#a1a6ad; --line:#353a41;
+  --accent:#ffb21a; --accent-text:#ffb21a; --ink:#1b1400; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141619; --surface:#1d2024; --fg:#ecebe6; --muted:#a1a6ad; --line:#353a41;
+  --accent:#ffb21a; --accent-text:#ffb21a; --ink:#1b1400; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+.wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{padding-top:40px;display:flex;flex-direction:column;gap:18px}
+.dim{display:flex;align-items:center;gap:0;color:var(--accent);width:100%;max-width:340px}
+.dim i{flex:none;width:2px;height:22px;background:currentColor}
+.dim b{flex:1;height:2px;background:currentColor;position:relative}
+.dim b::before,.dim b::after{content:"";position:absolute;top:-5px;border:6px solid transparent}
+.dim b::before{left:0;border-right:9px solid currentColor;border-left:0}
+.dim b::after{right:0;border-left:9px solid currentColor;border-right:0}
+.dim span{flex:none;padding:0 10px;font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--accent-text)}
+h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(48px,12vw,76px);line-height:.95;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--accent-text)}
+.lead{margin:0;font-size:20px;color:var(--fg);max-width:34ch;text-wrap:balance}
+.feats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.feats li{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.feats b{font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:.02em}
+.feats span{font-size:15px;color:var(--muted);line-height:1.45}
+section{display:flex;flex-direction:column;gap:14px}
+h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05;text-wrap:balance}
+h3{margin:14px 0 0;font-family:var(--f-display);font-weight:600;font-size:22px;letter-spacing:.01em}
+p{margin:0}
+.meta{font-size:14px;color:var(--muted)}
+ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+code{font-size:.92em;background:var(--surface);border:1px solid var(--line);padding:1px 6px;border-radius:5px;word-break:break-all}
+.box{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+a{color:var(--accent-text);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+footer{border-top:1px solid var(--line);padding-top:18px;font-size:14px;color:var(--muted)}
+body{margin:0}</style>
+
+</head><body><div class="wrap">
+  <header>
+    <div class="dim" aria-hidden="true"><i></i><b></b><span>120 cm</span><b></b><i></i></div>
+    <h1>Med<em>LoM</em></h1>
+    <p class="lead">Anota medidas sobre tus fotos: cotas con flechas, textos y dibujos, organizadas por proyectos.</p>
+    <ul class="feats">
+      <li><b>Cotas precisas</b><span>Varios estilos de cota y lupa para marcar cada extremo.</span></li>
+      <li><b>Escala real</b><span>Una medida de referencia calcula las demás.</span></li>
+      <li><b>Proyectos</b><span>Agrupa fotos y expórtalas en un único PDF.</span></li>
+      <li><b>Tu Google Drive</b><span>Copia y sincronización opcionales en tu propia cuenta.</span></li>
+    </ul>
+  <p><a href="./">Abrir MedLoM</a></p></header>
+
+  <section id="privacidad" aria-labelledby="pp">
+    <h2 id="pp">Política de privacidad</h2>
+    <p class="meta">Última actualización: 24 de octubre de 2026</p>
+
+    <div class="box">
+      <p><b>En resumen:</b> MedLoM no tiene servidores propios y no recoge, vende ni comparte tus datos. Tus fotos y medidas se guardan en tu móvil y, solo si tú lo activas, en tu propia cuenta de Google Drive.</p>
+    </div>
+
+    <h3>Qué datos usa la app</h3>
+    <ul class="plain">
+      <li><b>Fotos</b> que haces con la cámara o eliges de tu galería.</li>
+      <li><b>Anotaciones</b>: cotas, textos, dibujos, escala y nombres de fotos y proyectos.</li>
+      <li><b>Ajustes</b> de la app, como el tema, las unidades o el nombre que pones en los PDF.</li>
+      <li><b>Trazos de escritura a mano</b>, solo cuando usas la herramienta Escritura.</li>
+    </ul>
+
+    <h3>Dónde se guardan</h3>
+    <p>Todo se guarda en el almacenamiento privado de la app en tu dispositivo. Las fotos no se copian a la galería del móvil. Si desinstalas la app, esos datos se borran.</p>
+
+    <h3>Google Drive</h3>
+    <p>La conexión con Google Drive es opcional. Si la activas, MedLoM pide el permiso <code>https://www.googleapis.com/auth/drive.file</code>, que solo da acceso a los archivos que crea la propia app. MedLoM no puede ver ni modificar el resto de tu Drive.</p>
+    <p>Los archivos se suben directamente desde tu móvil a una carpeta MedLoM de tu Drive. El acceso a tu cuenta se guarda solo en tu móvil y no se envía a nadie más. Puedes desconectarlo en cualquier momento desde Ajustes en la app o desde la sección Seguridad de tu cuenta de Google.</p>
+    <p>El uso que hace MedLoM de la información recibida de las API de Google cumple la <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política de datos de usuario de los servicios de API de Google</a>, incluidos los requisitos de uso limitado.</p>
+
+    <h3>Reconocimiento de escritura</h3>
+    <p>La herramienta Escritura usa el reconocimiento de escritura de Google (ML Kit) dentro del propio móvil. La primera vez descarga el modelo de idioma desde Google; después, tus trazos se procesan en el dispositivo y no se envían a ningún servidor.</p>
+
+    <h3>Compartir y exportar</h3>
+    <p>Cuando exportas una foto o un PDF y lo compartes, el archivo va a la app que tú elijas (WhatsApp, correo u otra). A partir de ahí se aplica la política de esa app.</p>
+
+    <h3>Permisos del móvil</h3>
+    <ul class="plain">
+      <li><b>Internet y estado de la red</b>: para Google Drive y para sincronizar solo con Wi-Fi si lo eliges.</li>
+      <li><b>Vibración</b>: para avisarte al mantener pulsada una medida.</li>
+      <li>La cámara se usa a través de la app de cámara del sistema, solo cuando tú lo pides.</li>
+    </ul>
+
+    <h3>Publicidad, análisis y menores</h3>
+    <p>MedLoM no muestra anuncios, no usa herramientas de análisis ni de seguimiento y no está dirigida a menores de 13 años.</p>
+
+    <h3>Borrar tus datos</h3>
+    <p>Puedes borrar fotos y proyectos desde la app. Para borrarlo todo, desinstala la app y, si usaste Google Drive, elimina la carpeta MedLoM de tu Drive.</p>
+
+    <h3>Cambios y contacto</h3>
+    <p>Si esta política cambia, se actualizará en esta página con una nueva fecha. Para cualquier consulta, escribe al correo de asistencia que aparece en la pantalla de Google al conectar MedLoM con tu Drive.</p>
+  </section>
+
+  <footer>MedLoM · App para anotar medidas sobre fotografías.</footer>
+</div>
+</body></html>
