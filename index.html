@@ -6,9 +6,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.17";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.19";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -23,7 +23,7 @@
 :root{
   --bg:#141619; --panel:#1d2024; --raise:#272b30; --line:#353a41;
   --fg:#ecebe6; --muted:#9a9fa6; --accent:#ffb21a; --accent-ink:#1b1400; --accent-text:#ffb21a;
-  --danger:#ff5a4f; --hud:rgba(20,22,25,.9); --grid:rgba(255,255,255,.025);
+  --danger:#ff5a4f; --hud:rgba(20,22,25,.9); --grid:rgba(255,255,255,.025); --field:#7a808a;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
@@ -31,12 +31,12 @@
 :root[data-tema="light"],:root[data-tema="auto"][data-theme="light"]{
   --bg:#f2f1ed; --panel:#ffffff; --raise:#e9e8e3; --line:#d6d4cd;
   --fg:#1b1d20; --muted:#62666c; --accent:#f5a300; --accent-ink:#1b1400; --accent-text:#9a6100;
-  --danger:#cc2f26; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); color-scheme:light;
+  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088; color-scheme:light;
 }
 @media (prefers-color-scheme: light){:root[data-tema="auto"]:not([data-theme="dark"]){
   --bg:#f2f1ed; --panel:#ffffff; --raise:#e9e8e3; --line:#d6d4cd;
   --fg:#1b1d20; --muted:#62666c; --accent:#f5a300; --accent-ink:#1b1400; --accent-text:#9a6100;
-  --danger:#cc2f26; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); color-scheme:light;
+  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088; color-scheme:light;
 }}
 html,body{height:100%}
 [hidden]{display:none!important}
@@ -56,6 +56,7 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .brand b span{color:var(--accent-text)}
 .sub{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
 .sub.on{color:var(--accent-text)}
+body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #scaleInfo{display:none}
 .titlebtn{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;padding:2px 4px;border-radius:8px}
 .titlebtn:hover{background:var(--raise)}
 .ib{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;flex:none}
@@ -74,6 +75,7 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .tabs button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .scroll{flex:1;min-height:0;overflow:auto;padding-block:10px 16px;-webkit-overflow-scrolling:touch}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+@media (min-width:900px){.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}.grid.sz-s{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.grid.sz-l{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}}
 @media (max-width:380px){.grid{grid-template-columns:1fr 1fr;gap:10px}}
 .card{position:relative;display:flex;flex-direction:column;gap:6px;cursor:pointer;border-radius:12px;min-width:0;touch-action:manipulation}
 .thumb{aspect-ratio:4/3;max-width:100%;border-radius:10px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
@@ -105,15 +107,19 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .seg button[aria-pressed="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .switch{position:relative;width:48px;height:28px;flex:none}
 .switch input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
-.switch i{position:absolute;inset:0;border-radius:999px;background:var(--line);transition:background .15s;pointer-events:none}
+.switch i{position:absolute;inset:0;border-radius:999px;background:var(--field);transition:background .15s;pointer-events:none}
 .switch i::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .15s}
 .switch input:checked+i{background:var(--accent)}
 .switch input:checked+i::after{transform:translateX(20px)}
 .switch input:focus-visible+i{outline:2px solid var(--accent);outline-offset:2px}
-.tin{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px;padding:8px 10px;min-width:0;width:100%;max-width:260px;-webkit-user-select:text;user-select:text}
+.tin{background:var(--bg);color:var(--fg);border:1px solid var(--field);border-radius:10px;font:inherit;font-size:15px;padding:8px 10px;min-width:0;width:100%;max-width:260px;-webkit-user-select:text;user-select:text}
 .cloudic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex:none;color:#fff;font-family:var(--f-display);font-weight:700;font-size:15px}
 .status{font-size:12.5px}.status.on{color:var(--accent-text)}
 .stylepv{width:120px;height:44px;border-radius:8px;flex:none}
+.secbtn{width:100%;text-align:left;cursor:pointer;flex-wrap:nowrap;color:var(--fg)}
+.secbtn:hover{background:var(--raise)}
+.secic{width:26px;height:26px;color:var(--accent-text);flex:none}
+.chev{width:18px;height:18px;color:var(--muted);flex:none}
 .about{text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5;padding:4px 0 20px}
 .src{display:flex;flex-direction:column;gap:10px}
 .src .btn{height:56px;font-size:16px;justify-content:flex-start;padding:0 16px}
@@ -140,12 +146,18 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .ctxbar{position:absolute;left:max(10px,env(safe-area-inset-left,0px));bottom:12px;max-width:calc(100% - 78px);overflow-x:auto;display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
 .ctxbar .btn{height:36px;font-size:13px;padding:0 12px}
 .ctxbar .del{color:var(--danger)}
+.cbtn{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:58px;padding:6px 4px;border-radius:9px;font-size:11.5px;font-weight:700;color:var(--fg)}
+.cbtn:hover{background:var(--raise)}
+.cbtn svg{width:21px;height:21px}
+#ctx{left:50%;transform:translateX(-50%);max-width:calc(100% - 20px)}
 .ctxbar .btn.primary{background:var(--accent);color:var(--accent-ink)}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chips button{padding:6px 12px;border-radius:999px;background:var(--raise);font-weight:700;font-family:var(--f-display);font-size:17px}
 .chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.fitbtn{position:absolute;right:max(10px,env(safe-area-inset-right,0px));bottom:10px;background:var(--hud);border:1px solid var(--line)}
-.hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--hud);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:13px;white-space:nowrap;pointer-events:none;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;transition:opacity .3s}
+.fab{position:absolute;right:max(10px,env(safe-area-inset-right,0px));top:10px;display:flex;flex-direction:column;gap:2px;background:var(--hud);border:1px solid var(--line);border-radius:12px;padding:3px;z-index:1}
+.fab .ib{width:38px;height:38px}
+.fab .ib:disabled{opacity:.3}
+.hint{position:absolute;left:calc(50% - 26px);top:12px;transform:translateX(-50%);background:var(--hud);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:13px;white-space:normal;text-align:center;line-height:1.3;border-radius:14px;pointer-events:none;max-width:calc(100% - 96px);overflow:hidden;text-overflow:ellipsis;transition:opacity .3s}
 .hint.fade{opacity:0}
 .toolbar{background:var(--panel);border-top:1px solid var(--line);padding-block:6px 8px;display:flex;gap:4px;justify-content:center}
 .tool{flex:1;max-width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;color:var(--muted)}
@@ -164,7 +176,7 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .sheet h3{margin:4px 0 0;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .sheet p.txt{margin:0;color:var(--muted);line-height:1.45;font-size:14px}
 .field{display:flex;gap:8px}
-.sheet input[type=text],.sheet textarea,.sheet select{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;font:inherit;font-size:18px;padding:10px 12px;min-width:0;-webkit-user-select:text;user-select:text}
+.sheet input[type=text],.sheet textarea,.sheet select{background:var(--bg);color:var(--fg);border:1px solid var(--field);border-radius:10px;font:inherit;font-size:18px;padding:10px 12px;min-width:0;-webkit-user-select:text;user-select:text}
 .sheet input[type=text]{flex:1}
 .sheet input.num{font-family:var(--f-display);font-weight:600;font-size:24px;font-variant-numeric:tabular-nums}
 .sheet textarea{resize:vertical;min-height:72px;width:100%;box-sizing:border-box}
@@ -196,7 +208,9 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .plist button span{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
 .previews{display:flex;flex-direction:column;gap:10px;max-height:56vh;overflow:auto}
 .previews img{width:100%;border-radius:8px;border:1px solid var(--line);-webkit-user-select:auto;user-select:auto;-webkit-touch-callout:default}
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;z-index:40;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);z-index:40}
+body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
+.toast{transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;z-index:40;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp 0.8s linear infinite;margin:4px auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (max-width:420px){.hide-sm{display:none}.btn{padding:0 11px}}
@@ -217,7 +231,7 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </section>
 
   <section class="view" id="scan" hidden style="background:#000">
-    <video id="scVideo" playsinline muted autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+    <video id="scVideo" aria-label="Vista de la cámara" playsinline muted autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
     <header class="top band" style="position:relative;z-index:2;background:rgba(0,0,0,.55);border:0;color:#fff">
       <button class="ib" id="scBack" aria-label="Terminar captura"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="brand"><b id="scTitle">Captura 3D</b><span class="sub" id="scInfo" style="color:#ddd"></span></div>
@@ -232,25 +246,28 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
   </section>
 
   <section class="view" id="settings" hidden>
-    <header class="top band"><button class="ib" data-sact="back" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="brand"><b>Ajustes</b><span class="sub">Se guardan en este dispositivo</span></div></header>
+    <header class="top band"><button class="ib" data-sact="back" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="brand"><b id="sTitle">Ajustes</b><span class="sub" id="sSub">Se guardan en este dispositivo</span></div></header>
     <div class="scroll band" id="sBody"></div>
   </section>
 
   <section class="view" id="editor" hidden>
     <header class="top band">
       <button class="ib" id="eBack" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="titlebtn" id="eTitle" title="Cambiar nombre"><span class="brand"><b id="eName">Foto</b><span class="sub" id="scaleInfo"></span></span></button>
-      <button class="ib" id="undo" aria-label="Deshacer" title="Deshacer"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
-      <button class="ib" id="redo" aria-label="Rehacer" title="Rehacer"><svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+      <button class="titlebtn" id="eTitle" title="Cambiar nombre"><span class="brand"><b id="eName">Foto</b></span></button>
       <span id="laserBadge" hidden title="Medidor láser conectado" style="font-family:var(--f-display);font-weight:700;font-size:12px;color:var(--accent-text);border:1.5px solid var(--accent);border-radius:999px;padding:1px 7px">LÁSER</span>
       <button class="ib" id="eMenu" aria-label="Más opciones" title="Más opciones"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
       <button class="btn primary" id="eSave">Guardar</button>
     </header>
     <div class="stage" id="stage">
-      <canvas id="cv"></canvas>
+      <canvas id="cv" role="img" aria-label="Foto con medidas"></canvas>
       <div id="loupeBox" hidden><canvas id="loupe"></canvas><div id="loupeInfo"></div></div>
       <div class="hint" id="hint"></div>
-      <button class="ib fitbtn" id="fit" aria-label="Ajustar a pantalla" title="Ajustar a pantalla"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <span class="sub" id="scaleInfo" role="status" style="position:absolute;left:max(10px,env(safe-area-inset-left,0px));bottom:10px;margin:0;background:var(--hud);border:1px solid var(--line);border-radius:999px;padding:5px 11px;max-width:calc(100% - 90px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;z-index:1"></span>
+      <div class="fab" role="group" aria-label="Historial y vista">
+        <button class="ib" id="undo" aria-label="Deshacer" title="Deshacer"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+        <button class="ib" id="redo" aria-label="Rehacer" title="Rehacer"><svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+        <button class="ib" id="fit" aria-label="Ajustar a pantalla" title="Ajustar a pantalla"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
       <div class="ctxbar" id="cropbar" hidden>
         <button class="btn ghost" id="crCancel">Cancelar</button>
         <button class="btn primary" id="crApply">Recortar</button>
@@ -266,11 +283,11 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
         <button class="btn primary" id="iConv">Convertir en texto</button>
       </div>
       <div class="ctxbar" id="ctx" hidden>
-        <button class="btn ghost" id="cEdit">Editar</button>
-        <button class="btn ghost" id="cLock">Bloquear</button>
-        <button class="btn ghost" id="cCenter">Centrar medida</button>
-        <button class="btn ghost" id="cDup">Duplicar</button>
-        <button class="btn ghost del" id="cDel">Eliminar</button>
+        <button class="cbtn" id="cEdit"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg><span>Editar</span></button>
+        <button class="cbtn" id="cLock"><svg viewBox="0 0 24 24" id="cLockIc"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span id="cLockT">Bloquear</span></button>
+        <button class="cbtn" id="cCenter"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 7v10M7 9l-3 3 3 3M17 9l3 3-3 3"/></svg><span>Centrar</span></button>
+        <button class="cbtn" id="cDup"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>Duplicar</span></button>
+        <button class="cbtn del" id="cDel"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span>Eliminar</span></button>
       </div>
     </div>
     <footer class="toolbar band" role="toolbar" aria-label="Herramientas">
@@ -284,9 +301,9 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
     </footer>
   </section>
 </div>
-<input type="file" id="fileIn" class="vh" accept="image/*" multiple tabindex="-1">
-<input type="file" id="fileZip" class="vh" accept=".zip,application/zip,application/x-zip-compressed" tabindex="-1">
-<input type="file" id="fileCam" class="vh" accept="image/*" capture="environment" tabindex="-1">
+<input type="file" id="fileIn" class="vh" aria-label="Elegir fotos" accept="image/*" multiple tabindex="-1">
+<input type="file" id="fileZip" class="vh" aria-label="Elegir copia de seguridad" accept=".zip,application/zip,application/x-zip-compressed" tabindex="-1">
+<input type="file" id="fileCam" class="vh" aria-label="Hacer foto" accept="image/*" capture="environment" tabindex="-1">
 
 <script src="jspdf.umd.min.js"></script>
 <script src="jszip.min.js"></script>
@@ -314,7 +331,7 @@ const IC={
 };
 
 /* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{onedrive:false,gdrive:false,jotta:false},style:null};
+const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{onedrive:false,gdrive:false,jotta:false},style:null};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -466,11 +483,16 @@ async function renderAnnotated(rec,maxSide,srcImg){
 const makeThumb=async(rec,src)=>toBlob(await renderAnnotated(rec,480,src),'image/jpeg',0.82);
 
 /* ================= ui helpers: toast, modals, back button ================= */
-let toastT;function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
+let toastT;function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
 const modals=[];
 function openModal(html,{bottom=false,onClose}={}){
   const wrap=document.createElement('div');wrap.className='scrim'+(bottom?' bottom':'');wrap.innerHTML=html;document.body.appendChild(wrap);
-  const m={wrap,close(silent){if(!wrap.isConnected)return;wrap.remove();const i=modals.indexOf(m);if(i>=0)modals.splice(i,1);if(!silent&&onClose)onClose()}};
+  const prev=document.activeElement,sheet=wrap.querySelector('.sheet');
+  if(sheet){if(!sheet.getAttribute('role'))sheet.setAttribute('role','dialog');sheet.setAttribute('aria-modal','true');const h=sheet.querySelector('h2');if(h){h.id=h.id||'dlg'+Math.random().toString(36).slice(2,8);sheet.setAttribute('aria-labelledby',h.id)}}
+  const focusables=()=>[...wrap.querySelectorAll('button:not([disabled]),input:not([disabled]):not([type=hidden]),select,textarea,a[href],[tabindex="0"]')].filter(el=>!el.closest('[hidden]')&&el.offsetParent!==null);
+  wrap.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=focusables();if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
+  setTimeout(()=>{if(!wrap.contains(document.activeElement)){const f=focusables();(f.find(el=>el.matches('input,textarea,select'))||f[0]||sheet)?.focus?.()}},80);
+  const m={wrap,close(silent){if(!wrap.isConnected)return;wrap.remove();const i=modals.indexOf(m);if(i>=0)modals.splice(i,1);try{if(prev&&prev.isConnected&&prev.focus)prev.focus({preventScroll:true})}catch(e){}if(!silent&&onClose)onClose()}};
   wrap.addEventListener('pointerdown',e=>{if(e.target===wrap)m.downOnScrim=true});
   wrap.addEventListener('click',e=>{if(e.target===wrap&&m.downOnScrim)m.close();m.downOnScrim=false});
   modals.push(m);return m;
@@ -481,7 +503,7 @@ function dialog(title,text,buttons){return new Promise(res=>{
   setTimeout(()=>m.wrap.querySelector('.btn')?.focus(),30);
 })}
 function askText(title,value,placeholder,ok){return new Promise(res=>{
-  const m=openModal(`<form class="sheet" autocomplete="off"><h2>${esc(title)}</h2><input type="text" id="askIn" value="${esc(value||'')}" placeholder="${esc(placeholder||'')}" maxlength="80"><div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">${esc(ok)}</button></div></form>`,{onClose:()=>res(null)});
+  const m=openModal(`<form class="sheet" autocomplete="off"><h2>${esc(title)}</h2><input type="text" id="askIn" aria-label="${esc(title)}" value="${esc(value||'')}" placeholder="${esc(placeholder||'')}" maxlength="80"><div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">${esc(ok)}</button></div></form>`,{onClose:()=>res(null)});
   const f=m.wrap.querySelector('form'),i=f.querySelector('input');
   f.querySelector('[data-c]').onclick=()=>m.close();
   f.onsubmit=e=>{e.preventDefault();const v=i.value.trim();if(!v){i.focus();return}m.close(true);res(v)};
@@ -513,6 +535,7 @@ async function doBack(){
 }
 function show(){
   const top=stack[stack.length-1];
+  document.body.classList.toggle('in-editor',top.v==='editor');
   $('#scan').hidden=top.v!=='scan';if(top.v!=='scan')stopScanCam();
   $('#gallery').hidden=top.v!=='gallery';$('#editor').hidden=top.v!=='editor';$('#settings').hidden=top.v!=='settings';
   if(top.v==='gallery')renderGallery();if(top.v==='settings')renderSettings();
@@ -621,10 +644,10 @@ async function assign(list,pid){const t=Date.now();for(const p of list){p.projec
 function editProject(p){return new Promise(res=>{
   const n=p.notes||{};
   const m=openModal(`<form class="sheet" autocomplete="off"><h2>Datos del proyecto</h2>
-    <label class="col" style="gap:4px"><span class="note">Nombre</span><input type="text" id="pjN" value="${esc(p.name)}" maxlength="80"></label>
-    <label class="col" style="gap:4px"><span class="note">Cliente</span><input type="text" id="pjC" value="${esc(n.client||'')}" maxlength="80"></label>
-    <label class="col" style="gap:4px"><span class="note">Dirección</span><input type="text" id="pjA" value="${esc(n.address||'')}" maxlength="140"></label>
-    <label class="col" style="gap:4px"><span class="note">Notas</span><textarea id="pjT" maxlength="2000">${esc(n.text||'')}</textarea></label>
+    <label class="col" style="gap:4px"><span class="note">Nombre</span><input type="text" id="pjN" aria-label="Nombre del proyecto" value="${esc(p.name)}" maxlength="80"></label>
+    <label class="col" style="gap:4px"><span class="note">Cliente</span><input type="text" id="pjC" aria-label="Cliente" value="${esc(n.client||'')}" maxlength="80"></label>
+    <label class="col" style="gap:4px"><span class="note">Dirección</span><input type="text" id="pjA" aria-label="Dirección" value="${esc(n.address||'')}" maxlength="140"></label>
+    <label class="col" style="gap:4px"><span class="note">Notas</span><textarea id="pjT" aria-label="Notas" maxlength="2000">${esc(n.text||'')}</textarea></label>
     <p class="note">Aparecen en la portada del PDF del proyecto.</p>
     <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`,{onClose:()=>res(false)});
   const f=m.wrap.querySelector('form');f.querySelector('[data-c]').onclick=()=>m.close();
@@ -955,7 +978,25 @@ function zoomAt(cx,cy,f){const r=cv.getBoundingClientRect(),mx=cx-r.left,my=cy-r
 new ResizeObserver(resize).observe(stage);
 $('#fit').onclick=()=>{fit();render()};
 
-function commit(){recalc();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
+function labelBox(o){
+  if(o.type==='text'){const b=hitText(o);return{x0:b.x,y0:b.y,x1:b.x+b.w,y1:b.y+b.h}}
+  if(o.type==='dim'){const g=dimLabel(o),tw=labelW(ctx,o),hw=tw/2+o.fs*0.15,y0=g.centered?-o.fs*0.6:g.off-o.fs*0.85,y1=g.centered?o.fs*0.6:g.off+o.fs*0.1,c=Math.cos(g.ang),sn=Math.sin(g.ang);
+    const P=[[-hw,y0],[hw,y0],[hw,y1],[-hw,y1]].map(([x,y])=>({x:g.mx+x*c-y*sn,y:g.my+x*sn+y*c}));return{x0:Math.min(...P.map(q=>q.x)),y0:Math.min(...P.map(q=>q.y)),x1:Math.max(...P.map(q=>q.x)),y1:Math.max(...P.map(q=>q.y))}}
+  if((o.type==='poly'&&o.val)||((o.type==='rect'||o.type==='ellipse')&&o.lbl)){const c=o.type==='poly'?centroid(o.pts):{x:(o.a.x+o.b.x)/2,y:(o.a.y+o.b.y)/2},w=o.fs*3.2,h=o.fs*(o.type==='ellipse'?3.4:1.1);return{x0:c.x-w,y0:c.y-h*0.5,x1:c.x+w,y1:c.y+h}}
+  return null}
+const ovl=(a,b)=>Math.max(0,Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0))*Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0));
+function declutter(){
+  if(SET.declutter===false)return;
+  const fixed=[];objs.forEach(o=>{if(o.type!=='dim'||o.ltUser){const b=labelBox(o);if(b)fixed.push(b)}});
+  const dims=objs.filter(o=>o.type==='dim'&&!o.ltUser);
+  dims.forEach(o=>{
+    const d=len(o.a,o.b)||1,tw=labelW(ctx,o)+o.fs*0.6,span=Math.min(0.42,(d-tw)/(2*d));
+    const tries=[0.5];if(span>0.02){for(let k=1;k<=6;k++){const f=span*k/6;tries.push(0.5-f,0.5+f)}}
+    let best=0.5,bestS=1e18;
+    for(const t of tries){o.lt=t;const b=labelBox(o);let sc=0;for(const f of fixed)sc+=ovl(b,f);sc+=Math.abs(t-0.5)*1e-3;if(sc<bestS){bestS=sc;best=t}if(sc<1e-6)break}
+    o.lt=best===0.5?undefined:best;const b=labelBox(o);if(b)fixed.push(b)});
+}
+function commit(){recalc();declutter();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
 function restore(){const s=JSON.parse(hist[hi]);objs=s.objs;calib=s.calib;sel=-1;ui();render()}
 $('#undo').onclick=()=>{if(hi>0){hi--;restore()}};
 $('#redo').onclick=()=>{if(hi<hist.length-1){hi++;restore()}};
@@ -966,7 +1007,8 @@ function ui(){
   const sv=$('#eSave');if(dirty()){sv.textContent='Guardar';sv.className='btn primary';sv.disabled=false}else{sv.textContent='Guardado';sv.className='btn saved';sv.disabled=true}
   const si=$('#scaleInfo');if(calib&&calib.plane){si.textContent=`Plano de referencia · ${fmt(calib.plane.w,calib.plane.unit)} × ${fmt(calib.plane.h,calib.plane.unit)} ${calib.plane.unit||''}`;si.classList.add('on')}else if(calib&&calib.ppmm){si.textContent=`Escala calibrada · 1 m = ${Math.round(calib.ppmm*1000).toLocaleString('es-ES')} px`;si.classList.add('on')}else{si.textContent='Sin escala · marca una cota como referencia';si.classList.remove('on')}
   if(sel>=0&&objs[sel]&&objs[sel].type==='dim'&&sel!==lastSelHint&&modals.length===0)flashHint('dimsel');lastSelHint=sel;
-  const c=$('#ctx');c.hidden=sel<0||!objs[sel];if(!c.hidden){const o=objs[sel];$('#cEdit').hidden=!['dim','text','plane','rect','ellipse'].includes(o.type);$('#cLock').textContent=o.locked?'Desbloquear':'Bloquear';$('#cCenter').hidden=!(o.type==='dim'&&o.lt!=null&&Math.abs(o.lt-0.5)>0.01)}
+  try{const rows=measuresOf({objs});cv.setAttribute('aria-label',(rec?rec.name+'. ':'')+(rows.length?rows.length+' medidas: '+rows.slice(0,25).map(r=>r[0]+' '+r[1]+(r[2]?' '+r[2]:'')).join('; '):'Sin medidas todavía'))}catch(e){}
+  const c=$('#ctx');c.hidden=sel<0||!objs[sel];if(!c.hidden){const o=objs[sel];$('#cEdit').hidden=!['dim','text','plane','rect','ellipse'].includes(o.type);$('#cLockT').textContent=o.locked?'Liberar':'Bloquear';$('#cLock').setAttribute('aria-pressed',!!o.locked);$('#cCenter').hidden=!(o.type==='dim'&&o.lt!=null&&Math.abs(o.lt-0.5)>0.01)}
   document.querySelectorAll('.tool[data-tool]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tool===tool));
   {const mt=MORE.find(x=>x[0]===tool);$('#moreTool').setAttribute('aria-pressed',!!mt);$('#moreLbl').textContent=mt?mt[1].split(' ')[0]:'Más';$('#moreIc').innerHTML=mt?mt[2]:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>'}
   $('#styleDot').style.background=style.color;
@@ -1054,7 +1096,7 @@ function openInkSheet(cands,box){
   setTimeout(()=>{inp.focus();inp.select()},60);
 }
 $('#cDel').onclick=()=>{if(sel<0)return;objs.splice(sel,1);sel=-1;commit();render()};
-$('#cCenter').onclick=()=>{if(sel<0)return;const o=objs[sel];if(o.type!=='dim')return;o.lt=0.5;commit();render()};
+$('#cCenter').onclick=()=>{if(sel<0)return;const o=objs[sel];if(o.type!=='dim')return;o.lt=0.5;o.ltUser=true;commit();render()};
 $('#cDup').onclick=()=>{if(sel<0)return;const o=JSON.parse(JSON.stringify(objs[sel])),d=30*U;o.ref=false;if(o.type==='dim'&&calib)o.auto=true;if(o.pts)o.pts.forEach(p=>{p.x+=d;p.y+=d});if(o.a){o.a.x+=d;o.a.y+=d;o.b.x+=d;o.b.y+=d}if(o.type==='text'){o.x+=d;o.y+=d}objs.push(o);sel=objs.length-1;commit();render()};
 $('#cEdit').onclick=()=>{if(sel>=0)openValueSheet(sel,false)};
 
@@ -1150,7 +1192,7 @@ cv.addEventListener('pointermove',e=>{
     if(!act.changed&&Math.hypot(e.clientX-act.cx,e.clientY-act.cy)<4)return;
     const o=objs[sel],dx=o.b.x-o.a.x,dy=o.b.y-o.a.y,l2=dx*dx+dy*dy||1,d=Math.sqrt(l2),extra=(labelW(ctx,o)+o.fs*1.5)/d;
     let t=((p.x-o.a.x)*dx+(p.y-o.a.y)*dy)/l2;t=Math.max(-extra,Math.min(1+extra,t));if(Math.abs(t-0.5)<0.025)t=0.5;
-    o.lt=t;act.changed=true;render();
+    o.lt=t;o.ltUser=true;act.changed=true;render();
   }else if(act.kind==='move'){
     const dx=p.x-act.last.x,dy=p.y-act.last.y;if(!act.changed&&Math.hypot(dx,dy)*view.s<3)return;act.last=p;act.changed=true;moveObj(objs[sel],dx,dy);render();
   }
@@ -1265,7 +1307,7 @@ function openValueSheet(i,isNew,p){
     };
     setTimeout(()=>{val.focus();val.select()},60);
   }else{
-    m=openModal(`<form class="sheet" autocomplete="off"><h2>${isNew?'Nuevo texto':'Editar texto'}</h2><textarea id="fText" placeholder="Escribe una nota">${esc(o?o.text:'')}</textarea>
+    m=openModal(`<form class="sheet" autocomplete="off"><h2>${isNew?'Nuevo texto':'Editar texto'}</h2><textarea id="fText" aria-label="Texto de la nota" placeholder="Escribe una nota">${esc(o?o.text:'')}</textarea>
       <div class="row">${!isNew?'<button type="button" class="btn danger" data-d>Eliminar</button>':''}<button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Aceptar</button></div></form>`);
     const f=m.wrap.querySelector('form'),ta=f.querySelector('textarea');
     f.querySelector('[data-c]').onclick=()=>m.close();
@@ -1302,7 +1344,7 @@ async function renderSettings(){
     ${CLOUDS.filter(c=>!WEBAPP||c.id==='gdrive').map(c=>(NATIVE||WEBAPP)&&c.id==='gdrive'?driveRow(c):NATIVE&&c.id==='jotta'?jottaRow(c):NATIVE&&c.id==='onedrive'?msRow(c):`<div class="srow"><span class="cloudic" style="background:${c.bg}">${c.ini}</span><div class="sl"><b>${c.name}</b><small class="status ${SET.clouds[c.id]?'on':''}">${SET.clouds[c.id]?(NATIVE?'Elegida · se enlazará en la próxima versión':'Elegida · se enlazará al instalar la app'):'Sin enlazar'}</small></div><button class="btn ${SET.clouds[c.id]?'ghost':'primary'}" data-cloud="${c.id}">${SET.clouds[c.id]?'Quitar':'Conectar'}</button></div>`).join('')}
     ${row('Sincronizar automáticamente','Sube las fotos y medidas al guardar y descarga las de tus otros dispositivos.',swH('autoSync'))}
     ${NATIVE?row('Solo con Wi-Fi','No usa datos móviles para sincronizar.',swH('wifiOnly')):''}
-    ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
+    ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
     ${row('Tema','Automático sigue el ajuste del móvil.',segH('tema',[['light','Claro'],['dark','Oscuro'],['auto','Automático']]))}
@@ -1316,6 +1358,7 @@ async function renderSettings(){
     ${row('Lupa al dibujar','Aparece mientras dibujas a mano alzada.',swH('loupePen'))}
     ${row('Aumento de la lupa','',segH('loupeZoom',[[2,'2×'],[3,'3×'],[4,'4×'],[6,'6×']]))}
     ${row('Enderezar líneas','Ajusta a horizontal o vertical cuando la cota está casi recta.',swH('snap'))}
+    ${row('Apartar textos que se pisan','Mueve el número de una cota a lo largo de su línea si choca con otro texto. Si colocas tú un número, no se toca.',swH('declutter'))}
     ${row('Vibración','Al mantener pulsada una medida para moverla.',swH('haptic'))}
   </div></div>
   ${NATIVE&&hasLaser()?`<div class="sgroup"><h3>Medidor láser</h3><div class="scard">${laserRow()}</div></div>`:''}
@@ -1323,7 +1366,7 @@ async function renderSettings(){
     ${row('Peso de PDF y fotos exportadas','Media se ve bien en pantalla y en papel y pesa unas 4 veces menos que Alta. Ligera es la mejor para WhatsApp.',segH('expQuality',[['high','Alta'],['medium','Media'],['light','Ligera']]))}
     ${row('Tamaño de página del PDF','',segH('pdfPage',[['a4','A4'],['a3','A3'],['letter','Carta']]))}
     ${row('Personalizar PDF','Portada, logotipo, cabecera, pie de página, fotos por página y tabla de medidas.','<button class="btn primary" data-sact="pdfcfg">Personalizar</button>')}
-    ${row('Nombre en los PDF','Aparece en la portada y en el pie de cada página.',`<input class="tin" data-k="pdfAuthor" value="${esc(SET.pdfAuthor)}" placeholder="Tu nombre o empresa" maxlength="60">`)}
+    ${row('Nombre en los PDF','Aparece en la portada y en el pie de cada página.',`<input class="tin" aria-label="Nombre en los PDF" data-k="pdfAuthor" value="${esc(SET.pdfAuthor)}" placeholder="Tu nombre o empresa" maxlength="60">`)}
   </div></div>
   <div class="sgroup"><h3>Datos</h3><div class="scard">
     ${row('Tamaño de las fotos guardadas','Para las fotos nuevas. Ahorro ocupa la mitad que Normal y sigue siendo nítida.',segH('photoRes',[['high','Máximo'],['normal','Normal'],['saver','Ahorro']]))}
@@ -1335,11 +1378,28 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.17<br>Las fotos se guardan en este dispositivo.</p>`;
-  body.scrollTop=sc;
+  <p class="about">MedLoM · versión de prueba 0.19<br>Las fotos se guardan en este dispositivo.</p>`;
+  const sec=stack[stack.length-1].sec||'';
+  const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?', Jottacloud y OneDrive':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
+    'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
+    'Medidas':['medidas','Estilo de cota, unidad, lupa y vibración',`<path d="M3 7v10M21 7v10M3 12h18M6.5 9.5L3 12l3.5 2.5M17.5 9.5L21 12l-3.5 2.5"/>`],
+    'Medidor láser':['laser','Conectar un medidor por Bluetooth',`<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M12 7v4M9 16h6"/>`],
+    'Exportar y compartir':['exportar','Personalizar PDF, calidad y tamaño de página',`<path d="M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v8h14v-8"/>`],
+    'Datos':['datos','Copia de seguridad, tamaño de fotos y almacenamiento',`<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>`]};
+  const groups=[...body.querySelectorAll('.sgroup')];
+  groups.forEach(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];g.dataset.sec=info?info[0]:'';g.hidden=!!sec?g.dataset.sec!==sec:true;if(sec)g.querySelector('h3').hidden=true});
+  const cur=Object.entries(SECS).find(([t,v])=>v[0]===sec);
+  $('#sTitle').textContent=cur?cur[0]:'Ajustes';$('#sSub').textContent=cur?'Ajustes':'Se guardan en este dispositivo';
+  const about=body.querySelector('.about');if(about)about.hidden=!!sec;
+  if(!sec){const idx=document.createElement('div');idx.className='sgroup';
+    idx.innerHTML='<div class="scard">'+groups.map(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];if(!info)return'';
+      return`<button class="srow secbtn" data-sec="${info[0]}"><svg viewBox="0 0 24 24" class="secic">${info[2]}</svg><span class="sl"><b>${esc(t)}</b><small>${esc(info[1])}</small></span><svg viewBox="0 0 24 24" class="chev"><path d="M9 5l7 7-7 7"/></svg></button>`}).join('')+'</div>';
+    body.prepend(idx)}
+  body.scrollTop=sec===renderSettings._last?sc:0;renderSettings._last=sec;
   const pv=$('#stylePv');if(pv){const q=Math.min(window.devicePixelRatio||1,3),w=120,h=44;pv.width=w*q;pv.height=h*q;const c=pv.getContext('2d');c.setTransform(q,0,0,q,0,0);c.fillStyle='#3b4047';c.fillRect(0,0,w,h);drawObj(c,{type:'dim',a:{x:18,y:30},b:{x:w-18,y:30},color:style.color,w:[1.6,2.2,3,4][style.lw],fs:14,val:'120',unit:'cm',ds:D})}
 }
 $('#settings').addEventListener('click',async e=>{
+  const sc2=e.target.closest('.secbtn');if(sc2){pushView({v:'settings',sec:sc2.dataset.sec});return}
   const sb=e.target.closest('.seg button');
   if(sb){const k=sb.parentElement.dataset.k,v=sb.dataset.v;SET[k]=(k==='loupeZoom')?+v:v;if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
   const ma=e.target.closest('[data-ms]');
@@ -1426,7 +1486,7 @@ function openGWebSetup(){
   const m=openModal(`<form class="sheet" autocomplete="off"><h2>Conectar Google Drive</h2>
     <p class="txt">Una sola vez, en <b>console.cloud.google.com</b> › proyecto MedLoM › Google Auth Platform › <b>Clientes</b> › <b>Crear cliente</b>:</p>
     <ol class="steps"><li>Tipo: <b>Aplicación web</b>. Nombre: MedLoM iPhone.</li><li>En <b>Orígenes de JavaScript autorizados</b> añade: <code style="user-select:all">${esc(origin)}</code></li><li>Pulsa Crear, copia el <b>ID de cliente</b> y pégalo aquí:</li></ol>
-    <input type="text" id="gwId" value="${esc(SET.gWebClient||'')}" placeholder="…apps.googleusercontent.com" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:13px">
+    <input type="text" id="gwId" aria-label="ID de cliente web de Google" value="${esc(SET.gWebClient||'')}" placeholder="…apps.googleusercontent.com" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:13px">
     <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`);
   const f=m.wrap.querySelector('form');f.querySelector('[data-c]').onclick=()=>m.close();
   f.onsubmit=e=>{e.preventDefault();const v=f.querySelector('#gwId').value.trim();if(!/\.apps\.googleusercontent\.com$/.test(v)){toast('El ID termina en .apps.googleusercontent.com');return}SET.gWebClient=v;saveSettings();m.close(true);renderSettings();toast('Guardado. Ahora pulsa Conectar')};
@@ -1705,7 +1765,7 @@ function openPdfCfg(){
   const m=openModal(`<div class="sheet"><h2>Personalizar PDF</h2>
     <h3>Portada</h3>${sg('cover','Portada',[['proj','En proyectos'],['always','Siempre'],['never','Nunca']])}
     ${sw('coverCount','Número de fotos')}${sw('coverDate','Fecha')}${sw('coverNotes','Cliente, dirección y notas','Los datos que pongas en cada proyecto.')}
-    <label class="col" style="gap:4px"><span class="note">Texto adicional en la portada</span><textarea id="pcText" maxlength="600" placeholder="Ej. Presupuesto nº 125 · Válido 30 días">${esc(P.coverText||'')}</textarea></label>
+    <label class="col" style="gap:4px"><span class="note">Texto adicional en la portada</span><textarea id="pcText" aria-label="Texto adicional en la portada" maxlength="600" placeholder="Ej. Presupuesto nº 125 · Válido 30 días">${esc(P.coverText||'')}</textarea></label>
     <h3>Logotipo</h3>
     <div class="srow" style="padding:10px 0"><div class="sl"><b style="font-size:14.5px">Logotipo de tu empresa</b><small>Sale en la portada y, pequeño, en la cabecera de cada página.</small></div>
       ${P.logo?`<img src="${P.logo}" alt="Logotipo" style="max-width:90px;max-height:40px;border-radius:4px;background:#fff;padding:3px">`:''}
@@ -1826,7 +1886,7 @@ function openMsSetup(){
       <li>URI de redirección: elige <b>Cliente público/nativo (móvil y escritorio)</b> y escribe <code style="user-select:all">com.medlom.app://onedrive</code>. Pulsa <b>Registrar</b>.</li>
       <li>Copia el <b>Id. de aplicación (cliente)</b> y pégalo aquí:</li>
     </ol>
-    <input type="text" id="msId" value="${esc(SET.msClient||'')}" placeholder="00000000-0000-0000-0000-000000000000" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:14px">
+    <input type="text" id="msId" aria-label="Id. de aplicación de Microsoft" value="${esc(SET.msClient||'')}" placeholder="00000000-0000-0000-0000-000000000000" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:14px">
     <p class="note">MedLoM solo pide acceso a su propia carpeta (Aplicaciones › MedLoM), no al resto de tu OneDrive.</p>
     <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`);
   const f=m.wrap.querySelector('form');f.querySelector('[data-c]').onclick=()=>m.close();
@@ -1889,13 +1949,13 @@ function openLaserLearn(){
   const m=openModal(`<form class="sheet" autocomplete="off"><h2>Enseñar a leer el medidor</h2>
     <ol class="steps"><li>Haz una medición con el medidor. Si tiene botón de enviar por Bluetooth, púlsalo.</li><li>Escribe aquí lo que marca su pantalla y pulsa <b>Comprobar</b>.</li><li>Repítelo con 2 o 3 distancias diferentes.</li></ol>
     <p class="note" id="lrnCount">Datos recibidos del medidor: 0</p>
-    <div class="field"><input type="text" class="num" id="lrnV" inputmode="decimal" placeholder="Ej. 2,345"><select id="lrnU">${['m','cm','mm','ft','in'].map(u=>`<option>${u}</option>`).join('')}</select></div>
+    <div class="field"><input type="text" class="num" id="lrnV" aria-label="Medida que marca el medidor" inputmode="decimal" placeholder="Ej. 2,345"><select id="lrnU" aria-label="Unidad">${['m','cm','mm','ft','in'].map(u=>`<option>${u}</option>`).join('')}</select></div>
     <p class="txt" id="lrnMsg"></p>
     <div class="row"><button type="button" class="btn ghost" data-raw>Datos técnicos</button><button type="button" class="btn ghost" data-c>Cerrar</button><button type="submit" class="btn primary">Comprobar</button></div></form>`,{onClose:()=>{LASER.learning=null}});
   const f=m.wrap.querySelector('form'),msg=f.querySelector('#lrnMsg');
   f.querySelector('[data-c]').onclick=()=>m.close();
   f.querySelector('[data-raw]').onclick=()=>{const t=LASER.raw.slice(-20).map(r=>new Date(r.t).toLocaleTimeString('es-ES')+' '+r.uuid.slice(0,8)+' '+r.hex).join('\n')||'(sin datos todavía)';
-    const m2=openModal(`<div class="sheet"><h2>Datos técnicos</h2><p class="note">Si MedLoM no consigue aprender tu medidor, copia esto y mándaselo a quien te prepara la app, junto con lo que marcaba la pantalla en cada medición.</p><textarea readonly style="min-height:200px;font-family:ui-monospace,monospace;font-size:12px;user-select:all">${esc(t)}</textarea><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`);m2.wrap.querySelector('[data-c]').onclick=()=>m2.close()};
+    const m2=openModal(`<div class="sheet"><h2>Datos técnicos</h2><p class="note">Si MedLoM no consigue aprender tu medidor, copia esto y mándaselo a quien te prepara la app, junto con lo que marcaba la pantalla en cada medición.</p><textarea readonly aria-label="Datos técnicos del medidor" style="min-height:200px;font-family:ui-monospace,monospace;font-size:12px;user-select:all">${esc(t)}</textarea><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`);m2.wrap.querySelector('[data-c]').onclick=()=>m2.close()};
   f.onsubmit=e=>{e.preventDefault();const L=LASER.learning;const v=parseNum(f.querySelector('#lrnV').value),u=f.querySelector('#lrnU').value;if(!(v>0)){msg.textContent='Escribe la medida que marca el medidor.';return}
     const target=v*UNITM[u],tol=Math.max(.0015,target*.0012),pk=LASER.raw.filter(r=>r.t>=L.since-1500);
     if(!pk.length){msg.textContent='Todavía no han llegado datos del medidor. Mide de nuevo o pulsa su botón de Bluetooth.';return}
@@ -1942,7 +2002,7 @@ function openJottaConnect(){
       <li>En <b>Token de inicio de sesión personal</b> (Personal login token) pulsa <b>Generar</b> y cópialo.</li>
       <li>Vuelve aquí y pégalo:</li>
     </ol>
-    <textarea id="jtTok" placeholder="Pega aquí el código" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:13px;min-height:90px"></textarea>
+    <textarea id="jtTok" aria-label="Código de acceso personal de Jottacloud" placeholder="Pega aquí el código" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:13px;min-height:90px"></textarea>
     <p class="note">El código solo sirve una vez. MedLoM lo cambia por un acceso propio que se guarda solo en este móvil y que puedes quitar en Jottacloud › Ajustes › Seguridad. Jottacloud no ofrece una conexión oficial para otras apps: si cambian su servicio, esta conexión podría dejar de funcionar.</p>
     <p class="note" id="jtErr" style="color:var(--danger)" hidden></p>
     <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary" id="jtGo">Conectar</button></div></form>`);
