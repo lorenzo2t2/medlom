@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.19";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.20";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
@@ -214,6 +214,25 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 .spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp 0.8s linear infinite;margin:4px auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (max-width:420px){.hide-sm{display:none}.btn{padding:0 11px}}
+/* landscape phones: controls in two slim side rails, photo uses the full height */
+@media (orientation:landscape) and (max-height:560px){
+  #editor{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr)}
+  #editor>header.top{grid-column:1;grid-row:1;flex-direction:column;justify-content:flex-start;align-items:center;gap:6px;width:60px;min-height:0;padding:6px 4px;padding-left:max(4px,env(safe-area-inset-left,0px));border-bottom:0;border-right:1px solid var(--line)}
+  #editor>header.top #eTitle{display:none}
+  #editor>header.top #eSave{margin-top:auto;height:auto;min-height:40px;padding:6px 4px;font-size:11.5px;white-space:normal;line-height:1.1;text-align:center;width:52px}
+  #editor>header.top #laserBadge{font-size:10px!important;padding:1px 4px!important}
+  #editor>.stage{grid-column:2;grid-row:1}
+  #editor>footer.toolbar{grid-column:3;grid-row:1;flex-direction:column;justify-content:flex-start;align-items:stretch;width:74px;overflow-y:auto;padding:4px;padding-right:max(4px,env(safe-area-inset-right,0px));border-top:0;border-left:1px solid var(--line)}
+  #editor>footer.toolbar .tool{flex:none;max-width:none;padding:5px 2px;gap:1px}
+  #editor>footer.toolbar .tool span{font-size:10.5px}
+  #editor>footer.toolbar .tool svg{width:20px;height:20px}
+  #editor>footer.toolbar .sep{width:auto;height:1px;margin:4px 8px}
+  #editor .fab{top:6px}
+  #editor .hint{top:6px;font-size:12px;padding:4px 10px}
+  #editor #scaleInfo{bottom:6px;font-size:11.5px;padding:3px 9px}
+  #editor .ctxbar{bottom:6px}
+  #editor .cbtn{min-width:52px;padding:4px 3px}
+}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}}
 </style>
 
@@ -972,10 +991,12 @@ function render(){
     const b=bbox(o),m=10*px;ctx.setLineDash([6*px,4*px]);ctx.lineWidth=1.5*px;ctx.strokeStyle='#ffb21a';if(!o.a&&!(o.pts&&SHAPES.has(o.type))||o.locked)ctx.strokeRect(b.x-m,b.y-m,b.w+2*m,b.h+2*m);ctx.setLineDash([])}
 }
 function resize(){if($('#editor').hidden)return;const r=stage.getBoundingClientRect();if(!r.width)return;cssW=r.width;cssH=r.height;dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(cssW*dpr);cv.height=Math.round(cssH*dpr);loupe.width=loupe.height=Math.round(150*dpr);if(needFit)fit();render()}
-function fit(){if(!W||!cssW)return;const pad=16,s=Math.min((cssW-pad*2)/W,(cssH-pad*2)/H);view={s,x:(cssW-W*s)/2,y:(cssH-H*s)/2};needFit=false}
+function fit(){if(!W||!cssW)return;const pad=(cssW>cssH&&cssH<520)?4:16,s=Math.min((cssW-pad*2)/W,(cssH-pad*2)/H);view={s,x:(cssW-W*s)/2,y:(cssH-H*s)/2};needFit=false}
 function toDoc(cx,cy){const r=cv.getBoundingClientRect();return{x:(cx-r.left-view.x)/view.s,y:(cy-r.top-view.y)/view.s}}
 function zoomAt(cx,cy,f){const r=cv.getBoundingClientRect(),mx=cx-r.left,my=cy-r.top,ns=Math.max(0.05,Math.min(view.s*f,40)),dx=(mx-view.x)/view.s,dy=(my-view.y)/view.s;view={s:ns,x:mx-dx*ns,y:my-dy*ns};render()}
 new ResizeObserver(resize).observe(stage);
+let _immersive=null;function immersive(){const on=innerWidth>innerHeight&&innerHeight<560;if(on!==_immersive){_immersive=on;try{NATIVE&&NATIVE.setImmersive&&NATIVE.setImmersive(on)}catch(e){}needFit=true;requestAnimationFrame(resize)}}
+addEventListener('resize',immersive);addEventListener('orientationchange',()=>setTimeout(immersive,150));setTimeout(immersive,0);
 $('#fit').onclick=()=>{fit();render()};
 
 function labelBox(o){
@@ -1378,7 +1399,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.19<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.20<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?', Jottacloud y OneDrive':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
