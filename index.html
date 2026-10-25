@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.20";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.21";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
@@ -232,7 +232,17 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
   #editor #scaleInfo{bottom:6px;font-size:11.5px;padding:3px 9px}
   #editor .ctxbar{bottom:6px}
   #editor .cbtn{min-width:52px;padding:4px 3px}
+  /* icons only in landscape: narrower rails */
+  #editor>footer.toolbar{width:54px;padding:4px 3px;padding-right:max(3px,env(safe-area-inset-right,0px))}
+  #editor>footer.toolbar .tool{padding:9px 0}
+  #editor>footer.toolbar .tool>span:not(.dot){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #editor>footer.toolbar .tool svg,#editor>footer.toolbar .tool .dot{width:24px;height:24px}
+  #editor>header.top{width:54px;padding:6px 3px;padding-left:max(3px,env(safe-area-inset-left,0px))}
+  #editor>header.top #eSave{width:44px;height:44px;min-height:0;padding:0;font-size:0;line-height:0;display:grid;place-items:center}
+  #editor>header.top #eSave::before{content:"";width:22px;height:22px;background:currentColor;-webkit-mask:var(--ic-save) center/contain no-repeat;mask:var(--ic-save) center/contain no-repeat}
+  #editor>header.top #eSave.saved::before{-webkit-mask-image:var(--ic-saved);mask-image:var(--ic-saved)}
 }
+:root{--ic-save:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 3h11l3 3v15H5z'/%3E%3Cpath d='M8 3v5h7V3M8 21v-7h8v7'/%3E%3C/svg%3E");--ic-saved:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}}
 </style>
 
@@ -1399,7 +1409,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.20<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.21<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?', Jottacloud y OneDrive':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
