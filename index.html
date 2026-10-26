@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.35";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.36";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
@@ -373,7 +373,7 @@ const IC={
 };
 
 /* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{onedrive:false,gdrive:false,jotta:false},style:null};
+const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -1046,12 +1046,12 @@ async function openEditor(r,canvas){
   hist=[];hi=-1;commit();savedHi=hi;needFit=true;tool='hand';mp=null;ptUI();
   pushView({v:'editor'});$('#eName').textContent=r.name;ui();flashHint();requestAnimationFrame(resize);
 }
-function closeEditor(){crop=null;$('#cropbar').hidden=true;imgChanged=false;rec=null;src=null;objs=[];sel=-1;ink=[];inkUI();exitSel()}
+function closeEditor(){clearDraft();crop=null;$('#cropbar').hidden=true;imgChanged=false;rec=null;src=null;objs=[];sel=-1;ink=[];inkUI();exitSel()}
 async function saveEditor(){
   if(!rec)return false;
   try{delete rec.fresh;await ready(rec);if(imgChanged){rec.img=await toBlob(src,'image/jpeg',0.92);rec.w=W;rec.h=H;rec.imgRev=(rec.imgRev||0)+1;imgChanged=false}rec.objs=JSON.parse(JSON.stringify(objs));rec.calib=calib;rec.updated=Date.now();rec.thumb=await makeThumb(rec,src);await put('photos',rec);
     if(rec.projectId){const p=projById(rec.projectId);if(p){p.updated=rec.updated;await put('projects',p)}}
-    savedHi=hi;ui();toast('Guardado en la app');scheduleSync();return true}
+    savedHi=hi;clearDraft();ui();toast('Guardado en la app');scheduleSync();return true}
   catch(e){toast('No se pudo guardar. Comprueba el espacio libre.');return false}
 }
 let imgChanged=false,crop=null;
@@ -1199,7 +1199,23 @@ function pickAuto(o){if(!bgS||bgS.src!==src)makeBg();if(!bgS)return null;const S
     if(sc>bs){bs=sc;best=hex}}
   return best}
 function autoColors(list){(list||objs).forEach(o=>{if(o&&o.color==='auto'){const c=pickAuto(o);if(c)o.ac=c}})}
-function commit(){recalc();declutter();autoColors();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
+/* draft: every change is kept on the side so a closed app or a phone call never loses work */
+let draftT=null;
+function saveDraft(){clearTimeout(draftT);draftT=setTimeout(()=>{if(!rec)return;
+  if(!dirty()&&!rec.fresh){del('meta','draft').catch(()=>{});return}
+  put('meta',{id:'draft',recId:rec.id,name:rec.name,fresh:!!rec.fresh,objs:JSON.parse(JSON.stringify(objs)),calib,at:Date.now()}).catch(()=>{})},400)}
+function clearDraft(){clearTimeout(draftT);draftT=null;del('meta','draft').catch(()=>{})}
+async function checkDraft(){
+  let d=null;try{d=await getOne('meta','draft')}catch(e){}if(!d)return;
+  const r=store.photos.find(p=>p.id===d.recId);if(!r){clearDraft();return}
+  const changed=JSON.stringify(d.objs||[])!==JSON.stringify(r.objs||[])||JSON.stringify(d.calib||null)!==JSON.stringify(r.calib||null);
+  if(!changed&&!d.fresh){clearDraft();return}
+  const k=await dialog(changed?'Cambios sin guardar':'Foto sin guardar',changed?`MedLoM se cerró mientras editabas «${r.name}». ¿Quieres recuperar los cambios?`:`La foto nueva «${r.name}» no llegó a guardarse. ¿Quieres conservarla?`,
+    [{id:'y',label:changed?'Recuperar y seguir editando':'Conservar y abrir',kind:'primary'},{id:'n',label:changed?(d.fresh?'Descartar la foto':'Descartar los cambios'):'Descartar la foto',kind:'danger'}]);
+  if(k==='y'){await openEditor(r);if(d.fresh)rec.fresh=true;objs=JSON.parse(JSON.stringify(d.objs||[]));calib=d.calib||null;commit();render();toast('Recuperado: pulsa Guardar para conservarlo')}
+  else if(k==='n'){clearDraft();if(d.fresh){try{await del('photos',r.id);addTomb('photo',r.id)}catch(e){}store.photos=store.photos.filter(x=>x.id!==r.id);renderGallery();toast('Foto descartada')}}
+}
+function commit(){recalc();declutter();autoColors();saveDraft();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
 function restore(){const s=JSON.parse(hist[hi]);objs=s.objs;calib=s.calib;sel=-1;ui();render()}
 $('#undo').onclick=()=>{if(hi>0){hi--;restore()}};
 $('#redo').onclick=()=>{if(hi<hist.length-1){hi++;restore()}};
@@ -1426,7 +1442,7 @@ function up(e){
   if(a.timer)clearTimeout(a.timer);
   if(a.kind==='draw'){
     const d=draft;draft=null;
-    if(d.ink){ink.push(d);inkUI();render();return}
+    if(d.ink){if(d.color==='auto')autoColors([d]);ink.push(d);inkUI();render();return}
     if(d.mk){if(len(d.a,d.b)*view.s<12){ui();render();return}
       if(d.mk==='plane'){objs=objs.filter(o=>o.type!=='plane');const x0=Math.min(d.a.x,d.b.x),x1=Math.max(d.a.x,d.b.x),y0=Math.min(d.a.y,d.b.y),y1=Math.max(d.a.y,d.b.y);
         objs.push({type:'plane',pts:[{x:x0,y:y0},{x:x1,y:y0},{x:x1,y:y1},{x:x0,y:y1}],color:'#17c3a4',w:d.w,fs:d.fs,unit:lastUnit,rw:0,rh:0});sel=objs.length-1;ui();render();openPlaneSheet(sel,true);return}
@@ -1436,7 +1452,7 @@ function up(e){
     ui();render();
   }else if(a.kind==='pan'){if(!a.moved&&sel>=0){sel=-1;ui();render()}}
   else if(a.kind==='inkmove'){}
-  else if(a.kind==='pending'&&tool==='write'){const w=LW[style.lw]*U;ink.push({type:'path',ink:true,pts:[{x:a.p0.x,y:a.p0.y,t:Date.now()}],color:style.color,...SHD(),w:Math.max(w,U*2.5)});inkUI();render()}
+  else if(a.kind==='pending'&&tool==='write'){const w=LW[style.lw]*U;{const dot={type:'path',ink:true,pts:[{x:a.p0.x,y:a.p0.y,t:Date.now()}],color:style.color,...SHD(),w:Math.max(w,U*2.5)};if(dot.color==='auto')autoColors([dot]);ink.push(dot)}inkUI();render()}
   else if(a.kind==='text')openValueSheet(-1,true,a.p);
   else if(a.kind==='place'){mpAdd(a.p);}
   else if(a.kind==='pending'||(a.kind==='move'&&!a.changed)){
@@ -1572,7 +1588,7 @@ async function renderSettings(){
   const D=style.ds,endN=(ENDS.find(x=>x[0]===D.end)||ENDS[0])[1],labN=(LABELS.find(x=>x[0]===D.label)||LABELS[0])[1];
   body.innerHTML=`
   <div class="sgroup"><h3>Nube y sincronización</h3><div class="scard">
-    ${CLOUDS.filter(c=>!WEBAPP||c.id==='gdrive').map(c=>(NATIVE||WEBAPP)&&c.id==='gdrive'?driveRow(c):NATIVE&&c.id==='jotta'?jottaRow(c):NATIVE&&c.id==='onedrive'?msRow(c):`<div class="srow"><span class="cloudic" style="background:${c.bg}">${c.ini}</span><div class="sl"><b>${c.name}</b><small class="status ${SET.clouds[c.id]?'on':''}">${SET.clouds[c.id]?(NATIVE?'Elegida · se enlazará en la próxima versión':'Elegida · se enlazará al instalar la app'):'Sin enlazar'}</small></div><button class="btn ${SET.clouds[c.id]?'ghost':'primary'}" data-cloud="${c.id}">${SET.clouds[c.id]?'Quitar':'Conectar'}</button></div>`).join('')}
+    ${CLOUDS.filter(c=>!WEBAPP||c.id==='gdrive').map(c=>(NATIVE||WEBAPP)&&c.id==='gdrive'?driveRow(c):NATIVE&&c.id==='jotta'?jottaRow(c):`<div class="srow"><span class="cloudic" style="background:${c.bg}">${c.ini}</span><div class="sl"><b>${c.name}</b><small class="status ${SET.clouds[c.id]?'on':''}">${SET.clouds[c.id]?(NATIVE?'Elegida · se enlazará en la próxima versión':'Elegida · se enlazará al instalar la app'):'Sin enlazar'}</small></div><button class="btn ${SET.clouds[c.id]?'ghost':'primary'}" data-cloud="${c.id}">${SET.clouds[c.id]?'Quitar':'Conectar'}</button></div>`).join('')}
     ${row('Sincronizar automáticamente','Sube las fotos y medidas al guardar y descarga las de tus otros dispositivos.',swH('autoSync'))}
     ${NATIVE?row('Solo con Wi-Fi','No usa datos móviles para sincronizar.',swH('wifiOnly')):''}
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
@@ -1589,9 +1605,9 @@ async function renderSettings(){
     ${row('Lupa al dibujar','Aparece mientras dibujas a mano alzada.',swH('loupePen'))}
     ${row('Aumento de la lupa','',segH('loupeZoom',[[2,'2×'],[3,'3×'],[4,'4×'],[6,'6×']]))}
     ${row('Enderezar líneas','Ajusta a horizontal o vertical cuando la cota está casi recta.',swH('snap'))}
-    ${row('Dejar hueco en las líneas','Cuando una cota cruza a otra, la de debajo se corta; y si el número de una cota cae sobre una línea, esa línea se corta alrededor del número.',swH('dimBreak'))}
-    ${SET.dimBreak!==false?row('Tamaño del hueco','Espacio que se deja alrededor de la línea que cruza o del número.',segH('dimGap',[['s','Pequeño'],['m','Normal'],['l','Grande'],['xl','Muy grande']])):''}
-    ${row('Colocar los números automáticamente','Mueve el número de cada cota a lo largo de su línea o al otro lado para que no lo pisen otros textos ni líneas, y lo reduce un poco si no cabe. Si colocas tú un número, no se toca.',swH('declutter'))}
+    ${row('Dejar hueco en las líneas','Corta la línea de debajo cuando dos cotas se cruzan o un número cae sobre una línea.',swH('dimBreak'))}
+    ${SET.dimBreak!==false?row('Tamaño del hueco','',segH('dimGap',[['s','Pequeño'],['m','Normal'],['l','Grande'],['xl','Muy grande']])):''}
+    ${row('Colocar los números automáticamente','Aparta los números de otras líneas y textos, y los reduce si no caben. Los que muevas tú no se tocan.',swH('declutter'))}
     ${row('Vibración','Al mantener pulsada una medida para moverla.',swH('haptic'))}
   </div></div>
   ${NATIVE&&hasLaser()?`<div class="sgroup"><h3>Medidor láser</h3><div class="scard">${laserRow()}</div></div>`:''}
@@ -1611,7 +1627,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.35<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.36<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?' y Jottacloud':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
@@ -1635,13 +1651,6 @@ $('#settings').addEventListener('click',async e=>{
   const sc2=e.target.closest('.secbtn');if(sc2){pushView({v:'settings',sec:sc2.dataset.sec});return}
   const sb=e.target.closest('.seg button');
   if(sb){const k=sb.parentElement.dataset.k,v=sb.dataset.v;SET[k]=(k==='loupeZoom')?+v:v;if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
-  const ma=e.target.closest('[data-ms]');
-  if(ma){const a=ma.dataset.ms;
-    if(a==='setup')openMsSetup();
-    else if(a==='connect'){try{NATIVE.msSignIn(SET.msClient);toast('Inicia sesión con Microsoft y vuelve a MedLoM')}catch(err){toast('No se pudo abrir el navegador')}}
-    else if(a==='sync')syncAll(true);
-    else if(a==='off'){const r=await dialog('¿Desconectar OneDrive?','Las fotos que ya están en OneDrive se quedan allí.',[{id:'y',label:'Desconectar',kind:'danger'},{id:'n',label:'Cancelar'}]);if(r==='y'){try{NATIVE.msSignOut()}catch(err){}SET.onedrive={};saveSettings();ONEDRIVE.state='';renderSettings()}}
-    return}
   const la=e.target.closest('[data-laser]');
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}
@@ -1696,7 +1705,7 @@ const DRIVE={busy:false,again:false,state:'',msg:''};
 const G='https://www.googleapis.com';
 const tomb=()=>(SET.tomb||(SET.tomb=[]));
 function addTomb(type,id){if(!CAN_SYNC)return;tomb().push({type,id,at:Date.now(),done:{}});saveSettings();scheduleSync()}
-function cloudsOn(){const l=[];if(driveOn())l.push('gdrive');if(jottaOn())l.push('jotta');if(msOn())l.push('onedrive');return l}
+function cloudsOn(){const l=[];if(driveOn())l.push('gdrive');if(jottaOn())l.push('jotta');return l}
 function tombsFor(pv){return tomb().filter(t=>!(t.done&&t.done[pv]))}
 function tombsDone(pv,list){list.forEach(t=>{t.done={...(t.done||{}),[pv]:1}});const on=cloudsOn();SET.tomb=tomb().filter(t=>!on.every(c=>t.done&&t.done[c])&&Date.now()-t.at<90*864e5);saveSettings()}
 function driveOn(){if(WEBAPP)return !!(SET.gweb&&SET.gweb.on&&SET.gWebClient);try{return !!(NATIVE&&NATIVE.driveConnected&&NATIVE.driveConnected())}catch(e){return false}}
@@ -1770,8 +1779,7 @@ async function syncAll(manual){
   SYNC_ALL=manual&&cloudsOn().length>1;
   if(driveOn())await syncDrive(manual);
   if(jottaOn())await syncPath(JOTTA,manual);
-  if(msOn())await syncPath(ONEDRIVE,manual);
-  if(SYNC_ALL&&!DRIVE.state.startsWith('error')&&JOTTA.state!=='error'&&ONEDRIVE.state!=='error')toast('Nubes al día');
+  if(SYNC_ALL&&!DRIVE.state.startsWith('error')&&JOTTA.state!=='error')toast('Nubes al día');
   SYNC_ALL=false;
 }
 async function syncDrive(manual){
@@ -2026,9 +2034,10 @@ function openPdfCfg(){
 
 /* ================= first-run guide ================= */
 const GUIDE=[['Bienvenido a MedLoM','Anota medidas sobre tus fotos: cotas, áreas, ángulos, textos y dibujos. Empieza con «Nueva foto»: hazla con la cámara o elige una de tu galería.'],
- ['Pon tus cotas','Con «Cota», arrastra de un extremo a otro; la lupa te ayuda a ser preciso. Escribe la medida real. Si marcas una cota como referencia, las demás se calculan solas.'],
- ['Edita sin miedo','Mantén pulsada cualquier medida para moverla y arrastra sus extremos para ajustarla. «Estilo» cambia colores, grosores y el diseño de las cotas; «Más» tiene áreas, ángulos, cadenas y corrección de perspectiva.'],
- ['Organiza y comparte','Agrupa fotos en proyectos, expórtalas en PDF o en una tabla de Excel y compártelas por WhatsApp o correo. En Ajustes puedes conectar Google Drive o Jottacloud y hacer copias de seguridad.']];
+ ['Elige una herramienta','Al abrir una foto no hay nada activo: con la mano puedes moverla y ampliarla sin añadir nada. Toca «Cota», «Dibujo», «Texto»'+(NATIVE?', «Lápiz»':'')+' o «Más» para añadir; al pulsar Aceptar vuelves a la mano.'],
+ ['Pon tus cotas','Arrastra de un extremo a otro; la lupa te ayuda a ser preciso. Escribe la medida real. Si marcas una cota como referencia, las demás se calculan solas, y siempre puedes cambiar una tocando su número.'],
+ ['Edita sin miedo','Toca una medida para seleccionarla y arrastra sus extremos; mantenla pulsada para moverla. «Estilo» cambia colores, grosores y el diseño de las cotas. El color automático elige el que mejor se lee sobre la foto.'],
+ ['Organiza y comparte','Agrupa fotos en proyectos y expórtalas en PDF o en imágenes, con o sin medidas. En Ajustes puedes conectar Google Drive'+(NATIVE?' o Jottacloud':'')+' y hacer copias de seguridad.']];
 function showGuide(){let i=0;
   const m=openModal(`<div class="sheet"><p class="note" id="gdN"></p><h2 id="gdT"></h2><p class="txt" id="gdX" style="color:var(--fg)"></p><div class="row"><button class="btn ghost" data-skip>Saltar</button><button class="btn primary" data-next>Siguiente</button></div></div>`);
   const draw=()=>{m.wrap.querySelector('#gdN').textContent=`${i+1} de ${GUIDE.length}`;m.wrap.querySelector('#gdT').textContent=GUIDE[i][0];m.wrap.querySelector('#gdX').textContent=GUIDE[i][1];m.wrap.querySelector('[data-next]').textContent=i===GUIDE.length-1?'Empezar':'Siguiente'};draw();
@@ -2078,56 +2087,9 @@ $('#fileZip').addEventListener('change',async e=>{
   }catch(err){m.close(true);toast('No se pudo restaurar: '+err.message)}
 });
 
-/* ================= OneDrive (Microsoft Graph) ================= */
-/* OneDrive was removed from the app: never sync with it, and forget any old connection */
-function msOn(){return false}
+/* OneDrive was removed from the app: forget any old connection */
 try{if(NATIVE&&NATIVE.msConnected&&NATIVE.msConnected()&&NATIVE.msSignOut)NATIVE.msSignOut()}catch(e){}
-try{if(SET.onedrive||SET.msClient){delete SET.onedrive;delete SET.msClient;if(SET.clouds)SET.clouds.onedrive=false;saveSettings()}}catch(e){}
-const GR='https://graph.microsoft.com/v1.0/me/drive/special/approot';
-const gp=p=>p?':/'+p.split('/').map(encodeURIComponent).join('/')+':':'';
-async function msTok(force){const r=await nativeAsync('msToken',!!force);if(!r||!r.ok){const e=new Error(r&&r.error||'token');e.auth=!!(r&&r.auth===false);throw e}return r.token}
-async function mfetch(url,opt={},retry=true){const t=await msTok(false);const res=await fetch(url,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+t}});
-  if(res.status===401&&retry){await msTok(true);return mfetch(url,opt,false)}return res}
-async function mok(res){if(res.ok)return res;let m='';try{m=(await res.json()).error.message}catch(e){}const e=new Error(`OneDrive ${res.status}${m?': '+m:''}`);e.status=res.status;throw e}
-const ONEDRIVE={id:'onedrive',name:'OneDrive',set:'onedrive',state:'',msg:'',busy:false,again:false,root:()=>'',
-  async list(p){const r=await mfetch(`${GR}${gp(p)}/children?$select=name,folder,file&$top=999`);if(r.status===404)return null;await mok(r);const j=await r.json();
-    return{folders:(j.value||[]).filter(x=>x.folder).map(x=>x.name),files:new Map((j.value||[]).filter(x=>x.file).map(x=>[x.name,x]))}},
-  async meta(p){const r=await mfetch(`${GR}${gp(p)}?$select=id,name,@microsoft.graph.downloadUrl`);if(r.status===404)return null;await mok(r);return r.json()},
-  async getBlob(p){const m=await this.meta(p);if(!m)return null;const u=m['@microsoft.graph.downloadUrl'];if(!u)return null;const r=await fetch(u);if(!r.ok)throw new Error('OneDrive '+r.status);return r.blob()},
-  async getText(p){const b=await this.getBlob(p);return b?b.text():null},
-  async put(p,data){const blob=data instanceof Blob?data:new Blob([data],{type:'application/json'});
-    if(blob.size<=4*1048576){await mok(await mfetch(`${GR}${gp(p)}/content`,{method:'PUT',headers:{'Content-Type':blob.type||'application/octet-stream'},body:blob}));return}
-    const s0=await mok(await mfetch(`${GR}${gp(p)}/createUploadSession`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item:{'@microsoft.graph.conflictBehavior':'replace'}})}));
-    const url=(await s0.json()).uploadUrl,CH=327680*10;
-    for(let i=0;i<blob.size;i+=CH){const part=blob.slice(i,Math.min(blob.size,i+CH));const r=await fetch(url,{method:'PUT',headers:{'Content-Range':`bytes ${i}-${i+part.size-1}/${blob.size}`},body:part});if(!r.ok&&r.status!==202)throw new Error('OneDrive '+r.status)}},
-  async mkdir(p){let acc='';for(const seg of p.split('/').filter(Boolean)){const parent=acc;acc=acc?acc+'/'+seg:seg;
-    const r=await mfetch(`${GR}${gp(parent)}/children`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:seg,folder:{},'@microsoft.graph.conflictBehavior':'fail'})});
-    if(!r.ok&&r.status!==409)await mok(r)}},
-  async del(p){const r=await mfetch(`${GR}${gp(p)}`,{method:'DELETE'});if(!r.ok&&r.status!==404)await mok(r)},
-  async delDir(p){return this.del(p)}
-};
-window.__medlomMsAuth=r=>{if(r&&r.ok){SET.onedrive={};saveSettings();toast('OneDrive conectado');syncPath(ONEDRIVE,true)}else toast('No se pudo conectar OneDrive: '+((r&&r.error)||''));if(!$('#settings').hidden)renderSettings()};
-function msRow(c){
-  const on=msOn(),st=ONEDRIVE.state,info=SET.onedrive||{};
-  const status=!SET.msClient?'Falta configurarlo una vez':on?(st==='busy'?'Sincronizando…':st==='error'?'Error: '+ONEDRIVE.msg:st==='wait'?ONEDRIVE.msg:`Conectado · sincronizado ${ago(info.lastSync)}`):'Sin conectar';
-  const btns=!SET.msClient?`<button class="btn primary" data-ms="setup">Configurar</button>`:on?`<button class="btn primary" data-ms="sync" ${st==='busy'?'disabled':''}>Sincronizar</button><button class="btn ghost" data-ms="off">Desconectar</button>`:`<button class="btn primary" data-ms="connect">Conectar</button><button class="btn ghost" data-ms="setup">ID</button>`;
-  return`<div class="srow"><span class="cloudic" style="background:${c.bg}">${c.ini}</span><div class="sl"><b>${c.name}</b><small class="status ${on&&st!=='error'?'on':''}">${esc(status)}</small>${on?'<small>Carpeta: Aplicaciones › MedLoM</small>':''}</div><div class="row">${btns}</div></div>`;
-}
-function openMsSetup(){
-  const m=openModal(`<form class="sheet" autocomplete="off"><h2>Configurar OneDrive</h2>
-    <p class="txt">Microsoft pide registrar la app una vez (gratis, unos 5 minutos) desde un ordenador:</p>
-    <ol class="steps">
-      <li>Entra en <a href="https://portal.azure.com" target="_blank" rel="noopener">portal.azure.com</a> con tu cuenta de Microsoft y busca <b>Registros de aplicaciones</b> › <b>Nuevo registro</b>.</li>
-      <li>Nombre: <b>MedLoM</b>. Tipos de cuenta: <b>cuentas de cualquier directorio y cuentas personales de Microsoft</b>.</li>
-      <li>URI de redirección: elige <b>Cliente público/nativo (móvil y escritorio)</b> y escribe <code style="user-select:all">com.medlom.app://onedrive</code>. Pulsa <b>Registrar</b>.</li>
-      <li>Copia el <b>Id. de aplicación (cliente)</b> y pégalo aquí:</li>
-    </ol>
-    <input type="text" id="msId" aria-label="Id. de aplicación de Microsoft" value="${esc(SET.msClient||'')}" placeholder="00000000-0000-0000-0000-000000000000" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:14px">
-    <p class="note">MedLoM solo pide acceso a su propia carpeta (Aplicaciones › MedLoM), no al resto de tu OneDrive.</p>
-    <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`);
-  const f=m.wrap.querySelector('form');f.querySelector('[data-c]').onclick=()=>m.close();
-  f.onsubmit=e=>{e.preventDefault();const v=f.querySelector('#msId').value.trim();if(!/^[0-9a-f-]{36}$/i.test(v)){toast('El ID tiene el formato 00000000-0000-0000-0000-000000000000');return}SET.msClient=v;saveSettings();m.close(true);renderSettings();toast('Guardado. Ahora pulsa Conectar')};
-}
+try{if(SET.onedrive||SET.msClient){delete SET.onedrive;delete SET.msClient;if(SET.clouds)delete SET.clouds.onedrive;saveSettings()}}catch(e){}
 
 /* ================= Bluetooth laser meter ================= */
 const LASER={state:'',msg:'',found:[],last:null};
@@ -2396,7 +2358,8 @@ async function seed(){
   show();
   if(cloudsOn().length)scheduleSync(1500);
   try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false)NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}catch(e){}
-  try{const g=await getOne('meta','guide');if(!g){await put('meta',{id:'guide',at:Date.now()});showGuide()}}catch(e){}
+  let firstRun=false;try{const g=await getOne('meta','guide');if(!g){firstRun=true;await put('meta',{id:'guide',at:Date.now()});showGuide()}}catch(e){}
+  if(!firstRun)try{await checkDraft()}catch(e){}
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cloudsOn().length)scheduleSync(1000)});
 })();
 })();
