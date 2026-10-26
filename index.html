@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.32";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.35";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
@@ -1561,7 +1561,7 @@ document.addEventListener('keydown',e=>{
 window.addEventListener('beforeunload',e=>{if(dirty()){e.preventDefault();e.returnValue=''}});
 
 /* ================= settings view ================= */
-const CLOUDS=[{id:'onedrive',name:'OneDrive',bg:'#0f6cbd',ini:'OD'},{id:'gdrive',name:'Google Drive',bg:'#1e8e3e',ini:'GD'},{id:'jotta',name:'Jottacloud',bg:'#6f42c1',ini:'JC'}];
+const CLOUDS=[{id:'gdrive',name:'Google Drive',bg:'#1e8e3e',ini:'GD'},{id:'jotta',name:'Jottacloud',bg:'#6f42c1',ini:'JC'}];
 function segH(k,opts){return`<div class="seg" data-k="${k}">${opts.map(([v,l])=>`<button data-v="${v}" aria-pressed="${String(SET[k])===String(v)}">${l}</button>`).join('')}</div>`}
 function swH(k){return`<label class="switch"><input type="checkbox" data-k="${k}" ${SET[k]?'checked':''} aria-label="${k}"><i></i></label>`}
 const row=(label,desc,ctrl)=>`<div class="srow"><div class="sl"><b>${label}</b>${desc?`<small>${desc}</small>`:''}</div>${ctrl}</div>`;
@@ -1611,9 +1611,9 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.32<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.35<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
-  const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?', Jottacloud y OneDrive':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
+  const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?' y Jottacloud':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
     'Medidas':['medidas','Estilo de cota, unidad, lupa y vibración',`<path d="M3 7v10M21 7v10M3 12h18M6.5 9.5L3 12l3.5 2.5M17.5 9.5L21 12l-3.5 2.5"/>`],
     'Medidor láser':['laser','Conectar un medidor por Bluetooth',`<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M12 7v4M9 16h6"/>`],
@@ -2079,7 +2079,10 @@ $('#fileZip').addEventListener('change',async e=>{
 });
 
 /* ================= OneDrive (Microsoft Graph) ================= */
-function msOn(){try{return !!(NATIVE&&NATIVE.msConnected&&NATIVE.msConnected())}catch(e){return false}}
+/* OneDrive was removed from the app: never sync with it, and forget any old connection */
+function msOn(){return false}
+try{if(NATIVE&&NATIVE.msConnected&&NATIVE.msConnected()&&NATIVE.msSignOut)NATIVE.msSignOut()}catch(e){}
+try{if(SET.onedrive||SET.msClient){delete SET.onedrive;delete SET.msClient;if(SET.clouds)SET.clouds.onedrive=false;saveSettings()}}catch(e){}
 const GR='https://graph.microsoft.com/v1.0/me/drive/special/approot';
 const gp=p=>p?':/'+p.split('/').map(encodeURIComponent).join('/')+':':'';
 async function msTok(force){const r=await nativeAsync('msToken',!!force);if(!r||!r.ok){const e=new Error(r&&r.error||'token');e.auth=!!(r&&r.auth===false);throw e}return r.token}
