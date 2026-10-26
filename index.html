@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.31";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.32";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
@@ -391,13 +391,13 @@ async function uploadNative(blob,fname){
   for(let i=0;i<blob.size;i+=CH){const b=new Uint8Array(await blob.slice(i,i+CH).arrayBuffer());let bin='';for(let j=0;j<b.length;j+=8192)bin+=String.fromCharCode.apply(null,b.subarray(j,j+8192));NATIVE.append(id,btoa(bin))}
   return id}
 async function sendToNative(blob,fname,mime,action){const id=await uploadNative(blob,fname);return NATIVE.finish(id,mime,action)}
-/* "save" writes to the MedLoM folder at the root of the phone; Android asks for "all files" access the first time */
+/* "save" writes to Documentos/MedLoM; only Android 9 and older ask for a storage permission */
 async function nativeSaveFlow(m,run,okMsg){
   const btns=()=>m.wrap.querySelectorAll('[data-a]');btns().forEach(x=>x.disabled=true);
   try{let r=await run('save');
     if(r==='error:perm'){btns().forEach(x=>x.disabled=false);
-      const c=await dialog('Permiso para la carpeta MedLoM','Para guardar en la carpeta MedLoM de la memoria del móvil, Android necesita que permitas a MedLoM acceder a los archivos. Se abrirá Ajustes: activa «Permitir acceso para gestionar todos los archivos» y vuelve a la app.',[{id:'y',label:'Dar permiso',kind:'primary'},{id:'dl',label:'Guardar en Descargas esta vez'},{id:'n',label:'Cancelar'}]);
-      if(c==='y'){try{NATIVE.askRootAccess()}catch(e){}toast('Cuando lo actives, vuelve a pulsar Guardar');return}
+      const c=await dialog('Permiso de almacenamiento','Para guardar en Documentos › MedLoM, este móvil necesita que permitas a MedLoM guardar archivos. Acepta el permiso y vuelve a pulsar Guardar.',[{id:'y',label:'Dar permiso',kind:'primary'},{id:'dl',label:'Guardar en Descargas esta vez'},{id:'n',label:'Cancelar'}]);
+      if(c==='y'){try{NATIVE.askRootAccess()}catch(e){}toast('Cuando lo aceptes, vuelve a pulsar Guardar');return}
       if(c!=='dl')return;btns().forEach(x=>x.disabled=true);r=await run('savedl');if(r&&r.indexOf('error')===0)throw new Error(r);m.close(true);toast('Guardado en Descargas › MedLoM');return}
     if(r&&r.indexOf('error')===0)throw new Error(r);m.close(true);toast(okMsg)}
   catch(err){btns().forEach(x=>x.disabled=false);toast('No se pudo guardar. Inténtalo de nuevo.')}}
@@ -920,20 +920,34 @@ async function exportEntries(entries,name,covers){
     m.close(true);shareSheet(out,fname,entries,clean);
   }catch(err){m.close(true);toast(err&&err.message==='pdf'?'No se pudo crear el PDF. Comprueba la conexión y vuelve a intentarlo.':'No se pudo preparar la exportación')}
 }
+/* PC (Chrome/Edge): save straight into a MedLoM folder the user picks once (normally inside Documentos) */
+const CAN_DIR=WEBAPP&&typeof window.showDirectoryPicker==='function';
+async function saveToDir(files){
+  let h=null;try{const r=await getOne('meta','dirMedlom');h=r&&r.v}catch(e){}
+  if(h){try{let p=await h.queryPermission({mode:'readwrite'});if(p!=='granted')p=await h.requestPermission({mode:'readwrite'});if(p!=='granted')h=null}catch(e){h=null}}
+  if(!h){toast('Elige la carpeta Documentos: MedLoM creará dentro su carpeta');let base;
+    try{base=await window.showDirectoryPicker({id:'medlom',mode:'readwrite',startIn:'documents'})}catch(e){if(e&&e.name==='AbortError')return null;throw e}
+    h=base.name==='MedLoM'?base:await base.getDirectoryHandle('MedLoM',{create:true});try{await put('meta',{id:'dirMedlom',v:h})}catch(e){}}
+  for(const f of files){let nm=f.name;const dot=nm.lastIndexOf('.'),b0=dot>0?nm.slice(0,dot):nm,ext=dot>0?nm.slice(dot):'';
+    for(let n=2;n<500;n++){try{await h.getFileHandle(nm);nm=`${b0} (${n})${ext}`}catch(e){break}}
+    const fh=await h.getFileHandle(nm,{create:true}),w=await fh.createWritable();await w.write(f.blob);await w.close()}
+  return h.name}
+async function dirSave(m,files){try{const n=await saveToDir(files);if(n){m.close(true);toast(files.length>1?'Guardadas en la carpeta '+n:'Guardado en la carpeta '+n)}}catch(err){toast('No se pudo guardar en esa carpeta. Prueba con otra.')}}
 function shareMany(files,entries){
   const tot=files.reduce((a,f)=>a+f.blob.size,0),mb=(tot/1048576).toLocaleString('es-ES',{maximumFractionDigits:1}),info=`<p class="txt"><b>${files.length} imágenes JPG</b> · ${mb} MB</p>`;
   const nativeMany=NATIVE&&typeof NATIVE.finishMany==='function';
   if(nativeMany){
-    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2>${info}<div class="col"><button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo…)</button><button class="btn ghost" data-a="save">Guardar en la carpeta MedLoM</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
+    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2>${info}<div class="col"><button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo…)</button><button class="btn ghost" data-a="save">Guardar en Documentos › MedLoM</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
     m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b||b.disabled)return;
-      if(b.dataset.a==='save')return nativeSaveFlow(m,a=>sendManyToNative(files,'image/jpeg',a),'Guardadas en la carpeta MedLoM');
+      if(b.dataset.a==='save')return nativeSaveFlow(m,a=>sendManyToNative(files,'image/jpeg',a),'Guardadas en Documentos › MedLoM');
       m.wrap.querySelectorAll('[data-a]').forEach(x=>x.disabled=true);
       try{const r=await sendManyToNative(files,'image/jpeg',b.dataset.a);if(r&&r.indexOf('error')===0)throw new Error(r);m.close(true);toast(b.dataset.a==='save'?'Guardadas en Descargas › MedLoM':'Elige dónde compartirlas')}
       catch(err){m.wrap.querySelectorAll('[data-a]').forEach(x=>x.disabled=false);toast('No se pudo completar. Inténtalo de nuevo.')}});
     return}
   const fl=files.map(f=>new File([f.blob],f.name,{type:'image/jpeg'}));let canShare=false;try{canShare=!!(navigator.canShare&&navigator.canShare({files:fl}))}catch(e){}
-  const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2>${info}<div class="col">${canShare?`<button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo, Archivos…)</button>`:''}<button class="btn ${canShare?'ghost':'primary'}" data-a="dl">Descargar las ${files.length} imágenes</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
+  const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2>${info}<div class="col">${canShare?`<button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo, Archivos…)</button>`:''}${CAN_DIR?`<button class="btn ${canShare?'ghost':'primary'}" data-a="dir">Guardar en Documentos › MedLoM</button>`:''}<button class="btn ${canShare||CAN_DIR?'ghost':'primary'}" data-a="dl">Descargar las ${files.length} imágenes</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
   m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b)return;
+    if(b.dataset.a==='dir')return dirSave(m,files);
     if(b.dataset.a==='share'){try{await navigator.share({files:fl});m.close(true)}catch(err){if(err&&err.name!=='AbortError')toast('No se pudo compartir')}return}
     m.close(true);
     for(const f of files){
@@ -945,9 +959,9 @@ function shareSheet(blob,fname,entries,clean){
   const mb=(blob.size/1048576).toLocaleString('es-ES',{maximumFractionDigits:1}),isPdf=/\.pdf$/.test(fname),ext=(fname.split('.').pop()||'').toLowerCase();
   if(NATIVE){
     const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',jpg:'image/jpeg'}[ext]||'application/octet-stream';
-    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col"><button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo…)</button><button class="btn ghost" data-a="save">Guardar en la carpeta MedLoM</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
+    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col"><button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo…)</button><button class="btn ghost" data-a="save">Guardar en Documentos › MedLoM</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
     m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b||b.disabled)return;
-      if(b.dataset.a==='save')return nativeSaveFlow(m,a=>sendToNative(blob,fname,mime,a),'Guardado en la carpeta MedLoM');
+      if(b.dataset.a==='save')return nativeSaveFlow(m,a=>sendToNative(blob,fname,mime,a),'Guardado en Documentos › MedLoM');
       m.wrap.querySelectorAll('[data-a]').forEach(x=>x.disabled=true);
       try{const r=await sendToNative(blob,fname,mime,b.dataset.a);if(r&&r.indexOf('error')===0)throw new Error(r);m.close(true);toast(b.dataset.a==='save'?'Guardado en Descargas › MedLoM':'Elige dónde compartirlo')}
       catch(err){m.wrap.querySelectorAll('[data-a]').forEach(x=>x.disabled=false);toast('No se pudo completar. Inténtalo de nuevo.')}});
@@ -956,8 +970,9 @@ function shareSheet(blob,fname,entries,clean){
   if(WEBAPP){
     const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',jpg:'image/jpeg'}[ext]||'application/octet-stream';
     const file=new File([blob],fname,{type:mime});let canShare=false;try{canShare=!!(navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){}
-    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col">${canShare?`<button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo, Archivos…)</button>`:''}<button class="btn ${canShare?'ghost':'primary'}" data-a="dl">Descargar</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
+    const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col">${canShare?`<button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo, Archivos…)</button>`:''}${CAN_DIR?`<button class="btn ${canShare?'ghost':'primary'}" data-a="dir">Guardar en Documentos › MedLoM</button>`:''}<button class="btn ${canShare||CAN_DIR?'ghost':'primary'}" data-a="dl">Descargar</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
     m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b)return;
+      if(b.dataset.a==='dir')return dirSave(m,[{blob,name:fname}]);
       if(b.dataset.a==='share'){try{await navigator.share({files:[file],title:fname});m.close(true)}catch(err){if(err&&err.name!=='AbortError')toast('No se pudo compartir')}}
       else{const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);m.close(true)}});
     return;
@@ -1596,7 +1611,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.31<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.32<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?', Jottacloud y OneDrive':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
