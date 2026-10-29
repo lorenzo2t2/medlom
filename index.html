@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style><meta name="theme-color" content="#1d2024">
+<!doctype html><html lang="es"><head><meta name="theme-color" content="#1d2024">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -6,9 +6,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.40.1";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.36";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-</head><body>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>MedLoM</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -19,83 +19,25 @@
 @font-face{font-family:"Atkinson Hyperlegible";font-weight:700;font-style:normal;font-display:swap;src:url(atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
 </style>
 <style>
-/* Layout: one-screen app with three views — gallery (photos / projects), project, editor.
-   Themes: dark, light, warm light, auto, high-contrast, sepia, blue-pro, forest, midnight */
-:root, :root[data-tema="dark"]{
+/* Layout: one-screen app with three views — gallery (photos / projects), project, editor. Dark-only by choice so photos read true. */
+:root{
   --bg:#141619; --panel:#1d2024; --raise:#272b30; --line:#353a41;
   --fg:#ecebe6; --muted:#9a9fa6; --accent:#ffb21a; --accent-ink:#1b1400; --accent-text:#ffb21a;
   --danger:#ff5a4f; --hud:rgba(20,22,25,.9); --grid:rgba(255,255,255,.025); --field:#7a808a;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --dim-halo:rgba(0,0,0,.72);
   color-scheme:dark;
 }
-:root[data-tema="light"]{
+:root[data-tema="light"],:root[data-tema="auto"][data-theme="light"]{
   --bg:#f2f1ed; --panel:#ffffff; --raise:#e9e8e3; --line:#d6d4cd;
   --fg:#1b1d20; --muted:#62666c; --accent:#f5a300; --accent-ink:#1b1400; --accent-text:#9a6100;
-  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088;
-  --dim-halo:rgba(255,255,255,.85);
-  color-scheme:light;
+  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088; color-scheme:light;
 }
-:root[data-tema="cream"]{
-  --bg:#f7f4ec; --panel:#fffdf8; --raise:#eee9dd; --line:#d8d0c0;
-  --fg:#24231f; --muted:#55534c; --accent:#e2a000; --accent-ink:#241900; --accent-text:#744900;
-  --danger:#a82d25; --hud:rgba(255,253,248,.96); --grid:rgba(45,38,25,.045); --field:#625e53;
-  --dim-halo:rgba(255,255,255,.95);
-  color-scheme:light;
-}
-:root[data-tema="high"]{
-  --bg:#000000; --panel:#0a0a0a; --raise:#1a1a1a; --line:#3a3a3a;
-  --fg:#ffffff; --muted:#c0c0c0; --accent:#ffff00; --accent-ink:#000000; --accent-text:#ffff00;
-  --danger:#ff3333; --hud:rgba(0,0,0,.92); --grid:rgba(255,255,255,.04); --field:#aaaaaa;
-  --dim-halo:rgba(0,0,0,.9);
-  color-scheme:dark;
-}
-:root[data-tema="sepia"]{
-  --bg:#f4ecd8; --panel:#faf6eb; --raise:#ebe4d4; --line:#d4c9b0;
-  --fg:#3d2b1f; --muted:#7a6550; --accent:#c45c26; --accent-ink:#2a1508; --accent-text:#8a3d12;
-  --danger:#a12c2c; --hud:rgba(250,246,235,.95); --grid:rgba(0,0,0,.04); --field:#8a7a65;
-  --dim-halo:rgba(250,246,235,.9);
-  color-scheme:light;
-}
-:root[data-tema="blue"]{
-  --bg:#0d1b2a; --panel:#1b2838; --raise:#243447; --line:#3a4f66;
-  --fg:#e8f1f8; --muted:#8fa3b8; --accent:#00d4ff; --accent-ink:#001a22; --accent-text:#00d4ff;
-  --danger:#ff6b6b; --hud:rgba(13,27,42,.92); --grid:rgba(255,255,255,.03); --field:#7a92a8;
-  --dim-halo:rgba(0,0,0,.75);
-  color-scheme:dark;
-}
-:root[data-tema="forest"]{
-  --bg:#0f1a14; --panel:#1a2a20; --raise:#24352c; --line:#354a3d;
-  --fg:#e8f0e9; --muted:#8fa896; --accent:#7dce82; --accent-ink:#0a1a0c; --accent-text:#7dce82;
-  --danger:#e85d5d; --hud:rgba(15,26,20,.92); --grid:rgba(255,255,255,.03); --field:#7a9680;
-  --dim-halo:rgba(0,0,0,.75);
-  color-scheme:dark;
-}
-:root[data-tema="midnight"]{
-  --bg:#0a0e17; --panel:#121826; --raise:#1a2233; --line:#2a3548;
-  --fg:#e6eaf2; --muted:#8b95a8; --accent:#ff9f1c; --accent-ink:#1a0f00; --accent-text:#ff9f1c;
-  --danger:#ff5c5c; --hud:rgba(10,14,23,.93); --grid:rgba(255,255,255,.025); --field:#7a8499;
-  --dim-halo:rgba(0,0,0,.78);
-  color-scheme:dark;
-}
-/* auto follows system, mapped to dark or light */
-:root[data-tema="auto"][data-theme="light"]{
+@media (prefers-color-scheme: light){:root[data-tema="auto"]:not([data-theme="dark"]){
   --bg:#f2f1ed; --panel:#ffffff; --raise:#e9e8e3; --line:#d6d4cd;
   --fg:#1b1d20; --muted:#62666c; --accent:#f5a300; --accent-ink:#1b1400; --accent-text:#9a6100;
-  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088;
-  --dim-halo:rgba(255,255,255,.85);
-  color-scheme:light;
-}
-@media (prefers-color-scheme: light){
-  :root[data-tema="auto"]:not([data-theme="dark"]){
-    --bg:#f2f1ed; --panel:#ffffff; --raise:#e9e8e3; --line:#d6d4cd;
-    --fg:#1b1d20; --muted:#62666c; --accent:#f5a300; --accent-ink:#1b1400; --accent-text:#9a6100;
-    --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088;
-    --dim-halo:rgba(255,255,255,.85);
-    color-scheme:light;
-  }
-}
+  --danger:#b3261e; --hud:rgba(255,255,255,.94); --grid:rgba(0,0,0,.045); --field:#7b8088; color-scheme:light;
+}}
 html,body{height:100%}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
@@ -114,15 +56,6 @@ svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .brand b span{color:var(--accent-text)}
 .sub{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
 .sub.on{color:var(--accent-text)}
-
-
-.preview-sheet .prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;max-height:42vh;overflow:auto}
-.preview-sheet .prev-grid figure{margin:0;background:var(--raise);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-.preview-sheet .prev-grid img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
-.preview-sheet .prev-grid figcaption{font-size:11.5px;padding:6px 8px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#scaleInfo{cursor:pointer;-webkit-tap-highlight-color:transparent}
-#scaleInfo:not(.on){border-color:var(--accent)!important;color:var(--accent-text)}
-#scaleInfo.on{border-color:var(--line)}
 body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #scaleInfo{display:none}
 .titlebtn{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;padding:2px 4px;border-radius:8px}
 .titlebtn:hover{background:var(--raise)}
@@ -165,14 +98,13 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 .sgroup{max-width:640px;margin:0 auto 18px;display:flex;flex-direction:column}
 .sgroup>h3{margin:4px 4px 8px;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .scard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.srow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line);flex-wrap:wrap}.srow .seg{max-width:100%;justify-content:flex-start}
+.srow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
 .srow:first-child{border-top:0}
 .sl{flex:1;min-width:150px;display:flex;flex-direction:column;gap:2px}
 .sl b{font-size:15px}.sl small{font-size:12.5px;color:var(--muted);line-height:1.35}
-.seg{display:flex;background:var(--raise);border-radius:10px;padding:3px;gap:3px;flex-wrap:wrap}
-.seg button{height:32px;padding:0 9px;border-radius:8px;font-size:12.5px;font-weight:700;color:var(--muted);transition:background .12s,color .12s,box-shadow .12s}
-.seg button[aria-pressed="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.28);outline:1px solid var(--accent);outline-offset:-1px}
-.seg button:active{transform:scale(.97)}
+.seg{display:flex;background:var(--raise);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{height:32px;padding:0 10px;border-radius:8px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .switch{position:relative;width:48px;height:28px;flex:none}
 .switch input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
 .switch i{position:absolute;inset:0;border-radius:999px;background:var(--field);transition:background .15s;pointer-events:none}
@@ -191,11 +123,8 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 .about{text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5;padding:4px 0 20px}
 .src{display:flex;flex-direction:column;gap:10px}
 .src .btn{height:56px;font-size:16px;justify-content:flex-start;padding:0 16px}
-.empty{max-width:360px;margin:56px auto;text-align:center;color:var(--muted);line-height:1.55;font-size:15px;padding:0 16px}
-.empty b{display:block;color:var(--fg);font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:.02em;margin-bottom:10px}
-.empty::before{content:"+";display:grid;place-items:center;width:64px;height:64px;margin:0 auto 18px;border-radius:18px;background:var(--raise);border:1px solid var(--line);color:var(--accent-text);font:400 32px/1 system-ui,sans-serif;animation:empty-pop .22s ease-out both}
-@keyframes empty-pop{from{opacity:0;transform:scale(.9)}to{opacity:.9;transform:scale(1)}}
-.empty-note{display:block;margin-top:14px;font-size:13.5px;color:var(--field);line-height:1.45}
+.empty{max-width:340px;margin:48px auto;text-align:center;color:var(--muted);line-height:1.5;font-size:15px}
+.empty b{display:block;color:var(--fg);font-family:var(--f-display);font-size:22px;margin-bottom:6px}
 .warn{background:rgba(255,178,26,.14);color:var(--accent-text);border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px;line-height:1.4}
 .bar{background:var(--panel);border-top:1px solid var(--line);padding-block:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .bar .btn.big{flex:1;max-width:320px;height:46px;font-size:15px}
@@ -232,13 +161,10 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 #moreLbl.gone{visibility:hidden}
 .hint{position:absolute;left:calc(50% - 26px);top:12px;transform:translateX(-50%);background:var(--hud);border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:13px;white-space:normal;text-align:center;line-height:1.3;border-radius:14px;pointer-events:none;max-width:calc(100% - 96px);overflow:hidden;text-overflow:ellipsis;transition:opacity .3s}
 .hint.fade{opacity:0}
-.toolbar{background:var(--panel);border-top:1px solid var(--line);padding-block:6px 8px;display:flex;gap:6px;justify-content:center;align-items:stretch}
-.tgroup{display:flex;gap:2px;background:var(--raise);border-radius:12px;padding:2px}
-.tgroup .tool{max-width:72px}
-.tool{flex:1;max-width:96px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border-radius:12px;color:var(--muted);transition:background .12s,color .12s,transform .1s}
-.tool span{font-family:var(--f-display);font-weight:600;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
-.tool[aria-pressed="true"]{color:var(--accent-ink);background:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.18)}
-.tool:active{transform:scale(.96)}
+.toolbar{background:var(--panel);border-top:1px solid var(--line);padding-block:6px 8px;display:flex;gap:4px;justify-content:center}
+.tool{flex:1;max-width:96px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;color:var(--muted)}
+.tool span{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.tool[aria-pressed="true"]{color:var(--accent-ink);background:var(--accent)}
 .tool:not([aria-pressed="true"]):hover{color:var(--fg);background:var(--raise)}
 .sep{width:1px;background:var(--line);margin:6px 4px}
 .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--fg);box-sizing:border-box}
@@ -257,11 +183,6 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 .sheet input.num{font-family:var(--f-display);font-weight:600;font-size:24px;font-variant-numeric:tabular-nums}
 .sheet textarea{resize:vertical;min-height:72px;width:100%;box-sizing:border-box}
 .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.35}
-.check.suggest-ref{background:rgba(255,178,26,.12);border:1px solid var(--accent);border-radius:12px;padding:10px 12px;margin-block:4px}
-.check.suggest-ref small{color:var(--accent-text)}
-.plist.templates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.plist.templates button{text-align:center;justify-content:center;padding:14px 10px;font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.02em}
-.plist.templates button[data-custom="true"]{grid-column:1/-1;opacity:.85}
 .check input{width:20px;height:20px;accent-color:var(--accent);margin:0;flex:none}
 .check small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
 .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
@@ -332,7 +253,7 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
   #editor>header.top #eSave.saved::before{-webkit-mask-image:var(--ic-saved);mask-image:var(--ic-saved)}
 }
 :root{--ic-save:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 3h11l3 3v15H5z'/%3E%3Cpath d='M8 3v5h7V3M8 21v-7h8v7'/%3E%3C/svg%3E");--ic-saved:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
-@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}.empty::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}}
 </style>
 
 <div class="app">
@@ -412,19 +333,12 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
       </div>
     </div>
     <footer class="toolbar band" role="toolbar" aria-label="Herramientas">
-      <div class="tgroup" title="Medir">
-        <button class="tool" data-tool="dim" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 7v10M21 7v10M3 12h18M6.5 9.5L3 12l3.5 2.5M17.5 9.5L21 12l-3.5 2.5"/></svg><span>Cota</span></button>
-        <button class="tool" data-tool="chain" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M2 8v8M9 8v8M15 8v8M22 8v8M2 12h20"/></svg><span>Cadena</span></button>
-        <button class="tool" data-tool="rect" aria-pressed="false"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="1"/></svg><span>Rect</span></button>
-      </div>
-      <i class="sep"></i>
-      <div class="tgroup" title="Anotar">
-        <button class="tool" data-tool="pen" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 17c3-5 5 1 8-3s4-9 7-7 1 7-2 10"/></svg><span>Dibujo</span></button>
-        <button class="tool" data-tool="text" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 7V4h14v3M12 4v16M9 20h6"/></svg><span>Texto</span></button>
-        <button class="tool" data-tool="write" id="writeTool" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 17c2.5-7 4.5-10 5.5-10S8 16 10 16s3-6 4.5-6-1 6 1 6 3-3 5-4"/><path d="M3 21h18" stroke-dasharray="2 2"/></svg><span>Lápiz</span></button>
-      </div>
-      <i class="sep"></i>
+      <button class="tool" data-tool="dim" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 7v10M21 7v10M3 12h18M6.5 9.5L3 12l3.5 2.5M17.5 9.5L21 12l-3.5 2.5"/></svg><span>Cota</span></button>
+      <button class="tool" data-tool="pen" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 17c3-5 5 1 8-3s4-9 7-7 1 7-2 10"/></svg><span>Dibujo</span></button>
+      <button class="tool" data-tool="text" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 7V4h14v3M12 4v16M9 20h6"/></svg><span>Texto</span></button>
+      <button class="tool" data-tool="write" id="writeTool" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 17c2.5-7 4.5-10 5.5-10S8 16 10 16s3-6 4.5-6-1 6 1 6 3-3 5-4"/><path d="M3 21h18" stroke-dasharray="2 2"/></svg><span>Lápiz</span></button>
       <button class="tool" id="moreTool" aria-pressed="false"><svg viewBox="0 0 24 24" id="moreIc"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span id="moreLbl">Más</span></button>
+      <i class="sep"></i>
       <button class="tool" id="styleBtn" aria-pressed="false"><span class="dot" id="styleDot"></span><span>Estilo</span></button>
     </footer>
   </section>
@@ -459,7 +373,7 @@ const IC={
 };
 
 /* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null};
+const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -467,30 +381,9 @@ try{if(!SET.style){const s=JSON.parse(localStorage.getItem('cotafoto-style'));if
 const NATIVE=window.MedLoMAndroid||null;
 const WEBAPP=!NATIVE&&!!window.MEDLOM_PWA;
 const CAN_SYNC=!!NATIVE||WEBAPP;
-function applySettings(){
-  let t=SET.tema||'auto';
-  const darkish=['dark','high','blue','forest','midnight'];
-  let resolved=t;
-  if(t==='auto'){
-    try{
-      if(NATIVE&&NATIVE.isSystemDark) resolved=NATIVE.isSystemDark()?'dark':'light';
-      else resolved=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
-    }catch(e){resolved='dark'}
-  }
-  if(NATIVE){try{NATIVE.setTheme(darkish.includes(resolved)||resolved==='dark')}catch(e){}}
-  document.documentElement.dataset.tema=t;
-  if(t==='auto') document.documentElement.dataset.theme=resolved;
-  else delete document.documentElement.dataset.theme;
-}
-
-function scaleInfoHelp(){
-  const has=hasScale();
-  dialog(has?'Escala de esta foto':'Cómo calibrar la escala',
-    has
-      ? 'Las cotas nuevas se rellenan solas con la medida real. Para cambiar la escala, edita la cota de referencia (o el plano) y marca otra como referencia.'
-      : '1) Elige la herramienta Cota y dibuja una medida que conozcas (por ejemplo el ancho de una puerta o un azulejo).\n2) Toca el número de la cota y escribe la medida real.\n3) Activa «Usar como medida de referencia».\nA partir de ahí el resto de cotas se calcularán solas.',
-    [{id:'ok',label:'Entendido',kind:'primary'}]);
-}
+function applySettings(){let t=SET.tema;
+  if(NATIVE){if(t==='auto'){try{t=NATIVE.isSystemDark()?'dark':'light'}catch(e){t='dark'}}try{NATIVE.setTheme(t!=='light')}catch(e){}}
+  document.documentElement.dataset.tema=t}
 window.__medlomTheme=applySettings;
 try{window.matchMedia&&matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>applySettings())}catch(e){}
 async function uploadNative(blob,fname){
@@ -540,60 +433,15 @@ const TOMM={mm:1,cm:10,m:1000,in:25.4,'':1},DEC={mm:0,cm:1,m:2,in:2,'':1};
 const FONT='"Barlow Condensed","Arial Narrow",sans-serif';
 const len=(a,b)=>Math.hypot(b.x-a.x,b.y-a.y);
 function distSeg(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,l2=dx*dx+dy*dy;let t=l2?((p.x-a.x)*dx+(p.y-a.y)*dy)/l2:0;t=Math.max(0,Math.min(1,t));return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy)}
-/* Lightweight edge map for snapping to photo edges (walls, tiles, furniture) */
-let edgeMap=null, edgeW=0, edgeH=0, edgeScale=1;
-function buildEdgeMap(bmp){
-  try{
-    const maxS=320, k=Math.min(1, maxS/Math.max(bmp.width||bmp.naturalWidth||W, bmp.height||bmp.naturalHeight||H));
-    const w=Math.max(8, Math.round((bmp.width||bmp.naturalWidth||W)*k));
-    const h=Math.max(8, Math.round((bmp.height||bmp.naturalHeight||H)*k));
-    const c=document.createElement('canvas');c.width=w;c.height=h;
-    const g=c.getContext('2d',{willReadFrequently:true});
-    g.drawImage(bmp,0,0,w,h);
-    const id=g.getImageData(0,0,w,h), d=id.data;
-    const mag=new Float32Array(w*h);
-    const lumAt=(x,y)=>{const i=((y*w+x)<<2);return 0.299*d[i]+0.587*d[i+1]+0.114*d[i+2]};
-    for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
-      const gx=-lumAt(x-1,y-1)+lumAt(x+1,y-1)-2*lumAt(x-1,y)+2*lumAt(x+1,y)-lumAt(x-1,y+1)+lumAt(x+1,y+1);
-      const gy=-lumAt(x-1,y-1)-2*lumAt(x,y-1)-lumAt(x+1,y-1)+lumAt(x-1,y+1)+2*lumAt(x,y+1)+lumAt(x+1,y+1);
-      mag[y*w+x]=Math.hypot(gx,gy);
-    }
-    edgeMap=mag;edgeW=w;edgeH=h;edgeScale=k;
-  }catch(e){edgeMap=null}
-}
-function snapToEdge(p, radiusPx){
-  if(!edgeMap||!SET.snap)return p;
-  const r=Math.max(4, Math.round((radiusPx||18)*edgeScale));
-  const cx=Math.round(p.x*edgeScale), cy=Math.round(p.y*edgeScale);
-  let best=0, bx=cx, by=cy;
-  for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){
-    const x=cx+dx, y=cy+dy;
-    if(x<1||y<1||x>=edgeW-1||y>=edgeH-1)continue;
-    const m=edgeMap[y*edgeW+x];
-    if(m>best){best=m;bx=x;by=y}
-  }
-  // Only snap if edge is strong enough
-  if(best<28)return p;
-  return {x:bx/edgeScale, y:by/edgeScale};
-}
-function snap(a,p){
-  if(!SET.snap)return{x:p.x,y:p.y};
-  // 1) Attract to nearby photo edges (walls, tiles…)
-  let q=snapToEdge(p, 16/Math.max(view&&view.s||1,0.5));
-  // 2) Then straighten to 0° / 45° / 90°
-  const dx=q.x-a.x, dy=q.y-a.y, ang=Math.atan2(dy,dx), L=Math.hypot(dx,dy);
-  const step=Math.PI/4, r=Math.round(ang/step)*step;
-  if(Math.abs(ang-r)<0.09) return {x:a.x+Math.cos(r)*L, y:a.y+Math.sin(r)*L};
-  return {x:q.x,y:q.y};
-}
+function snap(a,p){if(!SET.snap)return{x:p.x,y:p.y};const dx=p.x-a.x,dy=p.y-a.y,ang=Math.atan2(dy,dx),q=Math.PI/2,r=Math.round(ang/q)*q;if(Math.abs(ang-r)<0.06){const L=Math.hypot(dx,dy);return{x:a.x+Math.cos(r)*L,y:a.y+Math.sin(r)*L}}return{x:p.x,y:p.y}}
 function lum(hex){const n=parseInt(hex.slice(1),16);return(0.299*(n>>16)+0.587*(n>>8&255)+0.114*(n&255))/255}
-const haloOf=c=>lum(c)>0.55?'rgba(0,0,0,.78)':'rgba(255,255,255,.92)';
+const haloOf=c=>lum(c)>0.55?'rgba(0,0,0,.62)':'rgba(255,255,255,.88)';
 const SHW=[0,0.5,1,1.7,2.6],SHWN=['Sin sombra','Fina','Normal','Gruesa','Muy gruesa'];
 const SHC=[['auto','Automática (contraste con el color)'],['rgba(0,0,0,.72)','Negra'],['rgba(255,255,255,.9)','Blanca'],['rgba(90,94,100,.85)','Gris'],['#ffd400','Amarilla'],['#0b2a66','Azul oscuro']];
 const shK=o=>SHW[o.shw??2]??1;
 const haloC=o=>{if(!shK(o))return'rgba(0,0,0,0)';const c=o.shc||'auto';return c==='auto'?haloOf(o.color):c};
 function parseNum(s){s=String(s).trim().replace(',','.');return/^\d*\.?\d+$/.test(s)?parseFloat(s):NaN}
-const fmt=(v,u)=>v.toLocaleString('es-ES',{maximumFractionDigits:SET.precision==null||SET.precision==='auto'?(DEC[u]??1):Number(SET.precision),minimumFractionDigits:0});
+const fmt=(v,u)=>v.toLocaleString('es-ES',{maximumFractionDigits:DEC[u]??1,minimumFractionDigits:0});
 const labelOf=o=>o.val?o.val+(o.unit?' '+o.unit:''):'?';
 function head(c,tip,from,L,Wd){const d=len(from,tip)||1,ux=(tip.x-from.x)/d,uy=(tip.y-from.y)/d,bx=tip.x-ux*L,by=tip.y-uy*L;c.beginPath();c.moveTo(tip.x,tip.y);c.lineTo(bx-uy*Wd/2,by+ux*Wd/2);c.lineTo(bx+uy*Wd/2,by-ux*Wd/2);c.closePath()}
 const DEF_DS={end:'arrow',tick:true,label:'above'};
@@ -734,7 +582,7 @@ function openModal(html,{bottom=false,onClose}={}){
   modals.push(m);return m;
 }
 function dialog(title,text,buttons){return new Promise(res=>{
-  const m=openModal(`<div class="sheet" role="dialog" aria-modal="true"><h2>${esc(title)}</h2>${text?`<p class="txt" style="white-space:pre-line">${esc(text)}</p>`:''}<div class="col">${buttons.map(b=>`<button class="btn ${b.kind||'ghost'}" data-id="${b.id}">${esc(b.label)}</button>`).join('')}</div></div>`,{onClose:()=>res(null)});
+  const m=openModal(`<div class="sheet" role="dialog" aria-modal="true"><h2>${esc(title)}</h2>${text?`<p class="txt">${esc(text)}</p>`:''}<div class="col">${buttons.map(b=>`<button class="btn ${b.kind||'ghost'}" data-id="${b.id}">${esc(b.label)}</button>`).join('')}</div></div>`,{onClose:()=>res(null)});
   m.wrap.addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b){m.close(true);res(b.dataset.id)}});
   setTimeout(()=>m.wrap.querySelector('.btn')?.focus(),30);
 })}
@@ -809,9 +657,9 @@ function renderGallery(){
   $('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===tab));
   const body=$('#gBody');let h=DB.ok?'':'<div class="warn">Este navegador no permite guardar datos de la app: las fotos se perderán al cerrar la página.</div>';
   if(!L.items.length){
-    h+=L.kind==='scan'?`<div class="empty"><b>Sin capturas 3D</b>Toca «Nueva captura 3D» y haz fotos alrededor de una pieza. MedLoM te guía y luego exporta las fotos listas para crear el modelo 3D en el ordenador.</div>`:L.kind==='project'?`<div class="empty"><b>Sin proyectos todavía</b>Agrupa fotos de una misma obra o estancia. Marca varias fotos en la pestaña Fotos y pulsa «Crear proyecto», o crea uno vacío con el botón de abajo.<span class="empty-note">Los proyectos llevan portada, dirección y exportan un PDF limpio.</span></div>`
-      :s?`<div class="empty"><b>Este proyecto está vacío</b>Añade una foto nueva con el botón de abajo, o mueve aquí fotos existentes desde la pestaña Fotos.<span class="empty-note">Cada foto puede llevar sus propias medidas y anotaciones.</span></div>`
-      :store.photos.length?`<div class="empty"><b>No hay fotos sueltas</b>Todas tus fotos están dentro de un proyecto. Las encontrarás en la pestaña Proyectos.<span class="empty-note">Aquí solo aparecen las fotos que aún no has agrupado.</span></div>`:`<div class="empty"><b>Aún no hay fotos</b>Toca «Nueva foto» para hacer una con la cámara o elegirla de tu galería.<span class="empty-note">Luego dibuja cotas encima y exporta un PDF profesional.</span></div>`;
+    h+=L.kind==='scan'?`<div class="empty"><b>Sin capturas 3D</b>Toca «Nueva captura 3D» y haz fotos alrededor de una pieza. MedLoM te guía y luego exporta las fotos listas para crear el modelo 3D en el ordenador.</div>`:L.kind==='project'?`<div class="empty"><b>Sin proyectos</b>Marca varias fotos en la pestaña Fotos y pulsa «Crear proyecto», o crea uno vacío con el botón de abajo.</div>`
+      :s?`<div class="empty"><b>Proyecto vacío</b>Añade una foto nueva con el botón de abajo, o mueve aquí fotos existentes desde la pestaña Fotos.</div>`
+      :store.photos.length?`<div class="empty"><b>No hay fotos sueltas</b>Todas tus fotos están dentro de un proyecto; las encontrarás en la pestaña Proyectos. Aquí aparecen las fotos que aún no has metido en ninguno.</div>`:`<div class="empty"><b>Aún no hay fotos</b>Toca «Nueva foto» para hacer una con la cámara o elegirla de tu galería.</div>`;
   }else{
     h+=`<div class="grid sz-${SET.thumb} ${selMode?'selmode':''}">`+L.items.map(it=>{
       const on=selected.has(it.id)?'on':'';
@@ -864,9 +712,9 @@ $('#gallery').addEventListener('click',async e=>{
   else if(act==='all'){if(selected.size===L.items.length)selected.clear();else L.items.forEach(i=>selected.add(i.id));renderGallery()}
   else if(act==='back')requestBack();
   else if(act==='renameproj'){if(await editProject(projById(s))){renderGallery();scheduleSync()}}
-  else if(act==='newproj'){const t=await pickProjectTemplate();if(t){const p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);pushView({v:'gallery',scope:p.id});scheduleSync()}}
-  else if(act==='newprojsel'){const t=await pickProjectTemplate('Nuevo proyecto con '+selected.size+(selected.size===1?' foto':' fotos'));if(t){const p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);await assign(selPhotos(),p.id);exitSel();toast(`Proyecto «${t.name}» creado: las fotos ya están dentro`);renderGallery();scheduleSync()}}
-  else if(act==='addto'){const pid=await pickProject(s);if(!pid)return;let p;if(pid==='new'){const t=await pickProjectTemplate();if(!t)return;p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};store.projects.push(p)}else p=projById(pid);p.updated=Date.now();await put('projects',p);await assign(selPhotos(),p.id);exitSel();toast(s?`Movidas a «${p.name}»`:`Movidas a «${p.name}»: ya no salen en Fotos`);renderGallery()}
+  else if(act==='newproj'){const n=await askText('Nuevo proyecto','','Ej. Reforma cocina','Crear');if(n){const p={id:uid(),name:n,created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);pushView({v:'gallery',scope:p.id});scheduleSync()}}
+  else if(act==='newprojsel'){const n=await askText('Nuevo proyecto con '+selected.size+(selected.size===1?' foto':' fotos'),'','Ej. Reforma cocina','Crear');if(n){const p={id:uid(),name:n,created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);await assign(selPhotos(),p.id);exitSel();toast(`Proyecto «${n}» creado: las fotos ya están dentro`);renderGallery();scheduleSync()}}
+  else if(act==='addto'){const pid=await pickProject(s);if(!pid)return;let p;if(pid==='new'){const n=await askText('Nuevo proyecto','','Ej. Reforma cocina','Crear');if(!n)return;p={id:uid(),name:n,created:Date.now(),updated:Date.now()};store.projects.push(p)}else p=projById(pid);p.updated=Date.now();await put('projects',p);await assign(selPhotos(),p.id);exitSel();toast(s?`Movidas a «${p.name}»`:`Movidas a «${p.name}»: ya no salen en Fotos`);renderGallery()}
   else if(act==='unlink'){await assign(selPhotos(),null);exitSel();toast('Fotos sacadas del proyecto: ahora están en la pestaña Fotos');renderGallery()}
   else if(act==='delphotos'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'foto':'fotos'}?`,'Se borran de la app con sus medidas. No se puede deshacer.',[{id:'y',label:'Eliminar',kind:'danger'},{id:'n',label:'Cancelar'}]);if(r!=='y')return;for(const p of selPhotos()){await del('photos',p.id);addTomb('photo',p.id)}store.photos=store.photos.filter(p=>!selected.has(p.id));exitSel();toast('Eliminadas');renderGallery()}
   else if(act==='delproj'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'proyecto':'proyectos'}?`,'Puedes conservar las fotos (quedan en la pestaña Fotos) o borrarlas también.',[{id:'keep',label:'Eliminar y conservar fotos',kind:'primary'},{id:'all',label:'Eliminar proyecto y fotos',kind:'danger'},{id:'n',label:'Cancelar'}]);if(!r||r==='n')return;
@@ -881,31 +729,6 @@ $('#gallery').addEventListener('click',async e=>{
     exportEntries(entries,name,covers);
   }
 });
-
-const PROJECT_TEMPLATES=[
-  ['Cocina','Cocina','Medidas habituales cocina:\n• Encimera fondo 60 cm\n• Altura entre muebles 50–60 cm\n• Mueble bajo alto 72–90 cm\n• Puerta paso 70–80 cm'],
-  ['Baño','Baño','Medidas habituales baño:\n• Inodoro ancho 36–40 cm\n• Lavabo 45–60 cm\n• Plato ducha 70×70 / 80×80 / 90×90 cm\n• Puerta 60–70 cm'],
-  ['Habitación','Habitación','Medidas habituales habitación:\n• Cama 90 / 135 / 150 / 180 cm\n• Puerta 70–80 cm\n• Armario fondo 60 cm\n• Altura techo típica 250–270 cm'],
-  ['Salón','Salón / estar','Medidas habituales salón:\n• Sofá 2 plazas ~160 cm, 3 plazas ~210 cm\n• Mesa comedor 120–180 cm\n• TV 55" ~122 cm diagonal\n• Puerta 80 cm'],
-  ['Fachada','Fachada','Medidas habituales fachada:\n• Ventana 60×100 / 100×120 / 120×140 cm\n• Puerta entrada 90×210 cm\n• Balcón barandilla alto 90–110 cm'],
-  ['Local comercial','Local comercial','Medidas habituales local:\n• Puerta acceso 90–120 cm\n• Escaparate altura variable\n• Mostrador alto 90–110 cm'],
-  ['Oficina','Oficina','Medidas habituales oficina:\n• Mesa 120×60 / 140×70 / 160×80 cm\n• Silla ancho ~50 cm\n• Puerta 80 cm\n• Pasillo mínimo 90–100 cm'],
-  ['Terraza / exterior','Terraza / exterior','Medidas habituales exterior:\n• Barandilla alto 90–110 cm\n• Escalón huella 28–30 cm, tabica 16–18 cm\n• Puerta terraza 80–90 cm'],
-  ['','Otro (escribir nombre)','']
-];
-function pickProjectTemplate(title){return new Promise(res=>{
-  const m=openModal(`<div class="sheet"><h2>${esc(title||'Nuevo proyecto')}</h2>
-    <p class="note">Elige una plantilla. Se guardarán medidas típicas en las notas del proyecto.</p>
-    <div class="plist templates">${PROJECT_TEMPLATES.map(([v,l])=>`<button data-v="${esc(v)}" data-custom="${!v}">${esc(l)}</button>`).join('')}</div>
-    <div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{onClose:()=>res(null)});
-  m.wrap.addEventListener('click',async e=>{
-    if(e.target.closest('[data-c]'))return m.close();
-    const b=e.target.closest('[data-v]');if(!b)return;
-    m.close(true);
-    if(b.dataset.custom==='true'){const n=await askText('Nombre del proyecto','','Ej. Reforma cocina','Crear');res(n?{name:n,notes:''}:null)}
-    else{const t=PROJECT_TEMPLATES.find(x=>x[0]===b.dataset.v);res({name:b.dataset.v,notes:(t&&t[2])||''})}
-  });
-})}
 async function assign(list,pid){const t=Date.now();for(const p of list){p.projectId=pid;p.updated=t;await put('photos',p)}scheduleSync()}
 function editProject(p){return new Promise(res=>{
   const n=p.notes||{};
@@ -1092,9 +915,9 @@ async function exportEntries(entries,name,covers){
         if(clean){await ready(rec);b=rec.img;if(!b||!/jpe?g/.test(b.type||''))b=await toBlob(await renderAnnotated(rec,undefined,undefined,true),'image/jpeg',0.95)}
         else b=await toBlob(await renderAnnotated(rec,Q.max||undefined),'image/jpeg',Q.q);
         let base=safe(rec.name)+(clean?' (original)':''),fn=base+'.jpg',k=2;while(used.has(fn))fn=base+' '+(k++)+'.jpg';used.add(fn);files.push({blob:b,name:fn});await new Promise(r=>setTimeout(r,0))}
-      m.close(true);if(files.length===1)previewExport(files[0].blob,files[0].name,entries,clean);else shareMany(files,entries);return}
+      m.close(true);if(files.length===1)shareSheet(files[0].blob,files[0].name,entries,clean);else shareMany(files,entries);return}
     else{out=await buildPdf(entries,covers,prog,clean);fname=safe(name)+(clean?' (originales)':'')+'.pdf'}
-    m.close(true);previewExport(out,fname,entries,clean);
+    m.close(true);shareSheet(out,fname,entries,clean);
   }catch(err){m.close(true);toast(err&&err.message==='pdf'?'No se pudo crear el PDF. Comprueba la conexión y vuelve a intentarlo.':'No se pudo preparar la exportación')}
 }
 /* PC (Chrome/Edge): save straight into a MedLoM folder the user picks once (normally inside Documentos) */
@@ -1131,29 +954,6 @@ function shareMany(files,entries){
       if(downloads&&!WEBAPP&&!NATIVE){try{await downloads.save({filename:f.name,data:f.blob})}catch(err){if(err&&err.code==='declined')return;toast('No se pudo guardar '+f.name)}}
       else{const u=URL.createObjectURL(f.blob),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);await new Promise(r=>setTimeout(r,350))}}
     toast('Imágenes exportadas')});
-}
-
-async function previewExport(blob,fname,entries,clean){
-  const isPdf=/\.pdf$/.test(fname), isJpg=/\.jpe?g$/.test(fname);
-  if(!isPdf&&!isJpg){shareSheet(blob,fname,entries,clean);return}
-  const mb=(blob.size/1048576).toLocaleString('es-ES',{maximumFractionDigits:1});
-  // Build preview thumbs from annotated photos
-  const thumbs=[];
-  try{
-    for(const {rec} of entries.slice(0,6)){
-      const c=await renderAnnotated(rec,720,undefined,clean);
-      thumbs.push({name:rec.name,url:c.toDataURL('image/jpeg',0.82)});
-    }
-  }catch(e){}
-  const m=openModal(`<div class="sheet preview-sheet"><h2>Vista previa</h2>
-    <p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'página aprox.':'fotos'} en PDF`:''}</p>
-    <div class="prev-grid">${thumbs.map(t=>`<figure><img src="${t.url}" alt="${esc(t.name)}"><figcaption>${esc(t.name)}</figcaption></figure>`).join('')}${entries.length>6?`<p class="note">+${entries.length-6} más en el archivo</p>`:''}</div>
-    <p class="note">Así se verán las fotos${clean?' originales':' con las medidas'} al exportar.</p>
-    <div class="col"><button class="btn primary" data-go>${IC.share||''}Continuar y compartir</button><button class="btn ghost" data-c>Cancelar</button></div></div>`);
-  m.wrap.addEventListener('click',e=>{
-    if(e.target.closest('[data-c]'))return m.close();
-    if(e.target.closest('[data-go]')){m.close(true);shareSheet(blob,fname,entries,clean)}
-  });
 }
 function shareSheet(blob,fname,entries,clean){
   const mb=(blob.size/1048576).toLocaleString('es-ES',{maximumFractionDigits:1}),isPdf=/\.pdf$/.test(fname),ext=(fname.split('.').pop()||'').toLowerCase();
@@ -1203,7 +1003,7 @@ function loadStyle(){const s=SET.style;if(s&&s.color)style={...style,...s,ds:{..
 loadStyle();
 const saveStyle=()=>{SET.style=style;saveSettings()};
 if(!SET.acv){SET.acv=1;style.color='auto';saveStyle()}
-const HINTS={hand:'Toca una medida para seleccionarla · arrastra para mover la foto · elige una herramienta abajo para añadir cotas o dibujos',chain:'Toca cada punto de la cadena; las cotas se crean seguidas. Pulsa Terminar',poly:'Toca las esquinas de la zona. Toca el primer punto o Terminar para cerrar',angle:'Toca un extremo, el vértice y el otro extremo',rect:'Arrastra para dibujar un rectángulo',ellipse:'Arrastra para dibujar un círculo o elipse',plane:'Arrastra sobre un rectángulo real (puerta, azulejo…) y luego ajusta sus 4 esquinas',write:'Escribe a mano y pulsa «Convertir en texto» · mantén pulsado algo para moverlo o cambiar su tamaño',dimsel:'Toca el número para cambiar la medida · arrástralo para moverlo por la cota',dim:'Arrastra de un extremo a otro · marca una cota como referencia para calibrar la escala · mantén pulsada una medida para moverla',pen:'Dibuja a mano alzada · mantén pulsado un trazo para moverlo',text:'Toca donde quieras escribir · mantén pulsado un texto para moverlo'};
+const HINTS={hand:'Toca una medida para seleccionarla · arrastra para mover la foto · elige una herramienta abajo para añadir',chain:'Toca cada punto de la cadena; las cotas se crean seguidas. Pulsa Terminar',poly:'Toca las esquinas de la zona. Toca el primer punto o Terminar para cerrar',angle:'Toca un extremo, el vértice y el otro extremo',rect:'Arrastra para dibujar un rectángulo',ellipse:'Arrastra para dibujar un círculo o elipse',plane:'Arrastra sobre un rectángulo real (puerta, azulejo…) y luego ajusta sus 4 esquinas',write:'Escribe a mano y pulsa «Convertir en texto» · mantén pulsado algo para moverlo o cambiar su tamaño',dimsel:'Toca el número para cambiar la medida · arrástralo para moverlo por la cota',dim:'Arrastra de un extremo a otro · mantén pulsada una medida para moverla',pen:'Dibuja a mano alzada · mantén pulsado un trazo para moverlo',text:'Toca donde quieras escribir · mantén pulsado un texto para moverlo'};
 const dirty=()=>!!rec&&hi!==savedHi;
 function homography(src,dst){const A=[],b=[];for(let i=0;i<4;i++){const{x,y}=src[i],{x:u,y:v}=dst[i];A.push([x,y,1,0,0,0,-u*x,-u*y]);b.push(u);A.push([0,0,0,x,y,1,-v*x,-v*y]);b.push(v)}
   const n=8;for(let c=0;c<n;c++){let p=c;for(let r=c+1;r<n;r++)if(Math.abs(A[r][c])>Math.abs(A[p][c]))p=r;[A[c],A[p]]=[A[p],A[c]];[b[c],b[p]]=[b[p],b[c]];const d=A[c][c];if(Math.abs(d)<1e-12)return null;
@@ -1244,7 +1044,6 @@ async function openEditor(r,canvas){
   rec=r;src=canvas||await bitmapOf(r.img);W=r.w;H=r.h;U=Math.max(W,H)/1000;
   objs=JSON.parse(JSON.stringify(r.objs||[]));calib=r.calib?{...r.calib}:null;sel=-1;draft=null;
   hist=[];hi=-1;commit();savedHi=hi;needFit=true;tool='hand';mp=null;ptUI();
-  edgeMap=null;try{buildEdgeMap(src)}catch(e){}
   pushView({v:'editor'});$('#eName').textContent=r.name;ui();flashHint();requestAnimationFrame(resize);
 }
 function closeEditor(){clearDraft();crop=null;$('#cropbar').hidden=true;imgChanged=false;rec=null;src=null;objs=[];sel=-1;ink=[];inkUI();exitSel()}
@@ -1425,7 +1224,7 @@ function ui(){
   if(!rec)return;
   $('#undo').disabled=hi<=0;$('#redo').disabled=hi>=hist.length-1;
   const sv=$('#eSave');if(dirty()||rec.fresh){sv.textContent='Guardar';sv.className='btn primary';sv.disabled=false}else{sv.textContent='Guardado';sv.className='btn saved';sv.disabled=true}
-  const si=$('#scaleInfo');if(calib&&calib.plane){si.textContent=`Plano de referencia · ${fmt(calib.plane.w,calib.plane.unit)} × ${fmt(calib.plane.h,calib.plane.unit)} ${calib.plane.unit||''}`;si.classList.add('on');si.title='Toca para más info'}else if(calib&&calib.ppmm){si.textContent=`Escala calibrada · 1 m = ${Math.round(calib.ppmm*1000).toLocaleString('es-ES')} px`;si.classList.add('on');si.title='Toca para más info'}else{si.textContent='Sin escala · dibuja una cota y márcala como referencia';si.classList.remove('on');si.title='Cómo calibrar la escala'}
+  const si=$('#scaleInfo');if(calib&&calib.plane){si.textContent=`Plano de referencia · ${fmt(calib.plane.w,calib.plane.unit)} × ${fmt(calib.plane.h,calib.plane.unit)} ${calib.plane.unit||''}`;si.classList.add('on')}else if(calib&&calib.ppmm){si.textContent=`Escala calibrada · 1 m = ${Math.round(calib.ppmm*1000).toLocaleString('es-ES')} px`;si.classList.add('on')}else{si.textContent='Sin escala · marca una cota como referencia';si.classList.remove('on')}
   if(sel>=0&&objs[sel]&&objs[sel].type==='dim'&&sel!==lastSelHint&&modals.length===0)flashHint('dimsel');lastSelHint=sel;
   try{const rows=measuresOf({objs});cv.setAttribute('aria-label',(rec?rec.name+'. ':'')+(rows.length?rows.length+' medidas: '+rows.slice(0,25).map(r=>r[0]+' '+r[1]+(r[2]?' '+r[2]:'')).join('; '):'Sin medidas todavía'))}catch(e){}
   const c=$('#ctx');c.hidden=sel<0||!objs[sel];if(!c.hidden){const o=objs[sel];$('#cEdit').hidden=!['dim','text','plane','rect','ellipse'].includes(o.type);$('#cLockT').textContent=o.locked?'Liberar':'Bloquear';$('#cLock').setAttribute('aria-pressed',!!o.locked);$('#cCenter').hidden=!(o.type==='dim'&&o.lt!=null&&Math.abs(o.lt-0.5)>0.01);$('#cSmall').hidden=$('#cBig').hidden=!(o.type==='text'||o.type==='path')||!!o.locked}
@@ -1436,10 +1235,9 @@ function ui(){
 function toHand(keepSel){tool='hand';if(!keepSel)sel=-1;if(mp){mp=null;ptUI()}ui();render()}
 function setTool(t){if(t===tool&&t!=='hand')t='hand';tool=t;sel=-1;if(tool!=='write'&&ink.length){ink=[];inkUI()}if(mp){mp=null;ptUI()}ui();render();flashHint()}
 document.querySelectorAll('.tool[data-tool]').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
-$('#scaleInfo').onclick=()=>scaleInfoHelp();
 $('#hand').onclick=()=>setTool('hand');
-const MORE=[['poly','Área','<path d="M4 18L7 5l11 3 2 10z"/>'],['angle','Ángulo','<path d="M20 19H4l11-14"/><path d="M9 19a5 5 0 0 0-1.6-3.7"/>'],
-  ['ellipse','Círculo','<ellipse cx="12" cy="12" rx="8" ry="7"/>'],['plane','Plano de perspectiva','<path d="M3 18l4-12h10l4 12z" stroke-dasharray="3 2"/>']];
+const MORE=[['chain','Cotas en cadena','<path d="M2 8v8M9 8v8M15 8v8M22 8v8M2 12h20"/>'],['poly','Área','<path d="M4 18L7 5l11 3 2 10z"/>'],['angle','Ángulo','<path d="M20 19H4l11-14"/><path d="M9 19a5 5 0 0 0-1.6-3.7"/>'],
+  ['rect','Rectángulo','<rect x="4" y="6" width="16" height="12" rx="1"/>'],['ellipse','Círculo','<ellipse cx="12" cy="12" rx="8" ry="7"/>'],['plane','Plano de perspectiva','<path d="M3 18l4-12h10l4 12z" stroke-dasharray="3 2"/>']];
 $('#moreTool').onclick=()=>{
   const m=openModal(`<div class="sheet"><h2>Más herramientas</h2><div class="plist">${MORE.map(([t,n,ic])=>`<button data-t="${t}" style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 24 24">${ic}</svg><span style="margin:0;font-size:15px;color:var(--fg);font-weight:700">${n}</span></button>`).join('')}</div>
     <p class="note">El plano de perspectiva corrige las medidas de fotos hechas en ángulo: marca un rectángulo cuyas medidas reales conozcas y las cotas de ese mismo plano se calculan bien aunque la foto esté torcida.</p><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`,{bottom:true});
@@ -1578,10 +1376,9 @@ function openStyle(defaultsOnly){
 /* pointer input: draw, long-press to move, pinch to zoom */
 const ptrs=new Map();let act=null,pinch=null,lastTap={t:0,i:-1};
 function beginDraw(p){sel=-1;const w=LW[style.lw]*U,fs=TS[style.ts]*U;
-  if(tool==='rect'||tool==='ellipse'||tool==='plane'){const sp=snapToEdge(p,14);draft={type:tool==='plane'?'rect':tool,a:sp,b:{...sp},color:style.color,...SHD(),w,fs,unit:lastUnit,mk:tool};act={kind:'draw'};ui();return}
+  if(tool==='rect'||tool==='ellipse'||tool==='plane'){draft={type:tool==='plane'?'rect':tool,a:p,b:{...p},color:style.color,...SHD(),w,fs,unit:lastUnit,mk:tool};act={kind:'draw'};ui();return}
   if(tool==='write'){draft={type:'path',ink:true,pts:[{x:p.x,y:p.y,t:Date.now()}],color:style.color,...SHD(),w:Math.max(w,U*2.5)};act={kind:'draw'};ui();return}
-  if(tool==='pen'){draft={type:'path',pts:[p],color:style.color,...SHD(),w};act={kind:'draw'};ui();return}
-  const sp=snapToEdge(p,14);draft={type:'dim',a:sp,b:{...sp},color:style.color,...SHD(),w,fs,unit:lastUnit,val:'',ds:{...style.ds}};act={kind:'draw'};ui()}
+  draft=tool==='pen'?{type:'path',pts:[p],color:style.color,...SHD(),w}:{type:'dim',a:p,b:{...p},color:style.color,...SHD(),w,fs,unit:lastUnit,val:'',ds:{...style.ds}};act={kind:'draw'};ui()}
 function moveObj(o,dx,dy){if(o.pts)o.pts.forEach(q=>{q.x+=dx;q.y+=dy});if(o.a){o.a.x+=dx;o.a.y+=dy;o.b.x+=dx;o.b.y+=dy}if(o.type==='text'){o.x+=dx;o.y+=dy}}
 cv.addEventListener('contextmenu',e=>e.preventDefault());
 cv.addEventListener('pointerdown',e=>{
@@ -1596,7 +1393,7 @@ cv.addEventListener('pointerdown',e=>{
   if(crop){const x0=Math.min(crop.a.x,crop.b.x),y0=Math.min(crop.a.y,crop.b.y),x1=Math.max(crop.a.x,crop.b.x),y1=Math.max(crop.a.y,crop.b.y);crop={a:{x:x0,y:y0},b:{x:x1,y:y1}};const C=[['a','a'],['b','a'],['b','b'],['a','b']].map(([kx,ky])=>({kx,ky,x:crop[kx].x,y:crop[ky].y}));let best=null,bd=40/view.s;C.forEach(c=>{const d=len(p,c);if(d<bd){bd=d;best=c}});act=best?{kind:'crop',c:best}:{kind:'noop'};return}
   const h=handleAt(p);
   if(h){act={kind:'handle',which:h,changed:false};const hp=h[0]==='p'?objs[sel].pts[+h.slice(1)]:objs[sel][h];showLoupe(e,hp,objs[sel]);return}
-  if(['chain','poly','angle'].includes(tool)){const sp=snapToEdge(p,14);act={kind:'place',p:sp,cx:e.clientX,cy:e.clientY};showLoupe(e,sp,{type:'dim'});return}
+  if(['chain','poly','angle'].includes(tool)){act={kind:'place',p,cx:e.clientX,cy:e.clientY};showLoupe(e,p,{type:'dim'});return}
   const i=hitAll(p);
   if(sel>=0&&objs[sel]&&objs[sel].type==='dim'&&!objs[sel].locked&&hitLabel(objs[sel],p,10/view.s)){act={kind:'label',changed:false,cx:e.clientX,cy:e.clientY};return}
   if(i>=0&&i===sel&&!objs[sel].locked){act={kind:'move',last:p,changed:false,i};return}
@@ -1737,12 +1534,11 @@ function openValueSheet(i,isNew,p){
   const o=i>=0?objs[i]:null,kind=o?o.type:'text';let m;
   if(kind==='dim'){
     const pre=o.val;
-    const suggestRef=!hasScale()&&(isNew||!objs.some(x=>x.type==='dim'&&x.ref&&x!==o));
     m=openModal(`<form class="sheet" autocomplete="off"><h2>${isNew?'Nueva cota':'Editar cota'}</h2>
       <div class="field"><input type="text" class="num" id="fVal" inputmode="decimal" enterkeyhint="done" placeholder="Ej. 120" value="${esc(o.val||'')}" aria-label="Valor de la cota">
       <select id="fUnit" aria-label="Unidad">${['mm','cm','m','in',''].map(u=>`<option value="${u}" ${u===(o.unit??lastUnit)?'selected':''}>${u||'—'}</option>`).join('')}</select></div>
-      <p class="measured" id="fMeas">${hasScale()?'Medida estimada con la escala: '+esc(autoVal(o)+' '+(o.unit||''))+'. Escribe otra si la has medido tú; déjalo vacío para calcularla sola.':'Escribe la medida real que tomaste con el metro (por ejemplo el ancho de una puerta).'}</p>
-      <label class="check ${suggestRef?'suggest-ref':''}"><input type="checkbox" id="fRef" ${o.ref||suggestRef?'checked':''}><span>Usar como medida de referencia<small>${suggestRef?'Recomendado: calibra la escala de la foto con esta cota y las siguientes se rellenarán solas.':'Calibra la escala de la foto con esta cota: las siguientes se rellenarán solas.'}</small></span></label>
+      <p class="measured" id="fMeas">${hasScale()?'Medida estimada con la escala: '+esc(autoVal(o)+' '+(o.unit||''))+'. Escribe otra si la has medido tú; déjalo vacío para calcularla sola.':'Escribe la medida real que tomaste con el metro.'}</p>
+      <label class="check"><input type="checkbox" id="fRef" ${o.ref?'checked':''}><span>Usar como medida de referencia<small>Calibra la escala de la foto con esta cota: las siguientes se rellenarán solas.</small></span></label>
       <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Aceptar</button></div></form>`,
       {onClose:()=>{if(isNew){objs.splice(i,1);sel=-1;ui();render()}}});
     const f=m.wrap.querySelector('form'),val=f.querySelector('#fVal'),unit=f.querySelector('#fUnit'),ref=f.querySelector('#fRef');
@@ -1798,28 +1594,17 @@ async function renderSettings(){
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
-    ${row('Tema','Elige el aspecto de la app. Automático sigue el sistema.',segH('tema',[
-      ['auto','Auto'],
-      ['light','Claro'],
-      ['cream','Claro cálido'],
-      ['dark','Oscuro'],
-      ['high','Alto contraste'],
-      ['sepia','Sepia'],
-      ['blue','Azul pro'],
-      ['forest','Bosque'],
-      ['midnight','Medianoche']
-    ]))}
+    ${row('Tema','Automático sigue el ajuste del móvil.',segH('tema',[['light','Claro'],['dark','Oscuro'],['auto','Automático']]))}
     ${row('Tamaño de las miniaturas','',segH('thumb',[['s','Pequeñas'],['m','Medianas'],['l','Grandes']]))}
     ${row('Ordenar fotos y proyectos','',segH('sort',[['recent','Recientes'],['old','Antiguos'],['name','Nombre']]))}
   </div></div>
   <div class="sgroup"><h3>Medidas</h3><div class="scard">
     ${row('Estilo predeterminado',`${endN} · texto ${labN.toLowerCase()} · ${D.tick?'con':'sin'} líneas de extremo`,`<canvas class="stylepv" id="stylePv"></canvas><button class="btn ghost" data-sact="style">Cambiar</button>`)}
     ${row('Unidad por defecto','Se usa al crear cotas nuevas.',segH('unit',[['mm','mm'],['cm','cm'],['m','m'],['in','in']]))}
-    ${row('Decimales en las cotas','Auto usa la precisión recomendada para cada unidad.',segH('precision',[['auto','Auto'],['0','0'],['1','1'],['2','2']]))}
     ${row('Lupa en las cotas','Aparece al colocar o ajustar los extremos de una cota.',swH('loupeDim'))}
     ${row('Lupa al dibujar','Aparece mientras dibujas a mano alzada.',swH('loupePen'))}
     ${row('Aumento de la lupa','',segH('loupeZoom',[[2,'2×'],[3,'3×'],[4,'4×'],[6,'6×']]))}
-    ${row('Enderezar y atraer a bordes','Ajusta a horizontal, vertical o 45° y acerca los extremos a bordes de la foto (paredes, azulejos…).',swH('snap'))}
+    ${row('Enderezar líneas','Ajusta a horizontal o vertical cuando la cota está casi recta.',swH('snap'))}
     ${row('Dejar hueco en las líneas','Corta la línea de debajo cuando dos cotas se cruzan o un número cae sobre una línea.',swH('dimBreak'))}
     ${SET.dimBreak!==false?row('Tamaño del hueco','',segH('dimGap',[['s','Pequeño'],['m','Normal'],['l','Grande'],['xl','Muy grande']])):''}
     ${row('Colocar los números automáticamente','Aparta los números de otras líneas y textos, y los reduce si no caben. Los que muevas tú no se tocan.',swH('declutter'))}
@@ -1832,25 +1617,6 @@ async function renderSettings(){
     ${row('Personalizar PDF','Portada, logotipo, cabecera, pie de página, fotos por página y tabla de medidas.','<button class="btn primary" data-sact="pdfcfg">Personalizar</button>')}
     ${row('Nombre en los PDF','Aparece en la portada y en el pie de cada página.',`<input class="tin" aria-label="Nombre en los PDF" data-k="pdfAuthor" value="${esc(SET.pdfAuthor)}" placeholder="Tu nombre o empresa" maxlength="60">`)}
   </div></div>
-  <div class="sgroup"><h3>Ayuda</h3><div class="scard">
-    <div class="srow"><div class="sl"><b>Mano, mover y ampliar</b><small>Arrastra para mover la foto. Pellizca con dos dedos para acercar o alejar; usa el botón de encuadre para verla completa. La mano selecciona y mueve elementos sin dibujar.</small></div></div>
-    <div class="srow"><div class="sl"><b>Cota</b><small>Elige Cota y arrastra entre dos puntos. Toca el número para escribir o corregir la medida. Marca una medida conocida como referencia para calibrar las demás.</small></div></div>
-    <div class="srow"><div class="sl"><b>Unidades, decimales y ajuste</b><small>En Ajustes › Medidas puedes elegir mm, cm, m o pulgadas y fijar decimales. Activa Enderezar y atraer a bordes para ajustar líneas a 0°, 45°, 90° y a bordes visibles en la foto.</small></div></div>
-    <div class="srow"><div class="sl"><b>Cadena</b><small>Toca los puntos en orden. Cada tramo se convierte en una cota. Pulsa Terminar al acabar; Deshacer punto quita el último tramo.</small></div></div>
-    <div class="srow"><div class="sl"><b>Rectángulo</b><small>Elige Rect y arrastra en diagonal. Con una escala calibrada se muestran las dimensiones reales.</small></div></div>
-    <div class="srow"><div class="sl"><b>Área</b><small>En Más, elige Área y toca las esquinas de la superficie. Toca el primer punto para cerrar. Necesita una cota de referencia o un plano calibrado.</small></div></div>
-    <div class="srow"><div class="sl"><b>Ángulo</b><small>En Más, elige Ángulo y toca, en orden, un extremo, el vértice y el otro extremo.</small></div></div>
-    <div class="srow"><div class="sl"><b>Círculo o elipse</b><small>En Más, elige Círculo y arrastra para definir su tamaño. Con escala calibrada se calculan sus dimensiones.</small></div></div>
-    <div class="srow"><div class="sl"><b>Plano de perspectiva</b><small>En Más, elige Plano y marca una superficie rectangular cuyas dimensiones reales conozcas. Ajusta sus esquinas e introduce ancho y alto para corregir la perspectiva.</small></div></div>
-    <div class="srow"><div class="sl"><b>Dibujo</b><small>Elige Dibujo y traza con el dedo o el lápiz. Toca un trazo para seleccionarlo; puedes moverlo, cambiar su estilo o eliminarlo.</small></div></div>
-    <div class="srow"><div class="sl"><b>Texto</b><small>Elige Texto y toca donde quieras colocar la nota. Escribe el contenido y confirma; después puedes moverla o cambiar su estilo.</small></div></div>
-    <div class="srow"><div class="sl"><b>Lápiz y escritura a mano</b><small>Si aparece la herramienta, escribe sobre la foto y pulsa Convertir en texto. La primera vez puede pedir descargar el reconocimiento en español; luego funciona sin conexión.</small></div></div>
-    <div class="srow"><div class="sl"><b>Estilo</b><small>Pulsa Estilo para cambiar color, grosor, flechas, sombra y posición de los números. El color Automático busca contraste con la foto.</small></div></div>
-    <div class="srow"><div class="sl"><b>Deshacer y rehacer</b><small>Usa las flechas junto a la mano. En teclado: Ctrl+Z para deshacer y Ctrl+Mayús+Z para rehacer.</small></div></div>
-    <div class="srow"><div class="sl"><b>Foto: recortar, girar o duplicar</b><small>Abre el menú ⋮ de la foto para encontrar sus opciones. Los cambios guardados conservan las cotas.</small></div></div>
-    <div class="srow"><div class="sl"><b>Medidor láser</b><small>Conecta un medidor compatible desde Ajustes › Medidor láser. Al medir, la lectura recibida se puede usar en la cota activa.</small></div></div>
-    <div class="srow"><div class="sl"><b>Exportar</b><small>Selecciona una o varias fotos y pulsa Exportar para crear PDF, JPG o tabla CSV. La vista previa permite revisar el resultado antes de compartirlo.</small></div></div>
-  </div></div>
   <div class="sgroup"><h3>Datos</h3><div class="scard">
     ${row('Tamaño de las fotos guardadas','Para las fotos nuevas. Ahorro ocupa la mitad que Normal y sigue siendo nítida.',segH('photoRes',[['high','Máximo'],['normal','Normal'],['saver','Ahorro']]))}
     ${row('Optimizar fotos guardadas','Reduce las fotos que ya tienes al tamaño elegido, sin perder sus medidas.','<button class="btn ghost" data-sact="shrink">Optimizar</button>')}
@@ -1861,7 +1627,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.40<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM · versión de prueba 0.36<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?' y Jottacloud':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
@@ -1869,7 +1635,6 @@ async function renderSettings(){
     'Medidor láser':['laser','Conectar un medidor por Bluetooth',`<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M12 7v4M9 16h6"/>`],
     'Exportar y compartir':['exportar','Personalizar PDF, calidad y tamaño de página',`<path d="M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v8h14v-8"/>`],
     'Datos':['datos','Copia de seguridad, tamaño de fotos y almacenamiento',`<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>`]};
-  SECS['Ayuda']=['ayuda','Guía de cada herramienta y opción de MedLoM','<circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 4.4 1.3c-.9 1.2-2.1 1.5-2.1 3.2M12 17.5h.01"/>'];
   const groups=[...body.querySelectorAll('.sgroup')];
   groups.forEach(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];g.dataset.sec=info?info[0]:'';g.hidden=!!sec?g.dataset.sec!==sec:true;if(sec)g.querySelector('h3').hidden=true});
   const cur=Object.entries(SECS).find(([t,v])=>v[0]===sec);
@@ -1890,7 +1655,6 @@ $('#settings').addEventListener('click',async e=>{
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}
     else if(a==='learn')openLaserLearn();
-    else if(a==='diag')openLaserDiag();
     else if(a==='forget'){SET.laserRule=null;saveSettings();renderSettings()}
     else if(a==='off'){try{NATIVE.laserDisconnect()}catch(err){}SET.laser=null;saveSettings()}
     else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){SET.laser={addr:d.addr,name:d.name};saveSettings();try{NATIVE.laserConnect(d.addr,d.name)}catch(err){}}}
@@ -2344,7 +2108,7 @@ function laserRow(){
   const status=st==='connected'?'Conectado: '+(dev&&dev.name||''):st==='connecting'?'Conectando…':st==='scanning'?'Buscando medidores…':st==='error'?LASER.msg:dev?'Último: '+dev.name:'Sin conectar';
   return`<div class="srow"><div class="sl"><b>Medidor láser Bluetooth</b><small class="status ${st==='connected'?'on':''}">${esc(status)}</small><small>Leica DISTO y Bosch GLM directamente; otros, como Mileseey, se enseñan una vez (función experimental). Con una cota seleccionada, la medida del láser se pone sola.</small></div>
     <div class="row">${st==='connected'?'<button class="btn ghost" data-laser="off">Desconectar</button>':`<button class="btn primary" data-laser="scan" ${st==='scanning'?'disabled':''}>Buscar</button><button class="btn ghost" data-laser="scanall" ${st==='scanning'?'disabled':''}>Ver todos</button>`}</div></div>
-    ${st==='connected'&&LASER.generic?`<div class="srow"><div class="sl"><b>${SET.laserRule?'Lectura aprendida':'Enseñar a leer el medidor'}</b><small>${SET.laserRule?'MedLoM ya sabe leer este medidor.':'Para medidores sin conexión conocida, como Mileseey: haz 2 o 3 mediciones y escribe lo que marca la pantalla.'}</small></div><div class="row"><button class="btn ghost" data-laser="diag">Diagnóstico</button><button class="btn ${SET.laserRule?'ghost':'primary'}" data-laser="learn">${SET.laserRule?'Volver a enseñar':'Enseñar'}</button>${SET.laserRule?'<button class="btn danger" data-laser="forget">Olvidar</button>':''}</div></div>`:''}
+    ${st==='connected'&&LASER.generic?`<div class="srow"><div class="sl"><b>${SET.laserRule?'Lectura aprendida':'Enseñar a leer el medidor'}</b><small>${SET.laserRule?'MedLoM ya sabe leer este medidor.':'Para medidores sin conexión conocida, como Mileseey: haz 2 o 3 mediciones y escribe lo que marca la pantalla.'}</small></div><div class="row"><button class="btn ${SET.laserRule?'ghost':'primary'}" data-laser="learn">${SET.laserRule?'Volver a enseñar':'Enseñar'}</button>${SET.laserRule?'<button class="btn danger" data-laser="forget">Olvidar</button>':''}</div></div>`:''}
     ${found.length&&st!=='connected'?`<div class="srow"><div class="plist" style="width:100%">${found.map((d,i)=>`<button data-laser="dev" data-i="${i}">${esc(d.name)}<span>${esc(d.addr)}</span></button>`).join('')}</div></div>`:''}`;
 }
 
@@ -2369,23 +2133,9 @@ function laserDecode(rule,uuid,b){
   return null;
 }
 const ruleKey=r=>[r.uuid,r.kind,r.off,r.idx,r.le,r.scale].join('|');
-LASER.raw=[];LASER.total=0;let rawWarn=0;
-window.__medlomLaserInfo=o=>{LASER.info=o};
-/* diagnostics: what the meter offers and what it sends, to copy and send to support */
-function laserDiagText(){const i=LASER.info,lines=[`Medidor: ${(i&&i.name)||(SET.laser&&SET.laser.name)||'?'} · paquetes recibidos: ${LASER.total}`];
-  if(i&&i.services)i.services.forEach(s=>{lines.push('S '+s.uuid);s.chars.forEach(c=>lines.push('  C '+c.uuid+' ['+c.p+']'))});else lines.push('(sin información de servicios)');
-  lines.push('— Últimos datos —');LASER.raw.slice(-30).forEach(r=>lines.push(new Date(r.t).toLocaleTimeString('es-ES')+' '+(r.via||'')+' '+r.uuid.slice(0,8)+' '+r.hex));
-  if(!LASER.raw.length)lines.push('(no ha llegado ningún dato)');return lines.join('\n')}
-function openLaserDiag(){
-  const m=openModal(`<div class="sheet"><h2>Diagnóstico del medidor</h2><p class="note">Mide varias veces con el láser mientras esta ventana está abierta. Si el contador no sube, el medidor no está enviando nada a MedLoM.</p>
-    <p class="txt" id="dgN" style="font-weight:700"></p><textarea readonly id="dgT" aria-label="Diagnóstico del medidor" style="min-height:220px;font-family:ui-monospace,monospace;font-size:11.5px"></textarea>
-    <div class="row"><button class="btn ghost" data-c>Cerrar</button><button class="btn primary" data-cp>Copiar</button></div></div>`,{onClose:()=>clearInterval(t)});
-  const upd=()=>{const n=m.wrap.querySelector('#dgN'),ta=m.wrap.querySelector('#dgT');if(!n)return;n.textContent='Datos recibidos: '+LASER.total;ta.value=laserDiagText()};upd();const t=setInterval(upd,700);
-  m.wrap.querySelector('[data-c]').onclick=()=>m.close();
-  m.wrap.querySelector('[data-cp]').onclick=async()=>{const ta=m.wrap.querySelector('#dgT');try{await navigator.clipboard.writeText(ta.value);toast('Copiado')}catch(e){ta.focus();ta.select();try{document.execCommand('copy');toast('Copiado')}catch(e2){toast('Mantén pulsado el texto para copiarlo')}}};
-}
+LASER.raw=[];let rawWarn=0;
 window.__medlomLaserRaw=o=>{
-  const b=hexBytes(o.hex);LASER.total++;LASER.raw.push({t:Date.now(),uuid:o.uuid,hex:o.hex,via:o.via});if(LASER.raw.length>60)LASER.raw.shift();
+  const b=hexBytes(o.hex);LASER.raw.push({t:Date.now(),uuid:o.uuid,hex:o.hex});if(LASER.raw.length>60)LASER.raw.shift();
   if(LASER.learning){LASER.learning.count++;const c=$('#lrnCount');if(c)c.textContent=`Datos recibidos del medidor: ${LASER.learning.count}`;return}
   let m=laserDecode(SET.laserRule,o.uuid,b);
   if(m==null&&!SET.laserRule){const a=asciiNums(b).filter(x=>x.u&&UNITM[x.u]);if(a.length)m=a[0].v*UNITM[a[0].u]}
@@ -2395,18 +2145,18 @@ window.__medlomLaserRaw=o=>{
 function openLaserLearn(){
   LASER.learning={count:0,since:Date.now(),cands:null,n:0};
   const m=openModal(`<form class="sheet" autocomplete="off"><h2>Enseñar a leer el medidor</h2>
-    <ol class="steps"><li>Haz una medición con el medidor (botón MEAS). Mira que el contador de abajo suba.</li><li>Escribe aquí lo que marca su pantalla y pulsa <b>Comprobar</b>.</li><li>Repítelo con 2 o 3 distancias diferentes.</li></ol>
+    <ol class="steps"><li>Haz una medición con el medidor. Si tiene botón de enviar por Bluetooth, púlsalo.</li><li>Escribe aquí lo que marca su pantalla y pulsa <b>Comprobar</b>.</li><li>Repítelo con 2 o 3 distancias diferentes.</li></ol>
     <p class="note" id="lrnCount">Datos recibidos del medidor: 0</p>
     <div class="field"><input type="text" class="num" id="lrnV" aria-label="Medida que marca el medidor" inputmode="decimal" enterkeyhint="done" placeholder="Ej. 2,345"><select id="lrnU" aria-label="Unidad">${['m','cm','mm','ft','in'].map(u=>`<option>${u}</option>`).join('')}</select></div>
     <p class="txt" id="lrnMsg"></p>
     <div class="row"><button type="button" class="btn ghost" data-raw>Datos técnicos</button><button type="button" class="btn ghost" data-c>Cerrar</button><button type="submit" class="btn primary">Comprobar</button></div></form>`,{onClose:()=>{LASER.learning=null}});
   const f=m.wrap.querySelector('form'),msg=f.querySelector('#lrnMsg');
   f.querySelector('[data-c]').onclick=()=>m.close();
-  f.querySelector('[data-raw]').onclick=()=>{openLaserDiag();return;const t='';
+  f.querySelector('[data-raw]').onclick=()=>{const t=LASER.raw.slice(-20).map(r=>new Date(r.t).toLocaleTimeString('es-ES')+' '+r.uuid.slice(0,8)+' '+r.hex).join('\n')||'(sin datos todavía)';
     const m2=openModal(`<div class="sheet"><h2>Datos técnicos</h2><p class="note">Si MedLoM no consigue aprender tu medidor, copia esto y mándaselo a quien te prepara la app, junto con lo que marcaba la pantalla en cada medición.</p><textarea readonly aria-label="Datos técnicos del medidor" style="min-height:200px;font-family:ui-monospace,monospace;font-size:12px;user-select:all">${esc(t)}</textarea><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`);m2.wrap.querySelector('[data-c]').onclick=()=>m2.close()};
   f.onsubmit=e=>{e.preventDefault();const L=LASER.learning;const v=parseNum(f.querySelector('#lrnV').value),u=f.querySelector('#lrnU').value;if(!(v>0)){msg.textContent='Escribe la medida que marca el medidor.';return}
     const target=v*UNITM[u],tol=Math.max(.0015,target*.0012),pk=LASER.raw.filter(r=>r.t>=L.since-1500);
-    if(!pk.length){msg.textContent='Todavía no han llegado datos del medidor. Comprueba que en su pantalla se ve el icono de Bluetooth y mide de nuevo. Si el contador sigue en 0, pulsa «Datos técnicos» y envíame lo que sale.';msg.style.color='var(--danger,#e5322d)';return}
+    if(!pk.length){msg.textContent='Todavía no han llegado datos del medidor. Mide de nuevo o pulsa su botón de Bluetooth.';return}
     const found=new Map();pk.forEach(r=>laserCands(r.uuid,hexBytes(r.hex)).forEach(c=>{if(Math.abs(c.v-target)<=tol)found.set(ruleKey(c),c)}));
     if(!found.size){msg.textContent='No encuentro esa medida en los datos recibidos. Comprueba el número y la unidad, y vuelve a medir.';L.since=Date.now();return}
     L.cands=L.cands?new Map([...L.cands].filter(([k])=>found.has(k))):found;L.n++;L.since=Date.now();f.querySelector('#lrnV').value='';
