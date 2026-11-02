@@ -1,0 +1,12 @@
+{
+ "versionCode": 39,
+ "versionName": "0.42.0",
+ "apk": "MedLoM.apk",
+ "size": 9763708,
+ "sha256": "ab829b4d6e2b939479b448bf7ccbcbf9a2c47b435f5c59b370f2fccff23ff079",
+ "notes": [
+  "La app de Android avisa cuando hay una versión nueva y la descarga e instala ella misma.",
+  "Nuevo apartado «Acerca de MedLoM» en Ajustes con la versión instalada y el botón «Buscar actualizaciones».",
+  "Incluye todo lo de la 0.41.0: enderezar fotos, temas, letras, botones e iconos personalizables."
+ ]
+}
