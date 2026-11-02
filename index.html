@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.42.2";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.44.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -506,19 +506,7 @@ const IC={
   plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'
 };
 
-/* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,autoUpdate:true,updLast:0};
-let SET={...DEF_SET};
-try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
-try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
-try{if(!SET.style){const s=JSON.parse(localStorage.getItem('cotafoto-style'));if(s)SET.style=s}}catch(e){}
-const NATIVE=window.MedLoMAndroid||null;
-const WEBAPP=!NATIVE&&!!window.MEDLOM_PWA;
-const CAN_SYNC=!!NATIVE||WEBAPP;
-/* custom look: colors, fonts and buttons */
-const FONT_OPTS=[['barlow','Barlow','"Barlow Condensed","Arial Narrow",system-ui,sans-serif'],['atkinson','Atkinson','"Atkinson Hyperlegible",system-ui,sans-serif'],['inter','Inter','"Inter",system-ui,sans-serif'],['nunito','Nunito','"Nunito",system-ui,sans-serif'],['lora','Lora','"Lora",Georgia,serif'],['oswald','Oswald','"Oswald","Arial Narrow",sans-serif'],['montserrat','Montserrat','"Montserrat",system-ui,sans-serif'],['system','Sistema','system-ui,-apple-system,"Segoe UI",Roboto,sans-serif']];
-const fontCss=k=>(FONT_OPTS.find(f=>f[0]===k)||[])[2];
-const CVARS=['--bg','--panel','--raise','--line','--fg','--muted','--accent','--accent-ink','--accent-text','--hud','--grid','--field','--dim-halo','color-scheme'];
+/* ================= pure helpers: geometry, colors and sync dates (no app state, no DOM; tested in pruebas/) ================= */
 function hexRgb(h){h=String(h||'').replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');const n=parseInt(h,16)||0;return[n>>16&255,n>>8&255,n&255]}
 function rgbHex(c){return'#'+c.map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('')}
 function mixHex(a,b,t){const x=hexRgb(a),y=hexRgb(b);return rgbHex(x.map((v,i)=>v+(y[i]-v)*t))}
@@ -533,6 +521,30 @@ function colorVars(c){
     '--hud':`rgba(${r},${g},${b},.93)`,'--grid':`rgba(${fr},${fg},${fb},${dark?.03:.045})`,'--field':mixHex(c.fg,c.bg,.5),
     '--dim-halo':dark?'rgba(0,0,0,.72)':'rgba(255,255,255,.85)','color-scheme':dark?'dark':'light'};
 }
+// change date for sync: never earlier than the previous one, even if this device's clock is behind
+const stamp=prev=>Math.max(Date.now(),(+prev||0)+1);
+// Homography that maps the 4 points s onto the 4 points d.
+function homography(s,d){
+  const A=[];for(let i=0;i<4;i++){const{x,y}=s[i],{x:u,y:v}=d[i];A.push([x,y,1,0,0,0,-u*x,-u*y,u],[0,0,0,x,y,1,-v*x,-v*y,v])}
+  for(let c=0;c<8;c++){let p=c;for(let r=c+1;r<8;r++)if(Math.abs(A[r][c])>Math.abs(A[p][c]))p=r;[A[c],A[p]]=[A[p],A[c]];if(Math.abs(A[c][c])<1e-12)return null;
+    for(let r=0;r<8;r++){if(r===c)continue;const f=A[r][c]/A[c][c];for(let k=c;k<9;k++)A[r][k]-=f*A[c][k]}}
+  return A.map((r,i)=>r[8]/r[i]);
+}
+const hApply=(m,q)=>{const w=m[6]*q.x+m[7]*q.y+1;return{x:(m[0]*q.x+m[1]*q.y+m[2])/w,y:(m[3]*q.x+m[4]*q.y+m[5])/w}};
+function rotFit(w,h,t){const c=Math.abs(Math.cos(t)),s=Math.abs(Math.sin(t));return Math.min(w/(w*c+h*s),h/(w*s+h*c))}
+/* ================= settings ================= */
+const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,autoUpdate:true,updLast:0,laserAuto:true};
+let SET={...DEF_SET};
+try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
+try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
+try{if(!SET.style){const s=JSON.parse(localStorage.getItem('cotafoto-style'));if(s)SET.style=s}}catch(e){}
+const NATIVE=window.MedLoMAndroid||null;
+const WEBAPP=!NATIVE&&!!window.MEDLOM_PWA;
+const CAN_SYNC=!!NATIVE||WEBAPP;
+/* custom look: colors, fonts and buttons */
+const FONT_OPTS=[['barlow','Barlow','"Barlow Condensed","Arial Narrow",system-ui,sans-serif'],['atkinson','Atkinson','"Atkinson Hyperlegible",system-ui,sans-serif'],['inter','Inter','"Inter",system-ui,sans-serif'],['nunito','Nunito','"Nunito",system-ui,sans-serif'],['lora','Lora','"Lora",Georgia,serif'],['oswald','Oswald','"Oswald","Arial Narrow",sans-serif'],['montserrat','Montserrat','"Montserrat",system-ui,sans-serif'],['system','Sistema','system-ui,-apple-system,"Segoe UI",Roboto,sans-serif']];
+const fontCss=k=>(FONT_OPTS.find(f=>f[0]===k)||[])[2];
+const CVARS=['--bg','--panel','--raise','--line','--fg','--muted','--accent','--accent-ink','--accent-text','--hud','--grid','--field','--dim-halo','color-scheme'];
 function themeColors(){const s=getComputedStyle(document.documentElement),g=(k,d)=>{let v=s.getPropertyValue(k).trim();if(/^#[0-9a-f]{3}$/i.test(v))v='#'+v.slice(1).replace(/./g,'$&$&');return /^#[0-9a-f]{6}$/i.test(v)?v.toLowerCase():d};
   return{accent:g('--accent','#ffb21a'),bg:g('--bg','#141619'),panel:g('--panel','#1d2024'),fg:g('--fg','#ecebe6')}}
 function applyLook(){
@@ -605,7 +617,7 @@ function idbReq(store,mode,fn){return new Promise((res,rej)=>{try{const t=DB.db.
 const getAll=async s=>DB.ok?(await idbReq(s,'readonly',st=>st.getAll()))||[]:[...DB.mem[s].values()];
 const getOne=async(s,id)=>DB.ok?idbReq(s,'readonly',st=>st.get(id)):DB.mem[s].get(id);
 const put=async(s,o)=>{if(DB.ok)await idbReq(s,'readwrite',st=>st.put(o));else DB.mem[s].set(o.id,o)};
-const del=async(s,id)=>{if(DB.ok)await idbReq(s,'readwrite',st=>st.delete(id));else DB.mem[s].delete(id)};
+const del=async(s,id)=>{if(DB.ok)await idbReq(s,'readwrite',st=>st.delete(id));else DB.mem[s].delete(id);if(s==='photos')try{await del('meta','orig:'+id)}catch(e){}};
 const store={photos:[],projects:[],scans:[]};
 async function loadAll(){store.photos=await getAll('photos');store.projects=await getAll('projects');}
 const projById=id=>store.projects.find(p=>p.id===id);
@@ -806,7 +818,7 @@ window.addEventListener('popstate',()=>{
 });
 /* a new photo that was never saved: leaving without saving removes it */
 async function discardFresh(){const d=rec;if(!d||!d.fresh)return;delete d.fresh;try{await del('photos',d.id);addTomb('photo',d.id)}catch(e){}store.photos=store.photos.filter(x=>x.id!==d.id);
-  if(d.projectId){const p=projById(d.projectId);if(p){p.updated=Date.now();put('projects',p)}}toast('Foto descartada: no se guardó')}
+  if(d.projectId){const p=projById(d.projectId);if(p){p.updated=stamp(p.updated);put('projects',p)}}toast('Foto descartada: no se guardó')}
 async function doBack(){
   const top=stack[stack.length-1];if(stack.length<=1)return;
   if(top.v==='editor'&&!dirty()&&rec&&rec.fresh)await discardFresh();
@@ -906,11 +918,11 @@ $('#gallery').addEventListener('click',async e=>{
   else if(act==='renameproj'){if(await editProject(projById(s))){renderGallery();scheduleSync()}}
   else if(act==='newproj'){const t=await pickProjectTemplate();if(t){const p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);pushView({v:'gallery',scope:p.id});scheduleSync()}}
   else if(act==='newprojsel'){const t=await pickProjectTemplate('Nuevo proyecto con '+selected.size+(selected.size===1?' foto':' fotos'));if(t){const p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};await put('projects',p);store.projects.push(p);await assign(selPhotos(),p.id);exitSel();toast(`Proyecto «${t.name}» creado: las fotos ya están dentro`);renderGallery();scheduleSync()}}
-  else if(act==='addto'){const pid=await pickProject(s);if(!pid)return;let p;if(pid==='new'){const t=await pickProjectTemplate();if(!t)return;p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};store.projects.push(p)}else p=projById(pid);p.updated=Date.now();await put('projects',p);await assign(selPhotos(),p.id);exitSel();toast(s?`Movidas a «${p.name}»`:`Movidas a «${p.name}»: ya no salen en Fotos`);renderGallery()}
+  else if(act==='addto'){const pid=await pickProject(s);if(!pid)return;let p;if(pid==='new'){const t=await pickProjectTemplate();if(!t)return;p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};store.projects.push(p)}else p=projById(pid);p.updated=stamp(p.updated);await put('projects',p);await assign(selPhotos(),p.id);exitSel();toast(s?`Movidas a «${p.name}»`:`Movidas a «${p.name}»: ya no salen en Fotos`);renderGallery()}
   else if(act==='unlink'){await assign(selPhotos(),null);exitSel();toast('Fotos sacadas del proyecto: ahora están en la pestaña Fotos');renderGallery()}
   else if(act==='delphotos'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'foto':'fotos'}?`,'Se borran de la app con sus medidas. No se puede deshacer.',[{id:'y',label:'Eliminar',kind:'danger'},{id:'n',label:'Cancelar'}]);if(r!=='y')return;for(const p of selPhotos()){await del('photos',p.id);addTomb('photo',p.id)}store.photos=store.photos.filter(p=>!selected.has(p.id));exitSel();toast('Eliminadas');renderGallery()}
   else if(act==='delproj'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'proyecto':'proyectos'}?`,'Puedes conservar las fotos (quedan en la pestaña Fotos) o borrarlas también.',[{id:'keep',label:'Eliminar y conservar fotos',kind:'primary'},{id:'all',label:'Eliminar proyecto y fotos',kind:'danger'},{id:'n',label:'Cancelar'}]);if(!r||r==='n')return;
-    for(const pid of selected){for(const ph of photosOf(pid)){if(r==='all'){await del('photos',ph.id);addTomb('photo',ph.id);store.photos=store.photos.filter(x=>x.id!==ph.id)}else{ph.projectId=null;ph.updated=Date.now();await put('photos',ph)}}await del('projects',pid);addTomb('project',pid)}
+    for(const pid of selected){for(const ph of photosOf(pid)){if(r==='all'){await del('photos',ph.id);addTomb('photo',ph.id);store.photos=store.photos.filter(x=>x.id!==ph.id)}else{ph.projectId=null;ph.updated=stamp(ph.updated);await put('photos',ph)}}await del('projects',pid);addTomb('project',pid)}
     store.projects=store.projects.filter(p=>!selected.has(p.id));exitSel();toast('Eliminado');renderGallery()}
   else if(act==='export'){
     let entries=[],name;
@@ -958,7 +970,7 @@ function editProject(p){return new Promise(res=>{
     <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`,{onClose:()=>res(false)});
   const f=m.wrap.querySelector('form');f.querySelector('[data-c]').onclick=()=>m.close();
   f.onsubmit=async e=>{e.preventDefault();const nm=f.querySelector('#pjN').value.trim();if(!nm){f.querySelector('#pjN').focus();return}
-    p.name=nm;p.notes={client:f.querySelector('#pjC').value.trim(),address:f.querySelector('#pjA').value.trim(),text:f.querySelector('#pjT').value.trim()};p.updated=Date.now();await put('projects',p);m.close(true);res(true)};
+    p.name=nm;p.notes={client:f.querySelector('#pjC').value.trim(),address:f.querySelector('#pjA').value.trim(),text:f.querySelector('#pjT').value.trim()};p.updated=stamp(p.updated);await put('projects',p);m.close(true);res(true)};
 })}
 function pickProject(exclude){return new Promise(res=>{
   const ps=[...store.projects].filter(p=>p.id!==exclude).sort((a,b)=>b.updated-a.updated);
@@ -980,7 +992,7 @@ async function handleFiles(e){
   const m=openModal(`<div class="sheet"><h2>${single?'Abriendo la foto…':'Guardando '+files.length+' fotos…'}</h2><div class="spin"></div></div>`);
   for(const f of files){try{made.push(await importFile(f,pid,!single))}catch(err){toast('No se pudo abrir '+(f.name||'la foto'))}}
   m.close(true);
-  if(pid){const p=projById(pid);if(p){p.updated=Date.now();put('projects',p)}}
+  if(pid){const p=projById(pid);if(p){p.updated=stamp(p.updated);put('projects',p)}}
   if(made.length===1){made[0].rec.fresh=true;openEditor(made[0].rec,made[0].canvas)}else{if(made.length)toast(`${made.length} fotos guardadas`);renderGallery()}
 }
 /* Fast import: decode off the main thread, scale once, open the editor right away and store in the background. */
@@ -1289,7 +1301,7 @@ async function openEditor(r,canvas){
 function closeEditor(){clearDraft();crop=null;$('#cropbar').hidden=true;imgChanged=false;rec=null;src=null;objs=[];sel=-1;ink=[];inkUI();exitSel()}
 async function saveEditor(){
   if(!rec)return false;
-  try{delete rec.fresh;await ready(rec);if(imgChanged){rec.img=await toBlob(src,'image/jpeg',0.92);rec.w=W;rec.h=H;rec.imgRev=(rec.imgRev||0)+1;imgChanged=false}rec.objs=JSON.parse(JSON.stringify(objs));rec.calib=calib;rec.updated=Date.now();rec.thumb=await makeThumb(rec,src);await put('photos',rec);
+  try{delete rec.fresh;await ready(rec);if(imgChanged){rec.img=await toBlob(src,'image/jpeg',0.92);rec.w=W;rec.h=H;rec.imgRev=(rec.imgRev||0)+1;imgChanged=false}rec.objs=JSON.parse(JSON.stringify(objs));rec.calib=calib;rec.updated=stamp(rec.updated);rec.thumb=await makeThumb(rec,src);await put('photos',rec);
     if(rec.projectId){const p=projById(rec.projectId);if(p){p.updated=rec.updated;await put('projects',p)}}
     savedHi=hi;clearDraft();ui();toast('Guardado en la app');scheduleSync();return true}
   catch(e){toast('No se pudo guardar. Comprueba el espacio libre.');return false}
@@ -1298,6 +1310,7 @@ let imgChanged=false,crop=null;
 function srcCanvas(){if(src instanceof HTMLCanvasElement)return src;const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(src,0,0,W,H);return c}
 function mapObjs(f){const mp2=q=>{const r=f(q);q.x=r.x;q.y=r.y};objs.forEach(o=>{if(o.pts)o.pts.forEach(mp2);if(o.a){mp2(o.a);mp2(o.b)}if(o.type==='text'){const r=f({x:o.x,y:o.y});o.x=r.x;o.y=r.y}});if(calib&&calib.plane)calib.plane.pts.forEach(mp2)}
 async function rotatePhoto(dir){
+  await keepOriginal();
   const s0=srcCanvas(),c=document.createElement('canvas');c.width=H;c.height=W;const g=c.getContext('2d');
   if(dir>0){g.translate(H,0);g.rotate(Math.PI/2)}else{g.translate(0,W);g.rotate(-Math.PI/2)}g.drawImage(s0,0,0);
   const oW=W,oH=H;mapObjs(dir>0?q=>({x:oH-q.y,y:q.x}):q=>({x:q.y,y:oW-q.x}));
@@ -1308,17 +1321,10 @@ function endCrop(){crop=null;$('#cropbar').hidden=true;ui();render()}
 $('#crCancel').onclick=endCrop;
 $('#crApply').onclick=async()=>{if(!crop)return;const x0=Math.max(0,Math.round(Math.min(crop.a.x,crop.b.x))),y0=Math.max(0,Math.round(Math.min(crop.a.y,crop.b.y))),x1=Math.min(W,Math.round(Math.max(crop.a.x,crop.b.x))),y1=Math.min(H,Math.round(Math.max(crop.a.y,crop.b.y)));
   if(x1-x0<20||y1-y0<20){toast('La zona es demasiado pequeña');return}
+  await keepOriginal();
   const s0=srcCanvas(),c=document.createElement('canvas');c.width=x1-x0;c.height=y1-y0;c.getContext('2d').drawImage(s0,-x0,-y0);
   mapObjs(q=>({x:q.x-x0,y:q.y-y0}));src=c;W=c.width;H=c.height;imgChanged=true;crop=null;$('#cropbar').hidden=true;needFit=true;fit();recalc();await saveEditor();hist=[];hi=-1;commit();savedHi=hi;ui();render()};
 /* ================= straighten: fine rotation (auto + manual) and perspective ================= */
-// Homography that maps the 4 points s onto the 4 points d.
-function homography(s,d){
-  const A=[];for(let i=0;i<4;i++){const{x,y}=s[i],{x:u,y:v}=d[i];A.push([x,y,1,0,0,0,-u*x,-u*y,u],[0,0,0,x,y,1,-v*x,-v*y,v])}
-  for(let c=0;c<8;c++){let p=c;for(let r=c+1;r<8;r++)if(Math.abs(A[r][c])>Math.abs(A[p][c]))p=r;[A[c],A[p]]=[A[p],A[c]];if(Math.abs(A[c][c])<1e-12)return null;
-    for(let r=0;r<8;r++){if(r===c)continue;const f=A[r][c]/A[c][c];for(let k=c;k<9;k++)A[r][k]-=f*A[c][k]}}
-  return A.map((r,i)=>r[8]/r[i]);
-}
-const hApply=(m,q)=>{const w=m[6]*q.x+m[7]*q.y+1;return{x:(m[0]*q.x+m[1]*q.y+m[2])/w,y:(m[3]*q.x+m[4]*q.y+m[5])/w}};
 // Estimates how many degrees the photo must turn so its main lines become horizontal/vertical (Hough vote over ±30°).
 function detectTilt(img){
   const k=Math.min(1,480/Math.max(img.width,img.height)),w=Math.max(8,Math.round(img.width*k)),h=Math.max(8,Math.round(img.height*k));
@@ -1346,7 +1352,6 @@ function detectTilt(img){
   let off=0;if(b>0&&b<NA-1){const l=score[b-1],m=score[b],r=score[b+1],den=l-2*m+r;if(den<0)off=.5*(l-r)/den}
   const alpha=-30+(b+off)*STEP;return Math.abs(alpha)<.05?0:-alpha;
 }
-function rotFit(w,h,t){const c=Math.abs(Math.cos(t)),s=Math.abs(Math.sin(t));return Math.min(w/(w*c+h*s),h/(w*s+h*c))}
 function refreshRefScale(){const r=objs.find(o=>o.type==='dim'&&o.ref);if(r){const n=parseNum(r.val);if(n>0)setPpmm(len(r.a,r.b)/(n*TOMM[r.unit||'mm']))}}
 async function finishImageEdit(c){src=c;W=c.width;H=c.height;imgChanged=true;needFit=true;fit();refreshRefScale();recalc();await saveEditor();hist=[];hi=-1;commit();savedHi=hi;ui();render()}
 function openStraighten(){
@@ -1425,37 +1430,53 @@ function openStraighten(){
   W$('#stApply').onclick=async()=>{
     if(S.mode==='rot'){
       if(!S.ang){m.close();return}
-      busy(true);await tick();const t=S.ang*Math.PI/180,co=Math.cos(t),si=Math.sin(t);
+      busy(true);await keepOriginal();await tick();const t=S.ang*Math.PI/180,co=Math.cos(t),si=Math.sin(t);
       let ow,oh;if(S.crop){const k=rotFit(W,H,t);ow=Math.round(W*k);oh=Math.round(H*k)}else{ow=Math.ceil(W*Math.abs(co)+H*Math.abs(si));oh=Math.ceil(W*Math.abs(si)+H*Math.abs(co))}
       const c=document.createElement('canvas');c.width=ow;c.height=oh;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,ow,oh);g.translate(ow/2,oh/2);g.rotate(t);g.drawImage(full,-W/2,-H/2);
       const w0=W,h0=H;mapObjs(q=>({x:co*(q.x-w0/2)-si*(q.y-h0/2)+ow/2,y:si*(q.x-w0/2)+co*(q.y-h0/2)+oh/2}));
       m.close(true);await finishImageEdit(c);toast('Foto enderezada');return}
     if(!quadOk()){toast('Las esquinas se cruzan: colócalas en orden alrededor de la zona');return}
-    busy(true);await tick();const o=outSize(),out=warp(full,S.q,o.w,o.h);if(!out){busy(false);toast('No se pudo corregir con esas esquinas');return}
+    busy(true);await keepOriginal();await tick();const o=outSize(),out=warp(full,S.q,o.w,o.h);if(!out){busy(false);toast('No se pudo corregir con esas esquinas');return}
     const hm=homography(S.q,[{x:0,y:0},{x:o.w,y:0},{x:o.w,y:o.h},{x:0,y:o.h}]);mapObjs(q=>hApply(hm,q));
     const r=realDims();if(r){objs.forEach(x=>x.ref=false);setPpmm(o.w/(r.w*TOMM[r.u]))}
     m.close(true);await finishImageEdit(out);toast(r?'Perspectiva corregida y escala calibrada':'Perspectiva corregida')};
+}
+/* ================= editor: photo menu, tools and drawing ================= */
+async function keepOriginal(){
+  if(!rec)return;const k='orig:'+rec.id;
+  try{if(await getOne('meta',k))return;await ready(rec);if(!rec.img)return;
+    await put('meta',{id:k,img:rec.img,w:rec.w,h:rec.h,objs:JSON.parse(JSON.stringify(objs)),calib:calib?JSON.parse(JSON.stringify(calib)):null,at:Date.now()})}catch(e){}
+}
+async function restoreOriginal(){
+  const k='orig:'+rec.id,o=await getOne('meta',k).catch(()=>null);if(!o){toast('No hay foto original guardada');return}
+  const r=await dialog('¿Restaurar la foto original?','Vuelve la foto tal como era antes de girarla, enderezarla o recortarla, con sus medidas de entonces. Las medidas que hayas añadido después se perderán.',[{id:'y',label:'Restaurar',kind:'primary'},{id:'n',label:'Cancelar'}]);
+  if(r!=='y')return;
+  src=await bitmapOf(o.img);W=o.w;H=o.h;rec.img=o.img;rec.w=W;rec.h=H;rec.imgRev=(rec.imgRev||0)+1;imgChanged=false;
+  objs=o.objs||[];calib=o.calib||null;sel=-1;needFit=true;fit();recalc();
+  if(await saveEditor()){await del('meta',k);hist=[];hi=-1;commit();savedHi=hi;ui();render();toast('Foto original restaurada')}
 }
 async function duplicatePhoto(){
   if(dirty()&&!(await saveEditor()))return;
   const n={...rec,id:uid(),name:rec.name+' (copia)',created:Date.now(),updated:Date.now(),objs:JSON.parse(JSON.stringify(rec.objs||[])),calib:rec.calib?JSON.parse(JSON.stringify(rec.calib)):null};
   await put('photos',n);store.photos.push(n);scheduleSync();toast('Copia creada: «'+n.name+'»');
 }
-$('#eMenu').onclick=()=>{
+$('#eMenu').onclick=async()=>{
+  const hasOrig=!!(rec&&await getOne('meta','orig:'+rec.id).catch(()=>null));
   const m=openModal(`<div class="sheet"><h2>Foto</h2><div class="plist">
     <button data-m="rl">Girar a la izquierda<span>Gira la foto y sus medidas 90°</span></button>
     <button data-m="rr">Girar a la derecha<span>Gira la foto y sus medidas 90°</span></button>
     <button data-m="straight">Enderezar<span>Corrige una foto torcida o hecha en ángulo</span></button>
     <button data-m="crop">Recortar<span>Quita los bordes que no necesitas</span></button>
+    ${hasOrig?'<button data-m="orig">Restaurar foto original<span>Deshace girar, enderezar y recortar</span></button>':''}
     <button data-m="dup">Duplicar foto<span>Crea una copia con todas sus medidas</span></button>
     <button data-m="name">Cambiar nombre</button></div>
     <p class="note">Girar, enderezar y recortar guardan la foto en ese momento.</p><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`,{bottom:true});
   m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-m]');if(!b)return;m.close(true);
-    const k=b.dataset.m;if(k==='rl')rotatePhoto(-1);else if(k==='rr')rotatePhoto(1);else if(k==='straight')openStraighten();else if(k==='crop')startCrop();else if(k==='dup')duplicatePhoto();else if(k==='name')$('#eTitle').click()});
+    const k=b.dataset.m;if(k==='rl')rotatePhoto(-1);else if(k==='rr')rotatePhoto(1);else if(k==='straight')openStraighten();else if(k==='orig')restoreOriginal();else if(k==='crop')startCrop();else if(k==='dup')duplicatePhoto();else if(k==='name')$('#eTitle').click()});
 };
 $('#eSave').onclick=async()=>{if((dirty()||(rec&&rec.fresh))&&!(await saveEditor()))return;forceLeave=true;requestBack()};
 $('#eBack').onclick=()=>requestBack();
-$('#eTitle').onclick=async()=>{const n=await askText('Nombre de la foto',rec.name,'','Guardar');if(n&&rec){rec.name=n;rec.updated=Date.now();$('#eName').textContent=n;await put('photos',rec);scheduleSync()}};
+$('#eTitle').onclick=async()=>{const n=await askText('Nombre de la foto',rec.name,'','Guardar');if(n&&rec){rec.name=n;rec.updated=stamp(rec.updated);$('#eName').textContent=n;await put('photos',rec);scheduleSync()}};
 
 function hitText(o){ctx.font=`700 ${o.fs}px ${FONT}`;let w=0;const ls=o.text.split('\n');ls.forEach(l=>w=Math.max(w,ctx.measureText(l).width));return{x:o.x,y:o.y,w,h:ls.length*o.fs*1.12}}
 function bbox(o){if(o.type==='text')return hitText(o);const pts=o.pts?o.pts:[o.a,o.b];let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;pts.forEach(p=>{x0=Math.min(x0,p.x);y0=Math.min(y0,p.y);x1=Math.max(x1,p.x);y1=Math.max(y1,p.y)});return{x:x0,y:y0,w:x1-x0,h:y1-y0}}
@@ -2017,7 +2038,7 @@ const row=(label,desc,ctrl)=>`<div class="srow"><div class="sl"><b>${label}</b>$
 async function renderSettings(){
   const body=$('#sBody'),sc=body.scrollTop;
   const sample=store.projects.find(p=>p.sample||/^Ejemplo ·/.test(p.name));
-  let usage='';try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();usage=`${(e.usage/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})} MB usados`}}catch(e){}
+  let usage='',scansN=0;try{if(DB.ok)scansN=await idbReq('scans','readonly',s=>s.count())}catch(e){}try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();usage=`${(e.usage/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})} MB usados`}}catch(e){}
   const D=style.ds,endN=(ENDS.find(x=>x[0]===D.end)||ENDS[0])[1],labN=(LABELS.find(x=>x[0]===D.label)||LABELS[0])[1];
   body.innerHTML=`
   <div class="sgroup"><h3>Nube y sincronización</h3><div class="scard">
@@ -2095,9 +2116,10 @@ async function renderSettings(){
     ${row('Tamaño de las fotos guardadas','Para las fotos nuevas. Ahorro ocupa la mitad que Normal y sigue siendo nítida.',segH('photoRes',[['high','Máximo'],['normal','Normal'],['saver','Ahorro']]))}
     ${row('Optimizar fotos guardadas','Reduce las fotos que ya tienes al tamaño elegido, sin perder sus medidas.','<button class="btn ghost" data-sact="shrink">Optimizar</button>')}
     ${row('Almacenamiento de la app',`${store.photos.length} fotos · ${store.projects.length} proyectos${usage?' · '+usage:''}`,'')}
+    ${scansN?row('Capturas 3D antiguas',`${scansN} ${scansN===1?'captura':'capturas'} de la antigua función 3D. Ya no se pueden abrir y ocupan espacio.`,'<button class="btn danger" data-sact="delscans">Borrar</button>'):''}
     ${sample?row('Fotos de ejemplo','Quita el proyecto de ejemplo y sus fotos.','<button class="btn danger" data-sact="delsample">Eliminar</button>'):''}
     ${row('Preguntar antes de salir','Al pulsar atrás en la pantalla principal (app de Android).',swH('confirmExit'))}
-    ${row('Copia de seguridad','Guarda todas tus fotos, medidas y proyectos en un archivo para recuperarlos en este u otro móvil, sin necesidad de nube.','<div class="row"><button class="btn primary" data-sact="backup">Crear copia</button><button class="btn ghost" data-sact="restore">Restaurar</button></div>')}
+    ${row('Copia de seguridad',`Guarda todas tus fotos, medidas y proyectos en un archivo para recuperarlos en este u otro móvil, sin necesidad de nube.${SET.lastBackup?' Última copia: '+new Date(SET.lastBackup).toLocaleDateString('es-ES')+'.':' Todavía no has hecho ninguna.'}`,'<div class="row"><button class="btn primary" data-sact="backup">Crear copia</button><button class="btn ghost" data-sact="restore">Restaurar</button></div>')}
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
@@ -2133,7 +2155,10 @@ $('#settings').addEventListener('click',async e=>{
     else if(a==='learn')openLaserLearn();
     else if(a==='diag')openLaserDiag();
     else if(a==='forget'){SET.laserRule=null;saveSettings();renderSettings()}
-    else if(a==='off'){try{NATIVE.laserDisconnect()}catch(err){}SET.laser=null;saveSettings()}
+    else if(a==='off'){try{NATIVE.laserDisconnect()}catch(err){}}
+    else if(a==='reconnect'){if(SET.laser&&SET.laser.addr){try{NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}catch(err){}}}
+    else if(a==='forgetdev'){const d=SET.laser;if(!d)return;const r=await dialog('¿Olvidar el medidor?',`MedLoM dejará de conectarse a «${d.name||d.addr}».${SET.laserRule?' También se borra la lectura que le enseñaste.':''}`,[{id:'y',label:'Olvidar',kind:'danger'},{id:'n',label:'Cancelar'}]);
+      if(r!=='y')return;try{NATIVE.laserDisconnect()}catch(err){}SET.laser=null;SET.laserRule=null;LASER.state='';LASER.msg='';saveSettings();renderSettings();toast('Medidor olvidado')}
     else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){SET.laser={addr:d.addr,name:d.name};saveSettings();try{NATIVE.laserConnect(d.addr,d.name)}catch(err){}}}
     return}
   const ja=e.target.closest('[data-jotta]');
@@ -2162,6 +2187,8 @@ $('#settings').addEventListener('click',async e=>{
   else if(act==='style')openStyle(true);
   else if(act==='colors')openColors();
   else if(act==='update')checkUpdate(true);
+  else if(act==='delscans'){const r=await dialog('¿Borrar las capturas 3D antiguas?','Se borran sus fotos de este móvil. Tus fotos y proyectos normales no se tocan.',[{id:'y',label:'Borrar',kind:'danger'},{id:'n',label:'Cancelar'}]);
+    if(r==='y'){try{await idbReq('scans','readwrite',s=>s.clear());toast('Capturas 3D borradas')}catch(err){toast('No se pudieron borrar')}renderSettings()}}
   else if(act==='icons')openIcons();
   else if(act==='backup')createBackup();
   else if(act==='shrink')shrinkAll();
@@ -2205,21 +2232,36 @@ async function installUpdate(i){
   }
   const m=openModal(`<div class="sheet"><h2>Descargando MedLoM ${esc(i.versionName)}</h2><div style="height:10px;border-radius:999px;background:var(--raise);overflow:hidden"><div id="updBar" style="height:100%;width:0;background:var(--accent);transition:width .2s"></div></div><p class="note" id="updPct" role="status">Preparando…</p></div>`);
   window.__medlomUpdProgress=p=>{const b=m.wrap.querySelector('#updBar');if(b){b.style.width=p+'%';m.wrap.querySelector('#updPct').textContent=p+' %'}};
-  const r=await nativeAsync('updateDownload',new URL(i.apk||'MedLoM.apk',UPD_URL).href,i.sha256||'');
+  const r=await nativeAsyncT(0,'updateDownload',new URL(i.apk||'MedLoM.apk',UPD_URL).href,i.sha256||'');
   window.__medlomUpdProgress=null;m.close(true);
   if(!r||!r.ok){toast('No se pudo descargar: '+((r&&r.error)||'error'));return}
   // the installer closes MedLoM: keep the photo being edited
   if(rec&&(dirty()||rec.fresh))await saveEditor();
   NATIVE.updateInstall();
 }
-setTimeout(()=>checkUpdate(false),4000);
-function nativeAsync(method,...args){return new Promise(r=>{const id=++_cbn;const t=setTimeout(()=>{if(_cbs.has(id)){_cbs.delete(id);r({ok:false,error:'Sin respuesta'})}},240000);_cbs.set(id,v=>{clearTimeout(t);r(v)});try{NATIVE[method](id,...args)}catch(e){_cbs.delete(id);clearTimeout(t);r({ok:false,error:String(e)})}})}
+async function backupNag(){
+  if(modals.length||(CAN_SYNC&&SET.autoSync&&cloudsOn().length))return;
+  const own=store.photos.filter(p=>!isSampleProj(projById(p.projectId)));if(own.length<3)return;
+  const last=SET.lastBackup||0,day=864e5;
+  if(last&&Date.now()-last<30*day)return;
+  if(!last&&Date.now()-Math.min(...own.map(p=>p.created||Date.now()))<3*day)return;
+  if(Date.now()-(SET.backupNagAt||0)<14*day)return;
+  SET.backupNagAt=Date.now();saveSettings();
+  const dev=NATIVE?'móvil':'dispositivo';
+  const r=await dialog('Haz una copia de seguridad',`Tienes ${own.length} fotos guardadas solo en este ${dev}${last?' y la última copia es del '+new Date(last).toLocaleDateString('es-ES'):' y todavía no has hecho ninguna copia'}. Si se borra la app o se pierde el ${dev}, se pierden con ella.`,
+    [{id:'y',label:'Hacer copia ahora',kind:'primary'},...(CAN_SYNC?[{id:'c',label:'Usar Google Drive'}]:[]),{id:'n',label:'Más tarde'}]);
+  if(r==='y')createBackup();else if(r==='c')pushView({v:'settings',sec:'nube'});
+}
+setTimeout(async()=>{await checkUpdate(false);setTimeout(()=>backupNag().catch(()=>{}),1500)},4000);
+function nativeAsync(method,...args){return nativeAsyncT(240000,method,...args)}
+// ms=0: no time limit (update download on a slow connection)
+function nativeAsyncT(ms,method,...args){return new Promise(r=>{const id=++_cbn;const t=ms?setTimeout(()=>{if(_cbs.has(id)){_cbs.delete(id);r({ok:false,error:'Sin respuesta'})}},ms):0;_cbs.set(id,v=>{clearTimeout(t);r(v)});try{NATIVE[method](id,...args)}catch(e){_cbs.delete(id);clearTimeout(t);r({ok:false,error:String(e)})}})}
 
 /* ================= Google Drive sync (Android app) ================= */
 const DRIVE={busy:false,again:false,state:'',msg:''};
 const G='https://www.googleapis.com';
 const tomb=()=>(SET.tomb||(SET.tomb=[]));
-function addTomb(type,id){if(!CAN_SYNC)return;tomb().push({type,id,at:Date.now(),done:{}});saveSettings();scheduleSync()}
+function addTomb(type,id){if(!CAN_SYNC)return;const it=(type==='photo'?store.photos:store.projects).find(x=>x.id===id);tomb().push({type,id,at:stamp(it&&it.updated),done:{}});saveSettings();scheduleSync()}
 function cloudsOn(){const l=[];if(driveOn())l.push('gdrive');if(jottaOn())l.push('jotta');return l}
 function tombsFor(pv){return tomb().filter(t=>!(t.done&&t.done[pv]))}
 function tombsDone(pv,list){list.forEach(t=>{t.done={...(t.done||{}),[pv]:1}});const on=cloudsOn();SET.tomb=tomb().filter(t=>!on.every(c=>t.done&&t.done[c])&&Date.now()-t.at<90*864e5);saveSettings()}
@@ -2409,7 +2451,7 @@ async function shrinkAll(){
   const m=openModal(`<div class="sheet"><h2>Optimizando…</h2><p class="txt" id="shp"></p><div class="spin"></div></div>`);let after=0;
   for(let i=0;i<list.length;i++){const rc=list[i];const t=m.wrap.querySelector('#shp');if(t)t.textContent=`Foto ${i+1} de ${list.length}`;
     try{await ready(rc);const bm=await bitmapOf(rc.img),k=Math.min(1,RQ.max/Math.max(rc.w,rc.h)),c=document.createElement('canvas');c.width=Math.round(rc.w*k);c.height=Math.round(rc.h*k);const g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(bm,0,0,c.width,c.height);
-      if(k<1)scaleRec(rc,c.width/rc.w);rc.w=c.width;rc.h=c.height;rc.img=await toBlob(c,'image/jpeg',RQ.q);rc.imgRev=(rc.imgRev||0)+1;rc.updated=Date.now();rc.thumb=await makeThumb(rc,c);await put('photos',rc);after+=rc.img.size}catch(e){}}
+      if(k<1)scaleRec(rc,c.width/rc.w);rc.w=c.width;rc.h=c.height;rc.img=await toBlob(c,'image/jpeg',RQ.q);rc.imgRev=(rc.imgRev||0)+1;rc.updated=stamp(rc.updated);rc.thumb=await makeThumb(rc,c);await put('photos',rc);after+=rc.img.size}catch(e){}}
   m.close(true);toast(`Listo: de ${(before/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})} MB a ${(after/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})} MB`);scheduleSync();renderSettings();
 }
 
@@ -2474,7 +2516,7 @@ async function createBackup(){
     const st={...SET};delete st.drive;delete st.jotta;delete st.onedrive;delete st.tomb;delete st.clouds;
     z.file('medlom-copia.json',JSON.stringify({app:'MedLoM',v:1,created:Date.now(),projects:projs,photos,settings:st},null,1));
     const blob=await z.generateAsync({type:'blob',compression:'STORE'});
-    m.close(true);
+    m.close(true);SET.lastBackup=Date.now();saveSettings();
     const d=new Date();shareSheet(blob,`MedLoM copia ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.zip`,photos.map(x=>({rec:x})));
   }catch(e){m.close(true);toast('No se pudo crear la copia: '+e.message)}
 }
@@ -2509,7 +2551,7 @@ try{if(SET.onedrive||SET.msClient){delete SET.onedrive;delete SET.msClient;if(SE
 /* ================= Bluetooth laser meter ================= */
 const LASER={state:'',msg:'',found:[],last:null};
 function hasLaser(){try{return !!(NATIVE&&NATIVE.hasLaser&&NATIVE.hasLaser())}catch(e){return false}}
-window.__medlomLaserState=o=>{LASER.state=o.state;LASER.generic=o.msg==='generic';LASER.msg=o.msg==='generic'?'':o.msg||'';if(o.state==='connected')toast('Medidor conectado: '+(o.name||''));if(o.msg&&o.state!=='connected')toast(o.msg);if(!$('#settings').hidden)renderSettings();laserBadge()};
+window.__medlomLaserState=o=>{const quiet=LASER.auto&&o.state!=='connected';if(o.state!=='connecting')LASER.auto=false;LASER.state=o.state;LASER.generic=o.msg==='generic';LASER.msg=o.msg==='generic'?'':o.msg||'';if(o.state==='connected')toast('Medidor conectado: '+(o.name||''));if(o.msg&&o.state!=='connected'&&!quiet)toast(o.msg);if(!$('#settings').hidden)renderSettings();laserBadge()};
 window.__medlomLaserFound=o=>{LASER.found=o.devices||[];if(!$('#settings').hidden)renderSettings()};
 window.__medlomLaser=o=>{
   const m=o.m;LASER.last={m,at:Date.now()};
@@ -2522,7 +2564,9 @@ function laserRow(){
   const st=LASER.state,dev=SET.laser,found=LASER.found||[];
   const status=st==='connected'?'Conectado: '+(dev&&dev.name||''):st==='connecting'?'Conectando…':st==='scanning'?'Buscando medidores…':st==='error'?LASER.msg:dev?'Último: '+dev.name:'Sin conectar';
   return`<div class="srow"><div class="sl"><b>Medidor láser Bluetooth</b><small class="status ${st==='connected'?'on':''}">${esc(status)}</small><small>Leica DISTO y Bosch GLM directamente; otros, como Mileseey, se enseñan una vez (función experimental). Con una cota seleccionada, la medida del láser se pone sola.</small></div>
-    <div class="row">${st==='connected'?'<button class="btn ghost" data-laser="off">Desconectar</button>':`<button class="btn primary" data-laser="scan" ${st==='scanning'?'disabled':''}>Buscar</button><button class="btn ghost" data-laser="scanall" ${st==='scanning'?'disabled':''}>Ver todos</button>`}</div></div>
+    <div class="row">${st==='connected'?'<button class="btn ghost" data-laser="off">Desconectar</button>':`${dev&&st!=='connecting'?'<button class="btn primary" data-laser="reconnect">Conectar</button>':''}<button class="btn ${dev?'ghost':'primary'}" data-laser="scan" ${st==='scanning'?'disabled':''}>Buscar</button><button class="btn ghost" data-laser="scanall" ${st==='scanning'?'disabled':''}>Ver todos</button>`}</div></div>
+    ${dev?`<div class="srow"><div class="sl"><b>Conectar al abrir la app</b><small>Si está apagado o lejos, no se muestra ningún aviso.</small></div>${swH('laserAuto')}</div>
+    <div class="srow"><div class="sl"><b>Medidor guardado: ${esc(dev.name||dev.addr||'')}</b><small>Olvídalo para que MedLoM deje de usarlo. Podrás volver a buscarlo cuando quieras.</small></div><button class="btn danger" data-laser="forgetdev">Olvidar</button></div>`:''}
     ${st==='connected'&&LASER.generic?`<div class="srow"><div class="sl"><b>${SET.laserRule?'Lectura aprendida':'Enseñar a leer el medidor'}</b><small>${SET.laserRule?'MedLoM ya sabe leer este medidor.':'Para medidores sin conexión conocida, como Mileseey: haz 2 o 3 mediciones y escribe lo que marca la pantalla.'}</small></div><div class="row"><button class="btn ghost" data-laser="diag">Diagnóstico</button><button class="btn ${SET.laserRule?'ghost':'primary'}" data-laser="learn">${SET.laserRule?'Volver a enseñar':'Enseñar'}</button>${SET.laserRule?'<button class="btn danger" data-laser="forget">Olvidar</button>':''}</div></div>`:''}
     ${found.length&&st!=='connected'?`<div class="srow"><div class="plist" style="width:100%">${found.map((d,i)=>`<button data-laser="dev" data-i="${i}">${esc(d.name)}<span>${esc(d.addr)}</span></button>`).join('')}</div></div>`:''}`;
 }
@@ -2786,7 +2830,7 @@ async function seed(){
   try{await loadAll()}catch(e){toast('No se pudieron leer las fotos guardadas')}
   show();
   if(cloudsOn().length)scheduleSync(1500);
-  try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false)NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}catch(e){}
+  try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false){LASER.auto=true;NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}}catch(e){}
   let firstRun=false;try{const g=await getOne('meta','guide');if(!g){firstRun=true;await put('meta',{id:'guide',at:Date.now()});showGuide()}}catch(e){}
   if(!firstRun)try{await checkDraft()}catch(e){}
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cloudsOn().length)scheduleSync(1000)});

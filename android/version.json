@@ -1,11 +1,14 @@
 {
- "versionCode": 41,
- "versionName": "0.42.2",
+ "versionCode": 43,
+ "versionName": "0.44.0",
  "apk": "MedLoM.apk",
- "size": 9763757,
- "sha256": "44736af293bfd0e46c016df39ce00f243d15872e892cb7b3e5e3e53266b3ed72",
+ "size": 9767285,
+ "sha256": "fb5e0c9cbea128cbbbc3196383a32754d5d92b150cea7cbecb4b25eecfbdbf6c",
  "notes": [
-  "Ajustes muestra el apartado «Acerca de MedLoM» (versión instalada y botón «Buscar actualizaciones»), que en la 0.42.0 no tenía acceso desde el menú.",
-  "El pie de Ajustes muestra la versión real instalada (antes ponía siempre «versión de prueba 0.40»)."
+  "«Restaurar foto original» en el menú ⋮ de la foto: deshace girar, enderezar y recortar, con las medidas de antes.",
+  "Recordatorio de copia de seguridad si tus fotos solo están en el móvil (como mucho cada 14 días).",
+  "Ajustes › Datos muestra la fecha de la última copia de seguridad.",
+  "Botón para borrar las capturas 3D antiguas y recuperar espacio.",
+  "La sincronización ya no pierde cambios si un móvil tiene la hora atrasada."
  ]
 }
