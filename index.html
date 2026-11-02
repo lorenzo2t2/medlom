@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.42.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.42.2";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -2101,7 +2101,7 @@ async function renderSettings(){
     ${row('Guía de inicio','Vuelve a ver la explicación rápida de la app.','<button class="btn ghost" data-sact="guide">Ver guía</button>')}
     ${row('Restablecer ajustes','Vuelve a los valores iniciales. No borra fotos.','<button class="btn ghost" data-sact="reset">Restablecer</button>')}
   </div></div>
-  <p class="about">MedLoM · versión de prueba 0.40<br>Las fotos se guardan en este dispositivo.</p>`;
+  <p class="about">MedLoM${(CAN_UPD?NATIVE.appVersionName():window.MEDLOM_VER)?' · versión '+esc(CAN_UPD?NATIVE.appVersionName():window.MEDLOM_VER):''}<br>Las fotos se guardan en este dispositivo.</p>`;
   const sec=stack[stack.length-1].sec||'';
   const SECS={'Nube y sincronización':['nube','Google Drive'+(NATIVE?' y Jottacloud':'')+'; sincronización automática',`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9a4.5 4.5 0 0 0 1 9z"/>`],
     'Apariencia':['apariencia','Tema claro u oscuro, miniaturas y orden',`<circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>`],
@@ -2109,6 +2109,7 @@ async function renderSettings(){
     'Medidor láser':['laser','Conectar un medidor por Bluetooth',`<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M12 7v4M9 16h6"/>`],
     'Exportar y compartir':['exportar','Personalizar PDF, calidad y tamaño de página',`<path d="M12 15V3M7.5 7.5L12 3l4.5 4.5M5 12v8h14v-8"/>`],
     'Datos':['datos','Copia de seguridad, tamaño de fotos y almacenamiento',`<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>`]};
+  SECS['Acerca de MedLoM']=['acerca','Versión instalada y actualizaciones','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>'];
   SECS['Ayuda']=['ayuda','Guía de cada herramienta y opción de MedLoM','<circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 4.4 1.3c-.9 1.2-2.1 1.5-2.1 3.2M12 17.5h.01"/>'];
   const groups=[...body.querySelectorAll('.sgroup')];
   groups.forEach(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];g.dataset.sec=info?info[0]:'';g.hidden=!!sec?g.dataset.sec!==sec:true;if(sec)g.querySelector('h3').hidden=true});
