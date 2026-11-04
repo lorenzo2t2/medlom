@@ -1,12 +1,11 @@
 {
- "versionCode": 44,
- "versionName": "0.45.0",
+ "versionCode": 45,
+ "versionName": "0.45.1",
  "apk": "MedLoM.apk",
- "size": 11093716,
- "sha256": "66e9dec72c253321f5ed806a20f4fb5ee977389e328d0290722814bcb465645a",
+ "size": 11093928,
+ "sha256": "a95499f0e42ef6e39356c7f51e8d21460b0840bf733546699f430b5f1e44d0b7",
  "notes": [
-  "33 temas completos y 15 estilos de color, como en Agenda Familiar: cambian colores, letras, fondo y tarjetas",
-  "La app busca actualizaciones cada vez que se abre",
-  "Puedes cancelar la descarga de una actualización o bajarla con el navegador si falla"
+  "Ya se pueden deslizar las filas de temas en Ajustes › Apariencia",
+  "En PC, la rueda del ratón mueve las filas de temas"
  ]
 }

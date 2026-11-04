@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.1";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -460,10 +460,10 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
   .strt .sthead{grid-column:1/3}.strt .ststage{grid-column:1;grid-row:2/4}.strt .stctl{grid-column:2;grid-row:2;overflow:auto}.strt .row{grid-column:2;grid-row:3}
 }
 /* theme picker (Ajustes > Apariencia) */
-.lookrow{flex-direction:column;align-items:stretch}
+.lookrow{flex-direction:column;align-items:stretch;flex-wrap:nowrap}
 .lookrow .sl{width:100%;min-width:0}
 .lookrow .sl small{white-space:normal}
-.looks{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.looks{display:flex;gap:8px;min-width:0;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;padding:2px 2px 6px;scrollbar-width:thin;overscroll-behavior-x:contain}
 .lookcard{flex:0 0 96px;height:76px;border-radius:14px;position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:8px;text-align:left;border:1px solid rgba(127,127,127,.35);overflow:hidden}
 .lookcard .le{position:absolute;top:6px;left:8px;font-size:20px;line-height:1}
 .lookcard .ln{font-size:12.5px;font-weight:700;line-height:1.1}
@@ -2415,6 +2415,8 @@ $('#settings').addEventListener('click',async e=>{
   else if(act==='delsample'){const sp=store.projects.find(p=>p.sample||/^Ejemplo ·/.test(p.name));if(!sp)return;const r=await dialog('¿Eliminar las fotos de ejemplo?','Se borra el proyecto de ejemplo y sus fotos.',[{id:'y',label:'Eliminar',kind:'danger'},{id:'n',label:'Cancelar'}]);if(r!=='y')return;
     for(const ph of photosOf(sp.id)){await del('photos',ph.id)}store.photos=store.photos.filter(x=>x.projectId!==sp.id);await del('projects',sp.id);store.projects=store.projects.filter(x=>x.id!==sp.id);renderSettings();toast('Ejemplos eliminados')}
 });
+// PC with a mouse: the wheel moves the theme rows sideways; at either end the page scrolls as usual
+$('#settings').addEventListener('wheel',e=>{const L=e.target.closest('.looks');if(!L||e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const max=L.scrollWidth-L.clientWidth;if(max<=0)return;const d=e.deltaMode===1?e.deltaY*40:e.deltaY;if((d<0&&L.scrollLeft<=0)||(d>0&&L.scrollLeft>=max-1))return;e.preventDefault();L.scrollLeft+=d},{passive:false});
 $('#settings').addEventListener('change',e=>{const i=e.target.closest('input[type=checkbox][data-k]');if(i){SET[i.dataset.k]=i.checked;saveSettings();if(i.dataset.k==='toolNames')applySettings()}});
 $('#settings').addEventListener('input',e=>{const i=e.target.closest('input.tin[data-k]');if(i){SET[i.dataset.k]=i.value;saveSettings()}});
 
