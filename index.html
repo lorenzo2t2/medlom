@@ -6,27 +6,90 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.44.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
+@font-face{font-family:"Archivo";font-weight:400;font-style:normal;font-display:swap;src:url(archivo-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Archivo";font-weight:700;font-style:normal;font-display:swap;src:url(archivo-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:400;font-style:normal;font-display:swap;src:url(atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:700;font-style:normal;font-display:swap;src:url(atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Baloo 2";font-weight:400;font-style:normal;font-display:swap;src:url(baloo-2-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Baloo 2";font-weight:700;font-style:normal;font-display:swap;src:url(baloo-2-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Bangers";font-weight:400;font-style:normal;font-display:swap;src:url(bangers-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Barlow Condensed";font-weight:500;font-style:normal;font-display:swap;src:url(barlow-condensed-latin-500-normal.woff2) format("woff2")}
 @font-face{font-family:"Barlow Condensed";font-weight:600;font-style:normal;font-display:swap;src:url(barlow-condensed-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Barlow Condensed";font-weight:700;font-style:normal;font-display:swap;src:url(barlow-condensed-latin-700-normal.woff2) format("woff2")}
-@font-face{font-family:"Atkinson Hyperlegible";font-weight:400;font-style:normal;font-display:swap;src:url(atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
-@font-face{font-family:"Atkinson Hyperlegible";font-weight:700;font-style:normal;font-display:swap;src:url(atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-weight:400;font-style:normal;font-display:swap;src:url(bricolage-grotesque-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-weight:700;font-style:normal;font-display:swap;src:url(bricolage-grotesque-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Cabin Sketch";font-weight:400;font-style:normal;font-display:swap;src:url(cabin-sketch-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Cabin Sketch";font-weight:700;font-style:normal;font-display:swap;src:url(cabin-sketch-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Caveat";font-weight:400;font-style:normal;font-display:swap;src:url(caveat-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Caveat";font-weight:700;font-style:normal;font-display:swap;src:url(caveat-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Chakra Petch";font-weight:400;font-style:normal;font-display:swap;src:url(chakra-petch-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Chakra Petch";font-weight:700;font-style:normal;font-display:swap;src:url(chakra-petch-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Comic Neue";font-weight:400;font-style:normal;font-display:swap;src:url(comic-neue-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Comic Neue";font-weight:700;font-style:normal;font-display:swap;src:url(comic-neue-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:400;font-style:normal;font-display:swap;src:url(cormorant-garamond-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:700;font-style:normal;font-display:swap;src:url(cormorant-garamond-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Exo 2";font-weight:400;font-style:normal;font-display:swap;src:url(exo-2-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Exo 2";font-weight:700;font-style:normal;font-display:swap;src:url(exo-2-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-weight:400;font-style:normal;font-display:swap;src:url(figtree-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-weight:700;font-style:normal;font-display:swap;src:url(figtree-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Fraunces";font-weight:400;font-style:normal;font-display:swap;src:url(fraunces-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Fraunces";font-weight:700;font-style:normal;font-display:swap;src:url(fraunces-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Fredoka";font-weight:400;font-style:normal;font-display:swap;src:url(fredoka-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Fredoka";font-weight:700;font-style:normal;font-display:swap;src:url(fredoka-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:normal;font-display:swap;src:url(instrument-serif-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:swap;src:url(inter-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Inter";font-weight:700;font-style:normal;font-display:swap;src:url(inter-latin-700-normal.woff2) format("woff2")}
-@font-face{font-family:"Nunito";font-weight:400;font-style:normal;font-display:swap;src:url(nunito-latin-400-normal.woff2) format("woff2")}
-@font-face{font-family:"Nunito";font-weight:700;font-style:normal;font-display:swap;src:url(nunito-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Italiana";font-weight:400;font-style:normal;font-display:swap;src:url(italiana-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Jost";font-weight:400;font-style:normal;font-display:swap;src:url(jost-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Jost";font-weight:700;font-style:normal;font-display:swap;src:url(jost-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Kalam";font-weight:400;font-style:normal;font-display:swap;src:url(kalam-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Kalam";font-weight:700;font-style:normal;font-display:swap;src:url(kalam-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Lexend";font-weight:400;font-style:normal;font-display:swap;src:url(lexend-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Lexend";font-weight:700;font-style:normal;font-display:swap;src:url(lexend-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:"Lora";font-weight:400;font-style:normal;font-display:swap;src:url(lora-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Lora";font-weight:700;font-style:normal;font-display:swap;src:url(lora-latin-700-normal.woff2) format("woff2")}
-@font-face{font-family:"Oswald";font-weight:400;font-style:normal;font-display:swap;src:url(oswald-latin-400-normal.woff2) format("woff2")}
-@font-face{font-family:"Oswald";font-weight:700;font-style:normal;font-display:swap;src:url(oswald-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-weight:400;font-style:normal;font-display:swap;src:url(manrope-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Manrope";font-weight:700;font-style:normal;font-display:swap;src:url(manrope-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:"Montserrat";font-weight:400;font-style:normal;font-display:swap;src:url(montserrat-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:swap;src:url(montserrat-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Nunito";font-weight:400;font-style:normal;font-display:swap;src:url(nunito-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Nunito";font-weight:700;font-style:normal;font-display:swap;src:url(nunito-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Orbitron";font-weight:400;font-style:normal;font-display:swap;src:url(orbitron-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Orbitron";font-weight:700;font-style:normal;font-display:swap;src:url(orbitron-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Oswald";font-weight:400;font-style:normal;font-display:swap;src:url(oswald-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Oswald";font-weight:700;font-style:normal;font-display:swap;src:url(oswald-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Outfit";font-weight:400;font-style:normal;font-display:swap;src:url(outfit-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Outfit";font-weight:700;font-style:normal;font-display:swap;src:url(outfit-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Pacifico";font-weight:400;font-style:normal;font-display:swap;src:url(pacifico-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Patrick Hand";font-weight:400;font-style:normal;font-display:swap;src:url(patrick-hand-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Permanent Marker";font-weight:400;font-style:normal;font-display:swap;src:url(permanent-marker-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Playfair Display";font-weight:400;font-style:normal;font-display:swap;src:url(playfair-display-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Playfair Display";font-weight:700;font-style:normal;font-display:swap;src:url(playfair-display-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Plus Jakarta Sans";font-weight:400;font-style:normal;font-display:swap;src:url(plus-jakarta-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Plus Jakarta Sans";font-weight:700;font-style:normal;font-display:swap;src:url(plus-jakarta-sans-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Press Start 2P";font-weight:400;font-style:normal;font-display:swap;src:url(press-start-2p-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Quicksand";font-weight:400;font-style:normal;font-display:swap;src:url(quicksand-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Quicksand";font-weight:700;font-style:normal;font-display:swap;src:url(quicksand-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Rajdhani";font-weight:400;font-style:normal;font-display:swap;src:url(rajdhani-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Rajdhani";font-weight:700;font-style:normal;font-display:swap;src:url(rajdhani-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sora";font-weight:400;font-style:normal;font-display:swap;src:url(sora-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Sora";font-weight:700;font-style:normal;font-display:swap;src:url(sora-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Serif 4";font-weight:400;font-style:normal;font-display:swap;src:url(source-serif-4-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Serif 4";font-weight:700;font-style:normal;font-display:swap;src:url(source-serif-4-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Unbounded";font-weight:400;font-style:normal;font-display:swap;src:url(unbounded-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:swap;src:url(unbounded-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"VT323";font-weight:400;font-style:normal;font-display:swap;src:url(vt323-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Young Serif";font-weight:400;font-style:normal;font-display:swap;src:url(young-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Zen Kaku Gothic New";font-weight:400;font-style:normal;font-display:swap;src:url(zen-kaku-gothic-new-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Zen Kaku Gothic New";font-weight:700;font-style:normal;font-display:swap;src:url(zen-kaku-gothic-new-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Zen Maru Gothic";font-weight:400;font-style:normal;font-display:swap;src:url(zen-maru-gothic-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Zen Maru Gothic";font-weight:700;font-style:normal;font-display:swap;src:url(zen-maru-gothic-latin-700-normal.woff2) format("woff2")}
 </style>
 <style>
 /* Layout: one-screen app with three views — gallery (photos / projects), project, editor.
@@ -396,6 +459,70 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
   .sheet.strt{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,34%);grid-template-rows:auto minmax(0,1fr) auto;column-gap:12px}
   .strt .sthead{grid-column:1/3}.strt .ststage{grid-column:1;grid-row:2/4}.strt .stctl{grid-column:2;grid-row:2;overflow:auto}.strt .row{grid-column:2;grid-row:3}
 }
+/* theme picker (Ajustes > Apariencia) */
+.lookrow{flex-direction:column;align-items:stretch}
+.lookrow .sl{width:100%;min-width:0}
+.lookrow .sl small{white-space:normal}
+.looks{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.lookcard{flex:0 0 96px;height:76px;border-radius:14px;position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:8px;text-align:left;border:1px solid rgba(127,127,127,.35);overflow:hidden}
+.lookcard .le{position:absolute;top:6px;left:8px;font-size:20px;line-height:1}
+.lookcard .ln{font-size:12.5px;font-weight:700;line-height:1.1}
+.lookcard i{position:absolute;top:9px;right:9px;width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.7)}
+.lookcard[aria-pressed="true"]{outline:3px solid var(--accent);outline-offset:2px}
+/* complete and colour themes: background of gallery, settings and dialogs (never under the photo) */
+:root[data-look] body{background:var(--bg);background-image:var(--look-tex,none),var(--look-grad);background-attachment:fixed}
+:root[data-look] .tabs{background:transparent}
+:root[data-look] header.top,:root[data-look] .toolbar,:root[data-look] footer.bar{background:var(--bar)}
+:root[data-upper] :is(h2,.brand b,.tabs button,.sgroup h3){text-transform:uppercase;letter-spacing:.04em}
+:root[data-look] body{font-size-adjust:.52}
+:root[data-tex="renglones"]{--look-tex:linear-gradient(90deg,transparent 46px,#e57373aa 46px 47px,transparent 47px),repeating-linear-gradient(transparent 0 27px,var(--lc) 27px 28px)}
+:root[data-tex="acero"]{--look-tex:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 1px,transparent 1px 4px),linear-gradient(180deg,rgba(255,255,255,.4),transparent 40%)}
+:root[data-tex="lineasPantalla"]{--look-tex:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px)}
+:root[data-tex="manchas"],:root[data-tex="liquido"]{--look-tex:radial-gradient(40% 30% at 15% 20%,color-mix(in srgb,var(--accent) 45%,transparent),transparent),radial-gradient(35% 35% at 85% 75%,color-mix(in srgb,var(--acc2) 45%,transparent),transparent)}
+:root[data-tex="prensa"]{--look-tex:radial-gradient(rgba(0,0,0,.07) 1px,transparent 1.2px)}
+:root[data-tex="prensa"] body{background-size:5px 5px,auto}
+:root[data-tex="rejillaNeon"]{--look-tex:linear-gradient(color-mix(in srgb,var(--accent) 18%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--accent) 18%,transparent) 1px,transparent 1px)}
+:root[data-tex="rejillaNeon"] body{background-size:36px 36px,36px 36px,auto}
+:root[data-tex="pizarra"]{--look-tex:radial-gradient(60% 50% at 30% 30%,rgba(255,255,255,.06),transparent),radial-gradient(50% 40% at 80% 70%,rgba(255,255,255,.05),transparent)}
+:root[data-tex="cartulina"],:root[data-tex="grano"]{--look-tex:repeating-radial-gradient(circle at 30% 40%,rgba(0,0,0,.025) 0 1px,transparent 1px 3px)}
+:root[data-tex="trama"]{--look-tex:radial-gradient(rgba(0,0,0,.13) 1.6px,transparent 1.8px)}
+:root[data-tex="trama"] body{background-size:9px 9px,auto}
+:root[data-tex="cuero"]{--look-tex:linear-gradient(90deg,#6d4c2f 0 10px,transparent 10px),repeating-linear-gradient(180deg,transparent 0 30px,#e6d9bf 30px 31px)}
+:root[data-tex="estrellas"]{--look-tex:radial-gradient(1.2px 1.2px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 70% 20%,#fff,transparent),radial-gradient(1.4px 1.4px at 40% 70%,#fff,transparent),radial-gradient(1px 1px at 85% 60%,#fff,transparent),radial-gradient(1px 1px at 10% 85%,#fff,transparent)}
+:root[data-tex="estrellas"] body{background-size:220px 220px,auto}
+:root[data-tex="aurora"],:root[data-tex="nebulosa"],:root[data-tex="tokio"]{--look-tex:radial-gradient(60% 40% at 30% 10%,color-mix(in srgb,var(--accent) 35%,transparent),transparent),radial-gradient(50% 40% at 80% 40%,color-mix(in srgb,var(--acc2) 30%,#7a3cff 20%),transparent)}
+:root[data-tex="nubes"],:root[data-tex="dorada"],:root[data-tex="rosa"],:root[data-tex="y2k"],:root[data-tex="bosque"]{--look-tex:radial-gradient(45% 30% at 20% 15%,rgba(255,255,255,.55),transparent),radial-gradient(40% 25% at 80% 60%,rgba(255,255,255,.4),transparent)}
+:root[data-tex="lujo"],:root[data-tex="academia"]{--look-tex:linear-gradient(180deg,color-mix(in srgb,var(--accent) 22%,transparent) 1px,transparent 1px)}
+:root[data-tex="lujo"] body,:root[data-tex="academia"] body{background-size:100% 64px,auto}
+:root[data-tex="coquette"],:root[data-tex="sakura"]{--look-tex:radial-gradient(color-mix(in srgb,var(--accent) 22%,transparent) 2px,transparent 2.4px)}
+:root[data-tex="coquette"] body,:root[data-tex="sakura"] body{background-size:26px 26px,auto}
+:root[data-tex="campo"],:root[data-tex="hygge"]{--look-tex:repeating-linear-gradient(45deg,rgba(0,0,0,.025) 0 2px,transparent 2px 10px)}
+:root[data-tex="plastilina"],:root[data-tex="puntosPastel"],:root[data-tex="dopamina"]{--look-tex:radial-gradient(color-mix(in srgb,var(--accent) 28%,transparent) 3px,transparent 3.5px),radial-gradient(color-mix(in srgb,var(--acc2) 22%,#ffb547 20%) 3px,transparent 3.5px)}
+:root[data-tex="plastilina"] body,:root[data-tex="puntosPastel"] body,:root[data-tex="dopamina"] body{background-size:34px 34px,34px 34px,auto;background-position:0 0,17px 17px,0 0}
+:root[data-tex="suizo"]{--look-tex:linear-gradient(90deg,var(--accent) 0 6px,transparent 6px)}
+/* card shapes: gallery thumbnails, settings cards and dialogs */
+:root[data-piece] :is(.thumb,.scard,.sheet){transition:none}
+:root[data-piece="renglon"] :is(.thumb,.scard){background:transparent;border:0;border-bottom:1.5px solid var(--lc);border-radius:0}
+:root[data-piece="nota"] :is(.thumb,.scard){background:var(--panel);border:0;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+:root[data-piece="nota"] .card::before{content:"";position:absolute;top:-6px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--accent);z-index:1;box-shadow:0 2px 3px rgba(0,0,0,.3)}
+:root[data-piece="pixel"] :is(.thumb,.scard,.sheet){border:2px solid var(--lc);border-radius:0;box-shadow:4px 4px 0 var(--accent)}
+:root[data-piece="vidrio"] :is(.thumb,.scard,.sheet),:root[data-piece="cristal"] :is(.thumb,.scard,.sheet){background:color-mix(in srgb,var(--panel) 62%,transparent);border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+:root[data-piece="cristal"] :is(.thumb,.scard,.sheet){border-radius:22px}
+:root[data-piece="filete"] :is(.thumb,.scard){background:transparent;border:0;border-top:2px solid var(--lc);border-bottom:1px solid var(--lc);border-radius:0}
+:root[data-piece="bloque"] :is(.thumb,.scard,.sheet){border:0;border-radius:22px}
+:root[data-piece="neon"] :is(.thumb,.scard){border:1px solid var(--lc);border-left:3px solid var(--accent);border-radius:0;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);box-shadow:inset 0 0 18px color-mix(in srgb,var(--accent) 18%,transparent)}
+:root[data-piece="tiza"] :is(.thumb,.scard,.sheet){background:transparent;border:2px dashed var(--lc)}
+:root[data-piece="foto"] .thumb{background:#fff;padding:6px 6px 20px;border:0;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.22)}
+:root[data-piece="foto"] .card::before{content:"";position:absolute;top:-5px;left:50%;width:46px;height:14px;margin-left:-23px;background:rgba(255,236,170,.85);transform:rotate(-3deg);z-index:1}
+:root[data-piece="vineta"] :is(.thumb,.scard,.sheet){border:3px solid #121212;border-radius:0;box-shadow:5px 5px 0 #121212}
+:root[data-piece="hoja"] :is(.thumb,.scard){background:var(--panel);border:1px solid var(--lc);border-left:4px solid var(--lc);border-radius:3px}
+:root[data-piece="panel"] :is(.thumb,.scard,.sheet){background:color-mix(in srgb,var(--panel) 50%,transparent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);border-left:3px solid var(--accent);border-radius:0;box-shadow:-2px 0 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+:root[data-piece="recorte"] :is(.thumb,.scard,.sheet){border:0;border-radius:18px;box-shadow:3px 5px 0 rgba(0,0,0,.12),0 8px 20px rgba(0,0,0,.08)}
+:root[data-piece="suave"] :is(.thumb,.scard,.sheet){border:0;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+:root[data-piece="brutal"] :is(.thumb,.scard,.sheet),:root[data-piece="contorno"] :is(.thumb,.scard,.sheet){border:2px solid var(--lc);border-radius:14px;box-shadow:4px 4px 0 var(--lc)}
+:root[data-piece="contorno"] :is(.thumb,.scard,.sheet){box-shadow:none}
+:root[data-piece="plastilina"] :is(.thumb,.scard,.sheet){border:0;border-radius:26px;box-shadow:inset -4px -6px 10px rgba(0,0,0,.08),inset 4px 5px 10px rgba(255,255,255,.7),0 8px 16px rgba(0,0,0,.1)}
+:root[data-piece="suiza"] :is(.thumb,.scard){border:0;border-top:6px solid var(--accent);border-radius:0}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}.empty::before{animation:none}}
 </style>
 
@@ -532,8 +659,81 @@ function homography(s,d){
 }
 const hApply=(m,q)=>{const w=m[6]*q.x+m[7]*q.y+1;return{x:(m[0]*q.x+m[1]*q.y+m[2])/w,y:(m[3]*q.x+m[4]*q.y+m[5])/w}};
 function rotFit(w,h,t){const c=Math.abs(Math.cos(t)),s=Math.abs(Math.sin(t));return Math.min(w/(w*c+h*s),h/(w*s+h*c))}
+/* ================= themes like Agenda Familiar: complete themes and colour styles (pure data + colour maths; tested in pruebas/) ================= */
+// Complete themes also change letters, background texture and card shape; colour styles only change colours.
+// sem = main colour (buttons), acc = second colour, fc/fo = background stops in light/dark, r = corner radius,
+// only = always light or dark, tex = background texture, pz = card shape, ft/fx = title/text font, up = capital titles.
+const LOOKS_FULL=[
+  {"id":"cuaderno","n":"Cuaderno","e":"📓","sem":"#2b3a67","acc":"#e57373","fc":["#fdfaf1","#fbf6e6"],"fo":["#fdfaf1","#fbf6e6"],"r":4,"only":"light","tex":"renglones","pz":"renglon","ft":"Caveat","fx":"Patrick Hand","card":"#ffffff","line":"#8fb0d9"},
+  {"id":"nevera","n":"Nevera","e":"🧲","sem":"#37474f","acc":"#e53935","fc":["#eef1f4","#d7dde3"],"fo":["#eef1f4","#d7dde3"],"r":4,"only":"light","tex":"acero","pz":"nota","ft":"Fredoka","fx":"Fredoka","card":"#ffffff"},
+  {"id":"arcade","n":"Arcade","e":"👾","sem":"#3dff8a","acc":"#ff3d9a","fc":["#120b2e","#1d1347"],"fo":["#120b2e","#1d1347"],"r":0,"only":"dark","tex":"lineasPantalla","pz":"pixel","ft":"Press Start 2P","fx":"VT323","card":"#1d1347","line":"#e8e6ff","bar":"#120b2e","up":1},
+  {"id":"cristal","n":"Cristal","e":"🫧","sem":"#b39dff","acc":"#ff9a8b","fc":["#2c2a4a","#1e2a44"],"fo":["#2c2a4a","#1e2a44"],"r":20,"only":"dark","tex":"manchas","pz":"vidrio","ft":"Plus Jakarta Sans","fx":"Plus Jakarta Sans","card":"#ffffff","line":"#ffffff","bar":"#ffffff"},
+  {"id":"gaceta","n":"Gaceta","e":"📰","sem":"#1a1712","acc":"#8b1a1a","fc":["#f7f3ea","#f2ecdf"],"fo":["#f7f3ea","#f2ecdf"],"r":0,"only":"light","tex":"prensa","pz":"filete","ft":"Playfair Display","fx":"Source Serif 4","card":"#ffffff","line":"#1a1712","bar":"#f7f3ea"},
+  {"id":"bento","n":"Bento","e":"🍱","sem":"#2e5bff","acc":"#ffb547","fc":["#0f1115","#14171d"],"fo":["#0f1115","#14171d"],"r":22,"only":"dark","tex":"ninguna","pz":"bloque","ft":"Bricolage Grotesque","fx":"Figtree","card":"#1c1f26","bar":"#0f1115"},
+  {"id":"gaming","n":"Gaming","e":"🎮","sem":"#7a5cff","acc":"#ff2bd6","fc":["#0a0b14","#10112a"],"fo":["#0a0b14","#10112a"],"r":0,"only":"dark","tex":"rejillaNeon","pz":"neon","ft":"Chakra Petch","fx":"Rajdhani","card":"#1a1c33","line":"#2a2d5a","bar":"#0a0b14","up":1},
+  {"id":"pizarra","n":"Pizarra","e":"🖍️","sem":"#ffd76b","acc":"#ff9a9a","fc":["#2f3b33","#29342d"],"fo":["#2f3b33","#29342d"],"r":10,"only":"dark","tex":"pizarra","pz":"tiza","ft":"Cabin Sketch","fx":"Cabin Sketch","card":"#ffffff","line":"#f3f1e6","bar":"#26302a"},
+  {"id":"album","n":"Álbum","e":"📸","sem":"#6d4c41","acc":"#ffb74d","fc":["#efe6d8","#e9decb"],"fo":["#efe6d8","#e9decb"],"r":3,"only":"light","tex":"cartulina","pz":"foto","ft":"Permanent Marker","fx":"Kalam","card":"#ffffff"},
+  {"id":"comic","n":"Cómic","e":"💥","sem":"#e8263b","acc":"#1e88e5","fc":["#ffe27a","#ffe27a"],"fo":["#ffe27a","#ffe27a"],"r":0,"only":"light","tex":"trama","pz":"vineta","ft":"Bangers","fx":"Comic Neue","card":"#ffffff","line":"#121212","bar":"#ffffff","up":1},
+  {"id":"piel","n":"Agenda de piel","e":"📔","sem":"#6d4c2f","acc":"#b3261e","fc":["#fbf6ea","#fbf6ea"],"fo":["#fbf6ea","#fbf6ea"],"r":3,"only":"light","tex":"cuero","pz":"hoja","ft":"Cormorant Garamond","fx":"Cormorant Garamond","card":"#fffdf7","line":"#e6d9bf","bar":"#f3ebd9"},
+  {"id":"espacial","n":"Estación espacial","e":"🚀","sem":"#2be0ff","acc":"#6ff3ff","fc":["#070a1c","#0c1230"],"fo":["#070a1c","#0c1230"],"r":0,"only":"dark","tex":"estrellas","pz":"panel","ft":"Orbitron","fx":"Exo 2","card":"#2be0ff","line":"#2be0ff","bar":"#070a1c","up":1},
+  {"id":"recortable","n":"Recortable","e":"✂️","sem":"#8e3b6e","acc":"#4fc3f7","fc":["#ffd9c2","#ffcdb8"],"fo":["#ffd9c2","#ffcdb8"],"r":18,"only":"light","tex":"ninguna","pz":"recorte","ft":"Baloo 2","fx":"Baloo 2","card":"#fff4e8","bar":"#fff4e8"},
+  {"id":"aurora_boreal","n":"Aurora boreal","e":"🌠","sem":"#3dffb0","acc":"#3dffb0","fc":["#050b1a","#0a1430"],"fo":["#050b1a","#0a1430"],"r":22,"only":"dark","tex":"aurora","pz":"cristal","ft":"Outfit","fx":"Outfit","card":"#ffffff","line":"#ffffff","bar":"#080e20"},
+  {"id":"dopamina","n":"Dopamina","e":"🟣","sem":"#3b5bff","acc":"#3b5bff","fc":["#fffaf2","#fffaf2"],"fo":["#fffaf2","#fffaf2"],"r":20,"only":"light","tex":"dopamina","pz":"contorno","ft":"Unbounded","fx":"Manrope","line":"#17172b","bar":"#17172b"},
+  {"id":"liquido","n":"Cristal líquido","e":"🫧","sem":"#6c4cf6","acc":"#1b1530","fc":["#f3e8ff","#ffe9f3"],"fo":["#f3e8ff","#ffe9f3"],"r":26,"only":"light","tex":"liquido","pz":"cristal","ft":"Manrope","fx":"Manrope","card":"#ffffff","line":"#ffffff","bar":"#ffffff"},
+  {"id":"nubes","n":"Entre nubes","e":"☁️","sem":"#7f6cf3","acc":"#7f6cf3","fc":["#b9dcff","#f4d3f0","#ffe6d3"],"fo":["#b9dcff","#f4d3f0","#ffe6d3"],"r":26,"only":"light","tex":"nubes","pz":"cristal","ft":"Quicksand","fx":"Quicksand","card":"#ffffff","line":"#ffffff","bar":"#ffffff"},
+  {"id":"dorada","n":"Hora dorada","e":"🌇","sem":"#ff6a3d","acc":"#ff6a3d","fc":["#ffb56b","#ff7f6b","#c75b8a"],"fo":["#ffb56b","#ff7f6b","#c75b8a"],"r":22,"only":"light","tex":"dorada","pz":"cristal","ft":"Sora","fx":"Sora","card":"#ffffff","line":"#ffffff","bar":"#ffffff"},
+  {"id":"grano","n":"Degradado con grano","e":"🎞️","sem":"#2b59ff","acc":"#170e1f","fc":["#f6d2c0","#f6d2c0"],"fo":["#f6d2c0","#f6d2c0"],"r":22,"only":"light","tex":"grano","pz":"suave","ft":"Instrument Serif","fx":"Manrope","card":"#ffffff","bar":"#ffffff"},
+  {"id":"tokio","n":"Tokio de noche","e":"🏮","sem":"#3cf0ff","acc":"#3cf0ff","fc":["#05061a","#16133c"],"fo":["#05061a","#16133c"],"r":18,"only":"dark","tex":"tokio","pz":"cristal","ft":"Zen Kaku Gothic New","fx":"Zen Kaku Gothic New","card":"#0c0a22","line":"#ff46b4","bar":"#080618"},
+  {"id":"nebulosa","n":"Nebulosa","e":"🌌","sem":"#ff7ad9","acc":"#ff7ad9","fc":["#07041a","#0d0828"],"fo":["#07041a","#0d0828"],"r":22,"only":"dark","tex":"nebulosa","pz":"cristal","ft":"Sora","fx":"Sora","card":"#ffffff","line":"#ffffff","bar":"#1a0f38"},
+  {"id":"lujo","n":"Negro y champán","e":"🥂","sem":"#d8c08a","acc":"#d8c08a","fc":["#2c271f","#0b0a09"],"fo":["#2c271f","#0b0a09"],"r":14,"only":"dark","tex":"lujo","pz":"filete","ft":"Italiana","fx":"Jost","card":"#000000","line":"#d8c08a","bar":"#131210","up":1},
+  {"id":"academia","n":"Biblioteca antigua","e":"📚","sem":"#c9a46a","acc":"#c9a46a","fc":["#4a3423","#1a120c"],"fo":["#4a3423","#1a120c"],"r":12,"only":"dark","tex":"academia","pz":"vidrio","ft":"Cormorant Garamond","fx":"Lora","card":"#fff0d7","line":"#d6b478","bar":"#2b1e15"},
+  {"id":"coquette","n":"Coquette","e":"🎀","sem":"#e8789a","acc":"#e8789a","fc":["#fff4f7","#fff4f7"],"fo":["#fff4f7","#fff4f7"],"r":20,"only":"light","tex":"coquette","pz":"suave","ft":"Playfair Display","fx":"Quicksand","line":"#f7c6d5"},
+  {"id":"sakura","n":"Sakura","e":"🌸","sem":"#ef6f98","acc":"#ef6f98","fc":["#fff6f8","#ffe2eb"],"fo":["#fff6f8","#ffe2eb"],"r":22,"only":"light","tex":"sakura","pz":"suave","ft":"Zen Maru Gothic","fx":"Zen Maru Gothic","card":"#ffffff","bar":"#ffffff"},
+  {"id":"campo","n":"Cottagecore","e":"🌼","sem":"#c4626f","acc":"#c4626f","fc":["#fdf6e9","#f1e6cc"],"fo":["#fdf6e9","#f1e6cc"],"r":16,"only":"light","tex":"campo","pz":"suave","ft":"Lora","fx":"Lora","card":"#fffdf7","line":"#463826","bar":"#fffdf7"},
+  {"id":"hygge","n":"Hygge","e":"🕯️","sem":"#b5643c","acc":"#b5643c","fc":["#ece5db","#dcd2c5"],"fo":["#ece5db","#dcd2c5"],"r":20,"only":"light","tex":"hygge","pz":"suave","ft":"Young Serif","fx":"Quicksand","card":"#f8f4ee","bar":"#3a332c"},
+  {"id":"rosa","n":"Rosa fuerte","e":"💖","sem":"#e0006f","acc":"#e0006f","fc":["#ff3f9e","#ff86c9","#ffc4e3"],"fo":["#ff3f9e","#ff86c9","#ffc4e3"],"r":22,"only":"light","tex":"rosa","pz":"suave","ft":"Pacifico","fx":"Manrope","card":"#ffffff","bar":"#ffffff"},
+  {"id":"plastilina","n":"Plastilina","e":"🧸","sem":"#6f5cf1","acc":"#6f5cf1","fc":["#ece8ff","#ffeaf2"],"fo":["#ece8ff","#ffeaf2"],"r":26,"only":"light","tex":"plastilina","pz":"plastilina","ft":"Baloo 2","fx":"Baloo 2","line":"#6e5ac8"},
+  {"id":"neobrutal","n":"Neo-brutal pastel","e":"🟨","sem":"#ff90e8","acc":"#ff90e8","fc":["#fdf0d5","#fdf0d5"],"fo":["#fdf0d5","#fdf0d5"],"r":14,"only":"light","tex":"puntosPastel","pz":"brutal","ft":"Bricolage Grotesque","fx":"Bricolage Grotesque","line":"#111111"},
+  {"id":"suizo","n":"Suizo","e":"🇨🇭","sem":"#ff3b1f","acc":"#ff3b1f","fc":["#f3f3f0","#f3f3f0"],"fo":["#f3f3f0","#f3f3f0"],"r":0,"only":"light","tex":"suizo","pz":"suiza","ft":"Archivo","fx":"Archivo","line":"#111111","bar":"#f3f3f0"},
+  {"id":"bosque_niebla","n":"Bosque con niebla","e":"🌲","sem":"#2f5d46","acc":"#2f5d46","fc":["#d3dcd4","#b5c4b9","#7d9787"],"fo":["#d3dcd4","#b5c4b9","#7d9787"],"r":20,"only":"light","tex":"bosque","pz":"cristal","ft":"Fraunces","fx":"Lexend","card":"#f6faf7","line":"#ffffff","bar":"#000000"},
+  {"id":"y2k","n":"Y2K cromado","e":"💿","sem":"#ff4fd8","acc":"#ff4fd8","fc":["#c9d6ff","#eceff4","#fbc2eb","#a6c1ee"],"fo":["#c9d6ff","#eceff4","#fbc2eb","#a6c1ee"],"r":22,"only":"light","tex":"y2k","pz":"cristal","ft":"Unbounded","fx":"Manrope","card":"#ffffff","bar":"#f4f6fb"}
+];
+const LOOKS_COLOR=[
+  {"id":"aurora","n":"Aurora","e":"🌌","sem":"#7c4dff","acc":"#ff4081","fc":["#f3e8ff","#ffe3f1"],"fo":["#1a1030","#2b1237"],"r":28},
+  {"id":"oceano","n":"Océano","e":"🌊","sem":"#0288d1","acc":"#00bfa5","fc":["#e0f7fa","#e3f0ff"],"fo":["#08202e","#0b2f3a"],"r":20},
+  {"id":"bosque","n":"Bosque","e":"🌿","sem":"#2e7d32","acc":"#ffb300","fc":["#e8f5e9","#fff8e1"],"fo":["#0f1f14","#1b2a16"],"r":16},
+  {"id":"atardecer","n":"Atardecer","e":"🌅","sem":"#f4511e","acc":"#ffb300","fc":["#fff3e0","#ffe0e6"],"fo":["#2a1410","#3a1b24"],"r":24},
+  {"id":"chicle","n":"Chicle","e":"🍬","sem":"#ec407a","acc":"#26c6da","fc":["#fce4ec","#e1f5fe"],"fo":["#2b1220","#12262e"],"r":34},
+  {"id":"medianoche","n":"Medianoche","e":"🌙","sem":"#00e5ff","acc":"#d500f9","fc":["#000000","#0a0f1c"],"fo":["#000000","#0a0f1c"],"r":12,"only":"dark"},
+  {"id":"sencillo","n":"Sencillo","e":"⚪","sem":"#1e6fd9","acc":"#1e6fd9","fc":["#fafafa","#fafafa"],"fo":["#121212","#121212"],"r":10},
+  {"id":"lavanda","n":"Lavanda","e":"💜","sem":"#9575cd","acc":"#4db6ac","fc":["#f1ecfa","#e8f4f8"],"fo":["#1b1726","#14222a"],"r":22},
+  {"id":"menta","n":"Menta","e":"🍃","sem":"#00897b","acc":"#ff8a65","fc":["#e0f2f1","#f1fbf4"],"fo":["#0b201e","#13241b"],"r":18},
+  {"id":"cafe","n":"Café","e":"☕","sem":"#795548","acc":"#ffb74d","fc":["#f5ede6","#fff4e5"],"fo":["#1e1612","#2a1e16"],"r":14},
+  {"id":"cereza","n":"Cereza","e":"🍒","sem":"#c62828","acc":"#ffca28","fc":["#ffebee","#fff8e1"],"fo":["#2a0f12","#2e1a10"],"r":20},
+  {"id":"nordico","n":"Nórdico","e":"❄️","sem":"#546e7a","acc":"#81d4fa","fc":["#eceff1","#e3f2fd"],"fo":["#141a1e","#18222b"],"r":12},
+  {"id":"arena","n":"Arena","e":"🏜️","sem":"#c79a3e","acc":"#26a69a","fc":["#fbf3e4","#f3ebdd"],"fo":["#231d12","#1f1a14"],"r":16},
+  {"id":"limon","n":"Limón","e":"🍋","sem":"#9e9d24","acc":"#7e57c2","fc":["#f9fbe7","#fffde7"],"fo":["#1d1f0e","#22200e"],"r":26},
+  {"id":"grafito","n":"Grafito","e":"🖤","sem":"#b0bec5","acc":"#ff6e40","fc":["#121417","#1c1f24"],"fo":["#121417","#1c1f24"],"r":10,"only":"dark"}
+];
+const LOOKS=[...LOOKS_FULL,...LOOKS_COLOR];
+const lookById=id=>LOOKS.find(l=>l.id===id)||null;
+const SERIF_FONTS=['Playfair Display','Source Serif 4','Cormorant Garamond','Instrument Serif','Italiana','Lora','Young Serif','Fraunces'];
+const fontStack=f=>f?`"${f}",${SERIF_FONTS.includes(f)?'Georgia,serif':'system-ui,sans-serif'}`:null;
+// The colours the app uses for a theme: text always readable on the background, bars and cards.
+function lookColors(L,dark){
+  const stops=L.only==='dark'?L.fo:L.only==='light'?L.fc:(dark?L.fo:L.fc);
+  let bg=stops[0];for(let i=1;i<stops.length;i++)bg=mixHex(bg,stops[i],1/(i+1));
+  const isDark=relLum(bg)<.2;
+  let fg=isDark?mixHex('#f4f2ec',L.sem,.08):mixHex('#15171a',L.sem,.15);
+  if(stops.some(s=>contrast(fg,s)<4.5))fg=isDark?'#ffffff':'#000000';
+  const glass=['vidrio','cristal','panel','neon'].includes(L.pz);
+  let panel=!glass&&L.card&&contrast(fg,L.card)>=4.5?L.card:mixHex(bg,isDark?'#ffffff':'#ffffff',isDark?.09:.62);
+  if(contrast(fg,panel)<4.5)panel=isDark?mixHex(bg,'#000000',.25):mixHex(bg,'#ffffff',.85);
+  const bar=L.bar&&contrast(fg,L.bar)>=4.5?L.bar:panel;
+  return{accent:L.sem,acc2:L.acc||L.sem,bg,panel,fg,bar,line:L.line||null,isDark,grad:stops.length>1?`linear-gradient(160deg,${stops.join(',')})`:stops[0]};
+}
 /* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,autoUpdate:true,updLast:0,laserAuto:true};
+const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -543,16 +743,23 @@ const WEBAPP=!NATIVE&&!!window.MEDLOM_PWA;
 const CAN_SYNC=!!NATIVE||WEBAPP;
 /* custom look: colors, fonts and buttons */
 const FONT_OPTS=[['barlow','Barlow','"Barlow Condensed","Arial Narrow",system-ui,sans-serif'],['atkinson','Atkinson','"Atkinson Hyperlegible",system-ui,sans-serif'],['inter','Inter','"Inter",system-ui,sans-serif'],['nunito','Nunito','"Nunito",system-ui,sans-serif'],['lora','Lora','"Lora",Georgia,serif'],['oswald','Oswald','"Oswald","Arial Narrow",sans-serif'],['montserrat','Montserrat','"Montserrat",system-ui,sans-serif'],['system','Sistema','system-ui,-apple-system,"Segoe UI",Roboto,sans-serif']];
-const fontCss=k=>(FONT_OPTS.find(f=>f[0]===k)||[])[2];
+// 'tema' = the letters of the chosen complete theme
+const fontCss=(k,role)=>{if(k==='tema'){const L=lookById(SET.look);return L&&L.ft?fontStack(role==='d'?L.ft:L.fx):null}return(FONT_OPTS.find(f=>f[0]===k)||[])[2]};
 const CVARS=['--bg','--panel','--raise','--line','--fg','--muted','--accent','--accent-ink','--accent-text','--hud','--grid','--field','--dim-halo','color-scheme'];
 function themeColors(){const s=getComputedStyle(document.documentElement),g=(k,d)=>{let v=s.getPropertyValue(k).trim();if(/^#[0-9a-f]{3}$/i.test(v))v='#'+v.slice(1).replace(/./g,'$&$&');return /^#[0-9a-f]{6}$/i.test(v)?v.toLowerCase():d};
   return{accent:g('--accent','#ffb21a'),bg:g('--bg','#141619'),panel:g('--panel','#1d2024'),fg:g('--fg','#ecebe6')}}
-function applyLook(){
-  const R=document.documentElement,c=SET.colors;
-  CVARS.forEach(k=>R.style.removeProperty(k));
+const LOOK_VARS=['--bar','--lc','--acc2','--look-grad'];
+function applyLook(sysDark){
+  const R=document.documentElement,c=SET.colors,L=lookById(SET.look);
+  CVARS.concat(LOOK_VARS).forEach(k=>R.style.removeProperty(k));
   let dark=null;
   if(c&&c.on){const v=colorVars(c);for(const k in v)R.style.setProperty(k,v[k]);dark=relLum(c.bg)<.2}
-  const fd=fontCss(SET.fontD),fb=fontCss(SET.fontB);
+  else if(L){const lc=lookColors(L,!!sysDark),v=colorVars(lc);for(const k in v)R.style.setProperty(k,v[k]);
+    R.style.setProperty('--bar',lc.bar);R.style.setProperty('--lc',lc.line||v['--line']);R.style.setProperty('--acc2',lc.acc2);R.style.setProperty('--look-grad',lc.grad);dark=lc.isDark}
+  // complete-theme look: texture, card shape and capital titles (colour styles only change colours)
+  if(L&&!(c&&c.on)){R.dataset.look=L.id;if(L.tex){R.dataset.tex=L.tex;R.dataset.piece=L.pz}else{delete R.dataset.tex;delete R.dataset.piece}if(L.up)R.dataset.upper='1';else delete R.dataset.upper}
+  else{delete R.dataset.look;delete R.dataset.tex;delete R.dataset.piece;delete R.dataset.upper}
+  const fd=fontCss(SET.fontD,'d'),fb=fontCss(SET.fontB,'b');
   if(fd&&SET.fontD!=='barlow')R.style.setProperty('--f-display',fd);else R.style.removeProperty('--f-display');
   if(fb&&SET.fontB!=='atkinson')R.style.setProperty('--f-body',fb);else R.style.removeProperty('--f-body');
   R.dataset.btn=SET.btnShape||'round';R.dataset.btnfill=SET.btnFill||'filled';R.dataset.tnames=SET.toolNames===false?'off':'on';
@@ -571,7 +778,7 @@ function applySettings(){
   document.documentElement.dataset.tema=t;
   if(t==='auto') document.documentElement.dataset.theme=resolved;
   else delete document.documentElement.dataset.theme;
-  const cd=applyLook();
+  const cd=applyLook(resolved==='dark'||darkish.includes(resolved));
   if(NATIVE){try{NATIVE.setTheme(cd!=null?cd:(darkish.includes(resolved)||resolved==='dark'))}catch(e){}}
 }
 
@@ -2031,9 +2238,11 @@ window.addEventListener('beforeunload',e=>{if(dirty()){e.preventDefault();e.retu
 
 /* ================= settings view ================= */
 const CLOUDS=[{id:'gdrive',name:'Google Drive',bg:'#1e8e3e',ini:'GD'},{id:'jotta',name:'Jottacloud',bg:'#6f42c1',ini:'JC'}];
-function segH(k,opts){return`<div class="seg" data-k="${k}">${opts.map(([v,l])=>`<button data-v="${v}" aria-pressed="${String(SET[k])===String(v)}">${l}</button>`).join('')}</div>`}
+function segH(k,opts){return`<div class="seg" data-k="${k}">${opts.map(([v,l])=>`<button data-v="${v}" aria-pressed="${k!=='temaClasico'&&String(SET[k])===String(v)}">${l}</button>`).join('')}</div>`}
 function swH(k){return`<label class="switch"><input type="checkbox" data-k="${k}" ${SET[k]?'checked':''} aria-label="${k}"><i></i></label>`}
-const fontSeg=k=>`<div class="seg" data-k="${k}">${FONT_OPTS.map(([v,l,css])=>`<button data-v="${v}" aria-pressed="${String(SET[k])===v}" style="font-family:${css.replace(/"/g,'&quot;')}">${l}</button>`).join('')}</div>`;
+const fontSeg=k=>{const L=lookById(SET.look),opts=L&&L.ft?[['tema','Del tema',fontStack(k==='fontD'?L.ft:L.fx)],...FONT_OPTS]:FONT_OPTS;return`<div class="seg" data-k="${k}">${opts.map(([v,l,css])=>`<button data-v="${v}" aria-pressed="${String(SET[k])===v}" style="font-family:${css.replace(/"/g,'&quot;')}">${l}</button>`).join('')}</div>`};
+const lookCard=L=>{const lc=lookColors(L,document.documentElement.dataset.theme==='dark'||['dark','high','blue','forest','midnight'].includes(SET.tema));
+  return`<button class="lookcard" data-look="${L.id}" aria-pressed="${SET.look===L.id}" aria-label="Tema ${esc(L.n)}" style="background:${lc.grad};color:${lc.fg};font-family:${(L.ft?fontStack(L.ft):'inherit').replace(/"/g,'&quot;')}"><span class="le" aria-hidden="true">${L.e}</span><span class="ln">${esc(L.n)}</span><i style="background:${lc.accent}"></i></button>`};
 const row=(label,desc,ctrl)=>`<div class="srow"><div class="sl"><b>${label}</b>${desc?`<small>${desc}</small>`:''}</div>${ctrl}</div>`;
 async function renderSettings(){
   const body=$('#sBody'),sc=body.scrollTop;
@@ -2048,7 +2257,9 @@ async function renderSettings(){
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
-    ${row('Tema','Elige el aspecto de la app. Automático sigue el sistema.',segH('tema',[
+    <div class="srow lookrow"><div class="sl"><b>Temas completos</b><small>Como en Agenda Familiar: cambian también las letras, el fondo y las tarjetas.${SET.look&&lookById(SET.look)&&lookById(SET.look).tex?' Toca el tema elegido otra vez para quitarlo.':''}</small></div><div class="looks" role="group" aria-label="Temas completos">${LOOKS_FULL.map(lookCard).join('')}</div></div>
+    <div class="srow lookrow"><div class="sl"><b>Estilos de color</b><small>Solo cambian los colores; siguen el modo claro u oscuro del sistema.</small></div><div class="looks" role="group" aria-label="Estilos de color">${LOOKS_COLOR.map(lookCard).join('')}</div></div>
+    ${row(SET.look?'Temas clásicos':'Tema',SET.look?'Elige uno para volver a los temas de siempre.':'Elige el aspecto de la app. Automático sigue el sistema.',segH(SET.look?'temaClasico':'tema',[
       ['auto','Auto'],
       ['light','Claro'],
       ['cream','Claro cálido'],
@@ -2148,7 +2359,12 @@ async function renderSettings(){
 $('#settings').addEventListener('click',async e=>{
   const sc2=e.target.closest('.secbtn');if(sc2){pushView({v:'settings',sec:sc2.dataset.sec});return}
   const sb=e.target.closest('.seg button');
-  if(sb){const k=sb.parentElement.dataset.k,v=sb.dataset.v;SET[k]=(k==='loupeZoom')?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
+  const lk=e.target.closest('.lookcard');
+  if(lk){const id=lk.dataset.look,L=lookById(id);if(!L)return;
+    if(SET.look===id){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson';toast('Tema quitado')}
+    else{SET.look=id;if(SET.colors)SET.colors={...SET.colors,on:false};SET.btnShape=L.r<=4?'square':L.r>=26?'pill':'round';if(L.ft){SET.fontD='tema';SET.fontB='tema'}else{if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}toast('Tema: '+L.n)}
+    saveSettings();applySettings();renderSettings();return}
+  if(sb){let k=sb.parentElement.dataset.k;const v=sb.dataset.v;if(k==='temaClasico')k='tema';if(k==='tema'){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}SET[k]=(k==='loupeZoom')?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
   const la=e.target.closest('[data-laser]');
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}
@@ -2211,15 +2427,15 @@ const CAN_UPD=!!(NATIVE&&NATIVE.updateCheck);
 let updBusy=false;
 async function checkUpdate(manual){
   if(!CAN_UPD||updBusy)return;
-  if(!manual&&(SET.autoUpdate===false||Date.now()-(SET.updLast||0)<20*3600e3))return;
+  if(!manual&&SET.autoUpdate===false)return;
   updBusy=true;const r=await nativeAsync('updateCheck',UPD_URL);updBusy=false;
-  if(!manual){SET.updLast=Date.now();saveSettings()}
   if(!r||!r.ok||!r.info){if(manual)toast('No se pudo comprobar: '+((r&&r.error)||'sin conexión'));return}
   const i=r.info;
   if(!(+i.versionCode>(+r.current||NATIVE.appVersionCode()))){if(manual)toast(`Tienes la última versión (${NATIVE.appVersionName()})`);return}
+  const sn=SET.updSnooze;if(!manual&&sn&&sn.v===+i.versionCode&&Date.now()-sn.t<864e5)return;
   const notes=(Array.isArray(i.notes)?i.notes:[]).slice(0,8).map(n=>'• '+n).join('\n'),mb=i.size?` · ${(i.size/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})} MB`:'';
   const a=await dialog(`MedLoM ${i.versionName} disponible`,`Tienes la ${NATIVE.appVersionName()}.${notes?'\n\nNovedades:\n'+notes:''}\n\nTus fotos, proyectos y ajustes se conservan.`,[{id:'y',label:'Actualizar'+mb,kind:'primary'},{id:'n',label:'Más tarde'}]);
-  if(a==='y')installUpdate(i);
+  if(a==='y')installUpdate(i);else{SET.updSnooze={v:+i.versionCode,t:Date.now()};saveSettings()}
 }
 async function installUpdate(i){
   if(!NATIVE.updateCanInstall()){
@@ -2230,11 +2446,16 @@ async function installUpdate(i){
     await new Promise(res=>setTimeout(res,400));
     if(!NATIVE.updateCanInstall()){toast('Sin ese permiso no se puede instalar la actualización');return}
   }
-  const m=openModal(`<div class="sheet"><h2>Descargando MedLoM ${esc(i.versionName)}</h2><div style="height:10px;border-radius:999px;background:var(--raise);overflow:hidden"><div id="updBar" style="height:100%;width:0;background:var(--accent);transition:width .2s"></div></div><p class="note" id="updPct" role="status">Preparando…</p></div>`);
+  const m=openModal(`<div class="sheet"><h2>Descargando MedLoM ${esc(i.versionName)}</h2><div style="height:10px;border-radius:999px;background:var(--raise);overflow:hidden"><div id="updBar" style="height:100%;width:0;background:var(--accent);transition:width .2s"></div></div><p class="note" id="updPct" role="status">Preparando…</p><div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`);
+  m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]')){try{NATIVE.updateCancel()}catch(err){}m.wrap.querySelector('#updPct').textContent='Cancelando…'}});
   window.__medlomUpdProgress=p=>{const b=m.wrap.querySelector('#updBar');if(b){b.style.width=p+'%';m.wrap.querySelector('#updPct').textContent=p+' %'}};
   const r=await nativeAsyncT(0,'updateDownload',new URL(i.apk||'MedLoM.apk',UPD_URL).href,i.sha256||'');
   window.__medlomUpdProgress=null;m.close(true);
-  if(!r||!r.ok){toast('No se pudo descargar: '+((r&&r.error)||'error'));return}
+  if(!r||!r.ok){if(r&&r.error==='cancelada'){toast('Descarga cancelada');return}
+    const apk=new URL(i.apk||'MedLoM.apk',UPD_URL).href;
+    const a=await dialog('No se pudo actualizar',`${(r&&r.error)||'Error en la descarga'}. Mira tu conexión e inténtalo otra vez, o descárgala con el navegador y ábrela desde las descargas.`,[{id:'y',label:'Reintentar',kind:'primary'},{id:'b',label:'Descargar con el navegador'},{id:'n',label:'Cerrar'}]);
+    if(a==='y')installUpdate(i);else if(a==='b')location.href=apk;
+    return}
   // the installer closes MedLoM: keep the photo being edited
   if(rec&&(dirty()||rec.fresh))await saveEditor();
   NATIVE.updateInstall();

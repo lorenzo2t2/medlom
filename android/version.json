@@ -1,14 +1,12 @@
 {
- "versionCode": 43,
- "versionName": "0.44.0",
+ "versionCode": 44,
+ "versionName": "0.45.0",
  "apk": "MedLoM.apk",
- "size": 9767285,
- "sha256": "fb5e0c9cbea128cbbbc3196383a32754d5d92b150cea7cbecb4b25eecfbdbf6c",
+ "size": 11093716,
+ "sha256": "66e9dec72c253321f5ed806a20f4fb5ee977389e328d0290722814bcb465645a",
  "notes": [
-  "«Restaurar foto original» en el menú ⋮ de la foto: deshace girar, enderezar y recortar, con las medidas de antes.",
-  "Recordatorio de copia de seguridad si tus fotos solo están en el móvil (como mucho cada 14 días).",
-  "Ajustes › Datos muestra la fecha de la última copia de seguridad.",
-  "Botón para borrar las capturas 3D antiguas y recuperar espacio.",
-  "La sincronización ya no pierde cambios si un móvil tiene la hora atrasada."
+  "33 temas completos y 15 estilos de color, como en Agenda Familiar: cambian colores, letras, fondo y tarjetas",
+  "La app busca actualizaciones cada vez que se abre",
+  "Puedes cancelar la descarga de una actualización o bajarla con el navegador si falla"
  ]
 }
