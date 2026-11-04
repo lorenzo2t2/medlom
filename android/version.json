@@ -1,11 +1,10 @@
 {
- "versionCode": 45,
- "versionName": "0.45.1",
+ "versionCode": 46,
+ "versionName": "0.45.2",
  "apk": "MedLoM.apk",
- "size": 11093928,
- "sha256": "a95499f0e42ef6e39356c7f51e8d21460b0840bf733546699f430b5f1e44d0b7",
+ "size": 11093900,
+ "sha256": "79fa8137ef8dc586cf7343181565862ab2bbcd511514b78fe87478653bf54ce6",
  "notes": [
-  "Ya se pueden deslizar las filas de temas en Ajustes › Apariencia",
-  "En PC, la rueda del ratón mueve las filas de temas"
+  "Texto de los temas completos más claro"
  ]
 }

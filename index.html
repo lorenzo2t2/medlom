@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.1";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.2";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -2257,7 +2257,7 @@ async function renderSettings(){
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
-    <div class="srow lookrow"><div class="sl"><b>Temas completos</b><small>Como en Agenda Familiar: cambian también las letras, el fondo y las tarjetas.${SET.look&&lookById(SET.look)&&lookById(SET.look).tex?' Toca el tema elegido otra vez para quitarlo.':''}</small></div><div class="looks" role="group" aria-label="Temas completos">${LOOKS_FULL.map(lookCard).join('')}</div></div>
+    <div class="srow lookrow"><div class="sl"><b>Temas completos</b><small>Cambian también las letras, el fondo y las tarjetas.${SET.look&&lookById(SET.look)&&lookById(SET.look).tex?' Toca el tema elegido otra vez para quitarlo.':''}</small></div><div class="looks" role="group" aria-label="Temas completos">${LOOKS_FULL.map(lookCard).join('')}</div></div>
     <div class="srow lookrow"><div class="sl"><b>Estilos de color</b><small>Solo cambian los colores; siguen el modo claro u oscuro del sistema.</small></div><div class="looks" role="group" aria-label="Estilos de color">${LOOKS_COLOR.map(lookCard).join('')}</div></div>
     ${row(SET.look?'Temas clásicos':'Tema',SET.look?'Elige uno para volver a los temas de siempre.':'Elige el aspecto de la app. Automático sigue el sistema.',segH(SET.look?'temaClasico':'tema',[
       ['auto','Auto'],
