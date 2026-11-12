@@ -1,16 +1,13 @@
 {
- "versionCode": 50,
- "versionName": "0.48.1",
+ "versionCode": 51,
+ "versionName": "0.48.2",
  "apk": "MedLoM.apk",
- "size": 67362293,
- "sha256": "137c1fda6ba6e63d8728a26bf2cc966dccbf4cb1aadb461243a0eb0bbfdd4aef",
+ "size": 67362331,
+ "sha256": "5fef8fda518cb76c2684e8241fd650b112a01031f7a7bdb0dc683999d18a206a",
  "notes": [
-  "Corregida la detección de vistas: una ventanilla dentro del vehículo no cuenta como otra vista.",
-  "Detecta recuadros verdes de la lámina y los convierte en áreas editables; permite recuperarlos en trabajos anteriores.",
-  "Material explica qué referencia falta y permite confirmar vehículo y generación sin cambiar de pestaña.",
-  "La longitud L1/L2 se puede completar en Material; las áreas se recalculan al seleccionarla.",
-  "Se muestran las medidas de cada zona junto al total y al precio.",
-  "Actualiza la detección de los trabajos guardados conservando áreas y referencias corregidas.",
-  "El reconocimiento visual sigue siendo orientativo; requiere confirmar modelo y variante."
+  "Corregido el panel de referencia de Material: fondo y texto coherentes con el tema claro u oscuro de MedLoM.",
+  "Mejorado el contraste de instrucciones, etiquetas y texto de búsqueda.",
+  "Los avisos de Rotulación usan los colores del tema de MedLoM.",
+  "Comprobado el contraste en 96 combinaciones de temas; mínimo 6,71:1 en los textos y campos del panel."
  ]
 }

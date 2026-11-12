@@ -1,0 +1,5 @@
+MedLoM 0.48.2
+- Corregido el panel de referencia de Material: fondo y texto coherentes con el tema claro u oscuro de MedLoM.
+- Mejorado el contraste de instrucciones, etiquetas y texto de búsqueda.
+- Los avisos de Rotulación usan los colores del tema de MedLoM.
+- Comprobado el contraste en 96 combinaciones de temas; mínimo 6,71:1 en los textos y campos del panel.
