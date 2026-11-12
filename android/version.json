@@ -1,17 +1,16 @@
 {
- "versionCode": 49,
- "versionName": "0.48.0",
+ "versionCode": 50,
+ "versionName": "0.48.1",
  "apk": "MedLoM.apk",
- "size": 67357956,
- "sha256": "6a5d78a1be90dc95105168038d82a651a5f06c0eb9b32df8b75e41564ef120a1",
+ "size": 67362293,
+ "sha256": "137c1fda6ba6e63d8728a26bf2cc966dccbf4cb1aadb461243a0eb0bbfdd4aef",
  "notes": [
-  "Rotulación integrada en la galería, con trabajos, imagen y cálculo de materiales guardados.",
-  "Editor a pantalla completa: Marcar zona arriba, pulsación larga para editar y arrastre de un dedo para mover la vista.",
-  "Pestañas Vehículo y archivo, Editar y Material; miniatura del archivo en la primera pestaña.",
-  "Referencias independientes en láminas con varias vistas; ignora cabeceras y pies de texto.",
-  "Sugerencias por comparación visual local con fotos del catálogo; confirmar modelo y variante antes de medir.",
-  "Corregidas las medidas del Peugeot Expert 2007–2016 con el manual oficial de 2014; elegir L1/L2.",
-  "Materiales y precios editables, descripción con botón ?, mínimo de 1 m² y medidas en cm.",
-  "Se conservan la firma original, copias de seguridad y sincronización de MedLoM."
+  "Corregida la detección de vistas: una ventanilla dentro del vehículo no cuenta como otra vista.",
+  "Detecta recuadros verdes de la lámina y los convierte en áreas editables; permite recuperarlos en trabajos anteriores.",
+  "Material explica qué referencia falta y permite confirmar vehículo y generación sin cambiar de pestaña.",
+  "La longitud L1/L2 se puede completar en Material; las áreas se recalculan al seleccionarla.",
+  "Se muestran las medidas de cada zona junto al total y al precio.",
+  "Actualiza la detección de los trabajos guardados conservando áreas y referencias corregidas.",
+  "El reconocimiento visual sigue siendo orientativo; requiere confirmar modelo y variante."
  ]
 }

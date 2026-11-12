@@ -1,0 +1,8 @@
+MedLoM 0.48.1
+- Corregida la detección de vistas: una ventanilla dentro del vehículo no cuenta como otra vista.
+- Detecta recuadros verdes de la lámina y los convierte en áreas editables; permite recuperarlos en trabajos anteriores.
+- Material explica qué referencia falta y permite confirmar vehículo y generación sin cambiar de pestaña.
+- La longitud L1/L2 se puede completar en Material; las áreas se recalculan al seleccionarla.
+- Se muestran las medidas de cada zona junto al total y al precio.
+- Actualiza la detección de los trabajos guardados conservando áreas y referencias corregidas.
+- El reconocimiento visual sigue siendo orientativo; requiere confirmar modelo y variante.
