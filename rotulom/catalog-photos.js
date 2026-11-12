@@ -1,0 +1,5 @@
+window.vehicleCatalogPhoto = (vehicle, compact=false) => {
+  const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const meta=vehicle.catalogueDetails||{},src=meta.profileImageUrl||vehicle.imageUrl,kind=meta.profileImageUrl?(meta.profileImageKind||'Foto de perfil aportada'):meta.photoKind||'Imagen del fabricante',credit=meta.profileImageUrl?(meta.profilePhotoCredit||'Biblioteca personal'):meta.photoCredit||vehicle.sourceLabel;
+  return `<figure class="catalog-photo ${compact?'compact-photo':''}">${src?`<img loading="lazy" src="${esc(src)}" alt="${esc(vehicle.make+' '+vehicle.model+' · '+kind)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="photo-unavailable" hidden>Fotografía pendiente para esta variante</span>`:'<span class="photo-unavailable">Fotografía pendiente para esta variante</span>'}<figcaption><b>${esc(kind)}</b>${compact?'':`<span>${esc(credit)}</span>`}</figcaption></figure>`;
+};

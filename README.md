@@ -93,3 +93,12 @@ MedLoM no tiene servidores propios: tus fotos solo salen del dispositivo si acti
 ---
 
 <p align="center">MedLoM · App para anotar medidas sobre fotografías</p>
+
+
+## Rotulación (0.48.0)
+
+MedLoM incluye Rotulación: vehículo y archivo, edición a pantalla completa y cálculo de material. Las medidas se muestran en cm y se aplica un mínimo facturable de 1 m². Los materiales y precios se editan en Ajustes.
+
+En una lámina con varias vistas, cada vista tiene su propia referencia aproximada. Confirma modelo, generación y L1/L2 y revisa los extremos antes de calcular. La búsqueda visual funciona en el dispositivo y ofrece candidatos; no identifica con garantía el modelo ni su variante. Se puede seleccionar el vehículo manualmente. Los trabajos guardados aparecen en la pestaña Rotulación.
+
+Android: descarga `android/MedLoM.apk` o utiliza Ajustes → Buscar actualización. La instalación conserva el paquete y la firma originales de MedLoM. El reconocimiento visual no envía las fotos a una API; la sincronización con tu Drive sigue siendo opcional.

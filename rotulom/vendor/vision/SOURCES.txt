@@ -1,0 +1,4 @@
+TensorFlow.js 4.22.0. Apache-2.0.
+Modelo MobileNet V1 (ImageNet) de Google, usado solo para similitud de imágenes.
+https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json
+No es un clasificador entrenado de marcas y modelos de vehículos. Las sugerencias requieren confirmación.

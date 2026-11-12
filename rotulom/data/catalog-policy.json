@@ -1,0 +1,32 @@
+{
+  "description": "Catálogo de trabajo para rotulación. Se conservan vehículos comerciales y se excluyen deportivos y turismos de lujo.",
+  "excludedPassengerMakes": [
+    "Alpine",
+    "Aston Martin",
+    "Bentley",
+    "Bugatti",
+    "Ferrari",
+    "Genesis",
+    "Infiniti",
+    "Jaguar",
+    "Lamborghini",
+    "Lexus",
+    "Lotus",
+    "Maserati",
+    "McLaren",
+    "Pagani",
+    "Porsche",
+    "Rolls-Royce",
+    "Koenigsegg"
+  ],
+  "excludedPassengerModelPattern": "\\b(Corvette|Camaro|Challenger|Viper|Supra|GR86|GT86|BRZ|370Z|350Z|MX-5|GT-R|Abarth|GTI|STI|Type R)\\b|\\bMustang\\b(?!\\s+Mach)|\\bRS\\b|\\bST\\b|coup[eé]|roadster|\\bAMG\\b|Maybach|\\b(WRX|Stinger|Veloster|S2000)\\b|\\bGR\\s*Yaris\\b|\\bi(20|30)\\s*N\\b|\\bGolf\\s+R\\b",
+  "excludedModelsByMake": {
+    "Audi": "^(A[6-8]|Q[6-9]|S[4-8]|RS|R8|TT|e-tron GT)\\b",
+    "BMW": "^(5|6|7|8|X[5-7]|i[578]|iX5|iX$|XM|M[2-8]|Z[348]|4 Series Convertible|2 Cabrio)\\b",
+    "Mercedes-Benz": "^(S-Class|Clase S|E-Class|Clase E|EQS|EQE|GLC|GLE|GLS|G-Class|Clase G|SL|SLC|AMG|GT|VLE)\\b",
+    "Land Rover": "^(Range Rover|Discovery)\\b",
+    "Tesla": "^Model [SX]\\b",
+    "Alfa Romeo": "^(4C|8C)\\b",
+    "DS": "^(9|N.8)\\b"
+  }
+}

@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.45.2";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -524,6 +524,10 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 :root[data-piece="plastilina"] :is(.thumb,.scard,.sheet){border:0;border-radius:26px;box-shadow:inset -4px -6px 10px rgba(0,0,0,.08),inset 4px 5px 10px rgba(255,255,255,.7),0 8px 16px rgba(0,0,0,.1)}
 :root[data-piece="suiza"] :is(.thumb,.scard){border:0;border-top:6px solid var(--accent);border-radius:0}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}.empty::before{animation:none}}
+
+#rotulacion.rot-fullscreen>header{display:none}
+
+button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);background:var(--panel)}.rot-job-card.just-saved{outline:2px solid var(--accent);outline-offset:1px}.rot-job-price{color:var(--accent-text);font-weight:700}.rot-pdf-placeholder{display:grid;place-items:center;width:100%;height:100%;font-size:24px;font-weight:700;color:var(--muted)}
 </style>
 
 <div class="app">
@@ -731,6 +735,38 @@ function lookColors(L,dark){
   if(contrast(fg,panel)<4.5)panel=isDark?mixHex(bg,'#000000',.25):mixHex(bg,'#ffffff',.85);
   const bar=L.bar&&contrast(fg,L.bar)>=4.5?L.bar:panel;
   return{accent:L.sem,acc2:L.acc||L.sem,bg,panel,fg,bar,line:L.line||null,isDark,grad:stops.length>1?`linear-gradient(160deg,${stops.join(',')})`:stops[0]};
+}
+function validateBackup(data){return !!data&&data.app==='MedLoM'&&[1,2].includes(data.v)&&Array.isArray(data.projects)&&Array.isArray(data.photos)&&data.projects.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string')&&data.photos.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&p.w>0&&p.h>0);}
+function restoreBackupSettings(current,saved,defaults){const next={...current};if(!saved||typeof saved!=='object')return next;for(const key of Object.keys(defaults)){if(key==='clouds'||!Object.prototype.hasOwnProperty.call(saved,key))continue;const d=defaults[key],value=saved[key];if(d===null||typeof value===typeof d)next[key]=value;}return next;}
+async function encodeBackupValue(value,zip,context={n:0,seen:new WeakMap()}){
+  if(value instanceof Blob||value instanceof ArrayBuffer||ArrayBuffer.isView(value)){
+    if(context.seen.has(value))return context.seen.get(value);
+    const path='adjuntos/'+(++context.n)+'.bin',kind=value instanceof Blob?'Blob':value instanceof ArrayBuffer?'ArrayBuffer':value.constructor.name;
+    const descriptor={$medlomFile:path,kind,mime:value.type||''};context.seen.set(value,descriptor);
+    zip.file(path,value instanceof Blob?value:value instanceof ArrayBuffer?value:value.buffer.slice(value.byteOffset,value.byteOffset+value.byteLength));return descriptor;
+  }
+  if(Array.isArray(value))return Promise.all(value.map(v=>encodeBackupValue(v,zip,context)));
+  if(value&&typeof value==='object'){const pairs=[];for(const [k,v]of Object.entries(value)){if(['__proto__','constructor','prototype'].includes(k))continue;pairs.push([k,await encodeBackupValue(v,zip,context)]);}return Object.fromEntries(pairs);}
+  return value;
+}
+async function decodeBackupValue(value,zip,files=new Map()){
+  if(value&&typeof value==='object'&&Object.prototype.hasOwnProperty.call(value,'$medlomFile')){
+    if(!/^adjuntos\/\d+\.bin$/.test(value.$medlomFile))throw Error('Ruta de archivo no válida en la copia');
+    if(files.has(value.$medlomFile))return files.get(value.$medlomFile);
+    const file=zip.file(value.$medlomFile);if(!file)throw Error('Falta un archivo de la copia');const bytes=await file.async('arraybuffer');let result;
+    if(value.kind==='Blob')result=new Blob([bytes],{type:value.mime||'application/octet-stream'});
+    else if(value.kind==='ArrayBuffer')result=bytes;
+    else{const types={Uint8Array,Uint16Array,Uint32Array,Int8Array,Int16Array,Int32Array,Float32Array,Float64Array};const type=types[value.kind];if(!type)throw Error('Tipo de archivo no compatible');result=new type(bytes);}
+    files.set(value.$medlomFile,result);return result;
+  }
+  if(Array.isArray(value))return Promise.all(value.map(v=>decodeBackupValue(v,zip,files)));
+  if(value&&typeof value==='object'){const pairs=[];for(const [k,v]of Object.entries(value)){if(['__proto__','constructor','prototype'].includes(k))continue;pairs.push([k,await decodeBackupValue(v,zip,files)]);}return Object.fromEntries(pairs);}return value;
+}
+async function zipRotRecord(record){const z=new JSZip();z.file('record.json',JSON.stringify(await encodeBackupValue(record,z)));return z.generateAsync({type:'blob',compression:'STORE'});}
+async function unzipRotRecord(blob){const z=await JSZip.loadAsync(blob),f=z.file('record.json');if(!f)throw Error('Archivo de rotulación incompleto');return decodeBackupValue(JSON.parse(await f.async('string')),z);}
+async function commitBackupPlan(plan){
+  if(!DB.ok)throw Error('No hay almacenamiento persistente disponible');
+  await new Promise((resolve,reject)=>{const t=DB.db.transaction(['photos','projects','meta','scans'],'readwrite');t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||Error('Restauración cancelada'));try{for(const name of ['photos','projects','meta','scans'])for(const item of plan[name]||[])t.objectStore(name).put(item);}catch(e){t.abort();reject(e);}});
 }
 /* ================= settings ================= */
 const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
@@ -1042,7 +1078,7 @@ async function doBack(){
 function show(){
   const top=stack[stack.length-1];
   document.body.classList.toggle('in-editor',top.v==='editor');
-  
+
   $('#gallery').hidden=top.v!=='gallery';$('#editor').hidden=top.v!=='editor';$('#settings').hidden=top.v!=='settings';
   if(top.v==='gallery')renderGallery();if(top.v==='settings')renderSettings();
 }
@@ -1417,7 +1453,7 @@ async function previewExport(blob,fname,entries,clean){
 function shareSheet(blob,fname,entries,clean){
   const mb=(blob.size/1048576).toLocaleString('es-ES',{maximumFractionDigits:1}),isPdf=/\.pdf$/.test(fname),ext=(fname.split('.').pop()||'').toLowerCase();
   if(NATIVE){
-    const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',jpg:'image/jpeg'}[ext]||'application/octet-stream';
+    const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',json:'application/json',jpg:'image/jpeg'}[ext]||'application/octet-stream';
     const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col"><button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo…)</button><button class="btn ghost" data-a="save">Guardar en Documentos › MedLoM</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
     m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b||b.disabled)return;
       if(b.dataset.a==='save')return nativeSaveFlow(m,a=>sendToNative(blob,fname,mime,a),'Guardado en Documentos › MedLoM');
@@ -1427,7 +1463,7 @@ function shareSheet(blob,fname,entries,clean){
     return;
   }
   if(WEBAPP){
-    const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',jpg:'image/jpeg'}[ext]||'application/octet-stream';
+    const mime={pdf:'application/pdf',zip:'application/zip',csv:'text/csv',json:'application/json',jpg:'image/jpeg'}[ext]||'application/octet-stream';
     const file=new File([blob],fname,{type:mime});let canShare=false;try{canShare=!!(navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){}
     const m=openModal(`<div class="sheet"><h2>Listo para compartir</h2><p class="txt"><b>${esc(fname)}</b> · ${mb} MB${isPdf?` · ${entries.length} ${entries.length===1?'foto':'fotos'} en un PDF`:''}</p><div class="col">${canShare?`<button class="btn primary" data-a="share">${IC.share}Compartir (WhatsApp, Correo, Archivos…)</button>`:''}${CAN_DIR?`<button class="btn ${canShare?'ghost':'primary'}" data-a="dir">Guardar en Documentos › MedLoM</button>`:''}<button class="btn ${canShare||CAN_DIR?'ghost':'primary'}" data-a="dl">Descargar</button><button class="btn ghost" data-c>Cerrar</button></div></div>`);
     m.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-a]');if(!b)return;
@@ -2647,6 +2683,7 @@ async function syncDrive(manual){
       n.thumb=await makeThumb(n);await put('photos',n);
       if(l)Object.assign(l,n);else store.photos.push(n);changed=true;
     }
+    await syncRotulacionDrive(dataId,byName);
     SET.drive={...(SET.drive||{}),lastSync:Date.now()};saveSettings();
     DRIVE.busy=false;setDrive('ok');
     if(manual&&!SYNC_ALL)toast('Google Drive al día');
@@ -2728,7 +2765,7 @@ function showGuide(){let i=0;
 async function createBackup(){
   const list=store.photos.filter(p=>!isSampleProj(projById(p.projectId)));
   const projs=store.projects.filter(p=>!isSampleProj(p));
-  if(!list.length&&!projs.length){toast('No hay fotos propias que copiar');return}
+
   if(!window.JSZip){toast('No se pudo crear la copia. Vuelve a abrir la app.');return}
   const m=openModal(`<div class="sheet"><h2>Creando copia de seguridad…</h2><p class="txt" id="bkp">Preparando</p><div class="spin"></div></div>`);
   try{
@@ -2736,8 +2773,11 @@ async function createBackup(){
     for(let i=0;i<list.length;i++){const r=list[i];const p=m.wrap.querySelector('#bkp');if(p)p.textContent=`Foto ${i+1} de ${list.length}`;
       await ready(r);if(!r.img)continue;z.file(`fotos/${r.id}.jpg`,r.img);
       photos.push({id:r.id,name:r.name,projectId:r.projectId||null,created:r.created,updated:r.updated,w:r.w,h:r.h,objs:r.objs||[],calib:r.calib||null,imgRev:r.imgRev||0})}
+    const materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]');if(!Array.isArray(materials))throw new Error('la biblioteca de materiales no es válida');
     const st={...SET};delete st.drive;delete st.jotta;delete st.onedrive;delete st.tomb;delete st.clouds;
-    z.file('medlom-copia.json',JSON.stringify({app:'MedLoM',v:1,created:Date.now(),projects:projs,photos,settings:st},null,1));
+    const meta=(await getAll('meta')).filter(x=>x.id.startsWith('orig:')||x.id.startsWith('rot:'));
+    const extras=await encodeBackupValue({meta,scans:await getAll('scans')},z);
+    z.file('medlom-copia.json',JSON.stringify({app:'MedLoM',v:2,created:Date.now(),projects:projs,photos,settings:st,rotulacion:{materials},extras},null,1));
     const blob=await z.generateAsync({type:'blob',compression:'STORE'});
     m.close(true);SET.lastBackup=Date.now();saveSettings();
     const d=new Date();shareSheet(blob,`MedLoM copia ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.zip`,photos.map(x=>({rec:x})));
@@ -2746,25 +2786,31 @@ async function createBackup(){
 $('#fileZip').addEventListener('change',async e=>{
   const f=e.target.files[0];e.target.value='';if(!f)return;
   const m=openModal(`<div class="sheet"><h2>Leyendo la copia…</h2><p class="txt" id="rsp">Abriendo el archivo</p><div class="spin"></div></div>`);
+  let m2=null;
   try{
     const z=await JSZip.loadAsync(f),jf=z.file('medlom-copia.json');
     if(!jf)throw new Error('este archivo no es una copia de MedLoM');
-    const data=JSON.parse(await jf.async('string'));
+    const data=JSON.parse(await jf.async('string'));if(!validateBackup(data))throw new Error('formato de copia no compatible o incompleto');
+    if(data.rotulacion&&(!Array.isArray(data.rotulacion.materials)||!data.rotulacion.materials.every(m=>m&&typeof m.id==='string'&&typeof m.name==='string'&&Number.isFinite(m.price)&&m.price>=0)))throw new Error('materiales de la copia no válidos');
     m.close(true);
-    const r=await dialog('Restaurar copia',`La copia es del ${fmtDate(data.created)} y tiene ${data.photos.length} fotos y ${data.projects.length} proyectos. Se añadirán a lo que ya tienes; si una foto ya existe, se queda la versión más reciente.`,[{id:'y',label:'Restaurar',kind:'primary'},{id:'n',label:'Cancelar'}]);
+    const r=await dialog('Restaurar copia',`La copia es del ${fmtDate(data.created)} y tiene ${data.photos.length} fotos y ${data.projects.length} proyectos. Se añadirán a lo que ya tienes; si una foto ya existe, se queda la versión más reciente. También se recuperarán los ajustes y se sustituirá la biblioteca de materiales por la incluida en la copia.`,[{id:'y',label:'Restaurar',kind:'primary'},{id:'n',label:'Cancelar'}]);
     if(r!=='y')return;
-    const m2=openModal(`<div class="sheet"><h2>Restaurando…</h2><p class="txt" id="rsp2"></p><div class="spin"></div></div>`);
-    let nP=0,nF=0;
-    for(const p of data.projects){const l=projById(p.id);if(!l){store.projects.push({...p});await put('projects',{...p});nP++}else if((p.updated||0)>(l.updated||0)){Object.assign(l,p);await put('projects',l);nP++}}
-    for(let i=0;i<data.photos.length;i++){const meta=data.photos[i];const t=m2.wrap.querySelector('#rsp2');if(t)t.textContent=`Foto ${i+1} de ${data.photos.length}`;
-      const l=store.photos.find(x=>x.id===meta.id);if(l&&(l.updated||0)>=meta.updated)continue;
-      const zf=z.file(`fotos/${meta.id}.jpg`);if(!zf)continue;
-      const img=new Blob([await zf.async('arraybuffer')],{type:'image/jpeg'});
-      const n={...(l||{}),...meta,img,thumb:null};if(n.projectId&&!projById(n.projectId))n.projectId=null;
-      n.thumb=await makeThumb(n);await put('photos',n);if(l)Object.assign(l,n);else store.photos.push(n);nF++}
+    m2=openModal(`<div class="sheet"><h2>Restaurando…</h2><p class="txt" id="rsp2"></p><div class="spin"></div></div>`);
+    const rotFrame=document.getElementById('rotFrame');if(rotFrame?.contentWindow?.rotulomJobs)await rotFrame.contentWindow.rotulomJobs.pause();
+    let nP=0,nF=0;const plan={projects:[],photos:[],meta:[],scans:[]},projects=new Map(store.projects.map(p=>[p.id,p]));
+    for(const p of data.projects){const old=projects.get(p.id);if(!old||(p.updated||0)>(old.updated||0)){plan.projects.push({...p});projects.set(p.id,p);nP++;}}
+    for(let i=0;i<data.photos.length;i++){const meta=data.photos[i],t=m2.wrap.querySelector('#rsp2');if(t)t.textContent=`Preparando foto ${i+1} de ${data.photos.length}`;const old=store.photos.find(p=>p.id===meta.id);if(old&&(old.updated||0)>=(meta.updated||0))continue;const file=z.file(`fotos/${meta.id}.jpg`);if(!file)throw Error('Falta una foto en la copia');const n={...meta,img:new Blob([await file.async('arraybuffer')],{type:'image/jpeg'}),thumb:null};if(n.projectId&&!projects.has(n.projectId))n.projectId=null;n.thumb=await makeThumb(n);plan.photos.push(n);nF++;}
+    if(data.extras){const extras=await decodeBackupValue(data.extras,z);if(!Array.isArray(extras.meta)||!Array.isArray(extras.scans))throw Error('Datos adicionales no válidos');const oldMeta=new Map((await getAll('meta')).map(x=>[x.id,x]));for(const item of extras.meta){if(typeof item.id!=='string'||(!item.id.startsWith('orig:')&&!item.id.startsWith('rot:')))throw Error('Registro adicional no permitido');const old=oldMeta.get(item.id);if(!old||(item.updated||item.at||0)>=(old.updated||old.at||0))plan.meta.push(item);}for(const item of extras.scans){if(typeof item.id!=='string')throw Error('Captura 3D sin identificador');plan.scans.push(item);}}
+    const restoredSettings=restoreBackupSettings(SET,data.settings,DEF_SET);plan.meta.push({id:'settings',v:restoredSettings});
+    const previousMaterials=localStorage.getItem('rotulom-materials');
+    if(data.rotulacion){plan.meta.push({id:'rot:materials',updated:Date.now(),materials:data.rotulacion.materials});localStorage.setItem('rotulom-materials',JSON.stringify(data.rotulacion.materials));}
+    try{await commitBackupPlan(plan);}catch(e){if(previousMaterials===null)localStorage.removeItem('rotulom-materials');else localStorage.setItem('rotulom-materials',previousMaterials);throw e;}
+    const catalogue=plan.meta.find(x=>x.id==='rot:catalog');if(catalogue)localStorage.setItem('rotulom-mobile-vehicles-v1',JSON.stringify(Object.fromEntries(catalogue.vehicles.map(v=>[v.id,v]))));
+    await loadAll();SET=restoredSettings;saveSettings();applySettings();loadStyle();lastUnit=SET.unit||'cm';
+    if(data.rotulacion)localStorage.setItem('rotulom-clickprinting-v1','1');if(rotFrame?.getAttribute('src'))rotFrame.contentWindow.location.reload();
     m2.close(true);toast(`Restauradas ${nF} fotos y ${nP} proyectos`);scheduleSync();
     if(!$('#settings').hidden)renderSettings();
-  }catch(err){m.close(true);toast('No se pudo restaurar: '+err.message)}
+  }catch(err){document.getElementById('rotFrame')?.contentWindow?.rotulomJobs?.resume();if(m2)m2.close(true);m.close(true);toast('No se pudo restaurar: '+err.message)}
 });
 
 /* OneDrive was removed from the app: forget any old connection */
@@ -3042,6 +3088,71 @@ async function seed(){
   await put('projects',proj);
 }
 
+/* Rotulación: módulo local; comparte instalación y actualizaciones con MedLoM. */
+const rotView=document.createElement('section');rotView.className='view';rotView.id='rotulacion';rotView.hidden=true;
+rotView.innerHTML='<header class="top band"><button id="rotBack" class="btn ghost">← MedLoM</button><div class="brand"><b>Rotulación</b><span class="sub">Vehículos · áreas · material</span></div><button id="rotSettings" class="btn ghost">Ajustes</button></header><iframe id="rotFrame" title="Rotulación y cálculo de material" allow="clipboard-write" style="flex:1;width:100%;min-height:0;border:0"></iframe>';
+document.querySelector('.app').append(rotView);
+let rotReady=false,rotPendingMaterials=false;
+function openRotulacion(materials=false){rotPendingMaterials=materials;if(!$('#rotFrame').getAttribute('src'))$('#rotFrame').src='./rotulom/index.html';pushView({v:'rotulacion'});if(rotReady&&materials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);}
+$('#rotBack').onclick=requestBack;$('#rotSettings').onclick=()=>$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow||e.data?.type!=='medlom-rotulacion-ready')return;rotReady=true;$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);if(rotPendingMaterials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);});
+const baseShowRot=show;show=function(){baseShowRot();rotView.hidden=stack[stack.length-1].v!=='rotulacion';if(!rotView.hidden&&rotReady){$('#rotFrame').contentWindow.postMessage({type:'medlom-theme'},location.origin);$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);}};
+const rotButton=document.createElement('button');rotButton.id='gRotulacion';rotButton.dataset.tab='rotulacion';rotButton.textContent='Rotulación';rotButton.setAttribute('aria-pressed','false');$('#gTabs').append(rotButton);
+
+const baseSettingsRot=renderSettings;renderSettings=async function(){await baseSettingsRot();const group=document.createElement('div');group.className='sgroup';group.innerHTML='<h3>Rotulación y cálculo de material</h3><div class="scard"><div class="srow"><div class="sl"><b>Materiales y precios</b><small>Tarifas fijas o tablas editables. Mínimo facturable de 1 m².</small></div><button id="openRotMaterials" class="btn ghost">Editar</button></div></div>';$('#sBody').append(group);$('#openRotMaterials').onclick=()=>openRotulacion(true);};
+
+window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-rotulacion-changed')scheduleSync();});
+window.addEventListener('storage',e=>{if(e.key==='rotulom-materials'&&e.oldValue!==null){put('meta',{id:'rot:materials',updated:Date.now(),materials:JSON.parse(e.newValue||'[]')}).then(()=>scheduleSync()).catch(()=>toast('No se pudieron guardar los materiales'));}});
+
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow||e.data?.type!=='medlom-export-materials'||typeof e.data.text!=='string'||e.data.text.length>2*1024*1024)return;shareSheet(new Blob([e.data.text],{type:'application/json'}),'MedLoM materiales.json',[]);});
+
+window.addEventListener('storage',e=>{if(e.key==='rotulom-mobile-vehicles-v1'){try{put('meta',{id:'rot:catalog',updated:Date.now(),vehicles:Object.values(JSON.parse(e.newValue||'{}'))}).then(()=>scheduleSync()).catch(()=>toast('No se pudo guardar el catálogo propio'));}catch(err){toast('Catálogo propio no válido');}}});
+
+window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-request-projects')$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);});
+
+window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-editor-fullscreen')rotView.classList.toggle('rot-fullscreen',e.data.active===true);});
+const originalRotBack=window.__medlomBack;window.__medlomBack=()=>{const editor=$('#rotFrame').contentWindow?.rotulomNavigation;if(stack[stack.length-1].v==='rotulacion'&&editor?.fullscreen()){editor.showStep(0);return true;}return originalRotBack();};
+function validRotRecord(r){return !!r&&typeof r.id==='string'&&/^rot:(materials$|catalog$|job:[a-zA-Z0-9-]+$)/.test(r.id)&&Number.isFinite(r.updated)&&(r.deleted===true||(r.id==='rot:materials'?Array.isArray(r.materials):r.id==='rot:catalog'?Array.isArray(r.vehicles):r.session?.version===1&&Array.isArray(r.session.docs)));}
+function rotRemoteWins(local,remote){return validRotRecord(remote)&&(!local||(remote.updated||0)>(local.updated||0));}
+async function rotRecords(){return(await getAll('meta')).filter(r=>r.id.startsWith('rot:'));}
+async function syncRotulacionDrive(parentId,byName){
+  const frame=document.getElementById('rotFrame');if(frame?.contentWindow?.rotulomJobs)await frame.contentWindow.rotulomJobs.flush();
+  const records=new Map((await rotRecords()).map(r=>[r.id,r]));
+  if(!records.has('rot:materials')){const materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]');if(materials.length)records.set('rot:materials',{id:'rot:materials',updated:1,materials});}
+  const remoteFiles=[...byName.values()].filter(f=>/^rot_(materials|catalog|job-[a-zA-Z0-9-]+)\.zip$/.test(f.name));let refreshed=false;
+  for(const file of remoteFiles){const id=file.name.startsWith('rot_job-')?'rot:job:'+file.name.slice(8,-4):'rot:'+file.name.slice(4,-4),local=records.get(id),updated=Number(file.appProperties?.updated||0);if(local&&local.updated>=updated)continue;const remote=await unzipRotRecord(await gGet(file.id));if(remote.id!==id||!validRotRecord(remote))throw Error('Archivo de rotulación no válido en Drive');if(rotRemoteWins(local,remote)){await put('meta',remote);records.set(id,remote);if(id==='rot:catalog'){localStorage.setItem('rotulom-mobile-vehicles-v1',JSON.stringify(Object.fromEntries(remote.vehicles.map(v=>[v.id,v]))));refreshed=true;}if(id==='rot:materials'){localStorage.setItem('rotulom-materials',JSON.stringify(remote.materials||[]));localStorage.setItem('rotulom-clickprinting-v1','1');refreshed=true;}}}
+  for(const record of records.values()){if(!validRotRecord(record))continue;const name=record.id.startsWith('rot:job:')?'rot_job-'+record.id.slice(8)+'.zip':'rot_'+record.id.slice(4)+'.zip',file=byName.get(name);if(file&&Number(file.appProperties?.updated||0)>=record.updated)continue;await gUpload({id:file?.id,name,parent:parentId,mime:'application/zip',data:await zipRotRecord(record),props:{kind:'rotulacion',updated:String(record.updated)}});}
+  if(refreshed&&frame?.getAttribute('src'))frame.contentWindow.postMessage({type:'medlom-refresh-data'},location.origin);
+}
+/* Saved wrap calculations use the same gallery layout and storage as MedLoM. */
+let rotGalleryRevision=0,rotJobsReady=false,rotPendingJob=null,rotSavedHighlight='';
+function sendRotJobAction(){if(!rotJobsReady||!rotPendingJob)return;$('#rotFrame').contentWindow.postMessage({type:'medlom-job-action',...rotPendingJob},location.origin);rotPendingJob=null;}
+function openRotJob(id){rotPendingJob=id?{action:'open',id}:{action:'new'};openRotulacion(false);sendRotJobAction();}
+async function renderRotGallery(){
+  const generation=++rotGalleryRevision;
+  $('#gHead').innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+  $('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='rotulacion')));
+  $('#gBar').innerHTML=`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo de rotulación</button>`;$('#newRotJob').onclick=()=>openRotJob();
+  try{const all=await getAll('meta');if(generation!==rotGalleryRevision||tab!=='rotulacion'||scope()||stack[stack.length-1].v!=='gallery')return;
+    const q=query.trim().toLocaleLowerCase('es'),jobs=all.filter(j=>j.id.startsWith('rot:job:')&&!j.deleted&&j.session?.docs?.length&&(!q||[j.name,j.summary?.vehicle,j.summary?.material,projById(j.projectId)?.name].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).sort(sorter());
+    if(!jobs.length){$('#gBody').innerHTML=`<div class="empty"><b>${q?'Sin coincidencias':'Aún no hay trabajos de rotulación'}</b>${q?'Prueba otro nombre, vehículo o material.':'Pulsa «Nuevo trabajo de rotulación». Cuando guardes, aparecerá aquí con su foto o PDF.'}</div>`;return;}
+    $('#gBody').innerHTML=`<div class="grid sz-${SET.thumb}">`+jobs.map(j=>{const s=j.summary||{},project=projById(j.projectId),image=j.thumb||(j.session.docs[0].kind==='photo'?j.session.docs[0].blob:null),preview=image?`<img src="${thumbURL({...j,thumb:image})}" alt="">`:'<span class="rot-pdf-placeholder">PDF</span>',price=Number.isFinite(s.price)?s.price.toLocaleString('es-ES',{style:'currency',currency:'EUR'}):'';return`<button type="button" class="card rot-job-card ${j.id===rotSavedHighlight?'just-saved':''}" data-rot-job="${esc(j.id)}" aria-label="Abrir ${esc(j.name)}"><div class="thumb">${preview}</div><div class="meta"><b>${esc(j.name||'Trabajo de rotulación')}</b><span>${esc(s.vehicle||project?.name||'Rotulación')} · ${fmtDate(j.updated)}</span>${s.material?`<span>${esc(s.material)}</span>`:''}${price?`<span class="rot-job-price">Material: ${price}</span>`:''}</div></button>`;}).join('')+'</div>';
+  }catch(e){$('#gBody').innerHTML='<div class="warn">No se pudieron abrir los trabajos guardados. Inténtalo de nuevo.</div>';}
+}
+const renderGalleryBeforeRot=renderGallery;renderGallery=function(){if(tab==='rotulacion'&&!scope()){renderRotGallery();return;}rotGalleryRevision++;renderGalleryBeforeRot();};
+$('#gBody').addEventListener('pointerdown',e=>{if(e.target.closest('[data-rot-job]'))e.stopImmediatePropagation();},true);
+$('#gBody').addEventListener('click',e=>{const card=e.target.closest('[data-rot-job]');if(card){e.stopImmediatePropagation();openRotJob(card.dataset.rotJob);}},true);
+$('#gBody').addEventListener('keydown',e=>{const card=e.target.closest('[data-rot-job]');if(card&&['Enter',' '].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();openRotJob(card.dataset.rotJob);}},true);
+window.addEventListener('message',e=>{
+  if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow)return;
+  if(e.data?.type==='medlom-rotulacion-ready')rotJobsReady=false;
+  if(e.data?.type==='medlom-jobs-ready'){rotJobsReady=true;sendRotJobAction();}
+  if(e.data?.type==='medlom-job-saved'){
+    rotSavedHighlight=String(e.data.id||'');stack.splice(1);pushed=0;try{history.replaceState({cf:1},'');}catch(err){}
+    tab='rotulacion';exitSel();rotView.classList.remove('rot-fullscreen');show();toast('Trabajo guardado en Rotulación');
+  }
+  if(e.data?.type==='medlom-rotulacion-changed'&&tab==='rotulacion'&&stack[stack.length-1].v==='gallery')renderRotGallery();
+});
 /* ================= start ================= */
 (async()=>{
   await idbOpen();
@@ -3062,6 +3173,6 @@ async function seed(){
 </script>
 
 <script>
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(r=>{r.addEventListener('updatefound',()=>{const w=r.installing;w&&w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller){const t=document.createElement('div');t.className='toast';t.textContent='Nueva versión de MedLoM: cierra y vuelve a abrir la app';document.body.appendChild(t);setTimeout(()=>t.remove(),6000)}})})}).catch(()=>{})}
+if('serviceWorker' in navigator&&!['localhost','127.0.0.1'].includes(location.hostname)){navigator.serviceWorker.register('sw.js').then(r=>{r.addEventListener('updatefound',()=>{const w=r.installing;w&&w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller){const t=document.createElement('div');t.className='toast';t.textContent='Nueva versión de MedLoM: cierra y vuelve a abrir la app';document.body.appendChild(t);setTimeout(()=>t.remove(),6000)}})})}).catch(()=>{})}
 </script>
 </body></html>
