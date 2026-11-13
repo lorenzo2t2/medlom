@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.4";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.5";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1084,7 +1084,7 @@ async function doBack(){
 function show(){
   const top=stack[stack.length-1];
   document.body.classList.toggle('in-editor',top.v==='editor');
-
+  
   $('#gallery').hidden=top.v!=='gallery';$('#editor').hidden=top.v!=='editor';$('#settings').hidden=top.v!=='settings';
   if(top.v==='gallery')renderGallery();if(top.v==='settings')renderSettings();
 }
@@ -2775,7 +2775,7 @@ function showGuide(){let i=0;
 async function createBackup(){
   const list=store.photos.filter(p=>!isSampleProj(projById(p.projectId)));
   const projs=store.projects.filter(p=>!isSampleProj(p));
-
+  
   if(!window.JSZip){toast('No se pudo crear la copia. Vuelve a abrir la app.');return}
   const m=openModal(`<div class="sheet"><h2>Creando copia de seguridad…</h2><p class="txt" id="bkp">Preparando</p><div class="spin"></div></div>`);
   try{

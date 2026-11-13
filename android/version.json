@@ -1,14 +1,12 @@
 {
- "versionCode": 53,
- "versionName": "0.48.4",
+ "versionCode": 55,
+ "versionName": "0.48.5",
  "apk": "MedLoM.apk",
- "size": 67362544,
- "sha256": "3f0bea5b2c665962f962702199de3bb674671df7f7660a10271c63a9c44df7d7",
+ "size": 36332748,
+ "sha256": "e25cba54dd03a0cac68b739c57a8ac59b9bf6657b7f28dd1a3a731f0ef268c28",
  "notes": [
-  "Fotos, Proyectos y Rotulación se ajustan al ancho del móvil en tres columnas.",
-  "La navegación utiliza la tipografía de lectura del tema, sin mayúsculas forzadas.",
-  "Los textos pueden ocupar varias líneas al ampliar la letra del sistema.",
-  "Los botones mantienen una altura mínima de 44 px para pulsarlos cómodamente.",
-  "El botón inferior de Rotulación se simplifica a «Nuevo trabajo» y se adapta al ancho disponible."
+  "La app pesa mucho menos: el motor de reconocimiento de vehículos se descarga la primera vez que se usa (con porcentaje) y queda guardado en el móvil.",
+  "Las fotos del catálogo de vehículos están optimizadas sin perder calidad apreciable.",
+  "Sin conexión, el reconocimiento avisa y puedes elegir el vehículo a mano."
  ]
 }
