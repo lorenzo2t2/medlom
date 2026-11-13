@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.3";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.4";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -213,6 +213,12 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 .tabs{display:flex;gap:4px;padding-block:10px 4px;background:var(--bg)}
 .tabs button{flex:1;max-width:180px;height:36px;border-radius:999px;font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel);border:1px solid var(--line)}
 .tabs button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+/* Keep the main navigation within the phone, including enlarged system text.
+   Theme display fonts can have a much wider intrinsic width than the labels. */
+#gTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}
+#gTabs button{box-sizing:border-box;min-width:0;max-width:none;width:100%;height:auto;min-height:44px;padding:8px 4px;font-family:var(--f-body);font-size:14px;line-height:1.2;letter-spacing:0;text-transform:none;white-space:normal;overflow-wrap:anywhere}
+#gBody{min-width:0}
+#gBar .btn.big{box-sizing:border-box;min-width:0;max-width:100%;width:100%;flex:0 1 320px;height:auto;min-height:46px;padding:10px 12px;white-space:normal;overflow-wrap:anywhere}
 .scroll{flex:1;min-height:0;overflow:auto;padding-block:10px 16px;-webkit-overflow-scrolling:touch}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 @media (min-width:900px){.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}.grid.sz-s{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.grid.sz-l{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}}
@@ -3136,10 +3142,10 @@ async function renderRotGallery(){
   const generation=++rotGalleryRevision;
   $('#gHead').innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
   $('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='rotulacion')));
-  $('#gBar').innerHTML=`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo de rotulación</button>`;$('#newRotJob').onclick=()=>openRotJob();
+  $('#gBar').innerHTML=`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;$('#newRotJob').onclick=()=>openRotJob();
   try{const all=await getAll('meta');if(generation!==rotGalleryRevision||tab!=='rotulacion'||scope()||stack[stack.length-1].v!=='gallery')return;
     const q=query.trim().toLocaleLowerCase('es'),jobs=all.filter(j=>j.id.startsWith('rot:job:')&&!j.deleted&&j.session?.docs?.length&&(!q||[j.name,j.summary?.vehicle,j.summary?.material,projById(j.projectId)?.name].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).sort(sorter());
-    if(!jobs.length){$('#gBody').innerHTML=`<div class="empty"><b>${q?'Sin coincidencias':'Aún no hay trabajos de rotulación'}</b>${q?'Prueba otro nombre, vehículo o material.':'Pulsa «Nuevo trabajo de rotulación». Cuando guardes, aparecerá aquí con su foto o PDF.'}</div>`;return;}
+    if(!jobs.length){$('#gBody').innerHTML=`<div class="empty"><b>${q?'Sin coincidencias':'Aún no hay trabajos de rotulación'}</b>${q?'Prueba otro nombre, vehículo o material.':'Pulsa «Nuevo trabajo». Cuando guardes, aparecerá aquí con su foto o PDF.'}</div>`;return;}
     $('#gBody').innerHTML=`<div class="grid sz-${SET.thumb}">`+jobs.map(j=>{const s=j.summary||{},project=projById(j.projectId),image=j.thumb||(j.session.docs[0].kind==='photo'?j.session.docs[0].blob:null),preview=image?`<img src="${thumbURL({...j,thumb:image})}" alt="">`:'<span class="rot-pdf-placeholder">PDF</span>',price=Number.isFinite(s.price)?s.price.toLocaleString('es-ES',{style:'currency',currency:'EUR'}):'';return`<button type="button" class="card rot-job-card ${j.id===rotSavedHighlight?'just-saved':''}" data-rot-job="${esc(j.id)}" aria-label="Abrir ${esc(j.name)}"><div class="thumb">${preview}</div><div class="meta"><b>${esc(j.name||'Trabajo de rotulación')}</b><span>${esc(s.vehicle||project?.name||'Rotulación')} · ${fmtDate(j.updated)}</span>${s.material?`<span>${esc(s.material)}</span>`:''}${price?`<span class="rot-job-price">Material: ${price}</span>`:''}</div></button>`;}).join('')+'</div>';
   }catch(e){$('#gBody').innerHTML='<div class="warn">No se pudieron abrir los trabajos guardados. Inténtalo de nuevo.</div>';}
 }

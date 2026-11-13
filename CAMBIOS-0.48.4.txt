@@ -1,0 +1,10 @@
+MedLoM 0.48.4
+
+- Fotos, Proyectos y Rotulación se ajustan al ancho del móvil en tres columnas.
+- La navegación utiliza la tipografía de lectura del tema, sin mayúsculas forzadas.
+- Los textos pueden ocupar varias líneas al ampliar la letra del sistema.
+- Los botones mantienen una altura mínima de 44 px para pulsarlos cómodamente.
+- El botón inferior de Rotulación se simplifica a «Nuevo trabajo» y se adapta al ancho disponible.
+
+Comprobación web: anchos de 320, 360, 390 y 430 px, texto al 100 %, 130 % y 200 %.
+Esta revisión no cambia los proyectos, fotos, materiales ni la base de datos.

@@ -1,11 +1,14 @@
 {
- "versionCode": 52,
- "versionName": "0.48.3",
+ "versionCode": 53,
+ "versionName": "0.48.4",
  "apk": "MedLoM.apk",
- "size": 67362347,
- "sha256": "16a364b52c096e32d2bbb9a72205ae330c2aed5a275c228c78cb76dbe8ac5bf1",
+ "size": 67362544,
+ "sha256": "3f0bea5b2c665962f962702199de3bb674671df7f7660a10271c63a9c44df7d7",
  "notes": [
-  "Rotulación y cálculo de material tiene su propio apartado en el menú principal de Ajustes.",
-  "El acceso a materiales y precios deja de aparecer en Nube y sincronización y en otros apartados ajenos."
+  "Fotos, Proyectos y Rotulación se ajustan al ancho del móvil en tres columnas.",
+  "La navegación utiliza la tipografía de lectura del tema, sin mayúsculas forzadas.",
+  "Los textos pueden ocupar varias líneas al ampliar la letra del sistema.",
+  "Los botones mantienen una altura mínima de 44 px para pulsarlos cómodamente.",
+  "El botón inferior de Rotulación se simplifica a «Nuevo trabajo» y se adapta al ancho disponible."
  ]
 }
