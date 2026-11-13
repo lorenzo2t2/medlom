@@ -1,0 +1,3 @@
+MedLoM 0.48.3
+- Rotulación y cálculo de material tiene su propio apartado en el menú principal de Ajustes.
+- El acceso a materiales y precios deja de aparecer en Nube y sincronización y en otros apartados ajenos.
