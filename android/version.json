@@ -1,12 +1,11 @@
 {
- "versionCode": 55,
- "versionName": "0.48.5",
+ "versionCode": 56,
+ "versionName": "0.48.6",
  "apk": "MedLoM.apk",
- "size": 36332748,
- "sha256": "e25cba54dd03a0cac68b739c57a8ac59b9bf6657b7f28dd1a3a731f0ef268c28",
+ "size": 36333369,
+ "sha256": "3225e5e281aaffc15cd2073bf9d2e7041447e51daa1f5ead47a69325a9fe9788",
  "notes": [
-  "La app pesa mucho menos: el motor de reconocimiento de vehículos se descarga la primera vez que se usa (con porcentaje) y queda guardado en el móvil.",
-  "Las fotos del catálogo de vehículos están optimizadas sin perder calidad apreciable.",
-  "Sin conexión, el reconocimiento avisa y puedes elegir el vehículo a mano."
+  "En la pestaña Material puedes indicar las unidades de cada zona (por ejemplo, el mismo lateral en las dos puertas) con botones + y −",
+  "se suman al cálculo y al coste"
  ]
 }
