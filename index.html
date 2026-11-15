@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.6";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.48.7";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -3138,21 +3138,67 @@ async function syncRotulacionDrive(parentId,byName){
 let rotGalleryRevision=0,rotJobsReady=false,rotPendingJob=null,rotSavedHighlight='';
 function sendRotJobAction(){if(!rotJobsReady||!rotPendingJob)return;$('#rotFrame').contentWindow.postMessage({type:'medlom-job-action',...rotPendingJob},location.origin);rotPendingJob=null;}
 function openRotJob(id){rotPendingJob=id?{action:'open',id}:{action:'new'};openRotulacion(false);sendRotJobAction();}
+let rotJobIds=[];
+function rotChrome(){
+  const n=selected.size,total=rotJobIds.length;
+  $('#gHead').innerHTML=selMode?`<button class="ib" data-act="rotcancel" aria-label="Cancelar selección">${IC.x}</button><div class="brand"><b>${n} ${n===1?'seleccionado':'seleccionados'}</b><span class="sub">Toca para marcar o desmarcar</span></div><button class="btn ghost" data-act="rotall">${n===total&&n?'Ninguno':'Todos'}</button>`
+    :`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="btn ghost" data-act="rotselect" ${total?'':'disabled'}>Seleccionar</button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+  $('#gBar').innerHTML=selMode?`<div class="acts"><button class="act" data-act="rotexport" ${n?'':'disabled'}>${IC.share}<span>Enviar</span></button><button class="act danger" data-act="rotdel" ${n?'':'disabled'}>${IC.trash}<span>Eliminar</span></button></div>`
+    :`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;
+  if(!selMode)$('#newRotJob').onclick=()=>openRotJob();
+}
 async function renderRotGallery(){
   const generation=++rotGalleryRevision;
-  $('#gHead').innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
-  $('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='rotulacion')));
-  $('#gBar').innerHTML=`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;$('#newRotJob').onclick=()=>openRotJob();
+  rotChrome();$('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='rotulacion')));
   try{const all=await getAll('meta');if(generation!==rotGalleryRevision||tab!=='rotulacion'||scope()||stack[stack.length-1].v!=='gallery')return;
     const q=query.trim().toLocaleLowerCase('es'),jobs=all.filter(j=>j.id.startsWith('rot:job:')&&!j.deleted&&j.session?.docs?.length&&(!q||[j.name,j.summary?.vehicle,j.summary?.material,projById(j.projectId)?.name].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).sort(sorter());
+    rotJobIds=jobs.map(j=>j.id);for(const id of [...selected])if(!rotJobIds.includes(id))selected.delete(id);if(!jobs.length)selMode=false;rotChrome();
     if(!jobs.length){$('#gBody').innerHTML=`<div class="empty"><b>${q?'Sin coincidencias':'Aún no hay trabajos de rotulación'}</b>${q?'Prueba otro nombre, vehículo o material.':'Pulsa «Nuevo trabajo». Cuando guardes, aparecerá aquí con su foto o PDF.'}</div>`;return;}
-    $('#gBody').innerHTML=`<div class="grid sz-${SET.thumb}">`+jobs.map(j=>{const s=j.summary||{},project=projById(j.projectId),image=j.thumb||(j.session.docs[0].kind==='photo'?j.session.docs[0].blob:null),preview=image?`<img src="${thumbURL({...j,thumb:image})}" alt="">`:'<span class="rot-pdf-placeholder">PDF</span>',price=Number.isFinite(s.price)?s.price.toLocaleString('es-ES',{style:'currency',currency:'EUR'}):'';return`<button type="button" class="card rot-job-card ${j.id===rotSavedHighlight?'just-saved':''}" data-rot-job="${esc(j.id)}" aria-label="Abrir ${esc(j.name)}"><div class="thumb">${preview}</div><div class="meta"><b>${esc(j.name||'Trabajo de rotulación')}</b><span>${esc(s.vehicle||project?.name||'Rotulación')} · ${fmtDate(j.updated)}</span>${s.material?`<span>${esc(s.material)}</span>`:''}${price?`<span class="rot-job-price">Material: ${price}</span>`:''}</div></button>`;}).join('')+'</div>';
+    $('#gBody').innerHTML=`<div class="grid sz-${SET.thumb} ${selMode?'selmode':''}">`+jobs.map(j=>{const s=j.summary||{},project=projById(j.projectId),image=j.thumb||(j.session.docs[0].kind==='photo'?j.session.docs[0].blob:null),preview=image?`<img src="${thumbURL({...j,thumb:image})}" alt="">`:'<span class="rot-pdf-placeholder">PDF</span>',price=Number.isFinite(s.price)?s.price.toLocaleString('es-ES',{style:'currency',currency:'EUR'}):'';return`<button type="button" class="card rot-job-card ${j.id===rotSavedHighlight?'just-saved':''} ${selected.has(j.id)?'on':''}" data-rot-job="${esc(j.id)}" aria-label="${selMode?'Marcar':'Abrir'} ${esc(j.name)}"><div class="thumb">${preview}</div><div class="meta"><b>${esc(j.name||'Trabajo de rotulación')}</b><span>${esc(s.vehicle||project?.name||'Rotulación')} · ${fmtDate(j.updated)}</span>${s.material?`<span>${esc(s.material)}</span>`:''}${price?`<span class="rot-job-price">Material: ${price}</span>`:''}</div><i class="chk"></i></button>`;}).join('')+'</div>';
   }catch(e){$('#gBody').innerHTML='<div class="warn">No se pudieron abrir los trabajos guardados. Inténtalo de nuevo.</div>';}
 }
 const renderGalleryBeforeRot=renderGallery;renderGallery=function(){if(tab==='rotulacion'&&!scope()){renderRotGallery();return;}rotGalleryRevision++;renderGalleryBeforeRot();};
-$('#gBody').addEventListener('pointerdown',e=>{if(e.target.closest('[data-rot-job]'))e.stopImmediatePropagation();},true);
-$('#gBody').addEventListener('click',e=>{const card=e.target.closest('[data-rot-job]');if(card){e.stopImmediatePropagation();openRotJob(card.dataset.rotJob);}},true);
-$('#gBody').addEventListener('keydown',e=>{const card=e.target.closest('[data-rot-job]');if(card&&['Enter',' '].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();openRotJob(card.dataset.rotJob);}},true);
+let rotLp=null,rotLpFired=false;
+const rotLpCancel=()=>{if(rotLp){clearTimeout(rotLp.t);rotLp=null;}};
+function rotToggle(id){if(!id)return;selected.has(id)?selected.delete(id):selected.add(id);renderRotGallery();}
+function rotCardAction(id){if(selMode)rotToggle(id);else openRotJob(id);}
+$('#gBody').addEventListener('pointerdown',e=>{const c=e.target.closest('[data-rot-job]');if(!c)return;e.stopImmediatePropagation();rotLpFired=false;rotLpCancel();const x=e.clientX,y=e.clientY,id=c.dataset.rotJob;rotLp={x,y,t:setTimeout(()=>{rotLp=null;rotLpFired=true;selMode=true;selected.add(id);try{buzz();}catch(err){}renderRotGallery();},480)};},true);
+$('#gBody').addEventListener('pointermove',e=>{if(rotLp&&Math.hypot(e.clientX-rotLp.x,e.clientY-rotLp.y)>10)rotLpCancel();});
+for(const ev of ['pointerup','pointercancel'])$('#gBody').addEventListener(ev,rotLpCancel);
+$('#gBody').addEventListener('scroll',rotLpCancel,true);
+$('#gBody').addEventListener('contextmenu',e=>{if(e.target.closest('[data-rot-job]'))e.preventDefault();});
+$('#gBody').addEventListener('click',e=>{const card=e.target.closest('[data-rot-job]');if(card){e.stopImmediatePropagation();if(rotLpFired){rotLpFired=false;return;}rotCardAction(card.dataset.rotJob);}},true);
+$('#gBody').addEventListener('keydown',e=>{const card=e.target.closest('[data-rot-job]');if(card&&['Enter',' '].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();rotCardAction(card.dataset.rotJob);}},true);
+const rotSafeName=(t,fallback)=>String(t||fallback).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').trim().slice(0,60)||fallback;
+async function exportRotJobs(ids){
+  const all=await getAll('meta'),jobs=ids.map(id=>all.find(j=>j.id===id)).filter(j=>j&&!j.deleted&&j.session&&j.session.docs&&j.session.docs.length);
+  if(!jobs.length){toast('No hay nada que enviar');return;}
+  const zip=new JSZip(),used=new Set();
+  for(const j of jobs){
+    const base=rotSafeName(j.name,'Trabajo de rotulación');let folder=base,k=2;while(used.has(folder.toLowerCase()))folder=base+' ('+(k++)+')';used.add(folder.toLowerCase());
+    const dir=zip.folder(folder),s=j.summary||{};
+    j.session.docs.forEach((d,i)=>{if(!(d.blob instanceof Blob))return;const ext=d.kind==='pdf'?'pdf':(d.blob.type==='image/jpeg'?'jpg':'png');let name=rotSafeName(d.name,'documento-'+(i+1));name=name.replace(/\.[A-Za-z0-9]{2,4}$/,'')+'.'+ext;dir.file((i+1)+' - '+name,d.blob);});
+    const lines=['Trabajo: '+(j.name||'Trabajo de rotulación'),s.vehicle?'Vehículo: '+s.vehicle:'',s.material?'Material: '+s.material:'',Number.isFinite(s.price)?'Coste de material (sin IVA): '+s.price.toLocaleString('es-ES',{style:'currency',currency:'EUR'}):'','Guardado: '+fmtDate(j.updated)].filter(Boolean);
+    dir.file('calculo.txt',lines.join('\r\n'));
+  }
+  const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE'});
+  shareSheet(blob,jobs.length===1?rotSafeName(jobs[0].name,'Rotulación')+'.zip':'MedLoM rotulación '+fmtDate(Date.now())+'.zip',[]);
+}
+async function deleteRotJobs(ids){
+  const k=ids.length,r=await dialog('¿Eliminar '+k+(k===1?' trabajo':' trabajos')+' de rotulación?','Se borran de la app con sus fotos y cálculos. No se puede deshacer.',[{id:'y',label:'Eliminar',kind:'danger'},{id:'n',label:'Cancelar'}]);
+  if(r!=='y')return;
+  const all=await getAll('meta');
+  for(const id of ids){const old=all.find(j=>j.id===id);if(old)await put('meta',{id:old.id,name:old.name,deleted:true,updated:Date.now()});if(rotReady)$('#rotFrame').contentWindow.postMessage({type:'medlom-job-action',action:'forget',id},location.origin);}
+  exitSel();toast(k===1?'Trabajo eliminado':'Trabajos eliminados');await renderRotGallery();scheduleSync();
+}
+$('#gallery').addEventListener('click',e=>{
+  const b=e.target.closest('[data-act^="rot"]');if(!b||b.disabled||tab!=='rotulacion')return;const act=b.dataset.act;
+  if(act==='rotselect'){selMode=true;renderRotGallery();}
+  else if(act==='rotcancel'){exitSel();renderRotGallery();}
+  else if(act==='rotall'){if(selected.size===rotJobIds.length)selected.clear();else rotJobIds.forEach(id=>selected.add(id));renderRotGallery();}
+  else if(act==='rotexport')exportRotJobs([...selected]).catch(()=>toast('No se pudo preparar el envío'));
+  else if(act==='rotdel')deleteRotJobs([...selected]).catch(()=>toast('No se pudo eliminar'));
+});
 window.addEventListener('message',e=>{
   if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow)return;
   if(e.data?.type==='medlom-rotulacion-ready')rotJobsReady=false;

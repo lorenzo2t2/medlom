@@ -1,11 +1,10 @@
 {
- "versionCode": 56,
- "versionName": "0.48.6",
+ "versionCode": 57,
+ "versionName": "0.48.7",
  "apk": "MedLoM.apk",
- "size": 36333369,
- "sha256": "3225e5e281aaffc15cd2073bf9d2e7041447e51daa1f5ead47a69325a9fe9788",
+ "size": 36334912,
+ "sha256": "77d5b180f99de8d6d6434a4cda2f125e694a963d1bbcdb94ce01efa5b443b73b",
  "notes": [
-  "En la pestaña Material puedes indicar las unidades de cada zona (por ejemplo, el mismo lateral en las dos puertas) con botones + y −",
-  "se suman al cálculo y al coste"
+  "En la pestaña Rotulación puedes seleccionar trabajos (botón Seleccionar o pulsación larga) para enviarlos en un ZIP o eliminarlos"
  ]
 }
