@@ -2,6 +2,7 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.RotulomSheet=api;})(typeof window!=='undefined'?window:globalThis,()=>{
   function overlap(a,b){return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));}
   function outerViews(boxes){return boxes.filter((b,i)=>!boxes.some((a,j)=>j!==i&&(a.right-a.left)*(a.bottom-a.top)>(b.right-b.left)*(b.bottom-b.top)*1.5&&overlap(a,b)/((b.right-b.left)*(b.bottom-b.top))>.94));}
+  function dedupe(boxes){const area=b=>(b.right-b.left)*(b.bottom-b.top);return boxes.filter((b,i)=>!boxes.some((a,j)=>j!==i&&(area(a)>area(b)||area(a)===area(b)&&j<i)&&overlap(a,b)/area(b)>.25));}
   function runs(values,gap=4){const result=[];for(const v of values){let r=result.at(-1);if(!r||v-r.end>gap){r={start:v,end:v};result.push(r);}else r.end=v;}return result;}
   function paperViews(gray,w,h,iw,ih){
     let white=0;for(const v of gray)if(v>240)white++;if(white/gray.length<.35)return [];
@@ -16,7 +17,7 @@
   function views(image){
     const {width:iw,height:ih,data}=image,w=Math.min(640,iw),h=Math.round(ih*w/iw),gray=new Uint8Array(w*h),edge=new Uint8Array(w*h),mask=new Uint8Array(w*h),seen=new Uint8Array(w*h);
     for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(Math.floor(y*ih/h)*iw+Math.floor(x*iw/w))*4,r=data[i],g=data[i+1],b=data[i+2],annotation=r>170&&g>80&&g<205&&b<110&&r>g*1.25;gray[y*w+x]=annotation?255:(r*3+g*6+b)/10;}
-    const page=paperViews(gray,w,h,iw,ih);if(page.length)return outerViews(page);
+    const page=paperViews(gray,w,h,iw,ih);if(page.length)return dedupe(outerViews(page));
     for(let y=2;y<h-2;y++)for(let x=2;x<w-2;x++){const i=y*w+x;if(Math.abs(gray[i-2]-gray[i+2])+Math.abs(gray[i-2*w]-gray[i+2*w])>65)edge[i]=1;}
     const radius=2;
     for(let y=2;y<h-2;y++)for(let x=2;x<w-2;x++)if(edge[y*w+x])for(let yy=y-radius;yy<=y+radius;yy++)for(let xx=x-radius;xx<=x+radius;xx++)mask[yy*w+xx]=1;
@@ -34,12 +35,12 @@
       if(body&&body.right-body.left>bw*.5){left=body.left;right=body.right;}
       boxes.push({left:left*iw/w,right:right*iw/w,top:top*ih/h,bottom:bottom*ih/h,kind});
     }
-    return outerViews(boxes).sort((a,b)=>a.top-b.top||a.left-b.left);
+    return dedupe(outerViews(boxes)).sort((a,b)=>a.top-b.top||a.left-b.left);
   }
   function references(boxes,vehicle,lengthChoice){
     const dim=vehicle?.dimensionsMm||{},length=(dim.exteriorLength||0)/10||Number(lengthChoice)||0;
-    const width=/sin retrovisores/i.test(vehicle?.catalogueDetails?.widthConvention||'')?(dim.exteriorWidth||0)/10:0;
-    return outerViews(boxes).map((b,i)=>({...b,id:'vista-'+i,label:b.kind==='lateral'?'Lateral':'Frontal / trasera',knownCm:b.kind==='lateral'?length:width,points:[{x:b.left,y:b.bottom},{x:b.right,y:b.bottom}],source:'modelo seleccionado'}));
+    const width=(dim.exteriorWidth||dim.exteriorWidthMirrorsFolded||0)/10;
+    return dedupe(outerViews(boxes)).map((b,i)=>({...b,id:'vista-'+i,label:b.kind==='lateral'?'Lateral':'Frontal / trasera',knownCm:b.kind==='lateral'?length:width,points:[{x:b.left,y:b.bottom},{x:b.right,y:b.bottom}],source:b.kind==='lateral'?'largo del modelo seleccionado':(/sin retrovisores/i.test(vehicle?.catalogueDetails?.widthConvention||'')?'ancho del modelo seleccionado (sin retrovisores)':'ancho del modelo seleccionado: confirma si incluye retrovisores')}));
   }
   function forZone(refs,z){
     const matches=outerViews(refs).filter(r=>{const area=Math.max(0,Math.min(z.x+z.w,r.right)-Math.max(z.x,r.left))*Math.max(0,Math.min(z.y+z.h,r.bottom)-Math.max(z.y,r.top));return area/(z.w*z.h)>.92;});

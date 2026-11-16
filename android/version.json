@@ -1,10 +1,10 @@
 {
- "versionCode": 57,
- "versionName": "0.48.7",
+ "versionCode": 59,
+ "versionName": "0.48.8",
  "apk": "MedLoM.apk",
- "size": 36334912,
- "sha256": "77d5b180f99de8d6d6434a4cda2f125e694a963d1bbcdb94ce01efa5b443b73b",
+ "size": 36336691,
+ "sha256": "b12db0e333aa2192b2914a050e27c7aaeace7e17142016d44799165acad0fc0c",
  "notes": [
-  "En la pestaña Rotulación puedes seleccionar trabajos (botón Seleccionar o pulsación larga) para enviarlos en un ZIP o eliminarlos"
+  "Rotulación: medida propia por vista (lateral y trasera), PDF página a página con selector, arrastrar archivos en PC y reconocimiento del vehículo por el nombre del documento"
  ]
 }
