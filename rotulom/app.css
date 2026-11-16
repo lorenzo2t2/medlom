@@ -69,3 +69,34 @@ body.editor-expanded #editorScaleStatus{position:absolute;bottom:8px;left:8px;ri
 #pdfPager select{font:inherit;padding:6px 8px;border-radius:8px}
 #pdfPager .tool-button{min-width:44px;min-height:44px;font-size:22px}
 body.drop-over::after{content:"Suelta aquí la foto o el PDF";position:fixed;inset:10px;border:3px dashed #27b778;border-radius:16px;background:rgba(39,183,120,.12);display:flex;align-items:center;justify-content:center;font:700 20px system-ui,sans-serif;color:#0b6b43;z-index:99999;pointer-events:none}
+
+#pageVehicle{display:grid;gap:6px;margin:6px 8px;font-size:14px}
+#pageVehicle[hidden]{display:none}
+#pageVehicle label{display:grid;gap:4px;font-weight:600}
+#pageVehicle input{font:inherit;padding:10px 12px;border-radius:10px;min-height:44px}
+#pageCandidates{display:flex;flex-wrap:wrap;gap:6px}
+.zone-group{margin:18px 0 4px;font-size:15px;padding:6px 10px;border-radius:8px;background:var(--accent-soft,rgba(39,183,120,.15))}
+
+#partRef{margin:6px 8px;padding:8px 12px;border:1px solid var(--line,#ccc);border-radius:10px;font-size:14px;background:var(--panel,transparent)}
+#partRef[hidden]{display:none}
+#partRef.needs{border-color:#e88920}
+#partRef summary{cursor:pointer;font-weight:700}
+#partRef label{display:grid;gap:4px;margin:8px 0;font-weight:600}
+#partRef select,#partRef input{font:inherit;padding:10px 12px;border-radius:10px;min-height:44px}
+#partRef small{display:block;margin-top:8px;opacity:.8}
+
+#docBar{display:grid;gap:4px}
+#docSetup{margin:4px 8px;position:relative}
+#docSetup[hidden]{display:none}
+#docSetupBtn{width:100%;min-height:44px;text-align:left;font:inherit;font-weight:700;padding:8px 12px;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+#docSetupBtn.needs{border-color:#e88920;background:var(--warning-bg);color:var(--warning)}
+#docSetupBody{position:absolute;left:0;right:0;top:100%;z-index:30;max-height:60vh;overflow:auto;background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;box-shadow:var(--shadow);padding:6px 4px 10px}
+#docSetupBody[hidden]{display:none}
+#docSetupDone{margin:8px 12px 0}
+#pageVehicle,#partRef{margin:6px 8px}
+#partRef{border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+#partRef h3{margin:4px 0;font-size:15px}
+
+.editor-top-controls{flex-wrap:wrap}
+#docBar{flex:1 1 100%;order:5;min-width:0}
+#docBar #pdfPager{margin:4px 0}
