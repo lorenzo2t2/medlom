@@ -1,10 +1,10 @@
 {
- "versionCode": 59,
- "versionName": "0.48.8",
+ "versionCode": 60,
+ "versionName": "0.48.9",
  "apk": "MedLoM.apk",
- "size": 36336691,
- "sha256": "b12db0e333aa2192b2914a050e27c7aaeace7e17142016d44799165acad0fc0c",
+ "size": 36336722,
+ "sha256": "9ec0d9bbb81c18c7b89281b201e3eefee1f86e0299ee21b2eb8556611640eb92",
  "notes": [
-  "Rotulación: medida propia por vista (lateral y trasera), PDF página a página con selector, arrastrar archivos en PC y reconocimiento del vehículo por el nombre del documento"
+  "Rotulación en PC: las zonas se seleccionan y mueven con solo hacer clic y arrastrar con el ratón"
  ]
 }
