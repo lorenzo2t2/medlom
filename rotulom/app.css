@@ -101,12 +101,15 @@ body.drop-over::after{content:"Suelta aquí la foto o el PDF";position:fixed;ins
 #docBar{flex:1 1 100%;order:5;min-width:0}
 #docBar #pdfPager{margin:4px 0}
 
-#vehicleCosts{margin:10px 0;padding:10px 12px;border:1px solid var(--line,#ccc);border-radius:10px}
 #vehicleCosts[hidden]{display:none}
 #vehicleCosts h3{margin:0 0 6px;font-size:15px}
-.vehicle-cost{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid var(--line,rgba(128,128,128,.25))}
 .vehicle-cost-note{font-size:12px;opacity:.75;margin:6px 0 0}
 
-.vehicle-cost>div{display:grid;gap:4px;flex:1}
-.vehicle-cost select{font:inherit;padding:8px;border-radius:8px;min-height:40px;max-width:100%}
-.vehicle-cost label{display:grid;gap:2px;font-size:12px;opacity:.85}
+
+#vehicleCosts{margin:10px 0;padding:10px 12px;border:1px solid var(--line-strong,#ccc);border-radius:10px;min-width:0;max-width:100%;overflow:hidden}
+.vehicle-cost{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:4px 10px;padding:10px 0;border-bottom:1px solid var(--line,rgba(128,128,128,.25))}
+.vehicle-cost>div{display:contents}
+.vehicle-cost>div>span{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere;font-weight:600}
+.vehicle-cost>b{grid-column:2;grid-row:1;white-space:nowrap}
+.vehicle-cost label{grid-column:1/-1;grid-row:2;display:grid;gap:3px;min-width:0;font-size:12px;color:var(--ink-soft,inherit)}
+.vehicle-cost select{width:100%;min-width:0;max-width:100%;min-height:42px;padding:8px 10px;border:1px solid var(--line-strong,#ccc);border-radius:8px;background:var(--surface,#fff);color:var(--ink,#000);font:inherit;font-size:13px;text-overflow:ellipsis}
