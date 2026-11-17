@@ -43,7 +43,7 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
   const state={step:0,vehicles:[],docs:[],active:-1,mode:'pan',drag:null,selected:-1,page:1,pdf:null,busy:false};
   let materials=[];try{materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]').map(m=>({...m,rollCm:m.rollCm||((Number(m.roll)||0)*100)}));}catch{}
   const pricing=window.RotulomPricing;
-  try{if(!localStorage.getItem('rotulom-clickprinting-v1')){materials.push(...pricing.defaults().filter(d=>!materials.some(m=>m.id===d.id)));localStorage.setItem('rotulom-materials',JSON.stringify(materials));localStorage.setItem('rotulom-clickprinting-v1','1');}}catch{}
+  try{if(localStorage.getItem('rotulom-clickprinting-v2')!=='1'){materials.push(...pricing.defaults().filter(d=>!materials.some(m=>m.id===d.id)));localStorage.setItem('rotulom-materials',JSON.stringify(materials));localStorage.setItem('rotulom-clickprinting-v1','1');localStorage.setItem('rotulom-clickprinting-v2','1');}}catch{}
   const canvas=$('designCanvas'),ctx=canvas.getContext('2d'),current=()=>state.docs[state.active];
   const tell=text=>$('simpleMessage').textContent=text;
   const view=name=>{document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));document.querySelectorAll('[data-view]').forEach(v=>v.classList.toggle('active',v.dataset.view===name&&(!v.hasAttribute('data-step')||Number(v.dataset.step)===state.step)));$('currentCrumb').textContent={medir:workflowLabels[state.step],presupuestos:'Materiales',vehiculos:'Vehículos'}[name];};

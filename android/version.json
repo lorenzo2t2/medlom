@@ -1,10 +1,10 @@
 {
- "versionCode": 66,
- "versionName": "0.49.5",
+ "versionCode": 67,
+ "versionName": "0.49.6",
  "apk": "MedLoM.apk",
- "size": 36343942,
- "sha256": "a64b77a8dae4108404f6d48165e877e9710d5a9f481c439c260559fda4e4e794",
+ "size": 36344082,
+ "sha256": "4d8f08b2234dbac94e2e7f3cac6438ef1285cc26c680a564684802f4d61b5a45",
  "notes": [
-  "Material distinto para cada vehículo de un mismo documento"
+  "Nuevos materiales: monomérico y polimérico con laminado UVI (precios Clickprinting 17/11/2026)"
  ]
 }
