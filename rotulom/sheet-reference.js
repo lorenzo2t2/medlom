@@ -57,7 +57,7 @@
     for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){const i=y*w+x,m=Math.hypot(gx[i],gy[i]);if(m<thr)continue;const ux=gx[i]/m,uy=gy[i]/m;
       for(let ri=0;ri<nr;ri++){const r=rMin+ri;for(const sg of [1,-1]){const cx=Math.round(x+sg*ux*r),cy=Math.round(y+sg*uy*r);if(cx>=0&&cx<w&&cy>=0&&cy<h)acc[(cy*w+cx)*nr+ri]++;}}}
     const cands=[];
-    for(let cy=2;cy<h-2;cy++)for(let cx=2;cx<w-2;cx++)for(let ri=0;ri<nr;ri++){let v=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)v+=acc[((cy+dy)*w+cx+dx)*nr+ri];const r=rMin+ri;if(v>=1.7*r)cands.push({cx,cy,r,v,score:v/Math.pow(r,0.0)});}
+    for(let cy=2;cy<h-2;cy++)for(let cx=2;cx<w-2;cx++)for(let ri=0;ri<nr;ri++){let v=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)v+=acc[((cy+dy)*w+cx+dx)*nr+ri];const r=rMin+ri;if(v>=1.7*r)cands.push({cx,cy,r,v,score:v});}
     cands.sort((a,b)=>b.score-a.score);const picked=[];
     for(const c of cands){if(picked.length>=10)break;if(picked.some(p=>Math.hypot(p.cx-c.cx,p.cy-c.cy)<Math.max(p.r,c.r)*.7))continue;picked.push(c);}
     const bottom=(box.bottom-y0)*k,tol=Math.max(6,bh*k*.14);let best=null;
@@ -71,7 +71,27 @@
     const refine=c=>{const lo=Math.round(c.r*.85),hi=Math.min(Math.round(c.r*2.1),Math.round((bottom-c.cy)*1.08)),E=[];if(hi<=lo)return c.r;
       for(let r=lo;r<=hi;r++){let t=0,m=0;for(let a=25;a<=155;a+=6){const q=a*Math.PI/180,x=Math.round(c.cx+Math.cos(q)*r),y=Math.round(c.cy+Math.sin(q)*r);if(x>0&&x<w-1&&y>0&&y<h-1){t+=mag[y*w+x];m++;}}E.push(m?t/m:0);}
       const mx=Math.max(...E);let out=c.r;for(let i=1;i<E.length-1;i++)if(E[i]>=E[i-1]&&E[i]>=E[i+1]&&E[i]>=.6*mx)out=Math.max(out,lo+i);return out;};
-    const R=(refine(best.a)+refine(best.b))/2;best.a.r=R;best.b.r=R;
+    /* Neumático: desde el centro se camina hacia fuera por la parte oscura hasta el suelo o el guardabarros claros; esos puntos de salida están sobre el borde real y se les ajusta un círculo (Kasa), aunque el centro de Hough esté desplazado. */
+    const tire=c=>{const pts=[];
+      for(let a=0;a<360;a+=8){if(a>200&&a<340)continue;const q=a*Math.PI/180,ux=Math.cos(q),uy=Math.sin(q),L=r=>{const x=Math.round(c.cx+ux*r),y=Math.round(c.cy+uy*r);return x>0&&x<w-1&&y>0&&y<h-1?g[y*w+x]:-1;};
+        let dark=1e9;for(let r=Math.round(c.r*.8);r<=c.r;r++){const v=L(r);if(v>=0)dark=Math.min(dark,v);}if(dark>150)continue;
+        const thr=Math.max(60,dark*2.4+12),max=Math.round(c.r*1.8);let ex=0;
+        for(let r=c.r;r<=max;r++){const v=L(r),v2=L(r+1);if(v<0||v2<0)break;if(v>thr&&v2>thr){ex=r-.5;break;}}
+        if(ex)pts.push({x:c.cx+ux*ex,y:c.cy+uy*ex,r:ex});}
+      if(pts.length<7)return null;
+      const med=pts.map(p=>p.r).sort((u,v)=>u-v)[pts.length>>1];let use=pts.filter(p=>Math.abs(p.r-med)<=med*.3);
+      for(let pass=0;pass<2&&use.length>=7;pass++){let sx=0,sy=0,sxx=0,syy=0,sxy=0,sz=0,sxz=0,syz=0;const m=use.length;
+        for(const p of use){const z=p.x*p.x+p.y*p.y;sx+=p.x;sy+=p.y;sxx+=p.x*p.x;syy+=p.y*p.y;sxy+=p.x*p.y;sz+=z;sxz+=p.x*z;syz+=p.y*z;}
+        const A=[[sxx,sxy,sx,-sxz],[sxy,syy,sy,-syz],[sx,sy,m,-sz]];
+        for(let i=0;i<3;i++){let mx=i;for(let j=i+1;j<3;j++)if(Math.abs(A[j][i])>Math.abs(A[mx][i]))mx=j;[A[i],A[mx]]=[A[mx],A[i]];if(Math.abs(A[i][i])<1e-9)return null;
+          for(let j=0;j<3;j++)if(j!==i){const f=A[j][i]/A[i][i];for(let k2=i;k2<4;k2++)A[j][k2]-=f*A[i][k2];}}
+        const D=A[0][3]/A[0][0],E=A[1][3]/A[1][1],F=A[2][3]/A[2][2],cx=-D/2,cy=-E/2,R2=cx*cx+cy*cy-F;if(!(R2>0))return null;const R=Math.sqrt(R2);
+        const res=use.map(p=>Math.abs(Math.hypot(p.x-cx,p.y-cy)-R));const rms=Math.sqrt(res.reduce((u,v)=>u+v*v,0)/m);
+        if(pass===0&&rms>R*.05){use=use.filter((p,i)=>res[i]<=rms*1.6+.5);continue;}
+        if(rms>R*.09||R<c.r*.9||R>c.r*2.1)return null;return{cx,cy,r:R};}
+      return null;};
+    for(const c of [best.a,best.b]){const t=tire(c);if(t){c.cx=t.cx;c.cy=t.cy;c.r=t.r;c.fit=true;}else c.r=refine(c);}
+    const Rm=(best.a.r+best.b.r)/2;if(!(best.a.fit&&best.b.fit&&Math.abs(best.a.r-best.b.r)>Rm*.2)){best.a.r=Rm;best.b.r=Rm;}
     const toImg=c=>({x:x0+c.cx/k,y:y0+c.cy/k,r:c.r/k});
     return{diameter:(best.a.r+best.b.r)/k,circles:[toImg(best.a),toImg(best.b)]};
   }

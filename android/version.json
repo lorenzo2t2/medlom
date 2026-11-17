@@ -1,11 +1,10 @@
 {
- "versionCode": 63,
- "versionName": "0.49.2",
+ "versionCode": 64,
+ "versionName": "0.49.3",
  "apk": "MedLoM.apk",
- "size": 36341846,
- "sha256": "1b964b6a85ab22e0fd90afe6eecf9c1dca8203efc326029ddcbb4809c3726701",
+ "size": 36342959,
+ "sha256": "69933d9b1886eadecacc2006615ff21152b14fd898ee79f7138d2af3955fd8b6",
  "notes": [
-  "Rotulación: estimación automática de la escala con las ruedas (lateral) y la altura (frente y trasera) en furgones con caja o vehículos sin ficha",
-  "detecta también vistas estrechas"
+  "Estimación por ruedas: ajuste real del neumático, círculos visibles y recálculo forzado al pulsar el botón"
  ]
 }
