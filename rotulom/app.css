@@ -106,3 +106,7 @@ body.drop-over::after{content:"Suelta aquí la foto o el PDF";position:fixed;ins
 #vehicleCosts h3{margin:0 0 6px;font-size:15px}
 .vehicle-cost{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid var(--line,rgba(128,128,128,.25))}
 .vehicle-cost-note{font-size:12px;opacity:.75;margin:6px 0 0}
+
+.vehicle-cost>div{display:grid;gap:4px;flex:1}
+.vehicle-cost select{font:inherit;padding:8px;border-radius:8px;min-height:40px;max-width:100%}
+.vehicle-cost label{display:grid;gap:2px;font-size:12px;opacity:.85}
