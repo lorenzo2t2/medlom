@@ -1,11 +1,11 @@
 {
- "versionCode": 69,
- "versionName": "0.50.0",
+ "versionCode": 70,
+ "versionName": "0.50.1",
  "apk": "MedLoM.apk",
- "size": 21475152,
- "sha256": "92332634fd78977134ca5806c1f541139c623e653d214c5527253d18d2d7bdb2",
+ "size": 21475715,
+ "sha256": "92385c7b2eb0731d66479667689954f8072ab44d891616cc897d91e20d37bcb8",
  "notes": [
-  "Rotulación: plantillas comerciales con cuatro vistas, cotas de referencia y apertura directa en el editor.",
-  "Habitaciones: planos por puntos o a mano alzada, cotas, alzados, puertas, ventanas y vista 3D."
+  "Habitaciones: paredes y columnas diferenciadas y numeradas por separado.",
+  "Rotulación y Habitaciones agrupadas en Más. Botón Seleccionar más compacto."
  ]
 }

@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.1";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -570,6 +570,13 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
  #rooms.room-editing .room-controls{display:none}
  #rooms.room-editing.room-controls-open .room-controls{display:flex;position:absolute;right:max(4px,env(safe-area-inset-right));top:42px;bottom:49px;width:min(310px,80vw);overflow:auto;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;z-index:2;box-shadow:0 4px 20px #0006}
 }
+
+#gallery #gTabs button{white-space:nowrap}
+#gHead .gallery-select{width:36px;height:44px}
+#gHead .gallery-select svg{width:20px;height:20px}
+.more-tools{display:grid;gap:10px;padding-block:16px}
+.more-tools .more-tool{width:100%;min-width:0;min-height:44px;white-space:nowrap}
+#roomStripMeasures [data-segment-kind="column"]{border-style:dashed}
 </style>
 
 <div class="app">
@@ -579,6 +586,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
     <div class="tabs band" id="gTabs">
       <button data-tab="photos" aria-pressed="true">Fotos</button>
       <button data-tab="projects" aria-pressed="false">Proyectos</button>
+      <button data-tab="more" aria-pressed="false">Más</button>
     </div>
     <div class="scroll band" id="gBody"></div>
     <footer class="bar band" id="gBar"></footer>
@@ -911,6 +919,13 @@ const RoomPlan=(()=>{
   function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');const n=clone(r),w=wall(n,id);w.lengthMm=value;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
   function setHeight(r,value){if(!positive(value))throw Error('Introduce una altura positiva');const n=clone(r);n.walls.forEach(w=>checkOpenings(w,value));n.heightMm=value;return n;}
   function setFirst(r,id){wall(r,id);return {...clone(r),firstWallId:id};}
+  function segmentLabel(r,wall,short=false){
+    const kind=wall.kind==='column'?'column':'wall';
+    const segments=r.walls.filter(w=>(w.kind==='column'?'column':'wall')===kind);
+    const position=number(r,wall.id);
+    const label=kind==='column'?(short?'C':'Columna '):(short?'P':'Pared ');
+    return label+(1+segments.filter(w=>number(r,w.id)<position).length);
+  }
   function number(r,id){const i=r.walls.findIndex(w=>w.id===id),first=r.walls.findIndex(w=>w.id===r.firstWallId);return (i-first+r.walls.length)%r.walls.length+1;}
   function nextWall(r,id){const index=r.walls.findIndex(w=>w.id===id);for(let i=1;i<=r.walls.length;i++){const w=r.walls[(index+i)%r.walls.length];if(w.lengthMm===null)return w.id;}return null;}
   function addOpening(r,id,opening){const n=clone(r),w=wall(n,id);if(n.walls.some(x=>x.openings.some(o=>o.id===opening.id)))throw Error('Hueco repetido');w.openings.push({...opening});checkOpenings(w,n.heightMm);return clean(n);}
@@ -930,7 +945,7 @@ const RoomPlan=(()=>{
       if(!voids.some(o=>cx>o.offsetMm&&cx<o.offsetMm+o.widthMm&&cz>o.sillMm&&cz<o.sillMm+o.heightMm))out.push({x0:xs[i],x1:xs[i+1],z0:zs[j],z1:zs[j+1]});
     }return out;
   }
-  return {fromSketch,clean,geometry,setLength,setHeight,setFirst,number,nextWall,addOpening,removeOpening,panels,setKind,distances,updateOpening,winding,viewOrder,reframe,columnRuns,frontOffset,frontDistances};
+  return {fromSketch,clean,geometry,setLength,setHeight,setFirst,number,segmentLabel,nextWall,addOpening,removeOpening,panels,setKind,distances,updateOpening,winding,viewOrder,reframe,columnRuns,frontOffset,frontDistances};
 })();
 function roomCopyList(value){if(!Array.isArray(value)||value.length>200)throw Error('Lista de habitaciones no válida');return value.map(RoomPlan.clean);}
 function projectForRoomSync(p,previous){return {id:p.id,name:p.name,created:p.created,updated:p.updated,notes:p.notes||null,rooms:roomCopyList(p.rooms??previous?.rooms??[])};}
@@ -1320,12 +1335,21 @@ function renderGallery(){
   const s=scope(),proj=s&&projById(s),L=listing(),n=selected.size;
   const head=$('#gHead');
   if(selMode)head.innerHTML=`<button class="ib" data-act="cancelsel" aria-label="Cancelar selección">${IC.x}</button><div class="brand"><b>${n} ${n===1?'seleccionada':'seleccionadas'}</b><span class="sub">Toca para marcar o desmarcar</span></div><button class="btn ghost" data-act="all">${n===L.items.length&&n?'Ninguna':'Todas'}</button>`;
-  else if(proj)head.innerHTML=`<button class="ib" data-act="back" aria-label="Volver">${IC.back}</button><button class="titlebtn" data-act="renameproj" title="Datos del proyecto"><span class="brand"><b>${esc(proj.name)}</b><span class="sub">Proyecto · ${L.items.length} ${L.items.length===1?'foto':'fotos'}</span></span></button><button class="btn ghost" data-act="select" ${L.items.length?'':'disabled'}>Seleccionar</button>`;
-  else head.innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">${loosePhotos().length} ${loosePhotos().length===1?'foto suelta':'fotos sueltas'} · ${store.projects.length} ${store.projects.length===1?'proyecto':'proyectos'}</span></div><button class="btn ghost" data-act="select" ${L.items.length?'':'disabled'}>Seleccionar</button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+  else if(proj)head.innerHTML=`<button class="ib" data-act="back" aria-label="Volver">${IC.back}</button><button class="titlebtn" data-act="renameproj" title="Datos del proyecto"><span class="brand"><b>${esc(proj.name)}</b><span class="sub">Proyecto · ${L.items.length} ${L.items.length===1?'foto':'fotos'}</span></span></button><button class="ib gallery-select" data-act="select" aria-label="Seleccionar" title="Seleccionar" ${L.items.length?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button>`;
+  else head.innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">${loosePhotos().length} ${loosePhotos().length===1?'foto suelta':'fotos sueltas'} · ${store.projects.length} ${store.projects.length===1?'proyecto':'proyectos'}</span></div><button class="ib gallery-select" data-act="select" aria-label="Seleccionar" title="Seleccionar" ${L.items.length?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
   $('#gSearch').hidden=!searchOpen;
   $('#gTabs').hidden=!!s;
   $('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===tab));
-  const body=$('#gBody');let h=DB.ok?'':'<div class="warn">Este navegador no permite guardar datos de la app: las fotos se perderán al cerrar la página.</div>';
+  const body=$('#gBody');
+  if(!s&&tab==='more'){
+    $('#gSearch').hidden=true;
+    head.querySelector('[data-act="select"]').hidden=true;
+    head.querySelector('[data-act="search"]').hidden=true;
+    body.innerHTML='<div class="more-tools"><button type="button" id="gRotulacion" class="btn ghost more-tool">Rotulación</button><button type="button" class="btn ghost more-tool" data-room-entry>Habitaciones</button></div>';
+    $('#gBar').innerHTML='';
+    return;
+  }
+  let h=DB.ok?'':'<div class="warn">Este navegador no permite guardar datos de la app: las fotos se perderán al cerrar la página.</div>';
   if(!L.items.length){
     h+=L.kind==='project'?`<div class="empty"><b>Sin proyectos todavía</b>Agrupa fotos de una misma obra o estancia. Marca varias fotos en la pestaña Fotos y pulsa «Crear proyecto», o crea uno vacío con el botón de abajo.<span class="empty-note">Los proyectos llevan portada, dirección y exportan un PDF limpio.</span></div>`
       :s?`<div class="empty"><b>Este proyecto está vacío</b>Añade una foto nueva con el botón de abajo, o mueve aquí fotos existentes desde la pestaña Fotos.<span class="empty-note">Cada foto puede llevar sus propias medidas y anotaciones.</span></div>`
@@ -1354,6 +1378,11 @@ $('#gTabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!
 /* card tap / long-press */
 let lp=null,lpFired=false;
 const gBody=$('#gBody');
+gBody.addEventListener('click',e=>{
+  if(tab!=='more'||scope())return;
+  if(e.target.closest('[data-room-entry]'))openRoomLibrary();
+  else if(e.target.closest('#gRotulacion')){tab='rotulacion';exitSel();renderGallery();gBody.scrollTop=0;}
+});
 gBody.addEventListener('contextmenu',e=>{if(e.target.closest('.card'))e.preventDefault()});
 gBody.addEventListener('pointerdown',e=>{const c=e.target.closest('.card');if(!c)return;lpFired=false;const x=e.clientX,y=e.clientY;
   lp={x,y,t:setTimeout(()=>{lpFired=true;selMode=true;selected.add(c.dataset.id);buzz();renderGallery()},480)}});
@@ -3319,7 +3348,7 @@ function openRotulacion(materials=false){rotPendingMaterials=materials;if(!$('#r
 $('#rotBack').onclick=requestBack;$('#rotSettings').onclick=()=>$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);
 window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow||e.data?.type!=='medlom-rotulacion-ready')return;rotReady=true;$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);if(rotPendingMaterials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);});
 const baseShowRot=show;show=function(){baseShowRot();rotView.hidden=stack[stack.length-1].v!=='rotulacion';if(!rotView.hidden&&rotReady){$('#rotFrame').contentWindow.postMessage({type:'medlom-theme'},location.origin);$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);}};
-const rotButton=document.createElement('button');rotButton.id='gRotulacion';rotButton.dataset.tab='rotulacion';rotButton.textContent='Rotulación';rotButton.setAttribute('aria-pressed','false');$('#gTabs').append(rotButton);
+
 
 $('#settings').addEventListener('click',e=>{if(e.target.closest('#openRotMaterials'))openRotulacion(true);});
 
@@ -3354,14 +3383,14 @@ let rotJobIds=[];
 function rotChrome(){
   const n=selected.size,total=rotJobIds.length;
   $('#gHead').innerHTML=selMode?`<button class="ib" data-act="rotcancel" aria-label="Cancelar selección">${IC.x}</button><div class="brand"><b>${n} ${n===1?'seleccionado':'seleccionados'}</b><span class="sub">Toca para marcar o desmarcar</span></div><button class="btn ghost" data-act="rotall">${n===total&&n?'Ninguno':'Todos'}</button>`
-    :`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="btn ghost" data-act="rotselect" ${total?'':'disabled'}>Seleccionar</button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+    :`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib gallery-select" data-act="rotselect" aria-label="Seleccionar" title="Seleccionar" ${total?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
   $('#gBar').innerHTML=selMode?`<div class="acts"><button class="act" data-act="rotexport" ${n?'':'disabled'}>${IC.share}<span>Enviar</span></button><button class="act danger" data-act="rotdel" ${n?'':'disabled'}>${IC.trash}<span>Eliminar</span></button></div>`
     :`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;
   if(!selMode)$('#newRotJob').onclick=()=>openRotJob();
 }
 async function renderRotGallery(){
   const generation=++rotGalleryRevision;
-  rotChrome();$('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='rotulacion')));
+  rotChrome();$('#gSearch').hidden=!searchOpen;$('#gTabs').hidden=false;$('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab==='more')));
   try{const all=await getAll('meta');if(generation!==rotGalleryRevision||tab!=='rotulacion'||scope()||stack[stack.length-1].v!=='gallery')return;
     const q=query.trim().toLocaleLowerCase('es'),jobs=all.filter(j=>j.id.startsWith('rot:job:')&&!j.deleted&&j.session?.docs?.length&&(!q||[j.name,j.summary?.vehicle,j.summary?.material,projById(j.projectId)?.name].some(v=>String(v||'').toLocaleLowerCase('es').includes(q)))).sort(sorter());
     rotJobIds=jobs.map(j=>j.id);for(const id of [...selected])if(!rotJobIds.includes(id))selected.delete(id);if(!jobs.length)selMode=false;rotChrome();
@@ -3495,11 +3524,11 @@ const RoomViews=(()=>{
     const g=RoomPlan.geometry(r),p=palette(paper),map=fit(g.points),point=v=>{const q=map(v),z=camera.zoom||1;return{x:500+(q.x-500)*z+(camera.panX||0),y:330+(q.y-330)*z+(camera.panY||0)};};
     const labelBoxes=[];let out='';if(g.closed&&!g.intersects)out+=`<polygon points="${g.points.slice(0,-1).map(v=>{const q=point(v);return q.x+','+q.y;}).join(' ')}" fill="${p.wall}" fill-opacity=".12"/>`;
     g.segments.forEach((s,i)=>{
-      const a=point(s.a),b=point(s.b),w=r.walls[i],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,color=w.id===selected?p.accent:p.fg;
-      out+=`<g data-room-wall="${e(w.id)}"><path d="M${a.x},${a.y} L${b.x},${b.y}" fill="none" stroke="${color}" stroke-width="${w.id===selected?8:5}" ${s.estimated?'stroke-dasharray="14 8"':''}/><path d="M${a.x},${a.y} L${b.x},${b.y}" stroke="transparent" stroke-width="40"/></g>`;
-      const label=(w.kind==='column'?'C':'P')+RoomPlan.number(r,w.id)+(w.lengthMm!==null&&len>150?' · '+value(w.lengthMm,unit):''),lw=label.length*14+8,sign=-RoomPlan.winding(r);let lx,ly;
+      const a=point(s.a),b=point(s.b),w=r.walls[i],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,color=w.id===selected?p.accent:w.kind==='column'?p.opening:p.fg;
+      out+=`<g data-room-wall="${e(w.id)}"><path d="M${a.x},${a.y} L${b.x},${b.y}" fill="none" stroke="${color}" stroke-width="${w.id===selected?8:w.kind==='column'?7:5}" ${s.estimated?'stroke-dasharray="14 8"':''}/><path d="M${a.x},${a.y} L${b.x},${b.y}" stroke="transparent" stroke-width="40"/></g>`;
+      const label=RoomPlan.segmentLabel(r,w,true)+(w.lengthMm!==null&&len>150?' · '+value(w.lengthMm,unit):''),lw=label.length*14+8,sign=-RoomPlan.winding(r);let lx,ly;
       for(let lane=0;lane<12;lane++){lx=Math.max(lw/2+12,Math.min(988-lw/2,(a.x+b.x)/2+nx*sign*(30+lane*24)));ly=Math.max(35,Math.min(600,(a.y+b.y)/2+ny*sign*(30+lane*24)));if(!labelBoxes.some(q=>Math.abs(q.x-lx)<(q.w+lw)/2+8&&Math.abs(q.y-ly)<30))break;}
-      labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="25" text-anchor="middle">${e(label)}</text>`;
+      labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="25" text-anchor="middle" ${w.kind==='column'?'font-weight="700"':''}>${e(label)}</text>`;
       w.openings.forEach(o=>{const t0=o.offsetMm/s.length,t1=(o.offsetMm+o.widthMm)/s.length;out+=`<path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.bg}" stroke-width="13"/><path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.opening}" stroke-width="5" ${o.type==='door'?'stroke-dasharray="8 5"':''}/>`;});
     });
     if(!g.closed){const a=point(g.points[0]),b=point(g.points[g.points.length-1]);out+=`<path d="M${a.x},${a.y}L${b.x},${b.y}" stroke="#d65a48" stroke-width="5" stroke-dasharray="9 8"/><text x="500" y="630" text-anchor="middle" font-size="25" fill="#d65a48">Desfase de cierre: ${e(value(g.gapMm,unit))}</text>`;}
@@ -3513,7 +3542,7 @@ const RoomViews=(()=>{
   }
   function wallContent(r,index,unit,paper,{x,y,k,details=false,focusId=null,strip=false}){
     const p=palette(paper),w=r.walls[index],length=RoomPlan.geometry(r).segments[index].length,h=r.heightMm||2600,flip=RoomPlan.winding(r)<0;
-    let out=`<g data-room-wall="${e(w.id)}" data-wall-mm="${length}" role="button" tabindex="0" aria-label="Seleccionar ${w.kind==='column'?'cara de columna':'pared'} ${RoomPlan.number(r,w.id)}"><rect x="${x}" y="${y}" width="${length*k}" height="${h*k}" fill="${p.wall}" fill-opacity=".15" stroke="${p.fg}" stroke-width="3"/><text x="${x+length*k/2}" y="${y-22}" font-size="25" text-anchor="middle">${details?(w.kind==='column'?'Columna ':'Pared '):(w.kind==='column'?'C':'P')}${RoomPlan.number(r,w.id)}</text>`;
+    let out=`<g data-room-wall="${e(w.id)}" data-wall-mm="${length}" role="button" tabindex="0" aria-label="Seleccionar ${RoomPlan.segmentLabel(r,w)}"><rect x="${x}" y="${y}" width="${length*k}" height="${h*k}" fill="${w.kind==='column'?p.opening:p.wall}" fill-opacity="${w.kind==='column'?'.24':'.15'}" stroke="${w.kind==='column'?p.opening:p.fg}" stroke-width="3"/><text x="${x+length*k/2}" y="${y-22}" font-size="25" text-anchor="middle">${RoomPlan.segmentLabel(r,w,!details)}</text>`;
     w.openings.forEach(o=>{
       const ox=x+(flip?length-o.offsetMm-o.widthMm:o.offsetMm)*k,oy=y+(h-o.sillMm-o.heightMm)*k,fixture=o.type==='socket'||o.type==='switch',ow=Math.max(fixture?12:1,o.widthMm*k),oh=Math.max(fixture?12:1,o.heightMm*k);
       out+=`<g data-room-opening="${e(o.id)}" role="button" tabindex="0" aria-label="Editar ${elementName(o)}"><title>${elementName(o)} · ${e(value(o.offsetMm,unit))} de esquina inicial · ${e(value(o.sillMm,unit))} del suelo</title><rect x="${ox}" y="${oy}" width="${ow}" height="${oh}" fill="${p.bg}" stroke="${p.opening}" stroke-width="3"/>`;
@@ -3560,7 +3589,7 @@ const RoomViews=(()=>{
     });
     const projected=faces.map(f=>({...f,pts:f.pts.map(toScreen)}));projected.sort((a,b)=>b.pts.reduce((s,q)=>s+q.depth,0)/b.pts.length-a.pts.reduce((s,q)=>s+q.depth,0)/a.pts.length);
     let out=projected.map(f=>`<polygon points="${f.pts.map(q=>q.x+','+q.y).join(' ')}" fill="${f.fill}" fill-opacity="${f.opacity}" stroke="${p.fg}" stroke-opacity=".65" stroke-width="1.5"/>`).join('');
-    g.segments.forEach((s,i)=>{const q=toScreen({x:(s.a.x+s.b.x)/2,y:(s.a.y+s.b.y)/2,z:height+100});out+=`<text x="${q.x}" y="${q.y}" text-anchor="middle" font-size="25">${RoomPlan.number(r,r.walls[i].id)}</text>`;});
+    g.segments.forEach((s,i)=>{const q=toScreen({x:(s.a.x+s.b.x)/2,y:(s.a.y+s.b.y)/2,z:height+100});out+=`<text x="${q.x}" y="${q.y}" text-anchor="middle" font-size="25">${RoomPlan.segmentLabel(r,r.walls[i],true)}</text>`;});
     return wrap(out,660,paper);
   }
   function sketch(points,count,paper=false,freehand=false,box={width:1000,height:660}){
@@ -3597,7 +3626,7 @@ function startRoomEditor(model,projectId,options={}){
  ROOMUI.savedKey=roomKey();pushView({v:'room'});renderRoomEditor();
 }
 function renderRoomEditor(){
- roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><button class="titlebtn" data-room-rename><span class="brand"><b id="roomTitle">${esc(ROOMUI.name)}</b><span class="sub" id="roomSaveState"></span></span></button><button class="btn primary" id="roomSave" data-room-save>Guardar</button></header><div class="scroll band room-work"><div class="room-view-tabs" role="group" aria-label="Vista del plano"><button data-room-mode="plan">Planta</button><button data-room-mode="elevation">Frontal</button><button data-room-mode="elevations" aria-label="Todos los alzados">Alzados</button><button data-room-mode="three">3D</button></div><div class="room-layout"><section class="room-drawing"><div class="room-stage" id="roomStage" aria-label="Área de dibujo de la habitación"></div><div class="room-view-tools"><button class="btn ghost room-compact-back" data-room-back aria-label="Volver">←</button><button class="btn ghost" data-room-action="zoom-out" aria-label="Alejar">−</button><button class="btn ghost" data-room-action="fit">Ajustar</button><button class="btn ghost" data-room-action="zoom-in" aria-label="Acercar">+</button><button class="btn ghost" data-room-action="rotate-left" aria-label="Girar vista 3D a la izquierda">↶</button><button class="btn ghost" data-room-action="rotate-right" aria-label="Girar vista 3D a la derecha">↷</button><button class="btn ghost" data-room-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button><button class="btn ghost" data-room-action="edit-wall" hidden>Controles</button><button class="btn ghost" data-room-action="undo">Deshacer</button><button class="btn primary" data-room-action="close-contour" data-room-quick-close>Cerrar</button><button class="btn primary room-compact-save" data-room-save>Guardar</button></div><div id="roomStripMeasures" class="room-strip-measures" hidden></div><p class="note" id="roomHint" role="status"></p></section><section class="room-controls"><div id="roomSketchControls"><div class="room-input-modes" role="group" aria-label="Método de dibujo"><button class="btn ghost" data-room-input="points">Por puntos</button><button class="btn ghost" data-room-input="draw">Dibujar</button></div><label class="room-angle-toggle"><input type="checkbox" id="roomRightAngles" checked><span>Ángulos rectos</span></label><p class="txt">Dibuja el contorno con el dedo o el lápiz. Vuelve al inicio o pulsa Cerrar contorno; no necesitas contar las paredes.</p><button class="btn primary" data-room-action="close-contour">Cerrar contorno</button></div><div id="roomMeasureControls" hidden><label class="col"><span>Pared seleccionada</span><select id="roomWall" aria-label="Pared seleccionada"></select></label><label class="col"><span>Tipo de tramo</span><select id="roomKind"><option value="wall">Pared</option><option value="column">Cara de columna / entrante</option></select></label><button class="btn ghost" data-room-action="straighten">Enderezar paredes y columnas</button><button class="btn ghost" data-room-action="first">Esta será la primera pared</button><form id="roomLengthForm"><label class="col"><span id="roomLengthLabel">Longitud</span><div class="room-input-row"><input id="roomLength" type="number" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Longitud de pared"><span>${esc(roomUnit())}</span></div></label><button class="btn primary wide" type="submit">Confirmar y siguiente pared →</button></form><label class="col"><span>Altura de la habitación</span><div class="room-input-row"><input id="roomHeight" type="number" min="0" step="any" inputmode="decimal" aria-label="Altura de la habitación"><span>${esc(roomUnit())}</span></div></label><div class="room-opening-actions"><button class="btn ghost" data-room-action="door">+ Puerta</button><button class="btn ghost" data-room-action="window">+ Ventana</button><button class="btn ghost" data-room-action="switch">+ Interruptor</button><button class="btn ghost" data-room-action="socket">+ Enchufe</button></div><div id="roomOpenings"></div><div id="roomDimensions" class="room-dimensions"></div><div class="room-export-actions"><button class="btn ghost" data-room-action="svg">Exportar vista SVG</button><button class="btn ghost" data-room-action="pdf">Planta y alzados PDF</button><button class="btn ghost" data-room-action="redraw">Redibujar contorno</button></div></div></section></div></div>`;
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><button class="titlebtn" data-room-rename><span class="brand"><b id="roomTitle">${esc(ROOMUI.name)}</b><span class="sub" id="roomSaveState"></span></span></button><button class="btn primary" id="roomSave" data-room-save>Guardar</button></header><div class="scroll band room-work"><div class="room-view-tabs" role="group" aria-label="Vista del plano"><button data-room-mode="plan">Planta</button><button data-room-mode="elevation">Frontal</button><button data-room-mode="elevations" aria-label="Todos los alzados">Alzados</button><button data-room-mode="three">3D</button></div><div class="room-layout"><section class="room-drawing"><div class="room-stage" id="roomStage" aria-label="Área de dibujo de la habitación"></div><div class="room-view-tools"><button class="btn ghost room-compact-back" data-room-back aria-label="Volver">←</button><button class="btn ghost" data-room-action="zoom-out" aria-label="Alejar">−</button><button class="btn ghost" data-room-action="fit">Ajustar</button><button class="btn ghost" data-room-action="zoom-in" aria-label="Acercar">+</button><button class="btn ghost" data-room-action="rotate-left" aria-label="Girar vista 3D a la izquierda">↶</button><button class="btn ghost" data-room-action="rotate-right" aria-label="Girar vista 3D a la derecha">↷</button><button class="btn ghost" data-room-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button><button class="btn ghost" data-room-action="edit-wall" hidden>Controles</button><button class="btn ghost" data-room-action="undo">Deshacer</button><button class="btn primary" data-room-action="close-contour" data-room-quick-close>Cerrar</button><button class="btn primary room-compact-save" data-room-save>Guardar</button></div><div id="roomStripMeasures" class="room-strip-measures" hidden></div><p class="note" id="roomHint" role="status"></p></section><section class="room-controls"><div id="roomSketchControls"><div class="room-input-modes" role="group" aria-label="Método de dibujo"><button class="btn ghost" data-room-input="points">Por puntos</button><button class="btn ghost" data-room-input="draw">Dibujar</button></div><label class="room-angle-toggle"><input type="checkbox" id="roomRightAngles" checked><span>Ángulos rectos</span></label><p class="txt">Dibuja el contorno con el dedo o el lápiz. Vuelve al inicio o pulsa Cerrar contorno; no necesitas contar las paredes.</p><button class="btn primary" data-room-action="close-contour">Cerrar contorno</button></div><div id="roomMeasureControls" hidden><label class="col"><span>Tramo seleccionado</span><select id="roomWall" aria-label="Tramo seleccionado"></select></label><label class="col"><span>Tipo de tramo</span><select id="roomKind"><option value="wall">Pared</option><option value="column">Cara de columna / entrante</option></select></label><button class="btn ghost" data-room-action="straighten">Enderezar paredes y columnas</button><button class="btn ghost" data-room-action="first">Esta será la primera pared</button><form id="roomLengthForm"><label class="col"><span id="roomLengthLabel">Longitud</span><div class="room-input-row"><input id="roomLength" type="number" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Longitud de pared"><span>${esc(roomUnit())}</span></div></label><button class="btn primary wide" type="submit">Confirmar y siguiente pared →</button></form><label class="col"><span>Altura de la habitación</span><div class="room-input-row"><input id="roomHeight" type="number" min="0" step="any" inputmode="decimal" aria-label="Altura de la habitación"><span>${esc(roomUnit())}</span></div></label><div class="room-opening-actions"><button class="btn ghost" data-room-action="door">+ Puerta</button><button class="btn ghost" data-room-action="window">+ Ventana</button><button class="btn ghost" data-room-action="switch">+ Interruptor</button><button class="btn ghost" data-room-action="socket">+ Enchufe</button></div><div id="roomOpenings"></div><div id="roomDimensions" class="room-dimensions"></div><div class="room-export-actions"><button class="btn ghost" data-room-action="svg">Exportar vista SVG</button><button class="btn ghost" data-room-action="pdf">Planta y alzados PDF</button><button class="btn ghost" data-room-action="redraw">Redibujar contorno</button></div></div></section></div></div>`;
  $('#roomLengthForm').onsubmit=e=>{e.preventDefault();try{applyRoomLength(true);}catch(err){toast(err.message);}};
  $('#roomWall').onchange=e=>{const id=e.target.value;try{flushRoomInputs();ROOMUI.selected=id;ROOMUI.selectedOpening=null;refreshRoom();}catch(err){toast(err.message);e.target.value=ROOMUI.selected;}};
  $('#roomKind').onchange=e=>{try{flushRoomInputs();roomChange(RoomPlan.setKind(ROOMUI.model,ROOMUI.selected,e.target.value));}catch(err){toast(err.message);refreshRoom();}};
@@ -3615,16 +3644,18 @@ function refreshRoom(){
  if(r){
   if(!r.walls.some(w=>w.id===ROOMUI.selected))ROOMUI.selected=r.firstWallId;
   const ordered=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
-  $('#roomWall').innerHTML=ordered.map(w=>`<option value="${esc(w.id)}">Pared ${RoomPlan.number(r,w.id)}${w.kind==='column'?' · columna':''}${w.lengthMm!==null?' · '+esc(RoomViews.value(w.lengthMm,u)):' · por medir'}</option>`).join('');$('#roomWall').value=ROOMUI.selected;
+  $('#roomWall').innerHTML=ordered.map(w=>`<option value="${esc(w.id)}">${RoomPlan.segmentLabel(r,w)}${w.lengthMm!==null?' · '+esc(RoomViews.value(w.lengthMm,u)):' · por medir'}</option>`).join('');$('#roomWall').value=ROOMUI.selected;
   const w=r.walls.find(w=>w.id===ROOMUI.selected),g=RoomPlan.geometry(r);$('#roomKind').value=w.kind||'wall';
-  $('#roomLengthLabel').textContent=`Longitud de pared ${RoomPlan.number(r,w.id)}`;$('#roomLength').value=w.lengthMm===null?'':String(w.lengthMm/TOMM[u]);$('#roomHeight').value=r.heightMm===null?'':String(r.heightMm/TOMM[u]);
-  $('#roomOpenings').innerHTML=w.openings.length?'<h3>Huecos de esta pared</h3>'+w.openings.map(o=>`<button class="room-opening-item" data-room-edit-opening="${esc(o.id)}"><b>${roomElementName(o.type)}</b><span>${esc(RoomViews.value(o.widthMm,u))} × ${esc(RoomViews.value(o.heightMm,u))} · a ${esc(RoomViews.value(o.offsetMm,u))} del inicio</span></button>`).join(''):'<p class="note">Sin puertas ni ventanas en esta pared.</p>';
-  $('#roomHint').textContent=`${g.measured}/${r.walls.length} paredes medidas${r.heightMm?' · altura '+RoomViews.value(r.heightMm,u):' · falta la altura'}${g.intersects?' · el contorno se cruza':!g.closed?' · desfase '+RoomViews.value(g.gapMm,u):g.measured===r.walls.length?' · planta cerrada':' · tramos discontinuos sin confirmar'}${ROOMUI.mode==='three'?' · arrastra para girar, pellizca para acercar':''}`;
+  $('#roomLengthLabel').textContent=`Longitud · ${RoomPlan.segmentLabel(r,w)}`;$('#roomLength').value=w.lengthMm===null?'':String(w.lengthMm/TOMM[u]);$('#roomHeight').value=r.heightMm===null?'':String(r.heightMm/TOMM[u]);
+  $('#roomOpenings').innerHTML=w.openings.length?'<h3>Elementos del tramo</h3>'+w.openings.map(o=>`<button class="room-opening-item" data-room-edit-opening="${esc(o.id)}"><b>${roomElementName(o.type)}</b><span>${esc(RoomViews.value(o.widthMm,u))} × ${esc(RoomViews.value(o.heightMm,u))} · a ${esc(RoomViews.value(o.offsetMm,u))} del inicio</span></button>`).join(''):'<p class="note">Sin elementos en este tramo.</p>';
+  const columns=r.walls.filter(w=>w.kind==='column'),walls=r.walls.filter(w=>w.kind!=='column');
+  const measured=segments=>segments.filter(w=>w.lengthMm!==null).length+'/'+segments.length;
+  $('#roomHint').textContent=`${measured(walls)} paredes medidas${columns.length?' · '+measured(columns)+' columnas medidas':''}${r.heightMm?' · altura '+RoomViews.value(r.heightMm,u):' · falta la altura'}${g.intersects?' · el contorno se cruza':!g.closed?' · desfase '+RoomViews.value(g.gapMm,u):g.measured===r.walls.length?' · planta cerrada':' · tramos discontinuos sin confirmar'}${ROOMUI.mode==='three'?' · arrastra para girar, pellizca para acercar':''}`;
    renderRoomDimensions();
  }else $('#roomHint').textContent='Trazo libre: dibuja el perímetro. Puedes continuar en varios trazos y deshacer el último.';
  roomView.querySelectorAll('[data-room-action=close-contour]').forEach(b=>{b.disabled=ROOMUI.points.length<3;b.hidden=!!r;});
  roomView.querySelectorAll('[data-room-action^=rotate-]').forEach(b=>b.hidden=ROOMUI.mode!=='three');
- const ribbon=$('#roomStripMeasures');ribbon.hidden=!r||!['plan','elevations'].includes(ROOMUI.mode);if(!ribbon.hidden)ribbon.innerHTML=RoomPlan.viewOrder(r).map(w=>`<button data-room-select="${esc(w.id)}" aria-pressed="${w.id===ROOMUI.selected}"><b>${w.kind==='column'?'C':'P'}${RoomPlan.number(r,w.id)}</b><span>${w.lengthMm===null?'Por medir':esc(RoomViews.value(w.lengthMm,u))}</span></button>`).join('');
+ const ribbon=$('#roomStripMeasures');ribbon.hidden=!r||!['plan','elevations'].includes(ROOMUI.mode);if(!ribbon.hidden)ribbon.innerHTML=RoomPlan.viewOrder(r).map(w=>`<button data-room-select="${esc(w.id)}" aria-pressed="${w.id===ROOMUI.selected}" data-segment-kind="${w.kind}"><b>${RoomPlan.segmentLabel(r,w,true)}</b><span>${w.lengthMm===null?'Por medir':esc(RoomViews.value(w.lengthMm,u))}</span></button>`).join('');
  const edit=roomView.querySelector('[data-room-action=edit-wall]');if(edit)edit.hidden=!(matchMedia('(orientation:landscape) and (max-height:600px)').matches||(ROOMUI.fullscreen&&r));
  drawRoomScene();
  if(r&&ROOMUI.mode==='elevations'&&!ROOMUI.camera.fitStrip){const stage=$('#roomStage'),g=Array.from(stage.querySelectorAll('[data-room-wall]')).find(g=>g.dataset.roomWall===ROOMUI.selected);if(g){const a=stage.getBoundingClientRect(),b=g.getBoundingClientRect();if(b.left<a.left||b.right>a.right)stage.scrollLeft+=(b.left+b.right-a.left-a.right)/2;}}
@@ -3730,8 +3761,7 @@ roomView.addEventListener('click',async e=>{
   else if(action==='svg'||action==='pdf')await exportRoom(action);
  }catch(err){toast(err.message||'No se pudo completar la acción');}
 });
-const roomTab=document.createElement('button');roomTab.textContent='Habitaciones';roomTab.dataset.roomEntry='';$('#gTabs').append(roomTab);
-$('#gTabs').addEventListener('click',e=>{if(e.target.closest('[data-room-entry]')){e.stopImmediatePropagation();openRoomLibrary();}},true);
+
 const beforeRoomShow=show;show=function(){beforeRoomShow();const v=stack[stack.length-1].v;roomView.hidden=!['rooms','room'].includes(v);if(v==='rooms')renderRoomLibrary();};
 const beforeRoomBack=doBack;doBack=async function(){if(stack[stack.length-1].v==='room'&&ROOMUI.fullscreen){try{history.pushState({},'');pushed++;}catch(e){}setRoomFullscreen(false);return;}if(stack[stack.length-1].v==='room'&&roomDirty()&&!ROOMUI.leaving){try{history.pushState({},'');pushed++;}catch(e){}const choice=await dialog('¿Guardar el plano?','Hay cambios sin guardar en esta habitación.',[{id:'save',label:'Guardar',kind:'primary'},{id:'discard',label:'Salir sin guardar',kind:'danger'},{id:'stay',label:'Seguir editando'}]);if(!choice||choice==='stay')return;if(choice==='save'&&!(await saveRoom()))return;ROOMUI.leaving=true;requestBack();return;}ROOMUI.leaving=false;return beforeRoomBack();};
 
@@ -3759,7 +3789,7 @@ async function exportRoom(kind){
  const busy=openModal('<div class="sheet"><h2>Preparando planos…</h2><p class="note">Planta y alzados con sus cotas</p><div class="spin"></div></div>');
  try{
   const pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'}),order=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
-  const pages=[{title:'Planta',svg:()=>RoomViews.plan(r,ROOMUI.selected,u,{},true)},{title:'Todos los alzados · desarrollo frontal',svg:()=>RoomViews.elevations(r,u,true)},...order.flatMap(w=>(w.openings.length?w.openings:[null]).map(o=>({title:'Alzado · pared '+RoomPlan.number(r,w.id)+(o?' · '+roomElementName(o.type):''),svg:()=>RoomViews.elevation(r,w.id,u,true,o?.id)})))];
+  const pages=[{title:'Planta',svg:()=>RoomViews.plan(r,ROOMUI.selected,u,{},true)},{title:'Todos los alzados · desarrollo frontal',svg:()=>RoomViews.elevations(r,u,true)},...order.flatMap(w=>(w.openings.length?w.openings:[null]).map(o=>({title:'Alzado · '+RoomPlan.segmentLabel(r,w)+(o?' · '+roomElementName(o.type):''),svg:()=>RoomViews.elevation(r,w.id,u,true,o?.id)})))];
   if(pages.length>128)throw Error('Hay demasiados elementos para un solo PDF; exporta las vistas SVG por separado');
   for(let i=0;i<pages.length;i++){
    if(i)pdf.addPage('a4','landscape');pdf.setFont('helvetica','bold');pdf.setFontSize(15);pdf.text(r.name,14,14);pdf.setFont('helvetica','normal');pdf.setFontSize(10);pdf.text(pages[i].title+(draft?' · BORRADOR':''),14,22);
@@ -3787,7 +3817,7 @@ function roomOpeningForm(type,openingId=null){
  if(!['door','window','switch','socket'].includes(type))return;
  const fixture=type==='switch'||type==='socket',u=roomUnit(),k=TOMM[u],n=v=>v/k,label=roomElementName(type),defaults={widthMm:fixture?80:type==='door'?800:1200,heightMm:fixture?80:type==='door'?2100:1000,sillMm:type==='door'?0:type==='window'?1000:type==='socket'?300:1100,offsetMm:0},initial=current||defaults;
  const field=(name,label,value)=>`<label class="col"><span>${label} (${esc(u)})</span><input name="${name}" type="number" step="any" min="0" inputmode="decimal" required value="${n(value)}"></label>`;
- const m=openModal(`<form class="sheet" id="roomElementForm"><h2>${current?'Editar':'Añadir'} ${label.toLowerCase()} · pared ${RoomPlan.number(r,w.id)}</h2><div class="room-opening-form">${field('width','Ancho',initial.widthMm)}${field('height','Alto',initial.heightMm)}<label class="col"><span>Referencia horizontal</span><select name="horizontal"><option value="start">Desde esquina izquierda al borde izquierdo</option><option value="end">Desde esquina derecha al borde derecho</option></select></label>${field('offset','Distancia a la esquina',current?RoomPlan.frontOffset(r,w.id,initial.offsetMm,initial.widthMm):0)}${type==='door'?'<p class="note">La puerta arranca desde el suelo.</p>':`<label class="col"><span>Referencia vertical</span><select name="vertical"><option value="floor">Desde suelo al borde inferior</option><option value="ceiling">Desde techo al borde superior</option></select></label>${field('sill','Distancia vertical',initial.sillMm)}`}<label class="col"><span>Acotar también respecto a otro elemento</span><select name="reference"><option value="">Solo esquinas, suelo y techo</option>${w.openings.filter(o=>o.id!==current?.id).map((o,i)=>`<option value="${esc(o.id)}" ${o.id===current?.referenceId?'selected':''}>${roomElementName(o.type)} ${i+1}</option>`).join('')}</select></label><p class="note" id="roomElementDistances" role="status"></p></div><div class="row">${current?'<button type="button" class="btn ghost danger" data-opening-delete>Eliminar</button>':''}<button type="button" class="btn ghost" data-cancel>Cancelar</button><button class="btn primary" type="submit">Guardar elemento</button></div></form>`);
+ const m=openModal(`<form class="sheet" id="roomElementForm"><h2>${current?'Editar':'Añadir'} ${label.toLowerCase()} · ${RoomPlan.segmentLabel(r,w)}</h2><div class="room-opening-form">${field('width','Ancho',initial.widthMm)}${field('height','Alto',initial.heightMm)}<label class="col"><span>Referencia horizontal</span><select name="horizontal"><option value="start">Desde esquina izquierda al borde izquierdo</option><option value="end">Desde esquina derecha al borde derecho</option></select></label>${field('offset','Distancia a la esquina',current?RoomPlan.frontOffset(r,w.id,initial.offsetMm,initial.widthMm):0)}${type==='door'?'<p class="note">La puerta arranca desde el suelo.</p>':`<label class="col"><span>Referencia vertical</span><select name="vertical"><option value="floor">Desde suelo al borde inferior</option><option value="ceiling">Desde techo al borde superior</option></select></label>${field('sill','Distancia vertical',initial.sillMm)}`}<label class="col"><span>Acotar también respecto a otro elemento</span><select name="reference"><option value="">Solo esquinas, suelo y techo</option>${w.openings.filter(o=>o.id!==current?.id).map((o,i)=>`<option value="${esc(o.id)}" ${o.id===current?.referenceId?'selected':''}>${roomElementName(o.type)} ${i+1}</option>`).join('')}</select></label><p class="note" id="roomElementDistances" role="status"></p></div><div class="row">${current?'<button type="button" class="btn ghost danger" data-opening-delete>Eliminar</button>':''}<button type="button" class="btn ghost" data-cancel>Cancelar</button><button class="btn primary" type="submit">Guardar elemento</button></div></form>`);
  const form=m.wrap.querySelector('form'),f=form.elements;
  function read(){const widthMm=Number(f.width.value)*k,heightMm=Number(f.height.value)*k,offset=Number(f.offset.value)*k,sill=type==='door'?0:Number(f.sill.value)*k;return{id:current?.id||uid(),type,widthMm,heightMm,offsetMm:RoomPlan.frontOffset(r,w.id,f.horizontal.value==='end'?w.lengthMm-offset-widthMm:offset,widthMm),sillMm:type!=='door'&&f.vertical.value==='ceiling'?r.heightMm-sill-heightMm:sill,referenceId:f.reference.value||null};}
  function preview(){const o=read(),v=n=>RoomViews.value(n,u),left=RoomPlan.frontOffset(r,w.id,o.offsetMm,o.widthMm);m.wrap.querySelector('#roomElementDistances').textContent=`Esquina izquierda: ${v(left)} · esquina derecha: ${v(w.lengthMm-left-o.widthMm)} · suelo: ${v(o.sillMm)} · techo: ${v(r.heightMm-o.sillMm-o.heightMm)}`;}
