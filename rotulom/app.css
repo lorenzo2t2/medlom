@@ -43,10 +43,10 @@ body.editor-expanded #imageWorkspace>.measurement-toolbar{position:absolute;bott
 
 body.editor-expanded #imageWorkspace>.measurement-toolbar #drawZone{flex:1;font-size:13px}#imageStage,#designCanvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 /* Controles superiores: el lienzo ocupa el resto de la pantalla. */
-.editor-top-controls{display:flex;align-items:center;gap:6px}.editor-top-controls>.measurement-toolbar{flex:1}.editor-top-controls>.zoom-toolbar{flex-wrap:nowrap}
+.editor-top-controls{display:flex;align-items:center;gap:6px}.editor-top-controls>.measurement-toolbar{flex:1}.editor-top-controls>.zoom-toolbar{flex-wrap:wrap;min-width:0;max-width:100%}
 body.editor-expanded .editor-top-controls{position:absolute;top:calc(var(--workflow-nav-height,58px) + 5px);left:5px;right:5px;z-index:6;gap:5px;background:var(--surface);padding:5px;border-radius:10px}
 body.editor-expanded .editor-top-controls>.measurement-toolbar,body.editor-expanded .editor-top-controls>.zoom-toolbar{position:static;display:flex;margin:0;padding:0;gap:4px;min-height:40px;box-shadow:none;flex-wrap:nowrap;align-items:center}
-body.editor-expanded .editor-top-controls>.measurement-toolbar{flex:1;min-width:100px}body.editor-expanded #drawZone{flex:1;white-space:nowrap;font-size:12px;min-height:40px;padding:6px}body.editor-expanded #imageStage{top:calc(var(--workflow-nav-height,58px) + 60px);bottom:0}body.editor-expanded #editorOptions{top:calc(var(--workflow-nav-height,58px) + 62px)}
+body.editor-expanded .editor-top-controls>.measurement-toolbar{flex:1 1 100px;min-width:0}body.editor-expanded #drawZone{flex:1;white-space:nowrap;font-size:12px;min-height:40px;padding:6px}body.editor-expanded #imageStage{top:var(--editor-controls-bottom,118px);bottom:0}body.editor-expanded #editorOptions{top:var(--editor-controls-bottom,118px);max-height:calc(100% - var(--editor-controls-bottom,118px) - 8px)}
 body.editor-expanded .editor-top-controls .zoom-toolbar button{font-size:11px;padding:5px;min-height:36px}body.editor-expanded #zoomLabel{font-size:10px;min-width:30px}body.medlom-embedded.editor-expanded .workflow-tabs button{line-height:1.15;overflow:hidden}
 #filePreview{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;margin:12px 0 18px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink-soft)}#filePreview[hidden]{display:none}#filePreviewCanvas{display:block;max-width:100%;max-height:220px;width:auto;height:auto;background:#fff}#filePreview span{font-size:12px}
 #vehicleRecognition{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:18px}#vehicleRecognition p{margin:0 0 10px;font-size:13px}#vehicleRecognition small{display:block;margin-top:10px;font-size:11px;color:var(--ink-soft)}#vehicleCandidates{display:grid;gap:6px}.vehicle-candidate{padding:10px;text-align:left;background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);border-radius:8px;font-size:12px}.sheet-reference-row{display:grid;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}.sheet-reference-row label{display:grid;gap:4px}.sheet-reference-row input{width:100%;padding:8px}
@@ -115,3 +115,17 @@ body.drop-over::after{content:"Suelta aquí la foto o el PDF";position:fixed;ins
 .vehicle-cost select{width:100%;min-width:0;max-width:100%;min-height:42px;padding:8px 10px;border:1px solid var(--line-strong,#ccc);border-radius:8px;background:var(--surface,#fff);color:var(--ink,#000);font:inherit;font-size:13px;text-overflow:ellipsis}
 
 .catalog-photo svg{display:block;width:100%;height:320px;overflow:hidden;background:#fff}.compact-photo svg{height:180px}@media(max-width:620px){.compact-photo svg{height:110px}}
+
+body.medlom-embedded{overflow-x:clip}
+.workflow-step,.simple-photo-panel,#photoEditor,#imageWorkspace,#editorOptions{min-width:0;max-width:100%}
+#editorOptions select,#editorOptions input{min-width:0;max-width:100%}
+#imageStage{overscroll-behavior:contain;touch-action:none}
+.editor-top-controls>.zoom-toolbar{flex:0 1 auto}
+.editor-top-controls .zoom-toolbar input[type=range]{flex:1 1 70px;min-width:50px;max-width:110px}
+.editor-top-controls #editorOptionsToggle{flex:0 0 44px;min-height:44px;font-size:18px;padding:0}
+body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-wrap:wrap}
+@media(max-width:620px){
+ .editor-top-controls>.measurement-toolbar,.editor-top-controls>.zoom-toolbar{flex-basis:100%;margin:4px 0}
+ .editor-top-controls .zoom-toolbar button{white-space:nowrap;min-height:36px}
+ body.editor-expanded .editor-top-controls>.measurement-toolbar,body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-basis:auto}
+}

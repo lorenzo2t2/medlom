@@ -1,11 +1,10 @@
 {
- "versionCode": 70,
- "versionName": "0.50.1",
+ "versionCode": 71,
+ "versionName": "0.50.2",
  "apk": "MedLoM.apk",
- "size": 21475715,
- "sha256": "92385c7b2eb0731d66479667689954f8072ab44d891616cc897d91e20d37bcb8",
+ "size": 21476000,
+ "sha256": "4d1d47e36aeae0b58505bcee170239f1cb98aa2ea944c1bf54515780f294ed22",
  "notes": [
-  "Habitaciones: paredes y columnas diferenciadas y numeradas por separado.",
-  "Rotulación y Habitaciones agrupadas en Más. Botón Seleccionar más compacto."
+  "Rotulación: los controles y ajustes de escala caben en la pantalla y el desplazamiento queda dentro del lienzo."
  ]
 }
