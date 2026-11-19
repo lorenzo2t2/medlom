@@ -1,4 +1,5 @@
 (() => {
+  if(new URLSearchParams(location.search).get('mode')==='materials')return;
   const $=id=>document.getElementById(id),prefix='rot:job:',key='rotulom-current-job';
   let db,currentId=localStorage.getItem(key)||prefix+crypto.randomUUID(),ready=false,loading=false,timer,revision=0,saving=false,again=false;
   const bar=document.createElement('section');bar.className='job-bar panel';

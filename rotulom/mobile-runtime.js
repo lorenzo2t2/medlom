@@ -3,7 +3,17 @@
   const nativeFetch=window.fetch.bind(window),KEY='rotulom-mobile-vehicles-v1';
   let seedPromise;
   const stored=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}');}catch{return {};}};
-  async function vehicles(){seedPromise=seedPromise||nativeFetch('./data/vehicles.json').then(r=>r.json());const seed=await seedPromise;const base=new URL('./',location.href).pathname;for(const v of seed){if(v.imageUrl?.startsWith('/data/'))v.imageUrl=base+v.imageUrl.slice(1);const d=v.catalogueDetails;if(d?.profileImageUrl?.startsWith('/data/'))d.profileImageUrl=base+d.profileImageUrl.slice(1);}const overrides=stored(),map=new Map(seed.map(v=>[v.id,v]));Object.values(overrides).forEach(v=>map.set(v.id,v));return [...map.values()].sort((a,b)=>(a.make+' '+a.model).localeCompare(b.make+' '+b.model,'es'));}
+  async function vehicles(){
+    seedPromise=seedPromise||nativeFetch('./data/vehicles.json').then(r=>r.json());
+    const seed=(await seedPromise).filter(v=>v.catalogueDetails?.templateArtwork?.atlas),base=new URL('./',location.href).pathname;
+    for(const v of seed){if(v.imageUrl?.startsWith('/data/'))v.imageUrl=base+v.imageUrl.slice(1);const d=v.catalogueDetails;if(d?.profileImageUrl?.startsWith('/data/'))d.profileImageUrl=base+d.profileImageUrl.slice(1);}
+    const overrides=stored(),map=new Map(seed.map(v=>[v.id,v]));
+    for(const v of Object.values(overrides)){
+      const original=map.get(v.id);
+      map.set(v.id,original?{...original,...v,catalogueDetails:{...original.catalogueDetails,...v.catalogueDetails,templateId:original.catalogueDetails.templateId,templateArtwork:original.catalogueDetails.templateArtwork}}:v);
+    }
+    return [...map.values()].sort((a,b)=>(a.make+' '+a.model).localeCompare(b.make+' '+b.model,'es'));
+  }
   function persist(value){try{localStorage.setItem(KEY,JSON.stringify(value));}catch{throw new Error('No queda espacio local para guardar más fichas.');}}
   const response=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json'}});
   function parseCsv(text){let rows=[],row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell='';}else cell+=c;}if(quoted)throw Error('El CSV contiene una comilla sin cerrar.');row.push(cell);if(row.some(x=>x.trim()))rows.push(row);const headers=(rows.shift()||[]).map(h=>h.trim().replace(/^\uFEFF/,''));return {headers,rows:rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||'').trim()])))};}

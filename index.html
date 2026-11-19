@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.49.7";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -534,6 +534,42 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 #rotulacion.rot-fullscreen>header{display:none}
 
 button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);background:var(--panel)}.rot-job-card.just-saved{outline:2px solid var(--accent);outline-offset:1px}.rot-job-price{color:var(--accent-text);font-weight:700}.rot-pdf-placeholder{display:grid;place-items:center;width:100%;height:100%;font-size:24px;font-weight:700;color:var(--muted)}
+
+/* Biblioteca de plantillas: atlas compartido, vistas táctiles y fondo de diseño claro. */
+.vehicle-template-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.vehicle-template-view{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--fg);padding:10px;min-height:140px;cursor:pointer;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center}.vehicle-template-view svg{background:#fff;border-radius:7px;width:100%;height:115px}.vehicle-template-view:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.vehicle-template-view:disabled{opacity:.55;cursor:wait}
+/* Habitaciones: comparte tema y controles con el resto de la app. */
+.rooms-library{padding-block:18px}.room-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:10px}.room-card-open{border:0;background:none;color:var(--fg);padding:0;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px}.room-card-preview{width:100%;background:white;border-radius:8px;overflow:hidden}.room-card small{color:var(--muted)}.room-work{padding-block:14px}.room-view-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.room-view-tabs button{border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:11px 14px;border-radius:10px;min-height:44px;cursor:pointer}.room-view-tabs [aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.room-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px}.room-drawing,.room-controls{min-width:0}.room-stage{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:auto;touch-action:none;max-height:65vh;min-height:200px}.room-view-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.room-controls{display:flex;flex-direction:column;gap:12px}.room-controls form,.room-opening-form{display:grid;gap:10px}.room-input-row{display:flex;gap:8px;align-items:center}.room-input-row input{width:100%;min-width:0}.room-opening-actions{display:flex;gap:8px;margin:12px 0}.room-export-actions{display:grid;gap:8px;margin-top:15px}.room-opening-item{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--fg);margin-bottom:8px;cursor:pointer}.room-opening-item span{font-size:12px;color:var(--muted)}#roomLengthForm{display:grid;gap:9px;margin:12px 0}.room-view-tabs button:focus-visible,.room-opening-item:focus-visible,.room-card-open:focus-visible{outline:3px solid var(--accent);outline-offset:3px}@media(max-width:720px){.room-layout{grid-template-columns:1fr}.room-stage{max-height:50vh}.room-view-tools .btn{font-size:13px;padding:9px 11px}.room-view-tabs button{flex:1;font-size:13px;padding:9px}.room-controls{padding-bottom:20px}}
+
+.room-controls input,.room-controls select,#roomNewForm input,#roomNewForm select,.room-opening-form input{min-height:46px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line,#888);border-radius:10px;background:var(--bg,#fff);color:var(--text,inherit);font:inherit;font-size:16px}.room-view-tools{flex-wrap:wrap}
+
+.room-stage.room-strip{overflow-x:auto;overflow-y:hidden;max-height:none;aspect-ratio:auto;min-height:240px;touch-action:none}.room-stage.room-strip svg{max-width:none;max-height:none;width:100%;height:auto}.room-distance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.room-distance-grid>div{padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.room-distance-grid dt{font-size:12px;line-height:1.4;color:var(--muted)}.room-distance-grid dd{margin:5px 0 0;font-weight:700}.room-opening-form select{min-height:46px;max-width:100%;width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--fg);font:inherit}.room-opening-actions{flex-wrap:wrap}.room-stage [data-room-wall]:focus-visible,.room-stage [data-room-opening]:focus-visible{outline:3px solid var(--accent)}.room-controls input,.room-controls select,#roomNewForm input,#roomNewForm select,.room-opening-form input{background:var(--panel);color:var(--fg)}
+
+#templateSearch{width:100%;min-height:46px;font:inherit;color:var(--fg);background:var(--panel);padding:10px 12px;border:1px solid var(--line);border-radius:10px}[data-template-model][hidden]{display:none!important}
+
+.room-input-modes{display:flex;gap:8px;margin-bottom:10px}.room-input-modes [aria-pressed=true]{outline:2px solid var(--accent);outline-offset:1px}.room-view-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.room-view-tabs button{white-space:nowrap;font-size:13px!important;min-height:44px;padding:9px 5px!important}.room-stage.room-strip{height:min(46dvh,380px);min-height:230px;max-height:380px;overflow:auto}.room-strip-measures{display:flex;gap:8px;max-width:100%;overflow-x:auto;padding:10px 0;flex-shrink:0}.room-strip-measures button{flex:0 0 auto;min-width:84px;padding:9px 12px;font:inherit;font-size:16px;background:var(--panel);border:1px solid var(--line);border-radius:9px;color:var(--fg)}.room-strip-measures button[aria-pressed=true]{border-color:var(--accent)}.room-strip-measures b,.room-strip-measures span{display:block}.room-strip-measures span{font-size:15px;margin-top:4px}.room-stage svg{margin-inline:auto}
+#rooms.room-fullscreen{position:fixed;inset:0;z-index:19;background:var(--bg);height:100dvh;display:flex;flex-direction:column}#rooms.room-fullscreen>.top{flex-shrink:0}#rooms.room-fullscreen #roomSave{display:none}#rooms.room-fullscreen .room-work{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:8px}#rooms.room-fullscreen .room-view-tabs{flex-shrink:0;margin-bottom:6px}#rooms.room-fullscreen .room-layout{display:flex;flex:1;min-height:0}#rooms.room-fullscreen .room-controls{display:none}#rooms.room-fullscreen .room-drawing{display:flex;flex-direction:column;flex:1;min-height:0;min-width:0}#rooms.room-fullscreen .room-stage{flex:1;min-height:0;max-height:none;height:auto;overflow:auto}#rooms.room-fullscreen .room-view-tools{flex-shrink:0;margin-top:5px}#rooms.room-fullscreen #roomHint{display:none}#rooms.room-fullscreen .room-strip-measures{max-height:75px;padding:5px 0}#rooms.room-fullscreen .room-view-tools .btn{font-size:12px;padding:7px}
+
+/* Habitaciones: casillas nativas compactas y lienzo prioritario en horizontal. */
+.room-controls .room-angle-toggle{display:flex;align-items:center;justify-content:flex-start;gap:9px;min-height:44px;width:max-content;max-width:100%;font-size:14px;padding:0;border:0}
+.room-controls input[type=checkbox]{appearance:auto;flex:0 0 20px;width:20px;height:20px;min-height:20px;margin:0;padding:0;accent-color:var(--accent);border-radius:3px}
+.room-compact-back,.room-compact-save{display:none}.room-stage:not(.room-strip){height:min(48dvh,460px)}
+#roomSketchControls .txt{font-size:14px;line-height:1.45}
+@media(orientation:landscape) and (max-height:600px){
+ #rooms.room-editing{position:fixed;inset:0;z-index:19;height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
+ #rooms.room-editing>.top{display:none}
+ #rooms.room-editing .room-work{padding:3px max(4px,env(safe-area-inset-right)) 3px max(4px,env(safe-area-inset-left));display:flex;flex:1;min-height:0;flex-direction:column;overflow:hidden}
+ #rooms.room-editing .room-view-tabs{display:flex;flex-shrink:0;gap:4px;margin:0 0 3px;height:36px}
+ #rooms.room-editing .room-view-tabs button{flex:1;min-height:36px;height:36px;padding:4px!important;font-size:12px!important}
+ #rooms.room-editing .room-layout{display:flex;flex:1;min-height:0;gap:0}
+ #rooms.room-editing .room-drawing{display:flex;flex:1;flex-direction:column;min-width:0;min-height:0}
+ #rooms.room-editing .room-stage{flex:1;width:100%;height:auto;min-height:0;max-height:none;border-radius:5px}
+ #rooms.room-editing .room-view-tools{display:flex;align-items:center;flex-wrap:nowrap;gap:4px;height:44px;flex:0 0 44px;margin:2px 0 0;overflow-x:auto}
+ #rooms.room-editing .room-view-tools .btn{font-size:12px;min-height:40px;height:40px;padding:5px 10px;flex-shrink:0;white-space:nowrap}
+ #rooms.room-editing .room-compact-back,#rooms.room-editing .room-compact-save{display:block}
+ #rooms.room-editing #roomHint,#rooms.room-editing .room-strip-measures{display:none}
+ #rooms.room-editing .room-controls{display:none}
+ #rooms.room-editing.room-controls-open .room-controls{display:flex;position:absolute;right:max(4px,env(safe-area-inset-right));top:42px;bottom:49px;width:min(310px,80vw);overflow:auto;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;z-index:2;box-shadow:0 4px 20px #0006}
+}
 </style>
 
 <div class="app">
@@ -742,7 +778,8 @@ function lookColors(L,dark){
   const bar=L.bar&&contrast(fg,L.bar)>=4.5?L.bar:panel;
   return{accent:L.sem,acc2:L.acc||L.sem,bg,panel,fg,bar,line:L.line||null,isDark,grad:stops.length>1?`linear-gradient(160deg,${stops.join(',')})`:stops[0]};
 }
-function validateBackup(data){return !!data&&data.app==='MedLoM'&&[1,2].includes(data.v)&&Array.isArray(data.projects)&&Array.isArray(data.photos)&&data.projects.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string')&&data.photos.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&p.w>0&&p.h>0);}
+function validBackupRooms(project){if(!Object.prototype.hasOwnProperty.call(project,'rooms'))return true;try{if(typeof roomCopyList!=='function')return false;roomCopyList(project.rooms);return true;}catch(e){return false;}}
+function validateBackup(data){return !!data&&data.app==='MedLoM'&&[1,2].includes(data.v)&&Array.isArray(data.projects)&&Array.isArray(data.photos)&&data.projects.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&validBackupRooms(p))&&data.photos.every(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&p.w>0&&p.h>0);}
 function restoreBackupSettings(current,saved,defaults){const next={...current};if(!saved||typeof saved!=='object')return next;for(const key of Object.keys(defaults)){if(key==='clouds'||!Object.prototype.hasOwnProperty.call(saved,key))continue;const d=defaults[key],value=saved[key];if(d===null||typeof value===typeof d)next[key]=value;}return next;}
 async function encodeBackupValue(value,zip,context={n:0,seen:new WeakMap()}){
   if(value instanceof Blob||value instanceof ArrayBuffer||ArrayBuffer.isView(value)){
@@ -774,6 +811,181 @@ async function commitBackupPlan(plan){
   if(!DB.ok)throw Error('No hay almacenamiento persistente disponible');
   await new Promise((resolve,reject)=>{const t=DB.db.transaction(['photos','projects','meta','scans'],'readwrite');t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||Error('Restauración cancelada'));try{for(const name of ['photos','projects','meta','scans'])for(const item of plan[name]||[])t.objectStore(name).put(item);}catch(e){t.abort();reject(e);}});
 }
+/* Geometría de importación de plantillas nominales, independiente del editor. */
+function vehicleTemplatePlan(entry,view,maxEdge=1400){
+  const finite=v=>typeof v==='number'&&Number.isFinite(v);
+  const positive=v=>finite(v)&&v>0;
+  const axes={frontal:['exteriorWidth','exteriorHeight'],trasera:['exteriorWidth','exteriorHeight'],lateral:['exteriorLength','exteriorHeight'],superior:['exteriorLength','exteriorWidth']};
+  const selected=entry?.views?.[view],keys=axes[view],size=entry?.atlasSize;
+  if(!keys||!selected||!Array.isArray(size)||size.length!==2||!size.every(positive)||!positive(maxEdge)||maxEdge>4096)throw Error('Plantilla no válida');
+  const dims=keys.map(k=>entry.dimensionsMm?.[k]),clip=selected.clip,bounds=selected.bounds;
+  if(!dims.every(positive)||!Array.isArray(clip)||clip.length!==4||!clip.every(finite)||!Array.isArray(bounds)||bounds.length!==4||!bounds.every(finite))throw Error('Faltan medidas de la plantilla');
+  const [x,y,w,h]=clip,[x0,y0,x1,y1]=bounds;
+  if(x<0||y<0||w<=0||h<=0||x+w>size[0]||y+h>size[1]||x0<x||y0<y||x1>x+w||y1>y+h||x1<=x0||y1<=y0)throw Error('Encuadre de plantilla no válido');
+  const mmX=dims[0]/(x1-x0),mmY=dims[1]/(y1-y0),realW=w*mmX,realH=h*mmY;
+  const padding=Math.round(maxEdge*.06),scale=(maxEdge-2*padding)/Math.max(realW,realH),iw=Math.max(1,Math.round(realW*scale)),ih=Math.max(1,Math.round(realH*scale)),width=iw+2*padding,height=ih+2*padding;
+  const kx=iw/realW,ky=ih/realH,ax=padding+(x0-x)*mmX*kx,ay=padding+(y0-y)*mmY*ky,bx=ax+dims[0]*kx,by=ay+dims[1]*ky;
+  return {clip:clip.slice(),width,height,draw:{x:padding,y:padding,width:iw,height:ih},plane:{unit:'mm',w:dims[0],h:dims[1],pts:[{x:ax,y:ay},{x:bx,y:ay},{x:bx,y:by},{x:ax,y:by}]}};
+}
+
+function vehicleTemplateDimensionLines(geometry){
+  const [a,b,c]=geometry.plane.pts,fs=Math.max(geometry.width,geometry.height)/35;
+  const top=Math.max(fs*1.5,a.y-fs*.9),left=Math.max(fs*1.5,a.x-fs*.9);
+  return [{a:{x:a.x,y:top},b:{x:b.x,y:top},value:geometry.plane.w,unit:'mm',fs},
+          {a:{x:left,y:a.y},b:{x:left,y:c.y},value:geometry.plane.h,unit:'mm',fs}];
+}
+/* Geometría local de habitaciones. Todas las dimensiones se guardan en mm. */
+const RoomPlan=(()=>{
+  const finite=n=>typeof n==='number'&&Number.isFinite(n);
+  const positive=n=>finite(n)&&n>0&&n<=200000;
+  const identifier=s=>typeof s==='string'&&/^[a-z0-9:_-]{1,100}$/i.test(s);
+  const clone=r=>JSON.parse(JSON.stringify(r));
+  const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+  const wall=(r,id)=>{const w=r.walls.find(x=>x.id===id);if(!w)throw Error('Pared no encontrada');return w;};
+  function crossing(points,closed=true){
+    const n=points.length-(closed?0:1),cross=(a,b,c)=>(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
+    for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){
+      if(j===i+1||(closed&&i===0&&j===n-1))continue;
+      const a=points[i],b=points[(i+1)%points.length],c=points[j],d=points[(j+1)%points.length];
+      const on=(p,q,t)=>Math.abs(cross(p,q,t))<1e-6&&t.x>=Math.min(p.x,q.x)-1e-6&&t.x<=Math.max(p.x,q.x)+1e-6&&t.y>=Math.min(p.y,q.y)-1e-6&&t.y<=Math.max(p.y,q.y)+1e-6;
+      if(cross(a,b,c)*cross(a,b,d)<-1e-6&&cross(c,d,a)*cross(c,d,b)<-1e-6||on(a,b,c)||on(a,b,d)||on(c,d,a)||on(c,d,b))return true;
+    }
+    return false;
+  }
+  function columnRuns(walls){
+    const n=walls.length,max=Math.max(...walls.map(w=>w.ratio)),dot=(a,b)=>Math.cos(a.angle-b.angle),runs=[];
+    for(let i=0;i<n;i++){const prev=walls[(i+n-1)%n],a=walls[i],b=walls[(i+1)%n],c=walls[(i+2)%n],next=walls[(i+3)%n];
+      if(n>=6&&Math.max(a.ratio,b.ratio,c.ratio)<max*.6&&dot(a,c)<-.94&&Math.abs(dot(a,b))<.25&&dot(prev,b)>.94&&dot(next,b)>.94)runs.push(i);
+    }return runs;
+  }
+  function classify(walls){const faces=new Set();columnRuns(walls).forEach(i=>[i,(i+1)%walls.length,(i+2)%walls.length].forEach(j=>faces.add(j)));walls.forEach((w,i)=>{if(!w.kindManual)w.kind=faces.has(i)?'column':'wall';});return walls;}
+  function winding(r){let x=0,y=0,area=0;for(const w of r.walls){const nx=x+Math.cos(w.angle)*w.ratio,ny=y+Math.sin(w.angle)*w.ratio;area+=x*ny-nx*y;x=nx;y=ny;}return area<0?-1:1;}
+  function viewOrder(r){const order=[...r.walls].sort((a,b)=>number(r,a.id)-number(r,b.id));return winding(r)<0?order.reverse():order;}
+  function reframe(r,points){const shape=fromSketch(points,{id:r.id,name:r.name});const n=clone(r);n.walls=n.walls.map((w,i)=>({...w,angle:shape.walls[i].angle,ratio:shape.walls[i].ratio,kind:w.kindManual?w.kind:shape.walls[i].kind}));return clean(n);}
+  function fromSketch(points,{id,name}){
+    if(!identifier(id)||typeof name!=='string'||!name.trim()||!Array.isArray(points)||points.length<3||points.length>32)throw Error('Define de 3 a 32 paredes y un nombre');
+    if(points.some(p=>!finite(p.x)||!finite(p.y)||Math.abs(p.x)>20000||Math.abs(p.y)>20000)||crossing(points))throw Error('El contorno no puede cruzarse');
+    let area=0;const walls=points.map((a,i)=>{const b=points[(i+1)%points.length],dx=b.x-a.x,dy=b.y-a.y;area+=a.x*b.y-b.x*a.y;if(Math.hypot(dx,dy)<2)throw Error('Hay esquinas demasiado próximas');return{id:id+':w'+i,angle:Math.atan2(dy,dx),ratio:Math.hypot(dx,dy),lengthMm:null,openings:[]};});
+    if(Math.abs(area)<4)throw Error('El contorno necesita superficie');
+    classify(walls);
+    return {v:1,id,name:name.trim().slice(0,128),heightMm:null,firstWallId:walls[0].id,referenceWallId:null,walls,created:Date.now(),updated:Date.now()};
+  }
+  function checkOpenings(w,height){
+    const ids=new Set();
+    if(!Array.isArray(w.openings)||w.openings.length>32)throw Error('Demasiados huecos en una pared');
+    for(const o of w.openings){
+      if(!identifier(o.id)||ids.has(o.id)||!['door','window','switch','socket'].includes(o.type)||!positive(o.widthMm)||!positive(o.heightMm)||!finite(o.offsetMm)||o.offsetMm<0||!finite(o.sillMm)||o.sillMm<0)throw Error('Medidas del hueco no válidas');
+      ids.add(o.id);
+      if(o.referenceId!=null&&(!identifier(o.referenceId)||o.referenceId===o.id||!w.openings.some(x=>x.id===o.referenceId)))throw Error('Referencia de cota no válida');
+      if(!positive(w.lengthMm)||!positive(height))throw Error('Introduce primero la longitud de la pared y la altura');
+      if(o.offsetMm+o.widthMm>w.lengthMm+.001||o.sillMm+o.heightMm>height+.001||o.type==='door'&&o.sillMm!==0)throw Error('El hueco debe caber en su pared');
+    }
+    for(let i=0;i<w.openings.length;i++)for(let j=i+1;j<w.openings.length;j++){
+      const a=w.openings[i],b=w.openings[j];
+      if(a.offsetMm<b.offsetMm+b.widthMm-.001&&a.offsetMm+a.widthMm>b.offsetMm+.001&&a.sillMm<b.sillMm+b.heightMm-.001&&a.sillMm+a.heightMm>b.sillMm+.001)throw Error('Los huecos no pueden solaparse');
+    }
+  }
+  function clean(input){
+    if(!input||input.v!==1||!identifier(input.id)||typeof input.name!=='string'||!input.name.trim()||!Array.isArray(input.walls)||input.walls.length<3||input.walls.length>32)throw Error('Habitación no válida');
+    if(input.heightMm!==null&&!positive(input.heightMm))throw Error('Altura no válida');
+    const ids=new Set(),openingIds=new Set();
+    const walls=input.walls.map(w=>{
+      if(!w||!identifier(w.id)||ids.has(w.id)||!finite(w.angle)||Math.abs(w.angle)>Math.PI*4||!positive(w.ratio)||w.lengthMm!==null&&!positive(w.lengthMm))throw Error('Datos de pared no válidos');
+      ids.add(w.id);checkOpenings(w,input.heightMm);
+      const openings=w.openings.map(o=>{if(openingIds.has(o.id))throw Error('Identificador de hueco repetido');openingIds.add(o.id);return{id:o.id,type:o.type,offsetMm:o.offsetMm,widthMm:o.widthMm,heightMm:o.heightMm,sillMm:o.sillMm,referenceId:o.referenceId||null};});
+      if(w.kind!=null&&!['wall','column'].includes(w.kind))throw Error('Tipo de tramo no válido');
+      return {id:w.id,angle:w.angle,ratio:w.ratio,lengthMm:w.lengthMm,kind:w.kind||'wall',kindManual:!!w.kindManual,openings};
+    });
+    if(!ids.has(input.firstWallId)||input.referenceWallId!==null&&!ids.has(input.referenceWallId))throw Error('Orden de paredes no válido');
+    return {v:1,id:input.id,name:input.name.trim().slice(0,128),heightMm:input.heightMm,firstWallId:input.firstWallId,referenceWallId:input.referenceWallId,walls,created:finite(input.created)?input.created:0,updated:finite(input.updated)?input.updated:0};
+  }
+  function geometry(r){
+    const ref=r.walls.find(w=>w.id===r.referenceWallId&&w.lengthMm>0)||r.walls.find(w=>w.lengthMm>0),scale=ref?ref.lengthMm/ref.ratio:10;
+    const points=[{x:0,y:0}],segments=[];let measured=0;
+    for(const w of r.walls){const length=w.lengthMm??w.ratio*scale,a=points[points.length-1],b={x:a.x+Math.cos(w.angle)*length,y:a.y+Math.sin(w.angle)*length};if(w.lengthMm!==null)measured++;segments.push({id:w.id,a,b,length,estimated:w.lengthMm===null});points.push(b);}
+    const last=points[points.length-1],gapMm=Math.hypot(last.x,last.y),closed=gapMm<1;
+    const polygon=points.slice(0,-1),intersects=crossing(closed?polygon:points,closed);
+    let areaMm2=0;if(closed&&!intersects){for(let i=0;i<polygon.length;i++){const a=polygon[i],b=polygon[(i+1)%polygon.length];areaMm2+=a.x*b.y-b.x*a.y;}areaMm2=Math.abs(areaMm2)/2;}
+    return {points,segments,gapMm,closed,intersects,areaMm2,measured,complete:measured===r.walls.length&&closed&&!intersects};
+  }
+  function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');const n=clone(r),w=wall(n,id);w.lengthMm=value;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
+  function setHeight(r,value){if(!positive(value))throw Error('Introduce una altura positiva');const n=clone(r);n.walls.forEach(w=>checkOpenings(w,value));n.heightMm=value;return n;}
+  function setFirst(r,id){wall(r,id);return {...clone(r),firstWallId:id};}
+  function number(r,id){const i=r.walls.findIndex(w=>w.id===id),first=r.walls.findIndex(w=>w.id===r.firstWallId);return (i-first+r.walls.length)%r.walls.length+1;}
+  function nextWall(r,id){const index=r.walls.findIndex(w=>w.id===id);for(let i=1;i<=r.walls.length;i++){const w=r.walls[(index+i)%r.walls.length];if(w.lengthMm===null)return w.id;}return null;}
+  function addOpening(r,id,opening){const n=clone(r),w=wall(n,id);if(n.walls.some(x=>x.openings.some(o=>o.id===opening.id)))throw Error('Hueco repetido');w.openings.push({...opening});checkOpenings(w,n.heightMm);return clean(n);}
+  function updateOpening(r,id,opening){const n=clone(r),w=wall(n,id),i=w.openings.findIndex(o=>o.id===opening.id);if(i<0)throw Error('Elemento no encontrado');w.openings[i]={...opening};return clean(n);}
+  function removeOpening(r,id,openingId){const n=clone(r),w=wall(n,id);w.openings=w.openings.filter(o=>o.id!==openingId).map(o=>({...o,referenceId:o.referenceId===openingId?null:o.referenceId||null}));return n;}
+  function setKind(r,id,kind){if(!['wall','column'].includes(kind))throw Error('Tipo de tramo no válido');const n=clone(r);wall(n,id).kind=kind;wall(n,id).kindManual=true;return n;}
+  function distances(r,id,openingId){const w=wall(r,id),o=w.openings.find(x=>x.id===openingId);if(!o)throw Error('Elemento no encontrado');const out={left:o.offsetMm,right:w.lengthMm-o.offsetMm-o.widthMm,bottom:o.sillMm,top:r.heightMm-o.sillMm-o.heightMm,reference:null};const ref=w.openings.find(x=>x.id===o.referenceId);if(ref)out.reference={id:ref.id,horizontal:Math.max(0,ref.offsetMm-o.offsetMm-o.widthMm,o.offsetMm-ref.offsetMm-ref.widthMm),vertical:Math.max(0,ref.sillMm-o.sillMm-o.heightMm,o.sillMm-ref.sillMm-ref.heightMm)};return out;}
+  function frontOffset(r,id,offset,width){const w=wall(r,id);return winding(r)<0?w.lengthMm-offset-width:offset;}
+  function frontDistances(r,id,itemId){const d=distances(r,id,itemId);return winding(r)<0?{...d,left:d.right,right:d.left}:d;}
+  function panels(r,index){
+    const w=r.walls[index];if(!w||!(r.heightMm>0))return [];
+    const length=geometry(r).segments[index].length,x=[0,length],z=[0,r.heightMm],voids=w.openings.filter(o=>o.type==='door'||o.type==='window');
+    voids.forEach(o=>{x.push(o.offsetMm,o.offsetMm+o.widthMm);z.push(o.sillMm,o.sillMm+o.heightMm);});
+    const xs=[...new Set(x)].sort((a,b)=>a-b),zs=[...new Set(z)].sort((a,b)=>a-b),out=[];
+    for(let i=0;i<xs.length-1;i++)for(let j=0;j<zs.length-1;j++){
+      const cx=(xs[i]+xs[i+1])/2,cz=(zs[j]+zs[j+1])/2;
+      if(!voids.some(o=>cx>o.offsetMm&&cx<o.offsetMm+o.widthMm&&cz>o.sillMm&&cz<o.sillMm+o.heightMm))out.push({x0:xs[i],x1:xs[i+1],z0:zs[j],z1:zs[j+1]});
+    }return out;
+  }
+  return {fromSketch,clean,geometry,setLength,setHeight,setFirst,number,nextWall,addOpening,removeOpening,panels,setKind,distances,updateOpening,winding,viewOrder,reframe,columnRuns,frontOffset,frontDistances};
+})();
+function roomCopyList(value){if(!Array.isArray(value)||value.length>200)throw Error('Lista de habitaciones no válida');return value.map(RoomPlan.clean);}
+function projectForRoomSync(p,previous){return {id:p.id,name:p.name,created:p.created,updated:p.updated,notes:p.notes||null,rooms:roomCopyList(p.rooms??previous?.rooms??[])};}
+function applyProjectRooms(local,remote){if(Object.prototype.hasOwnProperty.call(remote,'rooms'))local.rooms=roomCopyList(remote.rooms);return local;}
+/* Reconocimiento local de esquinas: trazo táctil, sin número previo de paredes. */
+const RoomSketch=(()=>{
+ const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+ function simplify(points,tolerance){
+  if(points.length<=2)return points;
+  const keep=new Set([0,points.length-1]),todo=[[0,points.length-1]];
+  while(todo.length){const [start,end]=todo.pop(),a=points[start],b=points[end],dx=b.x-a.x,dy=b.y-a.y,len2=dx*dx+dy*dy;let far=tolerance,index=-1;
+   for(let i=start+1;i<end;i++){const p=points[i],t=len2?Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/len2)):0,d=Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);if(d>far){far=d;index=i;}}
+   if(index>=0){keep.add(index);todo.push([start,index],[index,end]);}
+  }
+  return [...keep].sort((a,b)=>a-b).map(i=>({...points[i]}));
+ }
+ // Una esquina redondeada no son dos paredes unidas por un chaflán diminuto.
+ function removeRoundedCorners(input,tolerance){
+  let points=input.map(p=>({...p})),changed=true;
+  while(changed&&points.length>3){changed=false;
+   for(let i=0;i<points.length;i++){
+    const n=points.length,j=(i+1)%n,a=points[(i+n-1)%n],b=points[i],c=points[j],d=points[(i+2)%n];
+    const dx=c.x-b.x,dy=c.y-b.y,prevVertical=Math.abs(b.y-a.y)>Math.abs(b.x-a.x),nextVertical=Math.abs(d.y-c.y)>Math.abs(d.x-c.x);
+    if(prevVertical===nextVertical||distance(b,c)>tolerance*6||Math.min(Math.abs(dx),Math.abs(dy))<Math.max(Math.abs(dx),Math.abs(dy))*.18)continue;
+    const corner=prevVertical?{x:b.x,y:c.y}:{x:c.x,y:b.y};
+    points=points.map((p,k)=>k===i?corner:p).filter((_,k)=>k!==j);changed=true;break;
+   }
+  }
+  return points;
+ }
+ function orthogonalize(points){
+  const n=points.length,px=Array.from({length:n},(_,i)=>i),py=px.slice(),find=(p,i)=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;},join=(p,i,j)=>{p[find(p,i)]=find(p,j);};
+  const walls=points.map((a,i)=>{const b=points[(i+1)%n],dx=b.x-a.x,dy=b.y-a.y,vertical=Math.abs(dy)>Math.abs(dx);join(vertical?px:py,i,(i+1)%n);return{ratio:Math.hypot(dx,dy),angle:vertical?(dy>0?Math.PI/2:-Math.PI/2):(dx>0?0:Math.PI)};});
+  // Las tres caras de un entrante deben volver a la misma línea de pared.
+  RoomPlan.columnRuns(walls).forEach(i=>join(Math.abs(Math.cos(walls[(i+1)%n].angle))>.5?py:px,i,(i+3)%n));
+  const average=(parents,axis,i)=>{const group=find(parents,i),values=points.filter((_,j)=>find(parents,j)===group).map(p=>p[axis]);return values.reduce((a,b)=>a+b,0)/values.length;};
+  return points.map((_,i)=>({x:average(px,'x',i),y:average(py,'y',i)}));
+ }
+ function detect(input,{close=false,tolerance=7,orthogonal=true,byPoints=false}={}){
+  if(!Array.isArray(input)||input.length<3||input.length>10000||input.some(p=>!Number.isFinite(p.x)||!Number.isFinite(p.y)))throw Error('Dibuja un contorno de al menos tres lados');
+  const pts=input.filter((p,i)=>!i||distance(p,input[i-1])>1);
+  if(!close&&distance(pts[0],pts.at(-1))>35)throw Error('Cierra el trazo volviendo al inicio o pulsa Cerrar contorno');
+  const end=pts.at(-1);if(distance(pts[0],end)<(byPoints?1:35))pts[pts.length-1]={...pts[0]};else pts.push({...pts[0]});
+  let corners=byPoints?pts.map(p=>({...p})):simplify(pts,tolerance);if(distance(corners[0],corners.at(-1))<2)corners.pop();
+  let changed=true;while(changed&&corners.length>3){changed=false;for(let i=0;i<corners.length;i++){const a=corners[(i+corners.length-1)%corners.length],b=corners[i],c=corners[(i+1)%corners.length],v=Math.atan2(b.y-a.y,b.x-a.x),w=Math.atan2(c.y-b.y,c.x-b.x),angle=Math.abs(Math.atan2(Math.sin(w-v),Math.cos(w-v)));if(distance(a,b)<4||angle<.10){corners.splice(i,1);changed=true;break;}}}
+  if(orthogonal){
+   corners=orthogonalize(byPoints?corners:removeRoundedCorners(corners,tolerance));
+   // El enderezado puede dejar muestras contiguas en la misma pared.
+   let removed=true;while(removed&&corners.length>3){removed=false;for(let i=0;i<corners.length;i++){const a=corners[(i+corners.length-1)%corners.length],b=corners[i],c=corners[(i+1)%corners.length];if(((a.x===b.x&&b.x===c.x)||(a.y===b.y&&b.y===c.y))&&((b.x-a.x)*(c.x-b.x)+(b.y-a.y)*(c.y-b.y)>=0)){corners.splice(i,1);removed=true;break;}}}
+  }
+  if(corners.length<3||corners.length>32)throw Error('No se reconoce un contorno válido de 3 a 32 tramos; usa Deshacer y vuelve a dibujar');
+  return corners;
+ }
+ return {detect,simplify,orthogonalize};
+})();
 /* ================= settings ================= */
 const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
 let SET={...DEF_SET};
@@ -1170,7 +1382,7 @@ $('#gallery').addEventListener('click',async e=>{
   else if(act==='addto'){const pid=await pickProject(s);if(!pid)return;let p;if(pid==='new'){const t=await pickProjectTemplate();if(!t)return;p={id:uid(),name:t.name,notes:t.notes?{text:t.notes}:{},created:Date.now(),updated:Date.now()};store.projects.push(p)}else p=projById(pid);p.updated=stamp(p.updated);await put('projects',p);await assign(selPhotos(),p.id);exitSel();toast(s?`Movidas a «${p.name}»`:`Movidas a «${p.name}»: ya no salen en Fotos`);renderGallery()}
   else if(act==='unlink'){await assign(selPhotos(),null);exitSel();toast('Fotos sacadas del proyecto: ahora están en la pestaña Fotos');renderGallery()}
   else if(act==='delphotos'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'foto':'fotos'}?`,'Se borran de la app con sus medidas. No se puede deshacer.',[{id:'y',label:'Eliminar',kind:'danger'},{id:'n',label:'Cancelar'}]);if(r!=='y')return;for(const p of selPhotos()){await del('photos',p.id);addTomb('photo',p.id)}store.photos=store.photos.filter(p=>!selected.has(p.id));exitSel();toast('Eliminadas');renderGallery()}
-  else if(act==='delproj'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'proyecto':'proyectos'}?`,'Puedes conservar las fotos (quedan en la pestaña Fotos) o borrarlas también.',[{id:'keep',label:'Eliminar y conservar fotos',kind:'primary'},{id:'all',label:'Eliminar proyecto y fotos',kind:'danger'},{id:'n',label:'Cancelar'}]);if(!r||r==='n')return;
+  else if(act==='delproj'){const k=selected.size;const r=await dialog(`¿Eliminar ${k} ${k===1?'proyecto':'proyectos'}?`,'Los planos de habitaciones también se eliminarán. Puedes conservar las fotos (quedan en la pestaña Fotos) o borrarlas también.',[{id:'keep',label:'Eliminar y conservar fotos',kind:'primary'},{id:'all',label:'Eliminar proyecto y fotos',kind:'danger'},{id:'n',label:'Cancelar'}]);if(!r||r==='n')return;
     for(const pid of selected){for(const ph of photosOf(pid)){if(r==='all'){await del('photos',ph.id);addTomb('photo',ph.id);store.photos=store.photos.filter(x=>x.id!==ph.id)}else{ph.projectId=null;ph.updated=stamp(ph.updated);await put('photos',ph)}}await del('projects',pid);addTomb('project',pid)}
     store.projects=store.projects.filter(p=>!selected.has(p.id));exitSel();toast('Eliminado');renderGallery()}
   else if(act==='export'){
@@ -1229,8 +1441,8 @@ function pickProject(exclude){return new Promise(res=>{
 
 /* ================= import ================= */
 function openSourcePicker(){
-  const m=openModal(`<div class="sheet"><h2>${scope()?'Añadir foto al proyecto':'Nueva foto'}</h2><div class="src"><button class="btn primary" data-s="cam">${IC.cam}Hacer foto con la cámara</button><button class="btn ghost" data-s="lib">${IC.img}Elegir fotos existentes</button></div><p class="note">Las fotos se guardan dentro de MedLoM, no en la galería del móvil. Desde «Elegir fotos existentes» puedes marcar varias a la vez.</p><div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{bottom:true});
-  m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-s]');if(!b)return;m.close(true);($(b.dataset.s==='cam'?'#fileCam':'#fileIn')).click()});
+  const m=openModal(`<div class="sheet"><h2>${scope()?'Añadir foto al proyecto':'Nueva foto'}</h2><div class="src"><button class="btn primary" data-s="cam">${IC.cam}Hacer foto con la cámara</button><button class="btn ghost" data-s="lib">${IC.img}Elegir fotos existentes</button><button class="btn ghost" data-s="template">${IC.cube}Plantillas de vehículos comerciales</button></div><p class="note">Las fotos se guardan dentro de MedLoM, no en la galería del móvil. Desde «Elegir fotos existentes» puedes marcar varias a la vez.</p><div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{bottom:true});
+  m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-s]');if(!b)return;m.close(true);if(b.dataset.s==='template'){openVehicleTemplates();return;}($(b.dataset.s==='cam'?'#fileCam':'#fileIn')).click()});
 }
 $('#fileCam').addEventListener('change',e=>handleFiles(e));
 $('#fileIn').addEventListener('change',e=>handleFiles(e));
@@ -1536,8 +1748,8 @@ function angleText(o){if(o.pts.length<3)return'';const P=hasScale()&&calib.plane
 function setPpmm(v){calib={...(calib||{}),ppmm:v}}
 function clearPpmm(){if(!calib)return;const c={...calib};delete c.ppmm;calib=c.plane?c:null}
 function syncPlane(){const pl=objs.find(o=>o.type==='plane'&&o.rw>0&&o.rh>0);
-  if(pl)calib={...(calib||{}),plane:{pts:pl.pts.map(q=>({x:q.x,y:q.y})),w:pl.rw,h:pl.rh,unit:pl.unit}};
-  else if(calib&&calib.plane){const c={...calib};delete c.plane;calib=c.ppmm?c:null}}
+  if(pl)calib={...(calib||{}),...(calib?.template?{template:{...calib.template,nominal:false}}:{}),plane:{pts:pl.pts.map(q=>({x:q.x,y:q.y})),w:pl.rw,h:pl.rh,unit:pl.unit}};
+  else if(calib&&calib.plane&&!calib.template?.nominal){const c={...calib};delete c.plane;calib=c.ppmm?c:null}}
 function recalc(){syncPlane();objs.forEach(o=>{if(o.type==='dim'&&o.auto&&!o.ref&&hasScale())o.val=autoVal(o);if(o.type==='poly')o.val=areaText(o);if(o.type==='angle')o.val=angleText(o);if(o.type==='rect'||o.type==='ellipse')o.lbl=(o.auto||o.mw)?shapeLabels(o):null})}
 
 async function openEditor(r,canvas){
@@ -2632,10 +2844,10 @@ async function syncDrive(manual){
     if(pf){try{remote=JSON.parse(await (await gGet(pf.id)).text())}catch(e){}}
     const gone={...(remote.deleted||{})};
     myTombs.filter(t=>t.type==='project').forEach(t=>{gone[t.id]=Math.max(gone[t.id]||0,t.at)});
-    const merged=new Map();(remote.projects||[]).forEach(p=>merged.set(p.id,p));
-    store.projects.filter(p=>!sampleIds.has(p.id)).forEach(p=>{const r=merged.get(p.id);if(!r||(p.updated||0)>=(r.updated||0))merged.set(p.id,{id:p.id,name:p.name,created:p.created,updated:p.updated,notes:p.notes||null})});
+    const merged=new Map();(remote.projects||[]).forEach(p=>merged.set(p.id,projectForRoomSync(p,projById(p.id))));
+    store.projects.filter(p=>!sampleIds.has(p.id)).forEach(p=>{const r=merged.get(p.id);if(!r||(p.updated||0)>=(r.updated||0))merged.set(p.id,projectForRoomSync(p,r))});
     for(const [id,at] of Object.entries(gone)){const p=merged.get(id);if(p&&(p.updated||0)<=at)merged.delete(id)}
-    for(const p of merged.values()){const l=projById(p.id);if(!l){const n={...p};store.projects.push(n);await put('projects',n);changed=true}else if((p.updated||0)>(l.updated||0)){l.name=p.name;l.updated=p.updated;l.notes=p.notes||l.notes||null;await put('projects',l);changed=true}}
+    for(const p of merged.values()){const l=projById(p.id);if(!l){const n={...p};store.projects.push(n);await put('projects',n);changed=true}else if((p.updated||0)>(l.updated||0)){l.name=p.name;l.updated=p.updated;l.notes=p.notes||l.notes||null;applyProjectRooms(l,p);await put('projects',l);changed=true}}
     for(const l of store.projects.slice()){if(sampleIds.has(l.id)||merged.has(l.id))continue;if(gone[l.id]){await del('projects',l.id);store.projects=store.projects.filter(x=>x.id!==l.id);for(const ph of store.photos)if(ph.projectId===l.id){ph.projectId=null;await put('photos',ph)}changed=true}}
     const outP=JSON.stringify({projects:[...merged.values()],deleted:gone});
     if(!pf||JSON.stringify(remote)!==outP)await gUpload({id:pf&&pf.id,name:'proyectos.json',parent:dataId,mime:'application/json',data:outP,props:{kind:'projects'}});
@@ -2981,11 +3193,11 @@ async function syncPath(pv,manual){
     const myTombs=tombsFor(pv.id);
     /* projects */
     const gone={...(man.deleted||{})};myTombs.filter(t=>t.type==='project').forEach(t=>{gone[t.id]=Math.max(gone[t.id]||0,t.at)});
-    const merged=new Map();(man.projects||[]).forEach(p=>merged.set(p.id,p));
+    const merged=new Map();(man.projects||[]).forEach(p=>merged.set(p.id,projectForRoomSync(p,projById(p.id))));
     const oldNames=new Map((man.projects||[]).map(p=>[p.id,p.name]));
-    store.projects.filter(p=>!sampleIds.has(p.id)).forEach(p=>{const r=merged.get(p.id);if(!r||(p.updated||0)>=(r.updated||0))merged.set(p.id,{id:p.id,name:p.name,created:p.created,updated:p.updated,notes:p.notes||null})});
+    store.projects.filter(p=>!sampleIds.has(p.id)).forEach(p=>{const r=merged.get(p.id);if(!r||(p.updated||0)>=(r.updated||0))merged.set(p.id,projectForRoomSync(p,r))});
     for(const [id,at] of Object.entries(gone)){const p=merged.get(id);if(p&&(p.updated||0)<=at)merged.delete(id)}
-    for(const p of merged.values()){const l=projById(p.id);if(!l){const n={...p};store.projects.push(n);await put('projects',n);changed=true}else if((p.updated||0)>(l.updated||0)){Object.assign(l,{name:p.name,updated:p.updated,notes:p.notes||l.notes||null});await put('projects',l);changed=true}}
+    for(const p of merged.values()){const l=projById(p.id);if(!l){const n={...p};store.projects.push(n);await put('projects',n);changed=true}else if((p.updated||0)>(l.updated||0)){Object.assign(l,{name:p.name,updated:p.updated,notes:p.notes||l.notes||null});applyProjectRooms(l,p);await put('projects',l);changed=true}}
     for(const l of store.projects.slice()){if(sampleIds.has(l.id)||merged.has(l.id))continue;if(gone[l.id]){await del('projects',l.id);store.projects=store.projects.filter(x=>x.id!==l.id);for(const ph of store.photos)if(ph.projectId===l.id){ph.projectId=null;await put('photos',ph)}changed=true}}
     man.projects=[...merged.values()];man.deleted=gone;
     const folderOf=pid=>J(root,safe(pid&&merged.get(pid)?merged.get(pid).name:'Sin proyecto'));
@@ -3209,6 +3421,384 @@ window.addEventListener('message',e=>{
   }
   if(e.data?.type==='medlom-rotulacion-changed'&&tab==='rotulacion'&&stack[stack.length-1].v==='gallery')renderRotGallery();
 });
+/* Plantillas comerciales locales: un solo atlas ligero por vehículo. */
+let vehicleTemplateLibrary=null;
+const vehicleTemplateBase='./rotulom/artwork/templates/';
+async function vehicleTemplates(){
+  if(vehicleTemplateLibrary)return vehicleTemplateLibrary;
+  const r=await fetch(vehicleTemplateBase+'manifest.json');
+  if(!r.ok)throw Error('No se pudo abrir la biblioteca de plantillas');
+  const data=await r.json();
+  if(data.version!==1||!Array.isArray(data.models)||data.models.length>2000)throw Error('Biblioteca no compatible');
+  for(const model of data.models){
+    if(!/^[a-z0-9-]+$/.test(model.id)||!/^[a-z0-9-]+\.webp$/.test(model.atlas))throw Error('Referencia de plantilla no válida');
+    for(const view of ['frontal','lateral','trasera','superior'])vehicleTemplatePlan(model,view);
+  }
+  vehicleTemplateLibrary=data.models;return vehicleTemplateLibrary;
+}
+async function openVehicleTemplates(){
+  const pid=scope()||null;
+  try{
+    const models=[...await vehicleTemplates()].sort((a,b)=>(a.name+" "+a.variant).localeCompare(b.name+" "+b.variant,"es"));
+    const m=openModal(`<div class="sheet"><h2>Plantillas comerciales</h2><p class="note">Elige una versión y una vista como base de diseño. La copia se guardará con tus fotos y podrás añadirle textos, dibujos y cotas.</p><label class="col"><span>Buscar marca, modelo o versión</span><input id="templateSearch" type="search" placeholder="Ej. Mercedes, Sprinter, L2H2" autocomplete="off"></label><button class="btn ghost" data-template-brand="Mercedes">Mercedes-Benz</button><div class="col">${models.map(v=>`<button class="btn ghost" data-template-model="${esc(v.id)}">${esc(v.name)} · ${esc(v.variant)}</button>`).join('')}</div><p class="note" id="templateCount" role="status">${models.length} ${models.length===1?'modelo disponible':'modelos disponibles'} en esta versión.</p><div class="row"><button class="btn ghost" data-template-close>Cerrar</button></div></div>`);
+    const search=m.wrap.querySelector('#templateSearch'),norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    search.oninput=()=>{const terms=norm(search.value).trim().split(/\s+/);let visible=0;m.wrap.querySelectorAll('[data-template-model]').forEach(b=>{b.hidden=!terms.every(t=>norm(b.textContent).includes(t));if(!b.hidden)visible++;});m.wrap.querySelector('#templateCount').textContent=visible+' versiones disponibles';};
+    m.wrap.addEventListener('click',e=>{
+      const brand=e.target.closest('[data-template-brand]');if(brand){search.value=brand.dataset.templateBrand;search.oninput();return;}
+      if(e.target.closest('[data-template-close]'))return m.close();
+      const b=e.target.closest('[data-template-model]');if(!b)return;
+      const model=models.find(v=>v.id===b.dataset.templateModel);if(!model)return;
+      m.close(true);chooseVehicleTemplateView(model,pid);
+    });
+  }catch(e){toast(e.message||'No se pudo abrir la biblioteca');}
+}
+function chooseVehicleTemplateView(model,pid){
+  const path=vehicleTemplateBase+model.atlas;
+  const views=['frontal','lateral','trasera','superior'].map(key=>[key,model.views[key]]);
+  const m=openModal(`<div class="sheet"><h2>${esc(model.name)}</h2><p class="note">${esc(model.variant)} · escala exterior de referencia</p><div class="vehicle-template-grid">${views.map(([key,v])=>`<button class="vehicle-template-view" data-template-view="${esc(key)}"><svg viewBox="${v.clip.join(' ')}" aria-hidden="true"><defs><clipPath id="template-${esc(key)}"><rect x="${v.clip[0]}" y="${v.clip[1]}" width="${v.clip[2]}" height="${v.clip[3]}"/></clipPath></defs><image clip-path="url(#template-${esc(key)})" href="${esc(path)}" width="${model.atlasSize[0]}" height="${model.atlasSize[1]}"/></svg><b>${esc(v.label)}</b></button>`).join('')}</div><label class="row" style="margin-top:12px"><input type="checkbox" id="templateDimensions" checked> Añadir cotas exteriores</label><p class="note">${model.dimensionsMm.exteriorLength.toLocaleString('es-ES')} × ${model.dimensionsMm.exteriorWidth.toLocaleString('es-ES')} × ${model.dimensionsMm.exteriorHeight.toLocaleString('es-ES')} mm nominales. Ancho ${esc(model.widthConvention)}.</p><div class="row"><button class="btn ghost" data-template-close>Volver</button></div></div>`);
+  m.wrap.addEventListener('click',async e=>{
+    if(e.target.closest('[data-template-close]')){m.close(true);openVehicleTemplates();return;}
+    const b=e.target.closest('[data-template-view]');if(!b||b.disabled)return;
+    m.wrap.querySelectorAll('[data-template-view]').forEach(x=>x.disabled=true);
+    try{await importVehicleTemplate(model,b.dataset.templateView,pid,m.wrap.querySelector('#templateDimensions').checked);m.close(true);}
+    catch(err){toast(err.message||'No se pudo abrir la plantilla');m.wrap.querySelectorAll('[data-template-view]').forEach(x=>x.disabled=false);}
+  });
+}
+async function importVehicleTemplate(model,view,pid,withDimensions=true){
+  const geometry=vehicleTemplatePlan(model,view),response=await fetch(vehicleTemplateBase+model.atlas);
+  if(!response.ok)throw Error('Falta la imagen de esta plantilla');
+  const image=await decodeFile(await response.blob());
+  const canvas=document.createElement('canvas');canvas.width=geometry.width;canvas.height=geometry.height;
+  try{const g=canvas.getContext('2d');g.fillStyle='#ffffff';g.fillRect(0,0,canvas.width,canvas.height);g.imageSmoothingQuality='high';g.drawImage(image,...geometry.clip,geometry.draw.x,geometry.draw.y,geometry.draw.width,geometry.draw.height);}finally{image.close?.();}
+  const blob=await toBlob(canvas,'image/jpeg',.9);if(!blob)throw Error('No se pudo preparar la plantilla');
+  const imported=await importFile(new File([blob],'plantilla.jpg',{type:'image/jpeg'}),pid,true),r=imported.rec;
+  // importFile puede reducir la imagen según los ajustes de fotos: conservar la calibración.
+  const kx=r.w/canvas.width,ky=r.h/canvas.height;
+  r.name=`${model.name} · ${model.variant} · ${model.views[view].label}`;
+  r.calib={plane:{...geometry.plane,pts:geometry.plane.pts.map(p=>({x:p.x*kx,y:p.y*ky}))},template:{id:model.id,view,nominal:true,sourceUrl:model.sourceUrl}};
+  if(withDimensions){
+    const scaled={width:r.w,height:r.h,plane:r.calib.plane};
+    r.objs=vehicleTemplateDimensionLines(scaled).map(d=>({type:'dim',a:d.a,b:d.b,unit:d.unit,val:String(d.value),auto:true,color:'#263238',w:Math.max(2,r.w/600),fs:d.fs,shw:1,shc:'#ffffff',ds:{...DEF_DS}}));
+  }
+  r.updated=stamp(r.updated);await put('photos',r);
+  if(pid){const project=projById(pid);if(project){project.updated=stamp(project.updated);await put('projects',project);}}
+  r.fresh=true;openEditor(r,imported.canvas);scheduleSync();
+}
+/* Las vistas 2D y 3D consumen el mismo modelo de paredes y huecos. */
+const RoomViews=(()=>{
+  const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const value=(n,unit)=>Number(n/(TOMM[unit]||10)).toLocaleString('es-ES',{maximumFractionDigits:unit==='m'?3:unit==='cm'?1:0})+' '+unit;
+  const palette=paper=>paper?{bg:'#ffffff',fg:'#25343d',muted:'#65747d',accent:'#b66c00',wall:'#d9e1e5',opening:'#287d99'}:{bg:themeColors().panel,fg:themeColors().fg,muted:'#87959d',accent:themeColors().accent,wall:'#718d9c',opening:'#40a7c4'};
+  const wrap=(content,height=660,paper=false,width=1000)=>{const p=palette(paper);return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Plano de habitación" style="display:block;width:100%;height:auto"><rect width="${width}" height="${height}" fill="${p.bg}"/><g font-family="Arial,sans-serif" fill="${p.fg}">${content}</g></svg>`;};
+  function fit(points,width=1000,height=660,pad=90){const xs=points.map(p=>p.x),ys=points.map(p=>p.y),x0=Math.min(...xs),y0=Math.min(...ys),w=Math.max(1,Math.max(...xs)-x0),h=Math.max(1,Math.max(...ys)-y0),k=Math.min((width-pad*2)/w,(height-pad*2)/h);return p=>({x:(p.x-x0)*k+(width-w*k)/2,y:(p.y-y0)*k+(height-h*k)/2});}
+  function plan(r,selected,unit='cm',camera={},paper=false){
+    const g=RoomPlan.geometry(r),p=palette(paper),map=fit(g.points),point=v=>{const q=map(v),z=camera.zoom||1;return{x:500+(q.x-500)*z+(camera.panX||0),y:330+(q.y-330)*z+(camera.panY||0)};};
+    const labelBoxes=[];let out='';if(g.closed&&!g.intersects)out+=`<polygon points="${g.points.slice(0,-1).map(v=>{const q=point(v);return q.x+','+q.y;}).join(' ')}" fill="${p.wall}" fill-opacity=".12"/>`;
+    g.segments.forEach((s,i)=>{
+      const a=point(s.a),b=point(s.b),w=r.walls[i],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,color=w.id===selected?p.accent:p.fg;
+      out+=`<g data-room-wall="${e(w.id)}"><path d="M${a.x},${a.y} L${b.x},${b.y}" fill="none" stroke="${color}" stroke-width="${w.id===selected?8:5}" ${s.estimated?'stroke-dasharray="14 8"':''}/><path d="M${a.x},${a.y} L${b.x},${b.y}" stroke="transparent" stroke-width="40"/></g>`;
+      const label=(w.kind==='column'?'C':'P')+RoomPlan.number(r,w.id)+(w.lengthMm!==null&&len>150?' · '+value(w.lengthMm,unit):''),lw=label.length*14+8,sign=-RoomPlan.winding(r);let lx,ly;
+      for(let lane=0;lane<12;lane++){lx=Math.max(lw/2+12,Math.min(988-lw/2,(a.x+b.x)/2+nx*sign*(30+lane*24)));ly=Math.max(35,Math.min(600,(a.y+b.y)/2+ny*sign*(30+lane*24)));if(!labelBoxes.some(q=>Math.abs(q.x-lx)<(q.w+lw)/2+8&&Math.abs(q.y-ly)<30))break;}
+      labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="25" text-anchor="middle">${e(label)}</text>`;
+      w.openings.forEach(o=>{const t0=o.offsetMm/s.length,t1=(o.offsetMm+o.widthMm)/s.length;out+=`<path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.bg}" stroke-width="13"/><path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.opening}" stroke-width="5" ${o.type==='door'?'stroke-dasharray="8 5"':''}/>`;});
+    });
+    if(!g.closed){const a=point(g.points[0]),b=point(g.points[g.points.length-1]);out+=`<path d="M${a.x},${a.y}L${b.x},${b.y}" stroke="#d65a48" stroke-width="5" stroke-dasharray="9 8"/><text x="500" y="630" text-anchor="middle" font-size="25" fill="#d65a48">Desfase de cierre: ${e(value(g.gapMm,unit))}</text>`;}
+    return wrap(out,660,paper);
+  }
+  const elementName=o=>({door:'Puerta',window:'Ventana',switch:'Interruptor',socket:'Enchufe'}[o.type]||'Elemento');
+  function dim(x1,y1,x2,y2,label,p){
+    if(Math.hypot(x2-x1,y2-y1)<1)return '';
+    const vertical=Math.abs(x1-x2)<1,mx=(x1+x2)/2,my=(y1+y2)/2;
+    return `<g fill="${p.opening}" stroke="${p.opening}" stroke-width="1.5"><path d="M${x1},${y1}L${x2},${y2}"/><path d="M${x1-4},${y1-4}l8,8M${x2-4},${y2-4}l8,8"/><text x="${mx}" y="${my-6}" stroke="${p.bg}" stroke-width="4" paint-order="stroke" text-anchor="middle" font-size="19" ${vertical?`transform="rotate(-90 ${mx} ${my-6})"`:''}>${e(label)}</text></g>`;
+  }
+  function wallContent(r,index,unit,paper,{x,y,k,details=false,focusId=null,strip=false}){
+    const p=palette(paper),w=r.walls[index],length=RoomPlan.geometry(r).segments[index].length,h=r.heightMm||2600,flip=RoomPlan.winding(r)<0;
+    let out=`<g data-room-wall="${e(w.id)}" data-wall-mm="${length}" role="button" tabindex="0" aria-label="Seleccionar ${w.kind==='column'?'cara de columna':'pared'} ${RoomPlan.number(r,w.id)}"><rect x="${x}" y="${y}" width="${length*k}" height="${h*k}" fill="${p.wall}" fill-opacity=".15" stroke="${p.fg}" stroke-width="3"/><text x="${x+length*k/2}" y="${y-22}" font-size="25" text-anchor="middle">${details?(w.kind==='column'?'Columna ':'Pared '):(w.kind==='column'?'C':'P')}${RoomPlan.number(r,w.id)}</text>`;
+    w.openings.forEach(o=>{
+      const ox=x+(flip?length-o.offsetMm-o.widthMm:o.offsetMm)*k,oy=y+(h-o.sillMm-o.heightMm)*k,fixture=o.type==='socket'||o.type==='switch',ow=Math.max(fixture?12:1,o.widthMm*k),oh=Math.max(fixture?12:1,o.heightMm*k);
+      out+=`<g data-room-opening="${e(o.id)}" role="button" tabindex="0" aria-label="Editar ${elementName(o)}"><title>${elementName(o)} · ${e(value(o.offsetMm,unit))} de esquina inicial · ${e(value(o.sillMm,unit))} del suelo</title><rect x="${ox}" y="${oy}" width="${ow}" height="${oh}" fill="${p.bg}" stroke="${p.opening}" stroke-width="3"/>`;
+      if(fixture)out+=o.type==='socket'?`<circle cx="${ox+ow*.35}" cy="${oy+oh*.5}" r="2" fill="${p.opening}"/><circle cx="${ox+ow*.65}" cy="${oy+oh*.5}" r="2" fill="${p.opening}"/>`:`<path d="M${ox+ow*.65},${oy+oh*.2}l${-ow*.3},${oh*.6}" stroke="${p.opening}" stroke-width="3"/>`;
+      else out+=`<text x="${ox+ow/2}" y="${oy+oh/2}" font-size="20" text-anchor="middle" fill="${p.opening}">${elementName(o)}</text>`;
+      out+='</g>';
+    });
+    out+=(strip?'':`<text x="${x+length*k/2}" y="${y+h*k+40}" text-anchor="middle" font-size="25">${w.lengthMm===null?'':e(value(length,unit))}</text>`)+ '</g>';
+    if(details){
+      out+=`<text x="${x-35}" y="${y+h*k/2}" text-anchor="middle" font-size="23" transform="rotate(-90 ${x-35} ${y+h*k/2})">${r.heightMm?e(value(h,unit)):'Altura pendiente'}</text>`;
+      const o=w.openings.find(o=>o.id===focusId)||w.openings[0];
+      if(o){const d=RoomPlan.frontDistances(r,w.id,o.id),ox=x+(flip?length-o.offsetMm-o.widthMm:o.offsetMm)*k,oy=y+(h-o.sillMm-o.heightMm)*k,right=ox+o.widthMm*k,bottom=oy+o.heightMm*k,lane=y+h*k+75;
+       out+=dim(x,lane,ox,lane,value(d.left,unit),p)+dim(right,lane,x+length*k,lane,value(d.right,unit),p);
+       out+=dim(ox-18,y,ox-18,oy,value(d.top,unit),p)+dim(right+18,bottom,right+18,y+h*k,value(d.bottom,unit),p);
+       out+=`<text x="500" y="600" font-size="20" text-anchor="middle">${elementName(o)} · ${e(value(o.widthMm,unit))} × ${e(value(o.heightMm,unit))}</text>`;
+       if(d.reference){const ref=w.openings.find(q=>q.id===d.reference.id);out+=`<text x="500" y="628" font-size="19" text-anchor="middle" fill="${p.opening}">A ${elementName(ref).toLowerCase()}: horizontal ${e(value(d.reference.horizontal,unit))} · vertical ${e(value(d.reference.vertical,unit))}</text>`;}
+      }
+    }
+    return out;
+  }
+  function elevation(r,selected,unit='cm',paper=false,focusId=null){
+    const index=Math.max(0,r.walls.findIndex(w=>w.id===selected)),length=RoomPlan.geometry(r).segments[index].length,h=r.heightMm||2600,k=Math.min(800/length,390/h),x=(1000-length*k)/2,y=75;
+    return wrap(wallContent(r,index,unit,paper,{x,y,k,details:true,focusId}),660,paper);
+  }
+  function elevations(r,unit='cm',paper=false){
+    const order=RoomPlan.viewOrder(r),g=RoomPlan.geometry(r),h=r.heightMm||2600,k=390/h,total=g.segments.reduce((s,w)=>s+w.length,0),width=Math.max(1000,total*k+140);let x=70;
+    let out='<g data-room-strip="true">';const labels=[];
+    for(const w of order){const i=r.walls.indexOf(w),span=g.segments[i].length*k;out+=wallContent(r,i,unit,paper,{x,y:75,k,strip:true});if(w.lengthMm!==null)labels.push({x:x+span/2,text:value(w.lengthMm,unit)});x+=span;}
+    const lanes=[];for(const label of labels){const half=label.text.length*8+12;let lane=0;while(lanes[lane]!=null&&label.x-half<lanes[lane]+10)lane++;lanes[lane]=label.x+half;const y=75+h*k+42+lane*35;out+=`<text data-room-dimension="true" x="${label.x}" y="${y}" text-anchor="middle" font-size="27">${e(label.text)}</text>`;}
+    out+='</g>';return wrap(out,Math.max(660,75+h*k+90+lanes.length*35),paper,width);
+  }
+
+  function three(r,selected,camera={},paper=false){
+    const g=RoomPlan.geometry(r),p=palette(paper),yaw=camera.yaw??-.7,pitch=camera.pitch??.65,cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),height=r.heightMm||2600;
+    const xs=g.points.map(q=>q.x),ys=g.points.map(q=>q.y),cx=(Math.min(...xs)+Math.max(...xs))/2,cz=(Math.min(...ys)+Math.max(...ys))/2;
+    const project=q=>{const x=q.x-cx,z=q.y-cz,rx=x*cy-z*sy,rz=x*sy+z*cy;return {x:rx,y:rz*sp-q.z*cp,depth:rz*cp+q.z*sp};};
+    const bounds=g.points.flatMap(q=>[project({...q,z:0}),project({...q,z:height})]),normal=fit(bounds),toScreen=q=>{const a=project(q),b=normal(a),zoom=camera.zoom||1;return{x:500+(b.x-500)*zoom,y:330+(b.y-330)*zoom,depth:a.depth};};
+    const faces=[];
+    if(g.closed&&!g.intersects)faces.push({pts:g.points.slice(0,-1).map(q=>({...q,z:0})),fill:p.wall,opacity:.23,id:''});
+    g.segments.forEach((s,i)=>{
+      const dx=(s.b.x-s.a.x)/s.length,dy=(s.b.y-s.a.y)/s.length,at=(x,z)=>({x:s.a.x+dx*x,y:s.a.y+dy*x,z});
+      RoomPlan.panels({...r,heightMm:height},i).forEach(a=>faces.push({pts:[at(a.x0,a.z0),at(a.x1,a.z0),at(a.x1,a.z1),at(a.x0,a.z1)],fill:s.id===selected?p.accent:p.wall,opacity:s.id===selected ? .55 : .38,id:s.id}));
+      r.walls[i].openings.forEach(o=>{if(o.type==='window'||o.type==='switch'||o.type==='socket')faces.push({pts:[at(o.offsetMm,o.sillMm),at(o.offsetMm+o.widthMm,o.sillMm),at(o.offsetMm+o.widthMm,o.sillMm+o.heightMm),at(o.offsetMm,o.sillMm+o.heightMm)],fill:p.opening,opacity:.2,id:s.id});});
+    });
+    const projected=faces.map(f=>({...f,pts:f.pts.map(toScreen)}));projected.sort((a,b)=>b.pts.reduce((s,q)=>s+q.depth,0)/b.pts.length-a.pts.reduce((s,q)=>s+q.depth,0)/a.pts.length);
+    let out=projected.map(f=>`<polygon points="${f.pts.map(q=>q.x+','+q.y).join(' ')}" fill="${f.fill}" fill-opacity="${f.opacity}" stroke="${p.fg}" stroke-opacity=".65" stroke-width="1.5"/>`).join('');
+    g.segments.forEach((s,i)=>{const q=toScreen({x:(s.a.x+s.b.x)/2,y:(s.a.y+s.b.y)/2,z:height+100});out+=`<text x="${q.x}" y="${q.y}" text-anchor="middle" font-size="25">${RoomPlan.number(r,r.walls[i].id)}</text>`;});
+    return wrap(out,660,paper);
+  }
+  function sketch(points,count,paper=false,freehand=false,box={width:1000,height:660}){
+    const p=palette(paper);let out=`<defs><pattern id="room-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="${p.muted}" stroke-opacity=".2"/></pattern></defs><rect width="${box.width}" height="${box.height}" fill="url(#room-grid)"/>`;
+    if(points.length)out+=`<polyline points="${points.map(q=>q.x+','+q.y).join(' ')}" stroke="${p.accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`;
+    if(freehand){if(points.length)out+=`<circle cx="${points[0].x}" cy="${points[0].y}" r="10" fill="${p.accent}"/>`;}
+    else points.forEach((q,i)=>out+=`<circle cx="${q.x}" cy="${q.y}" r="8" fill="${p.accent}"/><text x="${q.x+15}" y="${q.y-12}" font-size="25">${i+1}</text>`);
+    return wrap(out,box.height,paper,box.width);
+  }
+  return {plan,elevation,elevations,three,sketch,value};
+})();
+/* Habitaciones: edición táctil local, integrada en proyectos. */
+const roomView=document.createElement('section');roomView.id='rooms';roomView.className='view';roomView.hidden=true;document.querySelector('.app').append(roomView);
+const ROOMUI={model:null,points:[],name:'',count:4,inputMode:'points',orthogonal:true,fullscreen:false,projectId:null,selected:null,selectedOpening:null,mode:'plan',history:[],savedKey:'',camera:{zoom:1,yaw:-.7,pitch:.65,panX:0,panY:0},leaving:false,pending:false};
+const roomUnit=()=>['mm','cm','m','in'].includes(SET.unit)?SET.unit:'cm';
+const roomKey=()=>JSON.stringify(ROOMUI.model||ROOMUI.points);
+const roomDirty=()=>ROOMUI.pending||roomKey()!==ROOMUI.savedKey;
+function roomRemember(){ROOMUI.history.push(JSON.parse(JSON.stringify({model:ROOMUI.model,points:ROOMUI.points})));if(ROOMUI.history.length>30)ROOMUI.history.shift();}
+function roomChange(model){roomRemember();ROOMUI.model=model;ROOMUI.pending=false;refreshRoom();}
+function openRoomLibrary(){pushView({v:'rooms'});}
+function renderRoomLibrary(){
+ roomView.classList.remove("room-editing","room-controls-open");
+ const rooms=[];for(const p of store.projects)for(const input of Array.isArray(p.rooms)?p.rooms:[]){try{rooms.push({project:p,room:RoomPlan.clean(input)});}catch(e){}}
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><div class="brand"><b>Habitaciones</b><span class="sub">${rooms.length} planos guardados</span></div><button class="btn primary" data-room-new>Nuevo plano</button></header><div class="scroll band rooms-library">${rooms.length?`<div class="grid sz-m">${rooms.map(({project,room:r})=>`<article class="room-card"><button class="room-card-open" data-room-open="${esc(r.id)}" data-room-project="${esc(project.id)}"><div class="room-card-preview">${RoomViews.plan(r,null,roomUnit(),{},true)}</div><b>${esc(r.name)}</b><small>${esc(project.name)} · ${r.walls.length} paredes</small></button><button class="btn ghost danger" data-room-delete="${esc(r.id)}" data-room-project="${esc(project.id)}">Eliminar plano</button></article>`).join('')}</div>`:'<div class="empty"><b>Dibuja tu primera habitación</b>Marca sus esquinas, mide las paredes por orden y añade puertas y ventanas. Tendrás planta, alzados y una vista 3D.</div>'}</div>`;
+}
+function newRoomForm(projectId=null){
+ const m=openModal(`<form class="sheet" id="roomNewForm"><h2>Nueva habitación</h2><label class="col"><span>Nombre</span><input name="name" required maxlength="100" placeholder="Ej. Despacho"></label><label class="col"><span>Proyecto</span><select name="project"><option value="">Crear proyecto con este nombre</option>${store.projects.map(p=>`<option value="${esc(p.id)}" ${p.id===projectId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="note">Dibuja el contorno con el dedo o el lápiz y vuelve al inicio. Las esquinas se detectan al terminar el trazo.</p><div class="row"><button type="button" class="btn ghost" data-room-cancel>Cancelar</button><button class="btn primary" type="submit">Dibujar</button></div></form>`);
+ m.wrap.querySelector('[data-room-cancel]').onclick=()=>m.close();
+ m.wrap.querySelector('form').onsubmit=e=>{e.preventDefault();const f=e.currentTarget,name=f.elements.name.value.trim();if(!name)return;const pid=f.elements.project.value||null;m.close(true);startRoomEditor(null,pid,{name});};
+}
+function startRoomEditor(model,projectId,options={}){
+ roomView.classList.remove('room-fullscreen','room-controls-open');roomView.classList.add('room-editing');
+ Object.assign(ROOMUI,{inputMode:'points',orthogonal:true,fullscreen:false,model:model?RoomPlan.clean(model):null,points:[],name:model?.name||options.name,count:model?.walls.length||options.count||4,projectId,selected:model?.firstWallId||null,selectedOpening:null,mode:'plan',history:[],camera:{zoom:1,yaw:-.7,pitch:.65,panX:0,panY:0},pending:false,leaving:false});
+ ROOMUI.savedKey=roomKey();pushView({v:'room'});renderRoomEditor();
+}
+function renderRoomEditor(){
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><button class="titlebtn" data-room-rename><span class="brand"><b id="roomTitle">${esc(ROOMUI.name)}</b><span class="sub" id="roomSaveState"></span></span></button><button class="btn primary" id="roomSave" data-room-save>Guardar</button></header><div class="scroll band room-work"><div class="room-view-tabs" role="group" aria-label="Vista del plano"><button data-room-mode="plan">Planta</button><button data-room-mode="elevation">Frontal</button><button data-room-mode="elevations" aria-label="Todos los alzados">Alzados</button><button data-room-mode="three">3D</button></div><div class="room-layout"><section class="room-drawing"><div class="room-stage" id="roomStage" aria-label="Área de dibujo de la habitación"></div><div class="room-view-tools"><button class="btn ghost room-compact-back" data-room-back aria-label="Volver">←</button><button class="btn ghost" data-room-action="zoom-out" aria-label="Alejar">−</button><button class="btn ghost" data-room-action="fit">Ajustar</button><button class="btn ghost" data-room-action="zoom-in" aria-label="Acercar">+</button><button class="btn ghost" data-room-action="rotate-left" aria-label="Girar vista 3D a la izquierda">↶</button><button class="btn ghost" data-room-action="rotate-right" aria-label="Girar vista 3D a la derecha">↷</button><button class="btn ghost" data-room-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button><button class="btn ghost" data-room-action="edit-wall" hidden>Controles</button><button class="btn ghost" data-room-action="undo">Deshacer</button><button class="btn primary" data-room-action="close-contour" data-room-quick-close>Cerrar</button><button class="btn primary room-compact-save" data-room-save>Guardar</button></div><div id="roomStripMeasures" class="room-strip-measures" hidden></div><p class="note" id="roomHint" role="status"></p></section><section class="room-controls"><div id="roomSketchControls"><div class="room-input-modes" role="group" aria-label="Método de dibujo"><button class="btn ghost" data-room-input="points">Por puntos</button><button class="btn ghost" data-room-input="draw">Dibujar</button></div><label class="room-angle-toggle"><input type="checkbox" id="roomRightAngles" checked><span>Ángulos rectos</span></label><p class="txt">Dibuja el contorno con el dedo o el lápiz. Vuelve al inicio o pulsa Cerrar contorno; no necesitas contar las paredes.</p><button class="btn primary" data-room-action="close-contour">Cerrar contorno</button></div><div id="roomMeasureControls" hidden><label class="col"><span>Pared seleccionada</span><select id="roomWall" aria-label="Pared seleccionada"></select></label><label class="col"><span>Tipo de tramo</span><select id="roomKind"><option value="wall">Pared</option><option value="column">Cara de columna / entrante</option></select></label><button class="btn ghost" data-room-action="straighten">Enderezar paredes y columnas</button><button class="btn ghost" data-room-action="first">Esta será la primera pared</button><form id="roomLengthForm"><label class="col"><span id="roomLengthLabel">Longitud</span><div class="room-input-row"><input id="roomLength" type="number" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Longitud de pared"><span>${esc(roomUnit())}</span></div></label><button class="btn primary wide" type="submit">Confirmar y siguiente pared →</button></form><label class="col"><span>Altura de la habitación</span><div class="room-input-row"><input id="roomHeight" type="number" min="0" step="any" inputmode="decimal" aria-label="Altura de la habitación"><span>${esc(roomUnit())}</span></div></label><div class="room-opening-actions"><button class="btn ghost" data-room-action="door">+ Puerta</button><button class="btn ghost" data-room-action="window">+ Ventana</button><button class="btn ghost" data-room-action="switch">+ Interruptor</button><button class="btn ghost" data-room-action="socket">+ Enchufe</button></div><div id="roomOpenings"></div><div id="roomDimensions" class="room-dimensions"></div><div class="room-export-actions"><button class="btn ghost" data-room-action="svg">Exportar vista SVG</button><button class="btn ghost" data-room-action="pdf">Planta y alzados PDF</button><button class="btn ghost" data-room-action="redraw">Redibujar contorno</button></div></div></section></div></div>`;
+ $('#roomLengthForm').onsubmit=e=>{e.preventDefault();try{applyRoomLength(true);}catch(err){toast(err.message);}};
+ $('#roomWall').onchange=e=>{const id=e.target.value;try{flushRoomInputs();ROOMUI.selected=id;ROOMUI.selectedOpening=null;refreshRoom();}catch(err){toast(err.message);e.target.value=ROOMUI.selected;}};
+ $('#roomKind').onchange=e=>{try{flushRoomInputs();roomChange(RoomPlan.setKind(ROOMUI.model,ROOMUI.selected,e.target.value));}catch(err){toast(err.message);refreshRoom();}};
+ $('#roomHeight').onchange=()=>{try{if(!ROOMUI.model)return;flushRoomInputs(true);}catch(e){toast(e.message);refreshRoom();}};
+ for(const id of ['#roomHeight','#roomLength'])$(id).oninput=()=>{ROOMUI.pending=true;$('#roomSaveState').textContent='Cambios sin guardar';};
+ $('#roomRightAngles').onchange=e=>ROOMUI.orthogonal=e.target.checked;
+ wireRoomPointer();refreshRoom();
+}
+function refreshRoom(){
+ if(stack[stack.length-1].v!=='room')return;
+ const r=ROOMUI.model,draw=!r,u=roomUnit();$('#roomSketchControls').hidden=!draw;$('#roomMeasureControls').hidden=draw;roomView.querySelectorAll('[data-room-save]').forEach(b=>{b.disabled=draw;if(b.classList.contains('room-compact-save'))b.hidden=draw;});
+ roomView.querySelectorAll('[data-room-input]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.roomInput===ROOMUI.inputMode)));
+ $('#roomTitle').textContent=ROOMUI.name;$('#roomSaveState').textContent=!ROOMUI.model?'Nuevo plano':roomDirty()?'Cambios sin guardar':'Guardado';
+ roomView.querySelectorAll('[data-room-mode]').forEach(b=>{b.disabled=draw&&b.dataset.roomMode!=='plan';b.setAttribute('aria-pressed',String(b.dataset.roomMode===ROOMUI.mode));});
+ if(r){
+  if(!r.walls.some(w=>w.id===ROOMUI.selected))ROOMUI.selected=r.firstWallId;
+  const ordered=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
+  $('#roomWall').innerHTML=ordered.map(w=>`<option value="${esc(w.id)}">Pared ${RoomPlan.number(r,w.id)}${w.kind==='column'?' · columna':''}${w.lengthMm!==null?' · '+esc(RoomViews.value(w.lengthMm,u)):' · por medir'}</option>`).join('');$('#roomWall').value=ROOMUI.selected;
+  const w=r.walls.find(w=>w.id===ROOMUI.selected),g=RoomPlan.geometry(r);$('#roomKind').value=w.kind||'wall';
+  $('#roomLengthLabel').textContent=`Longitud de pared ${RoomPlan.number(r,w.id)}`;$('#roomLength').value=w.lengthMm===null?'':String(w.lengthMm/TOMM[u]);$('#roomHeight').value=r.heightMm===null?'':String(r.heightMm/TOMM[u]);
+  $('#roomOpenings').innerHTML=w.openings.length?'<h3>Huecos de esta pared</h3>'+w.openings.map(o=>`<button class="room-opening-item" data-room-edit-opening="${esc(o.id)}"><b>${roomElementName(o.type)}</b><span>${esc(RoomViews.value(o.widthMm,u))} × ${esc(RoomViews.value(o.heightMm,u))} · a ${esc(RoomViews.value(o.offsetMm,u))} del inicio</span></button>`).join(''):'<p class="note">Sin puertas ni ventanas en esta pared.</p>';
+  $('#roomHint').textContent=`${g.measured}/${r.walls.length} paredes medidas${r.heightMm?' · altura '+RoomViews.value(r.heightMm,u):' · falta la altura'}${g.intersects?' · el contorno se cruza':!g.closed?' · desfase '+RoomViews.value(g.gapMm,u):g.measured===r.walls.length?' · planta cerrada':' · tramos discontinuos sin confirmar'}${ROOMUI.mode==='three'?' · arrastra para girar, pellizca para acercar':''}`;
+   renderRoomDimensions();
+ }else $('#roomHint').textContent='Trazo libre: dibuja el perímetro. Puedes continuar en varios trazos y deshacer el último.';
+ roomView.querySelectorAll('[data-room-action=close-contour]').forEach(b=>{b.disabled=ROOMUI.points.length<3;b.hidden=!!r;});
+ roomView.querySelectorAll('[data-room-action^=rotate-]').forEach(b=>b.hidden=ROOMUI.mode!=='three');
+ const ribbon=$('#roomStripMeasures');ribbon.hidden=!r||!['plan','elevations'].includes(ROOMUI.mode);if(!ribbon.hidden)ribbon.innerHTML=RoomPlan.viewOrder(r).map(w=>`<button data-room-select="${esc(w.id)}" aria-pressed="${w.id===ROOMUI.selected}"><b>${w.kind==='column'?'C':'P'}${RoomPlan.number(r,w.id)}</b><span>${w.lengthMm===null?'Por medir':esc(RoomViews.value(w.lengthMm,u))}</span></button>`).join('');
+ const edit=roomView.querySelector('[data-room-action=edit-wall]');if(edit)edit.hidden=!(matchMedia('(orientation:landscape) and (max-height:600px)').matches||(ROOMUI.fullscreen&&r));
+ drawRoomScene();
+ if(r&&ROOMUI.mode==='elevations'&&!ROOMUI.camera.fitStrip){const stage=$('#roomStage'),g=Array.from(stage.querySelectorAll('[data-room-wall]')).find(g=>g.dataset.roomWall===ROOMUI.selected);if(g){const a=stage.getBoundingClientRect(),b=g.getBoundingClientRect();if(b.left<a.left||b.right>a.right)stage.scrollLeft+=(b.left+b.right-a.left-a.right)/2;}}
+}
+function drawRoomScene(){
+ const r=ROOMUI.model;let svg;
+ if(!r){const stage=$('#roomStage'),aspect=Math.max(.2,stage.clientWidth/Math.max(1,stage.clientHeight)),box={width:Math.max(1000,660*aspect),height:Math.max(660,1000/aspect)};svg=RoomViews.sketch(ROOMUI.points,ROOMUI.count,false,ROOMUI.inputMode==='draw',box);}
+ else if(ROOMUI.mode==='three')svg=RoomViews.three(r,ROOMUI.selected,ROOMUI.camera);
+ else if(ROOMUI.mode==='elevation')svg=RoomViews.elevation(r,ROOMUI.selected,roomUnit(),false,ROOMUI.selectedOpening);
+ else if(ROOMUI.mode==='elevations')svg=RoomViews.elevations(r,roomUnit());
+ else svg=RoomViews.plan(r,ROOMUI.selected,roomUnit(),ROOMUI.camera);
+ const stage=$('#roomStage');stage.classList.toggle('room-strip',ROOMUI.mode==='elevations');stage.innerHTML=svg;const el=stage.querySelector('svg'),vb=el.getAttribute('viewBox').split(/\s+/).map(Number),z=ROOMUI.camera.zoom||1;
+ if(!r||ROOMUI.mode==='elevations'||ROOMUI.fullscreen){
+  const fit=ROOMUI.mode==='elevations'&&!ROOMUI.camera.fitStrip?stage.clientHeight/vb[3]:Math.min(stage.clientWidth/vb[2],stage.clientHeight/vb[3]),width=vb[2]*fit*z,height=vb[3]*fit*z;
+  el.style.width=width+'px';el.style.height=height+'px';el.style.minWidth=width+'px';
+ }else if(ROOMUI.mode==='elevation'&&z!==1)el.setAttribute('viewBox',`${500-500/z} ${330-330/z} ${1000/z} ${660/z}`);
+
+}
+function finishRoomSketch(){
+ const corners=RoomSketch.detect(ROOMUI.points,{close:true,orthogonal:ROOMUI.orthogonal,byPoints:ROOMUI.inputMode==='points'&&ROOMUI.points.length<=32}),r=RoomPlan.fromSketch(corners,{id:uid(),name:ROOMUI.name});ROOMUI.points=corners;ROOMUI.model=r;ROOMUI.selected=r.firstWallId;ROOMUI.mode='plan';ROOMUI.pending=false;refreshRoom();setTimeout(()=>$('#roomLength')?.focus(),20);
+}
+function flushRoomInputs(force=false){
+ if(!ROOMUI.model||(!ROOMUI.pending&&!force))return;
+ let r=ROOMUI.model;const length=$('#roomLength').value,height=$('#roomHeight').value;
+ if(length!=='')r=RoomPlan.setLength(r,ROOMUI.selected,Number(length)*TOMM[roomUnit()]);
+ if(height!=='')r=RoomPlan.setHeight(r,Number(height)*TOMM[roomUnit()]);
+ roomChange(r);
+}
+function applyRoomLength(advance){
+ const r=ROOMUI.model;if(!r)return;
+ const next=RoomPlan.setLength(r,ROOMUI.selected,Number($('#roomLength').value)*TOMM[roomUnit()]);roomChange(next);
+ if(advance){const id=RoomPlan.nextWall(next,ROOMUI.selected);if(id){ROOMUI.selected=id;ROOMUI.selectedOpening=null;refreshRoom();$('#roomLength').focus();$('#roomLength').select();}else{toast('Todas las paredes tienen longitud');$('#roomHeight').focus();}}
+}
+function wireRoomPointer(){
+ const stage=$('#roomStage'),pointers=new Map();let drag=null,pinch=null;
+ const svgPoint=e=>{const svg=stage.querySelector('svg'),point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;const q=point.matrixTransform(svg.getScreenCTM().inverse());const box=svg.viewBox.baseVal;return {x:Math.max(box.x+15,Math.min(box.x+box.width-15,q.x)),y:Math.max(box.y+15,Math.min(box.y+box.height-15,q.y))};};
+ let paintPending=false;const paintStroke=()=>{if(paintPending)return;paintPending=true;requestAnimationFrame(()=>{paintPending=false;if(stack.at(-1)?.v==='room')drawRoomScene();});};
+ const sample=e=>{const p=svgPoint(e),last=ROOMUI.points.at(-1);if(ROOMUI.points.length<10000&&(!last||Math.hypot(p.x-last.x,p.y-last.y)>=2)){ROOMUI.points.push(p);paintStroke();}};
+ stage.onpointerdown=e=>{
+  if(e.button&&e.pointerType==='mouse')return;stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size===1){drag={x:e.clientX,y:e.clientY,moved:false,target:e.target,before:ROOMUI.points.length};if(!ROOMUI.model&&ROOMUI.inputMode==='draw'){roomRemember();sample(e);}}
+  else if(pointers.size===2){if(!ROOMUI.model&&drag){ROOMUI.points.length=drag.before;drag.cancelled=true;drawRoomScene();}const a=[...pointers.values()];pinch={distance:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),zoom:ROOMUI.camera.zoom};}
+ };
+ stage.onpointermove=e=>{
+  if(!pointers.has(e.pointerId)||!drag)return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>6)drag.moved=true;
+  if(!ROOMUI.model){if(pointers.size===1&&!drag.cancelled&&ROOMUI.inputMode==='draw')sample(e);return;}
+  if(pointers.size===2&&pinch){const a=[...pointers.values()];ROOMUI.camera.zoom=Math.max(.35,Math.min(4,pinch.zoom*Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)/Math.max(1,pinch.distance)));}
+  else if(ROOMUI.mode==='three'){ROOMUI.camera.yaw+=(e.clientX-old.x)*.012;ROOMUI.camera.pitch=Math.max(.15,Math.min(1.35,ROOMUI.camera.pitch+(e.clientY-old.y)*.008));}
+  else if(ROOMUI.mode==='elevations'){stage.scrollLeft-=e.clientX-old.x;return;}
+  else if(ROOMUI.mode==='plan'){const k=1000/stage.getBoundingClientRect().width;ROOMUI.camera.panX+=(e.clientX-old.x)*k;ROOMUI.camera.panY+=(e.clientY-old.y)*k;}
+  drawRoomScene();
+ };
+ stage.onpointerup=e=>{
+  const d=drag,multi=pointers.size>1;pointers.delete(e.pointerId);pinch=null;if(!d)return;if(pointers.size)return;drag=null;
+  if(!ROOMUI.model&&!d.cancelled&&!multi){if(ROOMUI.inputMode==='points'){if(d.moved)return;let p=svgPoint(e),first=ROOMUI.points[0],last=ROOMUI.points.at(-1);if(first&&ROOMUI.points.length>=3&&Math.hypot(p.x-first.x,p.y-first.y)<10){try{finishRoomSketch();}catch(err){toast(err.message);}return;}if(ROOMUI.orthogonal&&last){if(Math.abs(p.x-last.x)>Math.abs(p.y-last.y))p.y=last.y;else p.x=last.x;}roomRemember();ROOMUI.points.push(p);refreshRoom();return;}sample(e);const first=ROOMUI.points[0],last=ROOMUI.points.at(-1);try{if(ROOMUI.points.length>=4&&Math.hypot(first.x-last.x,first.y-last.y)<35)finishRoomSketch();else refreshRoom();}catch(err){toast(err.message);refreshRoom();}}
+  else if(ROOMUI.model&&!d.moved&&!multi)activateRoomTarget(d.target);
+ };
+ stage.onpointercancel=e=>{pointers.delete(e.pointerId);if(!ROOMUI.model&&drag){ROOMUI.points.length=drag.before;drawRoomScene();}drag=null;pinch=null;};
+ stage.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activateRoomTarget(e.target);}};
+}
+function activateRoomTarget(target){
+ const opening=target.closest?.('[data-room-opening]')?.dataset.roomOpening,wall=target.closest?.('[data-room-wall]')?.dataset.roomWall;
+ try{flushRoomInputs();if(wall){ROOMUI.selected=wall;ROOMUI.selectedOpening=opening||null;if(ROOMUI.mode==='elevations')ROOMUI.mode='elevation';refreshRoom();}if(opening)roomOpeningForm(null,opening);}catch(err){toast(err.message);}
+}
+async function saveRoom(){
+ try{
+  if(!ROOMUI.model)throw Error('Completa las esquinas del contorno');
+  const length=$('#roomLength')?.value,height=$('#roomHeight')?.value;
+  if(ROOMUI.pending){let r=ROOMUI.model;if(length!=='')r=RoomPlan.setLength(r,ROOMUI.selected,Number(length)*TOMM[roomUnit()]);if(height!=='')r=RoomPlan.setHeight(r,Number(height)*TOMM[roomUnit()]);ROOMUI.model=r;}
+  if(!DB.ok)throw Error('No hay almacenamiento persistente disponible');
+  const r=RoomPlan.clean(ROOMUI.model);r.name=ROOMUI.name;r.updated=stamp(r.updated);
+  const old=ROOMUI.projectId?projById(ROOMUI.projectId):null;if(ROOMUI.projectId&&!old)throw Error('El proyecto ya no está disponible');
+  const p=old?{...old}:{id:uid(),name:r.name,notes:{},created:Date.now(),updated:Date.now()};p.rooms=[...(p.rooms||[]).filter(x=>x.id!==r.id),r];p.updated=stamp(p.updated);
+  await put('projects',p);if(old)Object.assign(old,p);else store.projects.push(p);
+  ROOMUI.projectId=p.id;ROOMUI.model=r;ROOMUI.savedKey=roomKey();ROOMUI.pending=false;refreshRoom();scheduleSync();toast('Plano guardado en el proyecto');return true;
+ }catch(e){toast('No se pudo guardar: '+e.message);return false;}
+}
+roomView.addEventListener('click',async e=>{
+ const b=e.target.closest('button');if(!b||b.disabled)return;
+ if(b.hasAttribute('data-room-back')){if(ROOMUI.fullscreen)return setRoomFullscreen(false);return requestBack();}
+ if(b.hasAttribute('data-room-input')){ROOMUI.inputMode=b.dataset.roomInput;refreshRoom();return;}
+ if(b.hasAttribute('data-room-select')){flushRoomInputs();ROOMUI.selected=b.dataset.roomSelect;ROOMUI.selectedOpening=null;if(ROOMUI.mode!=='plan')ROOMUI.mode='elevation';refreshRoom();return;}
+ if(b.hasAttribute('data-room-new'))return newRoomForm();
+ if(b.hasAttribute('data-room-open')){const p=projById(b.dataset.roomProject),r=p?.rooms?.find(r=>r.id===b.dataset.roomOpen);if(r)try{startRoomEditor(r,p.id);}catch(err){toast(err.message);}return;}
+ if(b.hasAttribute('data-room-delete')){const p=projById(b.dataset.roomProject);if(!p)return;const yes=await dialog('¿Eliminar este plano?','Las fotos del proyecto se conservan.',[{id:'y',label:'Eliminar plano',kind:'danger'},{id:'n',label:'Cancelar'}]);if(yes==='y'){const n={...p,rooms:(p.rooms||[]).filter(r=>r.id!==b.dataset.roomDelete),updated:stamp(p.updated)};try{await put('projects',n);Object.assign(p,n);scheduleSync();renderRoomLibrary();}catch(err){toast('No se pudo eliminar el plano');}}return;}
+ if(b.hasAttribute('data-room-save'))return saveRoom();
+ if(b.hasAttribute('data-room-rename')){const name=await askText('Nombre de la habitación',ROOMUI.name,'Ej. Despacho','Guardar');if(name){if(ROOMUI.model)roomChange({...ROOMUI.model,name});ROOMUI.name=name;refreshRoom();}return;}
+ if(b.hasAttribute('data-room-mode')){try{flushRoomInputs();}catch(err){toast(err.message);return;}ROOMUI.mode=b.dataset.roomMode;Object.assign(ROOMUI.camera,{zoom:1,panX:0,panY:0,fitStrip:false});refreshRoom();return;}
+ if(b.hasAttribute('data-room-edit-opening'))return roomOpeningForm(null,b.dataset.roomEditOpening);
+ const action=b.dataset.roomAction;if(!action)return;
+ try{
+  if(action==='fullscreen'){setRoomFullscreen(!ROOMUI.fullscreen);}
+  else if(action==='edit-wall'){if(matchMedia('(orientation:landscape) and (max-height:600px)').matches){roomView.classList.toggle('room-controls-open');}else{setRoomFullscreen(false);$('#roomLength').focus();}}
+  else if(action==='straighten'&&ROOMUI.model){flushRoomInputs();const points=RoomPlan.geometry(ROOMUI.model).points.slice(0,-1);roomChange(RoomPlan.reframe(ROOMUI.model,RoomSketch.orthogonalize(points)));}
+  else if(action==='zoom-in'||action==='zoom-out'){ROOMUI.camera.fitStrip=false;ROOMUI.camera.zoom=Math.max(.35,Math.min(4,ROOMUI.camera.zoom*(action==='zoom-in'?1.2:1/1.2)));drawRoomScene();}
+  else if(action==='fit'){Object.assign(ROOMUI.camera,{zoom:1,panX:0,panY:0,yaw:-.7,pitch:.65,fitStrip:true});drawRoomScene();}
+  else if(action==='undo'){const state=ROOMUI.history.pop();if(state){ROOMUI.model=state.model;ROOMUI.points=state.points;ROOMUI.pending=false;refreshRoom();}}
+  else if(action==='close-contour'){finishRoomSketch();}
+  else if(action==='first'&&ROOMUI.model){flushRoomInputs();roomChange(RoomPlan.setFirst(ROOMUI.model,ROOMUI.selected));}
+  else if(action==='rotate-left'||action==='rotate-right'){ROOMUI.mode='three';ROOMUI.camera.yaw+=action==='rotate-left'?-.25:.25;refreshRoom();}
+  else if(['door','window','switch','socket'].includes(action))roomOpeningForm(action);
+  else if(action==='redraw'){const yes=await dialog('¿Redibujar el contorno?','El nuevo boceto empezará sin medidas ni huecos. Puedes deshacerlo mientras editas.',[{id:'y',label:'Redibujar',kind:'primary'},{id:'n',label:'Cancelar'}]);if(yes==='y'){roomRemember();ROOMUI.model=null;ROOMUI.points=[];ROOMUI.mode='plan';refreshRoom();}}
+  else if(action==='svg'||action==='pdf')await exportRoom(action);
+ }catch(err){toast(err.message||'No se pudo completar la acción');}
+});
+const roomTab=document.createElement('button');roomTab.textContent='Habitaciones';roomTab.dataset.roomEntry='';$('#gTabs').append(roomTab);
+$('#gTabs').addEventListener('click',e=>{if(e.target.closest('[data-room-entry]')){e.stopImmediatePropagation();openRoomLibrary();}},true);
+const beforeRoomShow=show;show=function(){beforeRoomShow();const v=stack[stack.length-1].v;roomView.hidden=!['rooms','room'].includes(v);if(v==='rooms')renderRoomLibrary();};
+const beforeRoomBack=doBack;doBack=async function(){if(stack[stack.length-1].v==='room'&&ROOMUI.fullscreen){try{history.pushState({},'');pushed++;}catch(e){}setRoomFullscreen(false);return;}if(stack[stack.length-1].v==='room'&&roomDirty()&&!ROOMUI.leaving){try{history.pushState({},'');pushed++;}catch(e){}const choice=await dialog('¿Guardar el plano?','Hay cambios sin guardar en esta habitación.',[{id:'save',label:'Guardar',kind:'primary'},{id:'discard',label:'Salir sin guardar',kind:'danger'},{id:'stay',label:'Seguir editando'}]);if(!choice||choice==='stay')return;if(choice==='save'&&!(await saveRoom()))return;ROOMUI.leaving=true;requestBack();return;}ROOMUI.leaving=false;return beforeRoomBack();};
+
+function setRoomFullscreen(value){
+ ROOMUI.fullscreen=!!value;roomView.classList.toggle('room-fullscreen',ROOMUI.fullscreen);
+ const button=roomView.querySelector('[data-room-action=fullscreen]');button.setAttribute('aria-label',ROOMUI.fullscreen?'Salir de pantalla completa':'Pantalla completa');button.title=button.getAttribute('aria-label');button.setAttribute('aria-pressed',String(ROOMUI.fullscreen));
+ refreshRoom();
+}
+
+window.addEventListener('resize',()=>{if(stack[stack.length-1]?.v==='room')refreshRoom();});
+/* Exportación local de la planta y de los alzados de habitaciones. */
+async function roomSvgRaster(svg){
+ const blob=new Blob([svg],{type:'image/svg+xml'}),url=URL.createObjectURL(blob);
+ try{const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(Error('No se pudo dibujar el plano'));image.src=url;});const c=document.createElement('canvas');c.width=1600;c.height=Math.round(1600*(image.naturalHeight||660)/(image.naturalWidth||1000));const g=c.getContext('2d');g.fillStyle='white';g.fillRect(0,0,c.width,c.height);g.drawImage(image,0,0,c.width,c.height);return c.toDataURL('image/png');}finally{URL.revokeObjectURL(url);}
+}
+async function exportRoom(kind){
+ if(!ROOMUI.model)throw Error('Completa el contorno antes de exportar');
+ const r=RoomPlan.clean(ROOMUI.model),u=roomUnit(),safe=r.name.replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,75)||'Habitación';
+ const draft=!RoomPlan.geometry(r).complete||!r.heightMm;
+ if(kind==='svg'){
+  const svg=ROOMUI.mode==='three'?RoomViews.three(r,ROOMUI.selected,ROOMUI.camera,true):ROOMUI.mode==='elevation'?RoomViews.elevation(r,ROOMUI.selected,u,true,ROOMUI.selectedOpening):ROOMUI.mode==='elevations'?RoomViews.elevations(r,u,true):RoomViews.plan(r,ROOMUI.selected,u,{},true);
+  shareSheet(new Blob([svg.replace('<g font-family=',`<title>${esc(r.name)}${draft?' · BORRADOR':''}</title><g font-family=`)],{type:'image/svg+xml'}),safe+'.svg',[]);return;
+ }
+ if(!window.jspdf?.jsPDF)throw Error('No está disponible el exportador PDF');
+ const busy=openModal('<div class="sheet"><h2>Preparando planos…</h2><p class="note">Planta y alzados con sus cotas</p><div class="spin"></div></div>');
+ try{
+  const pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'}),order=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
+  const pages=[{title:'Planta',svg:()=>RoomViews.plan(r,ROOMUI.selected,u,{},true)},{title:'Todos los alzados · desarrollo frontal',svg:()=>RoomViews.elevations(r,u,true)},...order.flatMap(w=>(w.openings.length?w.openings:[null]).map(o=>({title:'Alzado · pared '+RoomPlan.number(r,w.id)+(o?' · '+roomElementName(o.type):''),svg:()=>RoomViews.elevation(r,w.id,u,true,o?.id)})))];
+  if(pages.length>128)throw Error('Hay demasiados elementos para un solo PDF; exporta las vistas SVG por separado');
+  for(let i=0;i<pages.length;i++){
+   if(i)pdf.addPage('a4','landscape');pdf.setFont('helvetica','bold');pdf.setFontSize(15);pdf.text(r.name,14,14);pdf.setFont('helvetica','normal');pdf.setFontSize(10);pdf.text(pages[i].title+(draft?' · BORRADOR':''),14,22);
+   const image=await roomSvgRaster(pages[i].svg());const vb=pages[i].svg().match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/),ratio=vb?Number(vb[1])/Number(vb[2]):1000/660,iw=Math.min(269,177.54*ratio),ih=iw/ratio;pdf.addImage(image,'PNG',(297-iw)/2,27,iw,ih,undefined,'FAST');
+  }
+  const blob=pdf.output('blob');busy.close(true);shareSheet(blob,safe+' - planta y alzados.pdf',[]);
+ }catch(e){busy.close(true);throw e;}
+}
+/* Elementos de pared y referencias de acotación compartidas por planta/alzados. */
+const roomElementName=type=>({door:'Puerta',window:'Ventana',switch:'Interruptor',socket:'Enchufe'}[type]||'Elemento');
+function renderRoomDimensions(){
+ const box=$('#roomDimensions'),r=ROOMUI.model,w=r?.walls.find(w=>w.id===ROOMUI.selected);if(!box||!w)return;
+ if(!w.openings.length){box.innerHTML='';return;}
+ const o=w.openings.find(o=>o.id===ROOMUI.selectedOpening)||w.openings[0];ROOMUI.selectedOpening=o.id;
+ const d=RoomPlan.frontDistances(r,w.id,o.id),u=roomUnit(),value=n=>esc(RoomViews.value(n,u));
+ box.innerHTML=`<label class="col"><span>Cotas del elemento</span><select id="roomDimensionElement">${w.openings.map((x,i)=>`<option value="${esc(x.id)}" ${x.id===o.id?'selected':''}>${roomElementName(x.type)} ${i+1}</option>`).join('')}</select></label><dl class="room-distance-grid"><div><dt>Esquina izquierda → borde izquierdo</dt><dd>${value(d.left)}</dd></div><div><dt>Borde derecho → esquina derecha</dt><dd>${value(d.right)}</dd></div><div><dt>Suelo → borde inferior</dt><dd>${value(d.bottom)}</dd></div><div><dt>Borde superior → techo</dt><dd>${value(d.top)}</dd></div>${d.reference?`<div><dt>Separación horizontal a ${roomElementName(w.openings.find(x=>x.id===d.reference.id).type).toLowerCase()}</dt><dd>${value(d.reference.horizontal)}</dd></div><div><dt>Separación vertical</dt><dd>${value(d.reference.vertical)}</dd></div>`:''}</dl>`;
+ $('#roomDimensionElement').onchange=e=>{ROOMUI.selectedOpening=e.target.value;renderRoomDimensions();drawRoomScene();};
+}
+function roomOpeningForm(type,openingId=null){
+ try{flushRoomInputs();}catch(err){toast(err.message);return;}
+ const r=ROOMUI.model,w=openingId?r?.walls.find(w=>w.openings.some(o=>o.id===openingId)):r?.walls.find(w=>w.id===ROOMUI.selected);if(!w)return;
+ ROOMUI.selected=w.id;
+ if(!w.lengthMm||!r.heightMm){toast('Mide esta pared e introduce la altura antes de colocar elementos');return;}
+ const current=w.openings.find(o=>o.id===openingId);type=current?.type||type;
+ if(!['door','window','switch','socket'].includes(type))return;
+ const fixture=type==='switch'||type==='socket',u=roomUnit(),k=TOMM[u],n=v=>v/k,label=roomElementName(type),defaults={widthMm:fixture?80:type==='door'?800:1200,heightMm:fixture?80:type==='door'?2100:1000,sillMm:type==='door'?0:type==='window'?1000:type==='socket'?300:1100,offsetMm:0},initial=current||defaults;
+ const field=(name,label,value)=>`<label class="col"><span>${label} (${esc(u)})</span><input name="${name}" type="number" step="any" min="0" inputmode="decimal" required value="${n(value)}"></label>`;
+ const m=openModal(`<form class="sheet" id="roomElementForm"><h2>${current?'Editar':'Añadir'} ${label.toLowerCase()} · pared ${RoomPlan.number(r,w.id)}</h2><div class="room-opening-form">${field('width','Ancho',initial.widthMm)}${field('height','Alto',initial.heightMm)}<label class="col"><span>Referencia horizontal</span><select name="horizontal"><option value="start">Desde esquina izquierda al borde izquierdo</option><option value="end">Desde esquina derecha al borde derecho</option></select></label>${field('offset','Distancia a la esquina',current?RoomPlan.frontOffset(r,w.id,initial.offsetMm,initial.widthMm):0)}${type==='door'?'<p class="note">La puerta arranca desde el suelo.</p>':`<label class="col"><span>Referencia vertical</span><select name="vertical"><option value="floor">Desde suelo al borde inferior</option><option value="ceiling">Desde techo al borde superior</option></select></label>${field('sill','Distancia vertical',initial.sillMm)}`}<label class="col"><span>Acotar también respecto a otro elemento</span><select name="reference"><option value="">Solo esquinas, suelo y techo</option>${w.openings.filter(o=>o.id!==current?.id).map((o,i)=>`<option value="${esc(o.id)}" ${o.id===current?.referenceId?'selected':''}>${roomElementName(o.type)} ${i+1}</option>`).join('')}</select></label><p class="note" id="roomElementDistances" role="status"></p></div><div class="row">${current?'<button type="button" class="btn ghost danger" data-opening-delete>Eliminar</button>':''}<button type="button" class="btn ghost" data-cancel>Cancelar</button><button class="btn primary" type="submit">Guardar elemento</button></div></form>`);
+ const form=m.wrap.querySelector('form'),f=form.elements;
+ function read(){const widthMm=Number(f.width.value)*k,heightMm=Number(f.height.value)*k,offset=Number(f.offset.value)*k,sill=type==='door'?0:Number(f.sill.value)*k;return{id:current?.id||uid(),type,widthMm,heightMm,offsetMm:RoomPlan.frontOffset(r,w.id,f.horizontal.value==='end'?w.lengthMm-offset-widthMm:offset,widthMm),sillMm:type!=='door'&&f.vertical.value==='ceiling'?r.heightMm-sill-heightMm:sill,referenceId:f.reference.value||null};}
+ function preview(){const o=read(),v=n=>RoomViews.value(n,u),left=RoomPlan.frontOffset(r,w.id,o.offsetMm,o.widthMm);m.wrap.querySelector('#roomElementDistances').textContent=`Esquina izquierda: ${v(left)} · esquina derecha: ${v(w.lengthMm-left-o.widthMm)} · suelo: ${v(o.sillMm)} · techo: ${v(r.heightMm-o.sillMm-o.heightMm)}`;}
+ let horizontal='start',vertical='floor';
+ f.horizontal.onchange=()=>{const width=Number(f.width.value)*k,old=Number(f.offset.value)*k,position=horizontal==='end'?w.lengthMm-old-width:old;horizontal=f.horizontal.value;f.offset.value=n(horizontal==='end'?w.lengthMm-position-width:position);preview();};
+ if(f.vertical)f.vertical.onchange=()=>{const height=Number(f.height.value)*k,old=Number(f.sill.value)*k,position=vertical==='ceiling'?r.heightMm-old-height:old;vertical=f.vertical.value;f.sill.value=n(vertical==='ceiling'?r.heightMm-position-height:position);preview();};
+ form.addEventListener('input',preview);preview();
+ m.wrap.querySelector('[data-cancel]').onclick=()=>m.close();
+ m.wrap.querySelector('[data-opening-delete]')?.addEventListener('click',()=>{roomChange(RoomPlan.removeOpening(r,w.id,current.id));m.close(true);});
+ form.onsubmit=e=>{e.preventDefault();try{const o=read(),next=current?RoomPlan.updateOpening(r,w.id,o):RoomPlan.addOpening(r,w.id,o);ROOMUI.selectedOpening=o.id;roomChange(next);m.close(true);}catch(err){toast(err.message);}};
+}
 /* ================= start ================= */
 (async()=>{
   await idbOpen();

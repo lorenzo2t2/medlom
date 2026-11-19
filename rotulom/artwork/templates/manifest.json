@@ -1,0 +1,5066 @@
+{
+  "version": 1,
+  "purpose": "design-and-estimate",
+  "models": [
+    {
+      "id": "peugeot-expert-2014-l1h1",
+      "name": "Peugeot Expert",
+      "variant": "Manual 2014 · L1H1 · furgón de carga",
+      "atlas": "expert-2014-l1h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsMm": {
+        "exteriorLength": 4805,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 1942,
+        "wheelbase": 3000,
+        "bodyWidthSheetMetal": 1870,
+        "widthWithMirrors": 2194
+      },
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "widthConvention": "con varillas, sin retrovisores",
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; 146-147 PDF",
+      "sourceNote": "L1H1: largo 4805-4813; altura 1894*/1942. Referencia de dibujo: 4805 y valor de altura sin asterisco. La imagen representa una configuración orientativa de puertas.",
+      "illustrationOrigin": "Generación original; manual como referencia técnica y de identidad, sin incluir su ilustración en los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            145,
+            60,
+            500,
+            438
+          ],
+          "bounds": [
+            184,
+            80,
+            600,
+            489
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            18,
+            575,
+            780,
+            390
+          ],
+          "bounds": [
+            31,
+            603,
+            782,
+            950
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            930,
+            65,
+            460,
+            435
+          ],
+          "bounds": [
+            957,
+            80,
+            1360,
+            490
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            821,
+            553,
+            682,
+            411
+          ],
+          "bounds": [
+            836,
+            606,
+            1490,
+            903
+          ]
+        }
+      }
+    },
+    {
+      "id": "renault-kangoo-furgon-l1-2025",
+      "name": "Renault Kangoo Furgón",
+      "variant": "Catálogo 2025 · L1 · panelado de carga",
+      "atlas": "kangoo-l1-2025.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsMm": {
+        "exteriorLength": 4486,
+        "exteriorWidth": 1860,
+        "exteriorHeight": 1864,
+        "wheelbase": 2716,
+        "widthWithMirrors": 2159
+      },
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "widthConvention": "sin retrovisores",
+      "sourceUrl": "https://cdn.group.renault.com/ren/es/modelos/kangoo-furgon/catalogo/catalogo_renault_kangoo_furgon.pdf",
+      "sourcePages": "17, catálogo agosto 2025",
+      "sourceNote": "Kangoo Furgón L1, no la variante de pasajeros ni la L2. Altura y batalla específicas de L1. Configuración visual de puertas orientativa.",
+      "illustrationOrigin": "Generación original a partir de una referencia técnica de identidad; no se incorpora la página del catálogo a la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            155,
+            65,
+            485,
+            438
+          ],
+          "bounds": [
+            192,
+            107,
+            610,
+            489
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            15,
+            575,
+            785,
+            390
+          ],
+          "bounds": [
+            31,
+            605,
+            775,
+            937
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            910,
+            85,
+            460,
+            420
+          ],
+          "bounds": [
+            943,
+            109,
+            1333,
+            489
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            798,
+            570,
+            715,
+            390
+          ],
+          "bounds": [
+            808,
+            618,
+            1500,
+            916
+          ]
+        }
+      }
+    },
+    {
+      "id": "renault-kangoo-furgon-l2-2025",
+      "name": "Renault Kangoo Furgón",
+      "variant": "Catálogo 2025 · L2 · panelado de carga",
+      "atlas": "kangoo-l2-2025.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsMm": {
+        "exteriorLength": 4910,
+        "exteriorWidth": 1860,
+        "exteriorHeight": 1854,
+        "wheelbase": 3100,
+        "widthWithMirrors": 2159
+      },
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "widthConvention": "sin retrovisores",
+      "sourceUrl": "https://cdn.group.renault.com/ren/es/modelos/kangoo-furgon/catalogo/catalogo_renault_kangoo_furgon.pdf",
+      "sourcePages": "17, catálogo agosto 2025",
+      "sourceNote": "Dimensiones nominales de la variante larga L2 del documento enlazado. Configuración visual de puertas orientativa; no es una plantilla de corte.",
+      "illustrationOrigin": "Generación original a partir de una referencia técnica de identidad; no se incorpora la página del catálogo a la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            125,
+            60,
+            485,
+            440
+          ],
+          "bounds": [
+            165,
+            109,
+            573,
+            490
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            10,
+            575,
+            810,
+            385
+          ],
+          "bounds": [
+            15,
+            610,
+            811,
+            931
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            935,
+            85,
+            440,
+            415
+          ],
+          "bounds": [
+            961,
+            109,
+            1352,
+            489
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            830,
+            575,
+            700,
+            390
+          ],
+          "bounds": [
+            840,
+            616,
+            1510,
+            915
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-expert-2014-l2h1",
+      "name": "Peugeot Expert",
+      "variant": "Manual 2014 · L2H1 · furgón de carga",
+      "atlas": "expert-2014-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsMm": {
+        "exteriorLength": 5135,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 1942,
+        "wheelbase": 3122,
+        "bodyWidthSheetMetal": 1870,
+        "widthWithMirrors": 2194
+      },
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "widthConvention": "con varillas, sin retrovisores",
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; 146-147 PDF",
+      "sourceNote": "Dimensiones nominales de la variante larga L2 del documento enlazado. Configuración visual de puertas orientativa; no es una plantilla de corte.",
+      "illustrationOrigin": "Generación original; manual como referencia técnica y de identidad, sin incluir su ilustración en los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            145,
+            60,
+            500,
+            440
+          ],
+          "bounds": [
+            185,
+            82,
+            605,
+            491
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            10,
+            570,
+            790,
+            380
+          ],
+          "bounds": [
+            16,
+            606,
+            795,
+            936
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            925,
+            60,
+            475,
+            440
+          ],
+          "bounds": [
+            967,
+            84,
+            1362,
+            491
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            815,
+            565,
+            700,
+            390
+          ],
+          "bounds": [
+            825,
+            608,
+            1499,
+            903
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-expert-2014-l2h2",
+      "name": "Peugeot Expert",
+      "variant": "Manual 2014 · L2H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5135,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 2276,
+        "wheelbase": 3122
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; PDF146-147",
+      "widthConvention": "con varillas, sin retrovisores",
+      "atlas": "peugeot-expert-2014-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Largo 5135–5143; altura2204*/2276 según suspensión. Referencia nominal5135 y2276.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            186,
+            30,
+            599,
+            520
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            960,
+            24,
+            1347,
+            521
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            13,
+            567,
+            776,
+            964
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            799,
+            605,
+            1508,
+            935
+          ]
+        }
+      }
+    },
+    {
+      "id": "renault-trafic-my27-l1h1",
+      "name": "Renault Trafic",
+      "variant": "MY27 · L1H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5102,
+        "exteriorWidth": 1956,
+        "exteriorHeight": 1979,
+        "wheelbase": 3098
+      },
+      "sourceUrl": "https://empresas.renault.es/comerciales/trafic-furgon/medidas.html",
+      "sourcePages": "Esquema oficial MY27 L1",
+      "widthConvention": "sin retrovisores",
+      "atlas": "renault-trafic-my27-l1h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            243,
+            101,
+            631,
+            479
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            964,
+            102,
+            1323,
+            476
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            793,
+            484
+          ],
+          "bounds": [
+            43,
+            630,
+            793,
+            948
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            793,
+            540,
+            743,
+            484
+          ],
+          "bounds": [
+            847,
+            613,
+            1493,
+            917
+          ]
+        }
+      }
+    },
+    {
+      "id": "renault-trafic-my27-l2h1",
+      "name": "Renault Trafic",
+      "variant": "MY27 · L2H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5502,
+        "exteriorWidth": 1956,
+        "exteriorHeight": 1979,
+        "wheelbase": 3498
+      },
+      "sourceUrl": "https://empresas.renault.es/comerciales/trafic-furgon/medidas.html",
+      "sourcePages": "Esquema oficial MY27 L2",
+      "widthConvention": "sin retrovisores",
+      "atlas": "renault-trafic-my27-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            191,
+            91,
+            576,
+            481
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            967,
+            89,
+            1335,
+            481
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            21,
+            646,
+            782,
+            928
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            833,
+            625,
+            1498,
+            910
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-partner-2014-l1",
+      "name": "Peugeot Partner",
+      "variant": "Manual 2014 · B9 · L1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4380,
+        "exteriorWidth": 1810,
+        "exteriorHeight": 1834,
+        "wheelbase": 2728
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/partnervu/partnervu_partner2vu/ed01-14/es_es/partnervu_partnervu_partner2vu_ed01-14_es_es.pdf",
+      "sourcePages": "133-134 impresas; PDF135-136",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-partner-2014-l1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura1805–1834; se toma1834nominal. L2 conserva batalla2728 y alarga voladizo trasero.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            181,
+            65,
+            592,
+            487
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            959,
+            63,
+            1348,
+            488
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            31,
+            624,
+            753,
+            945
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            800,
+            610,
+            1500,
+            928
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-partner-2014-l2",
+      "name": "Peugeot Partner",
+      "variant": "Manual 2014 · B9 · L2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4628,
+        "exteriorWidth": 1810,
+        "exteriorHeight": 1834,
+        "wheelbase": 2728
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/partnervu/partnervu_partner2vu/ed01-14/es_es/partnervu_partnervu_partner2vu_ed01-14_es_es.pdf",
+      "sourcePages": "133-134 impresas; PDF135-136",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-partner-2014-l2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura1805–1834; se toma1834nominal. L2 conserva batalla2728 y alarga voladizo trasero.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            189,
+            79,
+            581,
+            498
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            956,
+            82,
+            1344,
+            498
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            21,
+            619,
+            768,
+            951
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            802,
+            618,
+            1504,
+            912
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l1h1",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L1H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4963,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2254,
+        "wheelbase": 3000
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l1h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            213,
+            74,
+            603,
+            500
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            969,
+            65,
+            1327,
+            500
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            18,
+            607,
+            782,
+            959
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            819,
+            603,
+            1488,
+            902
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l1h2",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L1H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4963,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 3000
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l1h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            230,
+            30,
+            614,
+            513
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            948,
+            33,
+            1313,
+            510
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            805,
+            484
+          ],
+          "bounds": [
+            30,
+            577,
+            805,
+            1001
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            805,
+            540,
+            731,
+            484
+          ],
+          "bounds": [
+            853,
+            613,
+            1507,
+            924
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l2h1",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L2H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2254,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            231,
+            83,
+            623,
+            505
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            973,
+            79,
+            1320,
+            502
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            23,
+            630,
+            754,
+            961
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            804,
+            625,
+            1501,
+            905
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l2h2",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L2H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            234,
+            59,
+            617,
+            532
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            962,
+            58,
+            1328,
+            530
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            23,
+            605,
+            757,
+            965
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            807,
+            629,
+            1499,
+            907
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l3h2",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L3H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l3h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            235,
+            67,
+            594,
+            485
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            984,
+            64,
+            1268,
+            485
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            21,
+            602,
+            787,
+            934
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            827,
+            617,
+            1518,
+            890
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l3h3",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L3H3 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2764,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l3h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            221,
+            38,
+            551,
+            506
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            1006,
+            39,
+            1303,
+            506
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            12,
+            601,
+            752,
+            974
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            797,
+            652,
+            1510,
+            925
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l4h2",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L4H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l4h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            192,
+            47,
+            580,
+            512
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            965,
+            48,
+            1336,
+            512
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            788,
+            484
+          ],
+          "bounds": [
+            13,
+            644,
+            754,
+            953
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            788,
+            540,
+            748,
+            484
+          ],
+          "bounds": [
+            789,
+            653,
+            1515,
+            899
+          ]
+        }
+      }
+    },
+    {
+      "id": "peugeot-boxer-2015-l4h3",
+      "name": "Peugeot Boxer",
+      "variant": "Manual 2015 · L4H3 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2764,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "peugeot-boxer-2015-l4h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            551
+          ],
+          "bounds": [
+            209,
+            42,
+            576,
+            551
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            551
+          ],
+          "bounds": [
+            998,
+            43,
+            1306,
+            549
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            551,
+            790,
+            473
+          ],
+          "bounds": [
+            24,
+            644,
+            770,
+            990
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            551,
+            746,
+            473
+          ],
+          "bounds": [
+            800,
+            682,
+            1508,
+            927
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-sprinter-907-estandar-normal",
+      "name": "Mercedes-Benz Sprinter",
+      "variant": "W907 · 311 CDI · estándar · techo normal",
+      "dimensionsMm": {
+        "exteriorLength": 5932,
+        "exteriorWidth": 2345,
+        "exteriorHeight": 2331,
+        "wheelbase": 3665
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "sourcePages": "Tabla ampliada: todos los datos técnicos",
+      "widthConvention": "de ficha con retrovisores",
+      "atlas": "mercedes-sprinter-907-estandar-normal.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            548
+          ],
+          "bounds": [
+            158,
+            93,
+            674,
+            548
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            548
+          ],
+          "bounds": [
+            896,
+            88,
+            1381,
+            548
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            548,
+            790,
+            476
+          ],
+          "bounds": [
+            20,
+            645,
+            755,
+            970
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            548,
+            746,
+            476
+          ],
+          "bounds": [
+            796,
+            624,
+            1503,
+            950
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-vito-447-compacta",
+      "name": "Mercedes-Benz Vito",
+      "variant": "W447 · 110 CDI · compacta",
+      "dimensionsMm": {
+        "exteriorLength": 4895,
+        "exteriorWidth": 2244,
+        "exteriorHeight": 1910,
+        "wheelbase": 3200
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+      "sourcePages": "Tabla ampliada: todos los datos técnicos",
+      "widthConvention": "de ficha con retrovisores",
+      "atlas": "mercedes-vito-447-compacta.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            166,
+            81,
+            694,
+            509
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            920,
+            82,
+            1358,
+            509
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            39,
+            619,
+            775,
+            933
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            811,
+            589,
+            1497,
+            945
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-berlingo-2014-l1",
+      "name": "Citroën Berlingo",
+      "variant": "B9 · manual 2014 · L1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4380,
+        "exteriorWidth": 1810,
+        "exteriorHeight": 1834,
+        "wheelbase": 2728
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/berlingo/berlingo_berlingo2vu/ed01-14/es_es/berlingo_berlingo_berlingo2vu_ed01-14_es_es.pdf",
+      "sourcePages": "133-134 impresas; PDF135-136",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-berlingo-2014-l1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura1805–1834; elegida1834nominal. L2 conserva batalla2728 y aumenta voladizo trasero.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            225,
+            67,
+            621,
+            489
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            942,
+            65,
+            1333,
+            490
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            808,
+            484
+          ],
+          "bounds": [
+            20,
+            588,
+            808,
+            951
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            808,
+            540,
+            728,
+            484
+          ],
+          "bounds": [
+            842,
+            588,
+            1506,
+            918
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-berlingo-2014-l2",
+      "name": "Citroën Berlingo",
+      "variant": "B9 · manual 2014 · L2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4628,
+        "exteriorWidth": 1810,
+        "exteriorHeight": 1834,
+        "wheelbase": 2728
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/berlingo/berlingo_berlingo2vu/ed01-14/es_es/berlingo_berlingo_berlingo2vu_ed01-14_es_es.pdf",
+      "sourcePages": "133-134 impresas; PDF135-136",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-berlingo-2014-l2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura1805–1834; elegida1834nominal. L2 conserva batalla2728 y aumenta voladizo trasero.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            219,
+            71,
+            621,
+            505
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            949,
+            67,
+            1351,
+            505
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            798,
+            484
+          ],
+          "bounds": [
+            20,
+            608,
+            798,
+            939
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            798,
+            540,
+            738,
+            484
+          ],
+          "bounds": [
+            832,
+            626,
+            1510,
+            909
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumpy-2014-l1h1",
+      "name": "Citroën Jumpy / Dispatch",
+      "variant": "Manual 2014 · L1H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4805,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 1942,
+        "wheelbase": 3000
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; PDF146-147",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumpy-2014-l1h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Ancho con varillas sin retrovisores; longitud nominal inferior del intervalo y altura sin asterisco de suspensión.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            164,
+            51,
+            615,
+            511
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            957,
+            49,
+            1382,
+            511
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            25,
+            615,
+            767,
+            951
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            812,
+            605,
+            1505,
+            917
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumpy-2014-l2h1",
+      "name": "Citroën Jumpy / Dispatch",
+      "variant": "Manual 2014 · L2H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5135,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 1942,
+        "wheelbase": 3122
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; PDF146-147",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumpy-2014-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Ancho con varillas sin retrovisores; longitud nominal inferior del intervalo y altura sin asterisco de suspensión.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            186,
+            76,
+            589,
+            481
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            952,
+            73,
+            1352,
+            481
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            21,
+            634,
+            753,
+            920
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            812,
+            622,
+            1497,
+            911
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumpy-2014-l2h2",
+      "name": "Citroën Jumpy / Dispatch",
+      "variant": "Manual 2014 · L2H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5135,
+        "exteriorWidth": 1895,
+        "exteriorHeight": 2276,
+        "wheelbase": 3122
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+      "sourcePages": "144-145 impresas; PDF146-147",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumpy-2014-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Ancho con varillas sin retrovisores; longitud nominal inferior del intervalo y altura sin asterisco de suspensión.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            223,
+            29,
+            630,
+            500
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            966,
+            27,
+            1341,
+            498
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            800,
+            484
+          ],
+          "bounds": [
+            25,
+            565,
+            800,
+            965
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            800,
+            540,
+            736,
+            484
+          ],
+          "bounds": [
+            830,
+            574,
+            1500,
+            921
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l1h1",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L1H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4963,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2254,
+        "wheelbase": 3000
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l1h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            179,
+            39,
+            604,
+            495
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            998,
+            40,
+            1345,
+            494
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            27,
+            601,
+            768,
+            980
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            811,
+            597,
+            1493,
+            923
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l1h2",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L1H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4963,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 3000
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l1h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            248,
+            49,
+            600,
+            484
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            994,
+            47,
+            1351,
+            484
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            35,
+            572,
+            770,
+            972
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            828,
+            600,
+            1495,
+            909
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l2h1",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L2H1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2254,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            219,
+            67,
+            591,
+            486
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            964,
+            62,
+            1319,
+            485
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            24,
+            625,
+            757,
+            964
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            810,
+            621,
+            1494,
+            912
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l2h2",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L2H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            244,
+            45,
+            642,
+            530
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            997,
+            45,
+            1310,
+            525
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            813,
+            484
+          ],
+          "bounds": [
+            17,
+            609,
+            813,
+            984
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            813,
+            540,
+            723,
+            484
+          ],
+          "bounds": [
+            865,
+            636,
+            1510,
+            918
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l3h2",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L3H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l3h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            208,
+            88,
+            595,
+            519
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            975,
+            88,
+            1325,
+            516
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            23,
+            619,
+            755,
+            958
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            804,
+            640,
+            1500,
+            906
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l4h2",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L4H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l4h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            226,
+            68,
+            587,
+            508
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            972,
+            68,
+            1334,
+            508
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            14,
+            623,
+            768,
+            928
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            802,
+            635,
+            1509,
+            899
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l4h3",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L4H3 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2764,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l4h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            220,
+            36,
+            562,
+            506
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            1020,
+            41,
+            1297,
+            505
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            18,
+            602,
+            746,
+            961
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            792,
+            654,
+            1507,
+            907
+          ]
+        }
+      }
+    },
+    {
+      "id": "volkswagen-caddy-cargo-2024-corto",
+      "name": "Volkswagen Caddy Cargo",
+      "variant": "Catálogo julio2024 · corto · panelado",
+      "dimensionsMm": {
+        "exteriorLength": 4500,
+        "exteriorWidth": 1855,
+        "exteriorHeight": 1856,
+        "wheelbase": 2755
+      },
+      "sourceUrl": "https://www.volkswagen-comerciales.es/idhub/content/dam/onehub_nfz/importers/es/modelos/catalogos/Cata%CC%81logo%20Caddy%20Cargo_Julio24.pdf",
+      "sourcePages": "30-31",
+      "widthConvention": "sin retrovisores",
+      "atlas": "volkswagen-caddy-cargo-2024-corto.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Caddy Cargo, no pasajeros. Alturas1856/1860 de la ficha Cargo; cifras nominales con tolerancias del fabricante.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            178,
+            43,
+            624,
+            480
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            953,
+            46,
+            1345,
+            479
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            32,
+            609,
+            761,
+            938
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            799,
+            610,
+            1499,
+            923
+          ]
+        }
+      }
+    },
+    {
+      "id": "volkswagen-caddy-cargo-2024-maxi",
+      "name": "Volkswagen Caddy Cargo",
+      "variant": "Catálogo julio2024 · Maxi · panelado",
+      "dimensionsMm": {
+        "exteriorLength": 4853,
+        "exteriorWidth": 1855,
+        "exteriorHeight": 1860,
+        "wheelbase": 2970
+      },
+      "sourceUrl": "https://www.volkswagen-comerciales.es/idhub/content/dam/onehub_nfz/importers/es/modelos/catalogos/Cata%CC%81logo%20Caddy%20Cargo_Julio24.pdf",
+      "sourcePages": "30-31",
+      "widthConvention": "sin retrovisores",
+      "atlas": "volkswagen-caddy-cargo-2024-maxi.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Caddy Cargo, no pasajeros. Alturas1856/1860 de la ficha Cargo; cifras nominales con tolerancias del fabricante.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            190,
+            90,
+            608,
+            498
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            967,
+            86,
+            1341,
+            498
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            32,
+            623,
+            780,
+            912
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            812,
+            619,
+            1503,
+            912
+          ]
+        }
+      }
+    },
+    {
+      "id": "fiat-doblo-my26a-l1",
+      "name": "Fiat Doblò",
+      "variant": "MY26A · L1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4403,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1860,
+        "wheelbase": 2785
+      },
+      "sourceUrl": "https://www.fiat.co.uk/content/dam/fiat2023/professional/uk/tools/pricelist/doblo-and-e-doblo-van.pdf",
+      "sourcePages": "25",
+      "widthConvention": "sin retrovisores",
+      "atlas": "fiat-doblo-my26a-l1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura nominal1860, extremo superior del intervalo1796–1860. Referencia británicaMY26A.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            212,
+            56,
+            640,
+            493
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            909,
+            57,
+            1315,
+            493
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            823,
+            484
+          ],
+          "bounds": [
+            27,
+            617,
+            823,
+            989
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            823,
+            540,
+            713,
+            484
+          ],
+          "bounds": [
+            847,
+            615,
+            1509,
+            937
+          ]
+        }
+      }
+    },
+    {
+      "id": "fiat-doblo-my26a-l2",
+      "name": "Fiat Doblò",
+      "variant": "MY26A · L2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4753,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1860,
+        "wheelbase": 2975
+      },
+      "sourceUrl": "https://www.fiat.co.uk/content/dam/fiat2023/professional/uk/tools/pricelist/doblo-and-e-doblo-van.pdf",
+      "sourcePages": "25",
+      "widthConvention": "sin retrovisores",
+      "atlas": "fiat-doblo-my26a-l2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura nominal1860, extremo superior del intervalo1812–1860. Referencia británicaMY26A.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            159,
+            60,
+            655,
+            536
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            907,
+            59,
+            1385,
+            536
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            820,
+            484
+          ],
+          "bounds": [
+            18,
+            638,
+            820,
+            983
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            820,
+            540,
+            716,
+            484
+          ],
+          "bounds": [
+            842,
+            632,
+            1519,
+            939
+          ]
+        }
+      }
+    },
+    {
+      "id": "citroen-jumper-2015-l3h3",
+      "name": "Citroën Jumper / Relay",
+      "variant": "Manual 2015 · L3H3 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2764,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+      "sourcePages": "172-175 impresas; PDF174-177",
+      "widthConvention": "sin retrovisores",
+      "atlas": "citroen-jumper-2015-l3h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "TechoH3. Segunda ilustración con techo frontal completo y margen corregido.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            238,
+            51,
+            537,
+            468
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            1010,
+            24,
+            1309,
+            496
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            17,
+            582,
+            752,
+            962
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            795,
+            627,
+            1520,
+            892
+          ]
+        }
+      }
+    },
+    {
+      "id": "toyota-proace-city-my27-media",
+      "name": "Toyota Proace City",
+      "variant": "MY27 · media · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4403,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1880,
+        "wheelbase": 2785
+      },
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city/Catalogo-PROACE-CITY-MY27.pdf",
+      "sourcePages": "11",
+      "widthConvention": "sin retrovisores",
+      "atlas": "toyota-proace-city-my27-media.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Anchura nominal1848: esquema frontal del catálogo español, corroborado el19/11/2026 por la ficha oficial ToyotaUK ProaceCity Active de4403mm. La tabla yFAQ españolas imprimen1484 para media; se conserva la discrepancia original, pero no se utiliza esa cifra. La corroboración británica valida esta referencia nominal, no todos los acabados de otros mercados.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            215,
+            83,
+            656,
+            509
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            911,
+            79,
+            1333,
+            508
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            800,
+            484
+          ],
+          "bounds": [
+            27,
+            610,
+            800,
+            954
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            800,
+            540,
+            736,
+            484
+          ],
+          "bounds": [
+            822,
+            615,
+            1499,
+            917
+          ]
+        }
+      },
+      "dimensionReview": {
+        "status": "nominal-reference-corroborated",
+        "checkedAt": "2026-11-19",
+        "originalSourceConflict": true,
+        "geometryVerified": false,
+        "corroboratingSource": {
+          "sourceUrl": "https://www.toyota.co.uk/new-cars/proace-city/specifications",
+          "sourceArchive": "toyota-proace-city-uk-cotas-20261119.json",
+          "sourceSha256": "d61cc31f5a4aeba51bd2aff6b3e4e75fd986298aefe4ffff6be2e55af1f3a193",
+          "specification": "Proace City Active specifications",
+          "dimensionsMm": {
+            "exteriorLength": 4403,
+            "exteriorWidth": 1848,
+            "exteriorHeight": 1880,
+            "wheelbase": 2785
+          },
+          "scope": "Nominal exterior reference for the indicated body size; no extrapolation to other variants."
+        }
+      }
+    },
+    {
+      "id": "toyota-proace-city-my27-larga",
+      "name": "Toyota Proace City",
+      "variant": "MY27 · larga · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4753,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1880,
+        "wheelbase": 2975
+      },
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city/Catalogo-PROACE-CITY-MY27.pdf",
+      "sourcePages": "11",
+      "widthConvention": "sin retrovisores",
+      "atlas": "toyota-proace-city-my27-larga.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Anchura1848 según la columna LARGA y el esquema frontal de la página11 del catálogo español. La errata1484 pertenece a la columna MEDIA y no cambia esta referencia larga.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            197,
+            71,
+            667,
+            522
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            922,
+            65,
+            1383,
+            522
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            792,
+            484
+          ],
+          "bounds": [
+            26,
+            639,
+            792,
+            963
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            792,
+            540,
+            744,
+            484
+          ],
+          "bounds": [
+            818,
+            639,
+            1495,
+            923
+          ]
+        }
+      }
+    },
+    {
+      "id": "toyota-proace-my27-media",
+      "name": "Toyota Proace",
+      "variant": "MY27 · media · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4981,
+        "exteriorWidth": 1924,
+        "exteriorHeight": 1955,
+        "wheelbase": 3275
+      },
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace/Catalogo-PROACE-MY27.pdf",
+      "sourcePages": "11",
+      "widthConvention": "sin retrovisores",
+      "atlas": "toyota-proace-my27-media.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura nominal1955: extremo superior del intervalo oficial1865–1955; comprobar vehículo concreto antes de presupuestar instalación.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            198,
+            80,
+            654,
+            538
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            897,
+            74,
+            1361,
+            538
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            34,
+            649,
+            782,
+            966
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            822,
+            653,
+            1503,
+            943
+          ]
+        }
+      }
+    },
+    {
+      "id": "toyota-proace-my27-larga",
+      "name": "Toyota Proace",
+      "variant": "MY27 · larga · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5331,
+        "exteriorWidth": 1924,
+        "exteriorHeight": 1955,
+        "wheelbase": 3275
+      },
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace/Catalogo-PROACE-MY27.pdf",
+      "sourcePages": "11",
+      "widthConvention": "sin retrovisores",
+      "atlas": "toyota-proace-my27-larga.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Altura nominal1955: extremo superior del intervalo oficial1865–1955; comprobar vehículo concreto antes de presupuestar instalación.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            186,
+            65,
+            676,
+            539
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            930,
+            64,
+            1389,
+            537
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            820,
+            484
+          ],
+          "bounds": [
+            36,
+            662,
+            820,
+            967
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            820,
+            540,
+            716,
+            484
+          ],
+          "bounds": [
+            867,
+            664,
+            1504,
+            919
+          ]
+        }
+      }
+    },
+    {
+      "id": "toyota-hilux-my27-double-cab",
+      "name": "Toyota Hilux",
+      "variant": "MY27 · Hybrid48V · Double Cab",
+      "dimensionsMm": {
+        "exteriorLength": 5320,
+        "exteriorWidth": 1855,
+        "exteriorHeight": 1865,
+        "wheelbase": 3085
+      },
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/hilux/Catalogo_HILUX-MY27.pdf",
+      "sourcePages": "15",
+      "widthConvention": "sin retrovisores",
+      "atlas": "toyota-hilux-my27-double-cab.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Referencia5320×1855×1865 ybatalla3085 de la tabla Hybrid48V DoubleCab, corroborada el19/11/2026 por la ficha oficial ToyotaEspaña HiluxGX. El esquema del PDF muestra5325×1855×1815; se conserva esta discrepancia histórica y se toma la tabla corroborada. No geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            182,
+            98,
+            604,
+            489
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            935,
+            99,
+            1366,
+            490
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            28,
+            640,
+            762,
+            916
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            801,
+            641,
+            1500,
+            903
+          ]
+        }
+      },
+      "dimensionReview": {
+        "status": "nominal-reference-corroborated",
+        "checkedAt": "2026-11-19",
+        "originalSourceConflict": true,
+        "geometryVerified": false,
+        "corroboratingSource": {
+          "sourceUrl": "https://www.toyota.es/coches/hilux/caracteristicas",
+          "sourceArchive": "toyota-hilux-es-cotas-20261119.json",
+          "sourceSha256": "35c3215f179e9320393f661790a0dc4ce20c9ea48fc1b0aa1b7bf092f60bf9e8",
+          "specification": "Especificaciones de Hilux GX",
+          "dimensionsMm": {
+            "exteriorLength": 5320,
+            "exteriorWidth": 1855,
+            "exteriorHeight": 1865,
+            "wheelbase": 3085
+          },
+          "scope": "Nominal exterior reference for the indicated body size; no extrapolation to other variants."
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-vito-w447-larga",
+      "name": "Mercedes-Benz Vito",
+      "variant": "W447 · larga · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5140,
+        "exteriorWidth": 2244,
+        "exteriorHeight": 1910,
+        "wheelbase": 3200
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+      "sourcePages": "Ficha técnica web verificada18/11/2026",
+      "widthConvention": "con retrovisores extendidos",
+      "atlas": "mercedes-benz-vito-w447-larga.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            136,
+            57,
+            687,
+            508
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            912,
+            58,
+            1409,
+            508
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            814,
+            484
+          ],
+          "bounds": [
+            22,
+            620,
+            814,
+            930
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            814,
+            540,
+            722,
+            484
+          ],
+          "bounds": [
+            841,
+            596,
+            1505,
+            920
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-vito-w447-extralarga",
+      "name": "Mercedes-Benz Vito",
+      "variant": "W447 · extralarga · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5370,
+        "exteriorWidth": 2244,
+        "exteriorHeight": 1910,
+        "wheelbase": 3430
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+      "sourcePages": "Ficha técnica web verificada18/11/2026",
+      "widthConvention": "con retrovisores extendidos",
+      "atlas": "mercedes-benz-vito-w447-extralarga.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            149,
+            60,
+            642,
+            470
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            936,
+            54,
+            1392,
+            470
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            17,
+            656,
+            752,
+            912
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            807,
+            619,
+            1512,
+            927
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-sprinter-standard-high",
+      "name": "Mercedes-Benz Sprinter",
+      "variant": "W907 · estándar · techo alto",
+      "dimensionsMm": {
+        "exteriorLength": 5932,
+        "exteriorWidth": 2345,
+        "exteriorHeight": 2620,
+        "wheelbase": 3665
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "sourcePages": "Ficha técnica web; filtros longitud y techo HIGH verificados18/11/2026",
+      "widthConvention": "con retrovisores",
+      "atlas": "mercedes-benz-sprinter-standard-high.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            189,
+            52,
+            615,
+            503
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            950,
+            51,
+            1347,
+            497
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            778,
+            484
+          ],
+          "bounds": [
+            26,
+            595,
+            757,
+            953
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            778,
+            540,
+            758,
+            484
+          ],
+          "bounds": [
+            779,
+            591,
+            1511,
+            933
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-sprinter-long-high",
+      "name": "Mercedes-Benz Sprinter",
+      "variant": "W907 · larga · techo alto",
+      "dimensionsMm": {
+        "exteriorLength": 6967,
+        "exteriorWidth": 2345,
+        "exteriorHeight": 2616,
+        "wheelbase": 4325
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "sourcePages": "Ficha técnica web; filtros longitud y techo HIGH verificados18/11/2026",
+      "widthConvention": "con retrovisores",
+      "atlas": "mercedes-benz-sprinter-long-high.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            190,
+            52,
+            611,
+            497
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            965,
+            50,
+            1352,
+            496
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            30,
+            626,
+            742,
+            936
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            798,
+            616,
+            1501,
+            908
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-sprinter-extra-long-high",
+      "name": "Mercedes-Benz Sprinter",
+      "variant": "W907 · extralarga · techo alto",
+      "dimensionsMm": {
+        "exteriorLength": 7367,
+        "exteriorWidth": 2345,
+        "exteriorHeight": 2613,
+        "wheelbase": 4325
+      },
+      "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "sourcePages": "Ficha técnica web; filtros longitud y techo HIGH verificados18/11/2026",
+      "widthConvention": "con retrovisores",
+      "atlas": "mercedes-benz-sprinter-extra-long-high.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            176,
+            77,
+            622,
+            540
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            957,
+            78,
+            1345,
+            538
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            32,
+            645,
+            765,
+            937
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            801,
+            631,
+            1499,
+            919
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-combo-2026-m",
+      "name": "Opel Combo Cargo",
+      "variant": "Catálogo septiembre2026 · M · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4403,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1880,
+        "wheelbase": 2785
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_COMBO_CARGO.pdf",
+      "sourcePages": "10 y18 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-combo-2026-m.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            176,
+            78,
+            609,
+            500
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            954,
+            73,
+            1372,
+            500
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            35,
+            610,
+            785,
+            958
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            824,
+            617,
+            1497,
+            910
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-combo-2026-xl",
+      "name": "Opel Combo Cargo",
+      "variant": "Catálogo septiembre2026 · XL · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4753,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1880,
+        "wheelbase": 2975
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_COMBO_CARGO.pdf",
+      "sourcePages": "10 y18 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-combo-2026-xl.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            177,
+            89,
+            614,
+            505
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            939,
+            92,
+            1352,
+            504
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            28,
+            630,
+            777,
+            933
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            819,
+            625,
+            1492,
+            901
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-vivaro-2026-l2",
+      "name": "Opel Vivaro",
+      "variant": "Catálogo septiembre2026 · L2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4981,
+        "exteriorWidth": 1924,
+        "exteriorHeight": 1955,
+        "wheelbase": 3275
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_VIVARO_FURGON.pdf",
+      "sourcePages": "7 y23 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-vivaro-2026-l2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            205,
+            87,
+            644,
+            518
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            920,
+            75,
+            1341,
+            517
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            43,
+            632,
+            776,
+            932
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            828,
+            633,
+            1492,
+            893
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-vivaro-2026-l3",
+      "name": "Opel Vivaro",
+      "variant": "Catálogo septiembre2026 · L3 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5331,
+        "exteriorWidth": 1924,
+        "exteriorHeight": 1955,
+        "wheelbase": 3275
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_VIVARO_FURGON.pdf",
+      "sourcePages": "7 y23 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-vivaro-2026-l3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            208,
+            102,
+            598,
+            494
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            946,
+            95,
+            1329,
+            493
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            36,
+            661,
+            770,
+            940
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            811,
+            654,
+            1493,
+            917
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-citan-2026-l1",
+      "name": "Mercedes-Benz Citan",
+      "variant": "W420 · Catálogo UK enero2026 · L1 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4498,
+        "exteriorWidth": 2159,
+        "exteriorHeight": 1910,
+        "wheelbase": 2716
+      },
+      "sourceUrl": "https://tools.mercedes-benz.co.uk/current/vans/pricelists/citan-panel-van.pdf",
+      "sourcePages": "19",
+      "widthConvention": "con retrovisores extendidos",
+      "atlas": "mercedes-benz-citan-2026-l1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones del Panel Van en catálogo británico enero2026; no usar altura1918 de Crew. Configuración exterior ilustrada orientativa; puertas y acabados pueden variar. No geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            164,
+            78,
+            620,
+            485
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            935,
+            65,
+            1389,
+            485
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            40,
+            620,
+            741,
+            945
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            807,
+            573,
+            1489,
+            947
+          ]
+        }
+      }
+    },
+    {
+      "id": "mercedes-benz-citan-2026-l2",
+      "name": "Mercedes-Benz Citan",
+      "variant": "W420 · Catálogo UK enero2026 · L2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 4922,
+        "exteriorWidth": 2159,
+        "exteriorHeight": 1916,
+        "wheelbase": 3100
+      },
+      "sourceUrl": "https://tools.mercedes-benz.co.uk/current/vans/pricelists/citan-panel-van.pdf",
+      "sourcePages": "20",
+      "widthConvention": "con retrovisores extendidos",
+      "atlas": "mercedes-benz-citan-2026-l2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Dimensiones del Panel Van en catálogo británico enero2026; no usar altura1918 de Crew. Configuración exterior ilustrada orientativa; puertas y acabados pueden variar. No geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            150,
+            98,
+            633,
+            518
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            942,
+            97,
+            1386,
+            518
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            31,
+            642,
+            775,
+            943
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            820,
+            613,
+            1503,
+            941
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l2h1",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · L2H1 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2254,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l2h1.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel L2H1. Configuración estándar: no mezclar con mayor altura Heavy o Electric. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            214,
+            98,
+            561,
+            456
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            990,
+            98,
+            1315,
+            456
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            38,
+            625,
+            741,
+            941
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            809,
+            624,
+            1488,
+            898
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l2h2",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · L2H2 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 5413,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 3450
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel L2H2. Configuración estándar: no mezclar con mayor altura Heavy o Electric. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            211,
+            79,
+            577,
+            503
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            972,
+            82,
+            1330,
+            503
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            39,
+            621,
+            761,
+            974
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            803,
+            639,
+            1488,
+            906
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l3h2",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · L3H2 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2524,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l3h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel L3H2. Configuración estándar: no mezclar con mayor altura Heavy o Electric. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            242,
+            85,
+            618,
+            508
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            950,
+            86,
+            1313,
+            509
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            802,
+            484
+          ],
+          "bounds": [
+            36,
+            630,
+            802,
+            956
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            802,
+            540,
+            734,
+            484
+          ],
+          "bounds": [
+            849,
+            653,
+            1486,
+            898
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l3h3",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · L3H3 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 5998,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2764,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l3h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel L3H3. Configuración estándar: no mezclar con mayor altura Heavy o Electric. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            233,
+            57,
+            593,
+            488
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            992,
+            55,
+            1322,
+            488
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            32,
+            602,
+            776,
+            965
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            829,
+            657,
+            1497,
+            895
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l4h2",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · Heavy L4H2 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2534,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l4h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel Heavy L4H2. Configuración Heavy: altura2534/2774 según techo. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            245,
+            111,
+            602,
+            516
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            935,
+            111,
+            1281,
+            516
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            794,
+            484
+          ],
+          "bounds": [
+            33,
+            638,
+            794,
+            934
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            794,
+            540,
+            742,
+            484
+          ],
+          "bounds": [
+            829,
+            657,
+            1493,
+            888
+          ]
+        }
+      }
+    },
+    {
+      "id": "opel-movano-2026-l4h3",
+      "name": "Opel Movano",
+      "variant": "Catálogo septiembre2026 · Heavy L4H3 · diésel",
+      "dimensionsMm": {
+        "exteriorLength": 6363,
+        "exteriorWidth": 2050,
+        "exteriorHeight": 2774,
+        "wheelbase": 4035
+      },
+      "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "sourcePages": "10-11 (PDF)",
+      "widthConvention": "sin retrovisores",
+      "atlas": "opel-movano-2026-l4h3.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Cotas nominales de furgón diésel Heavy L4H3. Configuración Heavy: altura2534/2774 según techo. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            267,
+            90,
+            594,
+            498
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            954,
+            86,
+            1267,
+            498
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            799,
+            484
+          ],
+          "bounds": [
+            35,
+            590,
+            799,
+            948
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            799,
+            540,
+            737,
+            484
+          ],
+          "bounds": [
+            854,
+            651,
+            1502,
+            883
+          ]
+        }
+      }
+    },
+    {
+      "id": "renault-master-web2026-l2h2",
+      "name": "Renault Master",
+      "variant": "Ficha web2026 · L2H2 · furgón",
+      "dimensionsMm": {
+        "exteriorLength": 5685,
+        "exteriorWidth": 2080,
+        "exteriorHeight": 2500,
+        "wheelbase": 3585,
+        "cargoLength": 3225
+      },
+      "sourceUrl": "https://empresas.renault.es/gama-master/master-furgon.html",
+      "sourcePages": "Tabla dimensional web capturada18/11/2026",
+      "widthConvention": "sin retrovisores",
+      "atlas": "renault-master-web2026-l2h2.webp",
+      "atlasSize": [
+        1536,
+        1024
+      ],
+      "dimensionsStatus": "nominal-manufacturer-reference",
+      "sourceNote": "Longitud sin estribo y ancho sin retrovisores. No corresponde al MasterIII de2010. Se mantienen distintas las versiones RWD simple y doble rueda (ancho2080/2095).",
+      "illustrationOrigin": "Generación original con referencia de identidad del fabricante. La fuente técnica no se incorpora a los recursos de la app.",
+      "geometryVerified": false,
+      "views": {
+        "frontal": {
+          "label": "Frontal",
+          "clip": [
+            0,
+            0,
+            790,
+            540
+          ],
+          "bounds": [
+            220,
+            69,
+            608,
+            537
+          ]
+        },
+        "trasera": {
+          "label": "Trasera",
+          "clip": [
+            790,
+            0,
+            746,
+            540
+          ],
+          "bounds": [
+            924,
+            67,
+            1303,
+            537
+          ]
+        },
+        "lateral": {
+          "label": "Lateral",
+          "clip": [
+            0,
+            540,
+            790,
+            484
+          ],
+          "bounds": [
+            23,
+            624,
+            771,
+            978
+          ]
+        },
+        "superior": {
+          "label": "Superior",
+          "clip": [
+            790,
+            540,
+            746,
+            484
+          ],
+          "bounds": [
+            810,
+            650,
+            1506,
+            913
+          ]
+        }
+      }
+    }
+  ]
+}
