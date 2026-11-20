@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.5";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.6";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -644,7 +644,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .interface-poster{background:#f94120;padding:8px 14px 12px;border-bottom:3px solid #201600}
 .interface-poster header{display:flex;align-items:flex-start;gap:8px;justify-content:space-between}
 .interface-poster h1{font:700 clamp(60px,18vw,136px)/.88 "Barlow Condensed",system-ui,sans-serif;letter-spacing:-.045em;margin:0;color:#170e0b}
-.interface-poster img{display:block;max-width:420px;width:min(80%,420px);height:clamp(76px,18dvh,165px);object-fit:contain;margin:auto;mix-blend-mode:multiply}
+.interface-poster img{display:block;max-width:560px;width:min(94%,560px);height:clamp(110px,24dvh,230px);object-fit:contain;margin:auto}
 .interface-poster i{display:block;width:min(82%,420px);height:7px;border:2px solid #221400;border-top:0;margin:0 auto}
 .interface-index{display:flex;flex-direction:column}
 .interface-index .interface-button{justify-content:space-between;flex-direction:row-reverse;border:0;border-bottom:2px solid #211915;border-radius:0;background:#fff9ec;box-shadow:none;text-align:left;color:#211915;font:700 clamp(34px,9vw,59px)/1 "Barlow Condensed",system-ui,sans-serif;padding:8px 15px}
@@ -714,6 +714,13 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
     width:44px;min-height:44px;border:1px solid var(--line);border-radius:50%;
   }
 }
+
+.interface-visor img.interface-hero,.interface-monitor img.interface-hero,.interface-wheel-preview img.interface-hero{filter:drop-shadow(0 10px 18px #0009);padding:4% 3% 9%;box-sizing:border-box}
+.interface-poster img.interface-hero{filter:drop-shadow(0 8px 10px #0006)}
+.interface-visor img.interface-hero{padding:0 2% 0;top:-6%;height:88%}
+.interface-visor img.interface-hero{transform:scale(1.1);transform-origin:0 50%}
+.interface-wheel-preview{height:clamp(125px,27dvh,230px)}
+.interface-wheel-preview img.interface-hero{padding:1% 2% 3%}
 </style>
 
 <div class="app">
@@ -4217,8 +4224,11 @@ function interfaceRecent(){
   return candidates.reduce((last,p)=>!last||p.updated>last.updated?p:last,null);
 }
 function interfacePreview(photo,featured=false){
-  const art=photo?thumbURL(photo):(featured?'./rotulom/interface-vehicle.webp':'');
-  return art?`<img src="${esc(art)}" alt="${photo?esc(photo.name):''}">`:'';
+  // Sin fotos propias (o solo la de ejemplo) se enseña la imagen de muestra: una furgoneta rotulada con sus medidas.
+  const sample=!photo||isSampleProj(projById(photo.projectId));
+  if(sample&&featured)return '<img class="interface-hero" src="./rotulom/interface-vehicle.webp" alt="Furgoneta rotulada con sus medidas">';
+  const art=photo?thumbURL(photo):'';
+  return art?`<img src="${esc(art)}" alt="${esc(photo.name)}">`:'';
 }
 function interfaceHeader(extra=''){
   return `<header class="interface-top"><strong>MedLoM</strong>${extra}${interfaceButton('settings','Ajustes',IC.gear,'interface-icon')}</header>`;
@@ -4234,14 +4244,14 @@ function renderInterface(){
   const mode=interfaceMode();
   if(mode==='espectro'){
     interfaceHome.innerHTML=interfaceHeader(`<small class="interface-laser">${laserLabel()}</small>`)+
-      `<div class="interface-visor">${interfacePreview(recent)}<div class="interface-grid"></div>
+      `<div class="interface-visor">${interfacePreview(recent,true)}<div class="interface-grid"></div>
       <div class="interface-rail">
       ${interfaceButton('recent','Última foto',interfaceIcons.dim,'interface-icon',recent?'':'disabled')}
       ${interfaceButton('wrap','Rotulación',IC.cube,'interface-icon')}
       ${interfaceButton('rooms','Habitaciones',interfaceIcons.room,'interface-icon')}
       ${interfaceButton('jobs','Trabajos',IC.folder,'interface-icon')}
       </div>
-      ${recent?`<p class="interface-photo-title">${esc(recent.name)}</p>`:''}
+      ${recent&&!isSampleProj(projById(recent.projectId))?`<p class="interface-photo-title">${esc(recent.name)}</p>`:''}
       ${interfaceButton('photo','Medir',IC.cam,'interface-shutter')}
       </div>`;
     return;
@@ -4249,7 +4259,7 @@ function renderInterface(){
   if(mode==='prisma'){
     interfaceHome.innerHTML=`<div class="interface-poster">
       <header><h1>MedLoM</h1>${interfaceButton('settings','Ajustes',IC.gear,'interface-icon')}</header>
-      <img src="./rotulom/interface-vehicle.webp" alt=""><i aria-hidden="true"></i></div>
+      <img class="interface-hero" src="./rotulom/interface-vehicle.webp" alt=""><i aria-hidden="true"></i></div>
       <nav class="interface-index" aria-label="Modos de trabajo">${interfaceItems.slice(0,3).map(([id,name])=>interfaceButton(id,name,interfaceIcons.next)).join('')}</nav>`+interfaceFooter();
     return;
   }

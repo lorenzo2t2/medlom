@@ -1,14 +1,12 @@
 {
- "versionCode": 74,
- "versionName": "0.50.5",
+ "versionCode": 75,
+ "versionName": "0.50.6",
  "apk": "MedLoM.apk",
- "size": 21577558,
- "sha256": "fc95a51b40d941c6279f6384c82a3cc90fcdf7fa0e7de43f65fd6e16871b5e72",
+ "size": 21680614,
+ "sha256": "4566bf865f9717c5c61647453f8ea502dfdfcc7ca37990248177a2c662d52e53",
  "notes": [
-  "Rotulación ahora forma parte de MedLoM: se abre dentro de la misma pantalla, sin marco aparte, y usa sus mismos colores, letras y formas.",
-  "Cada interfaz (Espectro, Prisma, Espectro Mando y Prisma Rueda) cambia ahora toda la app: galería, ajustes, editor, habitaciones, Rotulación y avisos, no solo la pantalla de inicio.",
-  "Al guardar un trabajo de rotulación con una interfaz especial, se abre la lista de trabajos con el nuevo resaltado.",
-  "Mejor legibilidad de títulos, botones y campos con los colores de cada interfaz.",
-  "La versión web (iPhone y PC) incluye lo mismo que la de Android."
+  "La pantalla de inicio de las interfaces nuevas enseña una imagen de muestra a todo color: una furgoneta rotulada con sus medidas.",
+  "La imagen de muestra se ve más grande en Espectro, Prisma, Espectro Mando y Prisma Rueda.",
+  "Si solo tienes la foto de ejemplo, ya no aparece su nombre sobre la imagen."
  ]
 }
