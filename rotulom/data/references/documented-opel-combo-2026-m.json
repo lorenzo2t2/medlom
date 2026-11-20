@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-combo-2026-m",
+  "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_COMBO_CARGO.pdf",
+  "sourcePages": "10 y18 (PDF)",
+  "sourceArchive": "opel-combo-cargo.pdf",
+  "sourceSha256": "f4a8a10a48fbd50371dff8fa18f8a5dfd6632893b4dddf45ce0881313a3dafc8",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4403,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1880,
+    "wheelbase": 2785
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+  "validationIssues": []
+}

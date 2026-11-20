@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-benz-vito-w447-larga",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+  "sourcePages": "Ficha técnica web verificada18/11/2026",
+  "sourceArchive": "vito-larga-verificada.txt",
+  "sourceSha256": "fb52c06816b3039e4578040f6ea76f99e0132684cd93fd25b5b05c585034c3bc",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5140,
+    "exteriorWidth": 2244,
+    "exteriorHeight": 1910,
+    "wheelbase": 3200
+  },
+  "widthConvention": "con retrovisores extendidos",
+  "notes": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+  "validationIssues": []
+}

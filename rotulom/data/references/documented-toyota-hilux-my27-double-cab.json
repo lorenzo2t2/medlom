@@ -1,0 +1,36 @@
+{
+  "id": "documented-toyota-hilux-my27-double-cab",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/hilux/Catalogo_HILUX-MY27.pdf",
+  "sourcePages": "15",
+  "sourceArchive": "toyota-hilux.pdf",
+  "sourceSha256": "fc005e38f33ea1a97205b5f39c3738f46d233ececeb1bda441b0f448356551e5",
+  "checkedAt": "2026-11-19",
+  "dimensionsMm": {
+    "exteriorLength": 5320,
+    "exteriorWidth": 1855,
+    "exteriorHeight": 1865,
+    "wheelbase": 3085
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Referencia5320×1855×1865 ybatalla3085 de la tabla Hybrid48V DoubleCab, corroborada el19/11/2026 por la ficha oficial ToyotaEspaña HiluxGX. El esquema del PDF muestra5325×1855×1815; se conserva esta discrepancia histórica y se toma la tabla corroborada. No geometría de corte certificada.",
+  "validationIssues": [],
+  "dimensionReview": {
+    "status": "nominal-reference-corroborated",
+    "checkedAt": "2026-11-19",
+    "originalSourceConflict": true,
+    "geometryVerified": false,
+    "corroboratingSource": {
+      "sourceUrl": "https://www.toyota.es/coches/hilux/caracteristicas",
+      "sourceArchive": "toyota-hilux-es-cotas-20261119.json",
+      "sourceSha256": "35c3215f179e9320393f661790a0dc4ce20c9ea48fc1b0aa1b7bf092f60bf9e8",
+      "specification": "Especificaciones de Hilux GX",
+      "dimensionsMm": {
+        "exteriorLength": 5320,
+        "exteriorWidth": 1855,
+        "exteriorHeight": 1865,
+        "wheelbase": 3085
+      },
+      "scope": "Nominal exterior reference for the indicated body size; no extrapolation to other variants."
+    }
+  }
+}

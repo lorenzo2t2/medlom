@@ -1,0 +1,17 @@
+{
+  "id": "documented-toyota-proace-my27-larga",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace/Catalogo-PROACE-MY27.pdf",
+  "sourcePages": "11",
+  "sourceArchive": "toyota-proace.pdf",
+  "sourceSha256": "b013c1426caaf899cb0bf25040f1fadc6df35913dcb878a53d8802b72a94cb24",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5331,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1955,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Altura nominal1955: extremo superior del intervalo oficial1865–1955; comprobar vehículo concreto antes de presupuestar instalación.",
+  "validationIssues": []
+}

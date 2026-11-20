@@ -1,0 +1,17 @@
+{
+  "id": "documented-toyota-proace-city-my27-larga",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city/Catalogo-PROACE-CITY-MY27.pdf",
+  "sourcePages": "11",
+  "sourceArchive": "toyota-proace-city-my27.pdf",
+  "sourceSha256": "c8e390136b1841783f93c054fe152adaa5f33be58b3dd9e90fcaddcb89442dc1",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4753,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1880,
+    "wheelbase": 2975
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Anchura1848 según la columna LARGA y el esquema frontal de la página11 del catálogo español. La errata1484 pertenece a la columna MEDIA y no cambia esta referencia larga.",
+  "validationIssues": []
+}

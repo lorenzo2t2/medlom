@@ -1,0 +1,36 @@
+{
+  "id": "documented-toyota-proace-city-my27-media",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city/Catalogo-PROACE-CITY-MY27.pdf",
+  "sourcePages": "11",
+  "sourceArchive": "toyota-proace-city-my27.pdf",
+  "sourceSha256": "c8e390136b1841783f93c054fe152adaa5f33be58b3dd9e90fcaddcb89442dc1",
+  "checkedAt": "2026-11-19",
+  "dimensionsMm": {
+    "exteriorLength": 4403,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1880,
+    "wheelbase": 2785
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Anchura nominal1848: esquema frontal del catálogo español, corroborado el19/11/2026 por la ficha oficial ToyotaUK ProaceCity Active de4403mm. La tabla yFAQ españolas imprimen1484 para media; se conserva la discrepancia original, pero no se utiliza esa cifra. La corroboración británica valida esta referencia nominal, no todos los acabados de otros mercados.",
+  "validationIssues": [],
+  "dimensionReview": {
+    "status": "nominal-reference-corroborated",
+    "checkedAt": "2026-11-19",
+    "originalSourceConflict": true,
+    "geometryVerified": false,
+    "corroboratingSource": {
+      "sourceUrl": "https://www.toyota.co.uk/new-cars/proace-city/specifications",
+      "sourceArchive": "toyota-proace-city-uk-cotas-20261119.json",
+      "sourceSha256": "d61cc31f5a4aeba51bd2aff6b3e4e75fd986298aefe4ffff6be2e55af1f3a193",
+      "specification": "Proace City Active specifications",
+      "dimensionsMm": {
+        "exteriorLength": 4403,
+        "exteriorWidth": 1848,
+        "exteriorHeight": 1880,
+        "wheelbase": 2785
+      },
+      "scope": "Nominal exterior reference for the indicated body size; no extrapolation to other variants."
+    }
+  }
+}

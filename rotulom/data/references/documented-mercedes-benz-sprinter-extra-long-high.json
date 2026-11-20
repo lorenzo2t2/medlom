@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-benz-sprinter-extra-long-high",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+  "sourcePages": "Ficha técnica web; filtros longitud y techo HIGH verificados18/11/2026",
+  "sourceArchive": "sprinter-extra_long-high.json",
+  "sourceSha256": "52626bf076f2552f6ee635dcb31736a4fae349256bd61f61fa9146a79c7b4bc6",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 7367,
+    "exteriorWidth": 2345,
+    "exteriorHeight": 2613,
+    "wheelbase": 4325
+  },
+  "widthConvention": "con retrovisores",
+  "notes": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+  "validationIssues": []
+}

@@ -1,0 +1,19 @@
+{
+  "id": "documented-peugeot-expert-2014-l2h1",
+  "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+  "sourcePages": "144-145 impresas; 146-147 PDF",
+  "sourceArchive": "peugeot-expert-2014-es.pdf",
+  "sourceSha256": "a4377b9127a583f6e43ba11001b5885356858439819cae3478c5b1509abbf4da",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5135,
+    "exteriorWidth": 1895,
+    "exteriorHeight": 1942,
+    "wheelbase": 3122,
+    "bodyWidthSheetMetal": 1870,
+    "widthWithMirrors": 2194
+  },
+  "widthConvention": "con varillas, sin retrovisores",
+  "notes": "Dimensiones nominales de la variante larga L2 del documento enlazado. Configuración visual de puertas orientativa; no es una plantilla de corte.",
+  "validationIssues": []
+}

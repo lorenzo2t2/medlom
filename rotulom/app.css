@@ -129,3 +129,44 @@ body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-wrap:wrap}
  .editor-top-controls .zoom-toolbar button{white-space:nowrap;min-height:36px}
  body.editor-expanded .editor-top-controls>.measurement-toolbar,body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-basis:auto}
 }
+
+/* Controles y superficies de la edición integrada. */
+:root[data-medlom-theme] body.medlom-embedded{
+ background-color:var(--bg);background-image:var(--medlom-bg-image,none);
+ background-position:var(--medlom-bg-position,0 0);background-size:var(--medlom-bg-size,auto);
+ background-attachment:var(--medlom-bg-attachment,scroll);color:var(--ink);font-family:var(--f-body);
+}
+:root[data-medlom-theme] body.medlom-embedded :is(button,input,select,textarea){font-family:var(--f-body)}
+:root[data-medlom-theme] body.medlom-embedded :is(h1,h2,h3){font-family:var(--f-display);color:var(--ink)}
+:root[data-medlom-theme][data-upper] body.medlom-embedded :is(h1,h2,.workflow-tabs button){text-transform:uppercase;letter-spacing:.04em}
+:root[data-medlom-theme] body.medlom-embedded :is(.button-primary,.workflow-tabs b,.tool-button[aria-pressed=true]){background:var(--accent);color:var(--accent-ink)}
+:root[data-medlom-theme] body.medlom-embedded .workflow-tabs button[aria-selected=true]{color:var(--ink)}
+:root[data-medlom-theme] body.medlom-embedded :is(.workflow-tabs,.editor-top-controls){color:var(--ink)}
+:root[data-medlom-theme] body.medlom-embedded .workflow-tabs{background:var(--medlom-header,var(--surface))}
+:root[data-medlom-theme] body.medlom-embedded :is(.field,.form-grid,#editorOptions,#docSetupBody) :is(input:not([type=range],[type=checkbox],[type=file]),select,textarea){background:var(--medlom-field,var(--surface));color:var(--ink);border-color:var(--line)}
+:root[data-medlom-theme] body.medlom-embedded input::placeholder{color:var(--muted)}
+:root[data-medlom-theme] body.medlom-embedded :is(.button,.tool-button,.workflow-tabs button){border-radius:var(--medlom-control-radius,12px)}
+:root[data-medlom-theme][data-btn=square]{--medlom-control-radius:4px}
+:root[data-medlom-theme][data-btn=pill]{--medlom-control-radius:999px}
+:root[data-medlom-theme][data-btnfill=outline] body.medlom-embedded :is(.button-primary,.tool-button[aria-pressed=true]){background:transparent;color:var(--accent-text);box-shadow:inset 0 0 0 2px var(--accent)}
+:root[data-medlom-theme][data-btnfill=outline] body.medlom-embedded :is(.button-secondary,.tool-button:not([aria-pressed=true])){background:transparent}
+:root[data-medlom-theme] body.editor-expanded :is(#imageWorkspace.expanded,#imageStage){background:var(--bg)}
+:root[data-medlom-theme] body.editor-expanded #editorScaleStatus{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+:root[data-medlom-theme] body.medlom-embedded :is(.simple-reference-details,.upload-zone,#partRef,#docSetupBtn,.measurement-stage){background-color:var(--surface);color:var(--ink);border-color:var(--line)}
+:root[data-medlom-theme] body.medlom-embedded #docSetupBtn.needs{border-color:var(--accent);color:var(--accent-text)}
+:root[data-medlom-theme] body.medlom-embedded :is(#editorOptions,#materialInfoDialog,.vehicle-card,.scale-assistant,.zone-units){background:var(--surface);color:var(--ink);border-color:var(--line)}
+:root[data-medlom-theme][data-piece=suiza] body.medlom-embedded :is(.panel,.vehicle-card){border-radius:0;border-top:6px solid var(--accent)}
+:root[data-medlom-theme][data-piece=plastilina] body.medlom-embedded :is(.panel,.vehicle-card){border-radius:26px}
+:root[data-medlom-theme] body.medlom-embedded :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+:root[data-medlom-theme] .zone-stepper input {
+  background:var(--medlom-field,var(--surface));color:var(--ink);
+  border:1px solid var(--line-strong);border-radius:8px;
+}
+@media (orientation:landscape) and (max-height:560px) {
+  body.editor-expanded #docSetupBody {
+    left:auto;width:min(370px,52vw);
+    max-height:max(88px,calc(100dvh - var(--editor-controls-bottom, 118px) - 12px));
+    overscroll-behavior:contain;
+  }
+}

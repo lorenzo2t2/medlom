@@ -1,0 +1,17 @@
+{
+  "id": "documented-peugeot-partner-2014-l2",
+  "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/partnervu/partnervu_partner2vu/ed01-14/es_es/partnervu_partnervu_partner2vu_ed01-14_es_es.pdf",
+  "sourcePages": "133-134 impresas; PDF135-136",
+  "sourceArchive": "partner-furgon-2014-es.pdf",
+  "sourceSha256": "fa037a211ea8a53eb0e86d452918359322508d80a6dd6cb2dba05e58b4589b83",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4628,
+    "exteriorWidth": 1810,
+    "exteriorHeight": 1834,
+    "wheelbase": 2728
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Altura1805–1834; se toma1834nominal. L2 conserva batalla2728 y alarga voladizo trasero.",
+  "validationIssues": []
+}

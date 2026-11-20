@@ -1,10 +1,13 @@
 {
- "versionCode": 71,
- "versionName": "0.50.2",
+ "versionCode": 73,
+ "versionName": "0.50.4",
  "apk": "MedLoM.apk",
- "size": 21476000,
- "sha256": "4d1d47e36aeae0b58505bcee170239f1cb98aa2ea944c1bf54515780f294ed22",
+ "size": 21508919,
+ "sha256": "f114f86c9410af4b4d74c0e5896788fd5bf6d54f06d356d79ef2600636e9ba02",
  "notes": [
-  "Rotulación: los controles y ajustes de escala caben en la pantalla y el desplazamiento queda dentro del lienzo."
+  "Cuatro interfaces elegibles en Ajustes: Espectro, Prisma, Espectro Mando y Prisma Rueda.",
+  "Las cuatro comparten fotos, proyectos, rotulación, planos y conexión con el medidor láser.",
+  "Rotulación muestra qué escala se está aplicando. Ajustes explica los protocolos de láser compatibles.",
+  "Mejoras de guardado, descarte de fotos y controles en pantallas estrechas."
  ]
 }

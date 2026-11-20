@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-movano-2026-l4h2",
+  "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+  "sourcePages": "10-11 (PDF)",
+  "sourceArchive": "opel-movano.pdf",
+  "sourceSha256": "3608158bd0999fe3c042b49391f3de311c007f7e9a8bbec1a2208a9ba8be993b",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 6363,
+    "exteriorWidth": 2050,
+    "exteriorHeight": 2534,
+    "wheelbase": 4035
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas nominales de furgón diésel Heavy L4H2. Configuración Heavy: altura2534/2774 según techo. Ilustración orientativa para presentación y presupuesto; no geometría de corte certificada.",
+  "validationIssues": []
+}

@@ -1,0 +1,19 @@
+{
+  "id": "documented-peugeot-expert-2014-l1h1",
+  "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+  "sourcePages": "144-145 impresas; 146-147 PDF",
+  "sourceArchive": "peugeot-expert-2014-es.pdf",
+  "sourceSha256": "a4377b9127a583f6e43ba11001b5885356858439819cae3478c5b1509abbf4da",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4805,
+    "exteriorWidth": 1895,
+    "exteriorHeight": 1942,
+    "wheelbase": 3000,
+    "bodyWidthSheetMetal": 1870,
+    "widthWithMirrors": 2194
+  },
+  "widthConvention": "con varillas, sin retrovisores",
+  "notes": "L1H1: largo 4805-4813; altura 1894*/1942. Referencia de dibujo: 4805 y valor de altura sin asterisco. La imagen representa una configuración orientativa de puertas.",
+  "validationIssues": []
+}

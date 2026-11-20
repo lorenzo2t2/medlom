@@ -1,0 +1,17 @@
+{
+  "id": "documented-citroen-jumper-2015-l3h2",
+  "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+  "sourcePages": "172-175 impresas; PDF174-177",
+  "sourceArchive": "jumper-2015-es.pdf",
+  "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5998,
+    "exteriorWidth": 2050,
+    "exteriorHeight": 2524,
+    "wheelbase": 4035
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+  "validationIssues": []
+}

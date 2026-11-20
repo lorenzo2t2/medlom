@@ -10,7 +10,43 @@
  materials.querySelector('.page-heading').append($('goMaterials'));$('goMaterials').onclick=()=>{$('simpleMaterialForm').scrollIntoView({behavior:'smooth',block:'start'});$('materialName').focus({preventScroll:true});};
 
  $('backToCalculation').onclick=()=>document.querySelector('[data-step="2"]').click();
- function theme(){try{const p=getComputedStyle(parent.document.documentElement),map={'--bg':'--bg','--surface':'--panel','--surface-soft':'--raise','--line':'--line','--ink':'--fg','--ink-soft':'--muted','--muted':'--muted','--accent':'--accent','--accent-ink':'--fg','--accent-soft':'--raise','--warning-bg':'--raise','--warning':'--fg'};for(const [to,from] of Object.entries(map)){const value=p.getPropertyValue(from).trim();if(value)document.documentElement.style.setProperty(to,value);}}catch{}}
+ const root=document.documentElement;
+ const tokens={
+  '--bg':'--bg','--surface':'--panel','--surface-soft':'--raise','--line':'--line',
+  '--line-strong':'--line','--ink':'--fg','--ink-soft':'--muted','--muted':'--muted',
+  '--accent':'--accent','--accent-ink':'--accent-ink','--accent-text':'--accent-text',
+  '--accent-soft':'--raise','--accent-strong':'--accent','--warning-bg':'--raise',
+  '--warning':'--accent-text','--danger':'--danger','--medlom-field':'--field',
+  '--medlom-header':'--bar','--f-body':'--f-body','--f-display':'--f-display'
+ };
+ function theme(){
+  try{
+   if(parent===window)return;
+   const source=parent.document,parentRoot=source.documentElement;
+   const ref=parent.getComputedStyle(parentRoot),body=parent.getComputedStyle(source.body);
+   for(const [to,from] of Object.entries(tokens)){
+    const value=ref.getPropertyValue(from).trim();
+    if(value)root.style.setProperty(to,value);else root.style.removeProperty(to);
+   }
+   for(const key of ['btn','btnfill','upper','piece']){
+    if(parentRoot.dataset[key])root.dataset[key]=parentRoot.dataset[key];else delete root.dataset[key];
+   }
+   root.style.colorScheme=ref.colorScheme;
+   for(const key of ['Image','Size','Position','Attachment']) root.style.setProperty('--medlom-bg-'+key.toLowerCase(),body['background'+key]);
+   if(!document.getElementById('medlom-theme-fonts')){
+    const fonts=document.createElement('style');fonts.id='medlom-theme-fonts';
+    fonts.textContent=[...source.styleSheets].flatMap(sheet=>{
+     try{return [...sheet.cssRules].filter(rule=>rule.type===CSSRule.FONT_FACE_RULE).map(rule=>rule.cssText.replace(/url\(["']?([^"')]+)["']?\)/g,(_,url)=>'url("'+new URL(url,sheet.href||source.baseURI).href+'")'));}
+     catch{return [];}
+    }).join('\n');
+    document.head.append(fonts);
+   }
+   if(!root.dataset.medlomTheme){
+    root.dataset.medlomTheme='1';
+    new MutationObserver(theme).observe(parentRoot,{attributes:true});
+   }
+  }catch{}
+ }
  window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==location.origin)return;if(e.data?.type==='medlom-materials')openMaterials();if(e.data?.type==='medlom-theme')theme();});theme();
  const transfer=document.createElement('div');transfer.className='workflow-actions';transfer.innerHTML='<button id="exportMaterials" class="button button-secondary">Exportar materiales</button><label class="button button-secondary" for="importMaterials">Importar materiales (JSON)<input id="importMaterials" type="file" accept="application/json,.json" hidden></label><p id="materialTransferStatus" role="status"></p>';materials.querySelector('.simple-material-form').prepend(transfer);
  $('exportMaterials').onclick=()=>{const payload={app:'MedLoM',version:1,materials:JSON.parse(localStorage.getItem('rotulom-materials')||'[]')};parent.postMessage({type:'medlom-export-materials',text:JSON.stringify(payload,null,2)},location.origin);};

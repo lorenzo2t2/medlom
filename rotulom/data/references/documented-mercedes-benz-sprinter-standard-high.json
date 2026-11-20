@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-benz-sprinter-standard-high",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+  "sourcePages": "Ficha técnica web; filtros longitud y techo HIGH verificados18/11/2026",
+  "sourceArchive": "sprinter-standard-high.json",
+  "sourceSha256": "05d77a56ffb9678908de1a7162ea5e561fb1c008b2b28dda71798f744421782d",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5932,
+    "exteriorWidth": 2345,
+    "exteriorHeight": 2620,
+    "wheelbase": 3665
+  },
+  "widthConvention": "con retrovisores",
+  "notes": "Dimensiones nominales de la configuración indicada. Ilustración orientativa para diseño y presupuesto; no plantilla de corte.",
+  "validationIssues": []
+}

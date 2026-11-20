@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-vivaro-2026-l2",
+  "sourceUrl": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_VIVARO_FURGON.pdf",
+  "sourcePages": "7 y23 (PDF)",
+  "sourceArchive": "opel-vivaro-furgon.pdf",
+  "sourceSha256": "5e35a2758de8c3bef08b1084cb340c961b261effa91e6c0ace2a2a9aec412052",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4981,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1955,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Referencia de catálogo español septiembre2026. Cotas exteriores nominales del furgón indicado. Verificar medidas físicas antes de producir o instalar.",
+  "validationIssues": []
+}

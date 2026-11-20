@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-benz-citan-2026-l1",
+  "sourceUrl": "https://tools.mercedes-benz.co.uk/current/vans/pricelists/citan-panel-van.pdf",
+  "sourcePages": "19",
+  "sourceArchive": "citan-uk-oficial.pdf",
+  "sourceSha256": "6512e62c7556cbca24240601fded71841782b422333867dc5577a167a1e8718a",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4498,
+    "exteriorWidth": 2159,
+    "exteriorHeight": 1910,
+    "wheelbase": 2716
+  },
+  "widthConvention": "con retrovisores extendidos",
+  "notes": "Dimensiones del Panel Van en catálogo británico enero2026; no usar altura1918 de Crew. Configuración exterior ilustrada orientativa; puertas y acabados pueden variar. No geometría de corte certificada.",
+  "validationIssues": []
+}

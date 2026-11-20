@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-sprinter-907-estandar-normal",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+  "sourcePages": "Tabla ampliada: todos los datos técnicos",
+  "sourceArchive": "sprinter-tabla-completa.txt",
+  "sourceSha256": "1789cb05015381083db36dae63dd76206827c55a9bb966055a2734be43b69568",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5932,
+    "exteriorWidth": 2345,
+    "exteriorHeight": 2331,
+    "wheelbase": 3665
+  },
+  "widthConvention": "de ficha con retrovisores",
+  "notes": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+  "validationIssues": []
+}

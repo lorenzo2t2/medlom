@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.2";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.4";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -577,6 +577,139 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .more-tools{display:grid;gap:10px;padding-block:16px}
 .more-tools .more-tool{width:100%;min-width:0;min-height:44px;white-space:nowrap}
 #roomStripMeasures [data-segment-kind="column"]{border-style:dashed}
+
+.room-card-preview{background:var(--panel)}
+#rooms .room-view-tabs button,#roomStripMeasures [data-room-select]{font-family:var(--f-body);border-radius:12px}
+:root[data-btn=square] :is(#rooms .room-view-tabs button,#roomStripMeasures [data-room-select]){border-radius:4px}
+:root[data-btn=pill] :is(#rooms .room-view-tabs button,#roomStripMeasures [data-room-select]){border-radius:999px}
+:root[data-btnfill=outline] #rooms :is(.room-view-tabs button,#roomStripMeasures button)[aria-pressed=true]{background:transparent;color:var(--accent-text);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+:root[data-piece=suiza] #rooms .room-card{border-radius:0;border-top:6px solid var(--accent)}
+:root[data-piece=plastilina] #rooms .room-card{border-radius:26px}
+
+/* Preserve screen titles and tool choices in compact layouts. */
+#rotulacion > .top .brand b, #rooms > .top .brand b {
+  font-size: clamp(14px, 4.6vw, 22px);
+}
+#rotulacion > .top .brand b {white-space:normal;overflow-wrap:anywhere}
+.rot-job-card .meta {min-width:0}
+.rot-job-card .meta > b, .rot-job-card .meta > span {
+  white-space:normal;overflow-wrap:anywhere;text-overflow:clip;
+}
+.editor-more-tools > button {flex-shrink:0}
+@media (max-width:480px) {
+  #rotBack .rot-back-label {display:none}
+  #rooms > .top {gap:6px}
+  #rooms > .top [data-room-new] {padding-inline:9px;white-space:nowrap}
+  .grid:has(> .rot-job-card) {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (orientation:landscape) and (max-height:560px) {
+  .editor-more-tools {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}
+}
+/* Alternate home screens and the shared photo editor. */
+#interfaceHome{
+  --ui-bg:#12101c;--ui-ink:#faf5ff;--ui-rim:#9c67bd;--ui-light:#e8a5ff;
+  --ui-top:#413151;--ui-bottom:#231b2f;--ui-edge:#100a19;
+  background:var(--ui-bg);color:var(--ui-ink);overflow-y:auto;overscroll-behavior:contain;
+}
+:root[data-interface="prisma"] #interfaceHome,:root[data-interface="rueda"] #interfaceHome{
+  --ui-bg:#f6efdf;--ui-ink:#211915;--ui-rim:#7c6452;--ui-light:#ff814c;
+  --ui-top:#fff4d6;--ui-bottom:#dac39d;--ui-edge:#4d382c;
+}
+.interface-top{display:flex;align-items:center;gap:9px;padding:10px 14px;min-height:60px}
+.interface-top strong{font:700 24px/1 var(--f-display);margin-right:auto}
+.interface-top small{color:#efe2ff;font-size:12px}
+.interface-laser::before{content:"";display:inline-block;width:6px;height:6px;margin-right:5px;border-radius:100%;background:currentColor;box-shadow:0 0 7px currentColor}
+.interface-button{min-height:44px;min-width:44px;display:inline-flex;justify-content:center;align-items:center;gap:7px;padding:8px 11px;border:1px solid var(--ui-rim);border-radius:10px;background:linear-gradient(var(--ui-top),var(--ui-bottom));color:var(--ui-ink);font:700 15px/1.15 var(--f-body);cursor:pointer;touch-action:manipulation;box-shadow:inset 0 1px 1px #ffffff47,0 4px 0 var(--ui-edge),0 7px 10px #0005;transition:transform 125ms,box-shadow 125ms}
+.interface-button svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.interface-button:active:not(:disabled){transform:translateY(3px);box-shadow:inset 0 2px 5px #0006,0 1px 0 var(--ui-edge)}
+.interface-button:focus-visible,.interface-option:focus-visible{outline:3px solid var(--ui-light,var(--accent-text));outline-offset:2px}
+.interface-button:disabled{opacity:.5;cursor:default}
+.interface-icon{width:46px;padding:0}
+.interface-icon span{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+.interface-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 13px max(14px,env(safe-area-inset-bottom));margin-top:auto}
+.interface-visor,.interface-monitor,.interface-wheel-preview{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#2f2059,#110d24 70%)}
+.interface-visor img,.interface-monitor img,.interface-wheel-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.interface-grid{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,#ca8aff 1px,transparent 1.35px),linear-gradient(90deg,#815fff55 1px,transparent 1px);background-size:7px 7px,32px 32px;opacity:.37;mask-image:linear-gradient(#000b,transparent 56%,#000 100%)}
+.interface-visor{flex:1;min-height:310px;border-top:1px solid #7043ac;border-bottom:1px solid #7043ac}
+.interface-visor img{filter:brightness(.8) saturate(.85)}
+.interface-rail{position:absolute;right:max(12px,env(safe-area-inset-right));top:22%;display:grid;gap:9px}
+.interface-rail .interface-button,.interface-shutter{border-radius:50%;border-color:var(--ui-light);box-shadow:inset 0 0 13px #a259e268,0 0 12px #bb49ef80}
+.interface-shutter{position:absolute;bottom:max(16px,env(safe-area-inset-bottom));left:50%;translate:-50% 0;width:86px;height:86px;flex-direction:column;background:#191222}
+.interface-shutter svg{width:30px;height:30px}
+.interface-photo-title{position:absolute;bottom:115px;left:12px;max-width:80%;background:#171022db;border:1px solid #d896f986;padding:6px 10px;border-radius:6px;margin:0;overflow-wrap:anywhere}
+.interface-poster{background:#f94120;padding:8px 14px 12px;border-bottom:3px solid #201600}
+.interface-poster header{display:flex;align-items:flex-start;gap:8px;justify-content:space-between}
+.interface-poster h1{font:700 clamp(60px,18vw,136px)/.88 "Barlow Condensed",system-ui,sans-serif;letter-spacing:-.045em;margin:0;color:#170e0b}
+.interface-poster img{display:block;max-width:420px;width:min(80%,420px);height:clamp(76px,18dvh,165px);object-fit:contain;margin:auto;mix-blend-mode:multiply}
+.interface-poster i{display:block;width:min(82%,420px);height:7px;border:2px solid #221400;border-top:0;margin:0 auto}
+.interface-index{display:flex;flex-direction:column}
+.interface-index .interface-button{justify-content:space-between;flex-direction:row-reverse;border:0;border-bottom:2px solid #211915;border-radius:0;background:#fff9ec;box-shadow:none;text-align:left;color:#211915;font:700 clamp(34px,9vw,59px)/1 "Barlow Condensed",system-ui,sans-serif;padding:8px 15px}
+.interface-index svg{width:32px;height:32px;stroke-width:2}
+.interface-index .interface-button:active{transform:none;background:#f1d7b7}
+:root[data-interface="prisma"] .interface-footer{background:#211915;--ui-ink:#fff9ec;--ui-top:#423630;--ui-bottom:#211915;--ui-rim:#77645b}
+.interface-mando{width:min(100%,680px);margin:0 auto;padding:0 12px 12px}
+.interface-monitor{height:clamp(145px,33dvh,310px);border:1px solid #624285;border-radius:15px 15px 3px 3px}
+.interface-reading{display:grid;grid-template-columns:46px 1fr 46px;align-items:center;gap:8px;padding:10px;border:1px solid #624285;border-radius:0 0 12px 12px;background:linear-gradient(110deg,#173741,#2d2142)}
+.interface-reading b,.interface-reading small{display:block;overflow-wrap:anywhere}
+.interface-reading small{font-size:12px;color:#e4d1ff;margin-top:2px}
+.interface-gauge{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#78f5ec,#8d8aff 40%,#d0a2f7 70%,#4b4165 70%);box-shadow:0 0 16px #9679cf80}
+.interface-gauge::after{content:"";width:32px;height:32px;border-radius:50%;background:#261d38;box-shadow:inset 0 1px 4px #0a0712}
+.interface-keys{display:grid;grid-template-columns:1fr 1.16fr 1fr;gap:8px;margin-top:14px}
+.interface-key{min-height:67px;flex-direction:column}
+.interface-trigger{background:linear-gradient(#e5b1fe,#945dda);color:#200d30;border-color:#f2c7ff;box-shadow:inset 0 1px 1px #fff9,0 5px 0 #42296b,0 0 16px #d092ff6e}
+:root[data-interface="rueda"] .interface-top{background:#f45632;border-bottom:2px solid #22190e}
+.interface-wheel-preview{height:clamp(92px,20dvh,200px);background:#292625}
+.interface-wheel-title{font:700 22px/1.1 var(--f-display);margin:0;padding:8px 14px;border-bottom:2px solid #3b2920}
+.interface-turntable{display:grid;place-items:center;padding:11px 8px 15px;background:linear-gradient(105deg,#fff5df,#e3d2b8)}
+.interface-wheel{width:min(78vw,278px);aspect-ratio:1;position:relative;display:grid;place-items:center;border-radius:50%;border:2px solid #392e26;touch-action:pan-y;background:radial-gradient(circle at 36% 22%,#c3b194,#56493d 57%,#201a1c 76%);box-shadow:inset 0 1px 3px #ffeed295,inset 0 0 0 8px #fff0c042,inset 0 0 0 11px #241b18,0 7px 0 #4f3e33,0 12px 19px #47291163}
+.interface-wheel:before{content:"";position:absolute;inset:16%;border:1px solid #f9eac5aa;border-radius:50%;pointer-events:none}
+.interface-pointer{position:absolute;inset:3px;border-radius:50%;pointer-events:none;transform:rotate(var(--wheel-angle));transition:transform 280ms cubic-bezier(.2,.8,.2,1)}
+.interface-pointer:before{content:"";position:absolute;top:1px;left:50%;translate:-50% 0;width:16px;height:6px;border-radius:6px;background:#ff9e64;box-shadow:0 0 8px #ff855b}
+.interface-slot{position:absolute;flex-direction:column;min-width:55px;min-height:49px;gap:2px;padding:5px;font-size:12px;--ui-ink:#fff5e6;--ui-rim:#94806c;--ui-top:#63574b;--ui-bottom:#2e2529;--ui-edge:#1b1315}
+.interface-slot svg,.interface-wheel-open svg{width:18px;height:18px}
+.interface-slot[aria-pressed=true]{--ui-ink:#261609;--ui-top:#ffae70;--ui-bottom:#e65b3d;--ui-edge:#74321e;--ui-rim:#ffc895}
+.slot-0,.slot-2{left:50%;translate:-50% 0}.slot-1,.slot-3{top:50%;translate:0 -50%}
+.slot-0{top:12%}.slot-1{right:9%}.slot-2{bottom:10%}.slot-3{left:9%}
+.interface-wheel-open{z-index:1;width:28%;aspect-ratio:1;border-radius:50%;flex-direction:column;font-size:13px;padding:1px}
+.interface-option{width:100%;text-align:left;background:none;cursor:pointer;color:var(--fg);font:inherit}
+.interface-option[aria-pressed=true]{color:var(--accent-text);background:var(--raise)}
+#editor .stage.interface-sweep::after{content:"";position:absolute;left:0;right:0;height:2px;background:#dca0ff;box-shadow:0 0 20px 4px #b98bee;pointer-events:none;animation:interface-sweep 420ms ease-out both;z-index:2}
+@keyframes interface-sweep{0%{top:6%;opacity:.15}37%{opacity:.8}100%{top:94%;opacity:0}}
+:root[data-interface="mando"] #editor .toolbar .tool{border:1px solid var(--line);box-shadow:inset 0 1px 1px #ffffff35,0 3px 0 #10072066}
+:root[data-interface="prisma"] #editor .toolbar .tool{border-radius:2px;border-bottom:2px solid var(--line)}
+:root[data-interface="rueda"] #editor .toolbar .tool{border-radius:18px;border:1px solid var(--line);box-shadow:inset 0 1px 1px #fff4,0 2px 0 #45290a68}
+:root[data-interface="espectro"] #editor .toolbar .tool[aria-pressed=true]{box-shadow:0 0 8px 2px #cb90ff80}
+@media(orientation:landscape) and (max-height:550px){
+  :root[data-interface="rueda"] .interface-wheel-layout{display:grid;grid-template-columns:minmax(0,1fr) 235px}
+  :root[data-interface="rueda"] .interface-wheel-title{grid-column:1;grid-row:2}
+  :root[data-interface="rueda"] .interface-turntable{grid-column:2;grid-row:1/3}
+  :root[data-interface="rueda"] .interface-wheel{width:205px}
+  :root[data-interface="rueda"] .interface-wheel-preview{height:137px}
+  .interface-visor{min-height:260px}
+  .interface-poster img{height:75px}
+}
+@media(prefers-reduced-motion:reduce){
+  .interface-button,.interface-pointer{transition:none}
+  #editor .stage.interface-sweep::after{display:none;animation:none}
+}
+@media(orientation:portrait){
+  :root[data-interface="espectro"] #editor{
+    display:grid;grid-template-columns:minmax(0,1fr) 54px;
+    grid-template-rows:auto minmax(0,1fr);min-width:0;overflow:hidden;
+  }
+  :root[data-interface="espectro"] #editor>header{grid-column:1/-1}
+  :root[data-interface="espectro"] #editor>.stage{grid-column:1;grid-row:2;min-width:0}
+  :root[data-interface="espectro"] #editor>footer.toolbar{
+    grid-column:2;grid-row:2;display:flex;flex-direction:column;gap:6px;
+    align-items:center;justify-content:flex-start;padding:6px 3px;overflow:auto;width:auto;
+    border-top:0;border-left:1px solid var(--line);touch-action:pan-y;
+  }
+  :root[data-interface="espectro"] #editor>footer.toolbar .tgroup{display:contents}
+  :root[data-interface="espectro"] #editor>footer.toolbar .sep{display:none}
+  :root[data-interface="espectro"] #editor>footer.toolbar .tool{
+    width:44px;min-height:44px;border:1px solid var(--line);border-radius:50%;
+  }
+}
 </style>
 
 <div class="app">
@@ -1002,7 +1135,7 @@ const RoomSketch=(()=>{
  return {detect,simplify,orthogonalize};
 })();
 /* ================= settings ================= */
-const DEF_SET={tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
+const DEF_SET={interfaceMode:'classic',tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -1048,6 +1181,7 @@ function applySettings(){
   if(t==='auto') document.documentElement.dataset.theme=resolved;
   else delete document.documentElement.dataset.theme;
   const cd=applyLook(resolved==='dark'||darkish.includes(resolved));
+  window.dispatchEvent(new Event('medlom-appearance'));
   if(NATIVE){try{NATIVE.setTheme(cd!=null?cd:(darkish.includes(resolved)||resolved==='dark'))}catch(e){}}
 }
 
@@ -1092,8 +1226,8 @@ function idbOpen(){return new Promise(res=>{try{const r=indexedDB.open('cotafoto
 function idbReq(store,mode,fn){return new Promise((res,rej)=>{try{const t=DB.db.transaction(store,mode),s=t.objectStore(store),r=fn(s);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)}catch(e){rej(e)}})}
 const getAll=async s=>DB.ok?(await idbReq(s,'readonly',st=>st.getAll()))||[]:[...DB.mem[s].values()];
 const getOne=async(s,id)=>DB.ok?idbReq(s,'readonly',st=>st.get(id)):DB.mem[s].get(id);
-const put=async(s,o)=>{if(DB.ok)await idbReq(s,'readwrite',st=>st.put(o));else DB.mem[s].set(o.id,o)};
-const del=async(s,id)=>{if(DB.ok)await idbReq(s,'readwrite',st=>st.delete(id));else DB.mem[s].delete(id);if(s==='photos')try{await del('meta','orig:'+id)}catch(e){}};
+const put=async(s,o)=>{if(!DB.ok)throw Error('Almacenamiento local no disponible');await idbReq(s,'readwrite',st=>st.put(o))};
+const del=async(s,id)=>{if(!DB.ok)throw Error('Almacenamiento local no disponible');await idbReq(s,'readwrite',st=>st.delete(id));if(s==='photos')try{await del('meta','orig:'+id)}catch(e){}};
 const store={photos:[],projects:[],scans:[]};
 async function loadAll(){store.photos=await getAll('photos');store.projects=await getAll('projects');}
 const projById=id=>store.projects.find(p=>p.id===id);
@@ -1293,17 +1427,33 @@ window.addEventListener('popstate',()=>{
   doBack();
 });
 /* a new photo that was never saved: leaving without saving removes it */
-async function discardFresh(){const d=rec;if(!d||!d.fresh)return;delete d.fresh;try{await del('photos',d.id);addTomb('photo',d.id)}catch(e){}store.photos=store.photos.filter(x=>x.id!==d.id);
-  if(d.projectId){const p=projById(d.projectId);if(p){p.updated=stamp(p.updated);put('projects',p)}}toast('Foto descartada: no se guardó')}
+async function discardFresh(){
+  const photo=rec;
+  if(!photo?.fresh)return true;
+  try{
+    try{await ready(photo)}catch(e){}
+    await del('photos',photo.id);
+    addTomb('photo',photo.id);
+  }catch(e){toast('No se pudo descartar la foto. Inténtalo de nuevo.');return false}
+  delete photo.fresh;
+  store.photos=store.photos.filter(x=>x.id!==photo.id);
+  const project=photo.projectId&&projById(photo.projectId);
+  if(project){project.updated=stamp(project.updated);put('projects',project).catch(()=>{})}
+  toast('Foto descartada');
+  return true;
+}
 async function doBack(){
   const top=stack[stack.length-1];if(stack.length<=1)return;
-  if(top.v==='editor'&&!dirty()&&rec&&rec.fresh)await discardFresh();
+  if(top.v==='editor'&&!dirty()&&rec?.fresh&&!(await discardFresh())){
+    try{history.pushState({},'');pushed++}catch(e){}
+    return;
+  }
   if(top.v==='editor'&&dirty()&&!forceLeave){
     try{history.pushState({},'');pushed++}catch(e){}
     const r=await dialog('¿Guardar los cambios?','Has añadido o cambiado medidas en esta foto.',[{id:'save',label:'Guardar',kind:'primary'},{id:'discard',label:'Salir sin guardar',kind:'danger'},{id:'stay',label:'Seguir editando'}]);
     if(!r||r==='stay')return;
     if(r==='save'&&!(await saveEditor()))return;
-    if(r==='discard'&&rec&&rec.fresh)await discardFresh();
+    if(r==='discard'&&rec?.fresh&&!(await discardFresh()))return;
     forceLeave=true;requestBack();return;
   }
   forceLeave=false;exitSel();stack.pop();if(top.v==='editor')closeEditor();show();
@@ -1337,6 +1487,7 @@ function renderGallery(){
   if(selMode)head.innerHTML=`<button class="ib" data-act="cancelsel" aria-label="Cancelar selección">${IC.x}</button><div class="brand"><b>${n} ${n===1?'seleccionada':'seleccionadas'}</b><span class="sub">Toca para marcar o desmarcar</span></div><button class="btn ghost" data-act="all">${n===L.items.length&&n?'Ninguna':'Todas'}</button>`;
   else if(proj)head.innerHTML=`<button class="ib" data-act="back" aria-label="Volver">${IC.back}</button><button class="titlebtn" data-act="renameproj" title="Datos del proyecto"><span class="brand"><b>${esc(proj.name)}</b><span class="sub">Proyecto · ${L.items.length} ${L.items.length===1?'foto':'fotos'}</span></span></button><button class="ib gallery-select" data-act="select" aria-label="Seleccionar" title="Seleccionar" ${L.items.length?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button>`;
   else head.innerHTML=`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">${loosePhotos().length} ${loosePhotos().length===1?'foto suelta':'fotos sueltas'} · ${store.projects.length} ${store.projects.length===1?'proyecto':'proyectos'}</span></div><button class="ib gallery-select" data-act="select" aria-label="Seleccionar" title="Seleccionar" ${L.items.length?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+  if(!s&&!selMode)prependInterfaceBack(head);
   $('#gSearch').hidden=!searchOpen;
   $('#gTabs').hidden=!!s;
   $('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===tab));
@@ -1353,7 +1504,7 @@ function renderGallery(){
   if(!L.items.length){
     h+=L.kind==='project'?`<div class="empty"><b>Sin proyectos todavía</b>Agrupa fotos de una misma obra o estancia. Marca varias fotos en la pestaña Fotos y pulsa «Crear proyecto», o crea uno vacío con el botón de abajo.<span class="empty-note">Los proyectos llevan portada, dirección y exportan un PDF limpio.</span></div>`
       :s?`<div class="empty"><b>Este proyecto está vacío</b>Añade una foto nueva con el botón de abajo, o mueve aquí fotos existentes desde la pestaña Fotos.<span class="empty-note">Cada foto puede llevar sus propias medidas y anotaciones.</span></div>`
-      :store.photos.length?`<div class="empty"><b>No hay fotos sueltas</b>Todas tus fotos están dentro de un proyecto. Las encontrarás en la pestaña Proyectos.<span class="empty-note">Aquí solo aparecen las fotos que aún no has agrupado.</span></div>`:`<div class="empty"><b>Aún no hay fotos</b>Toca «Nueva foto» para hacer una con la cámara o elegirla de tu galería.<span class="empty-note">Luego dibuja cotas encima y exporta un PDF profesional.</span></div>`;
+      :store.photos.length?`<div class="empty"><b>No hay fotos sueltas</b>Abre Proyectos para ver las fotos agrupadas.</div>`:`<div class="empty"><b>Aún no hay fotos</b>Toca «Nueva foto» para usar la cámara o la galería.</div>`;
   }else{
     h+=`<div class="grid sz-${SET.thumb} ${selMode?'selmode':''}">`+L.items.map(it=>{
       const on=selected.has(it.id)?'on':'';
@@ -1492,13 +1643,14 @@ async function decodeFile(f){
   return bitmapOf(f,true);
 }
 async function importFile(f,pid,background){
+  if(!DB.ok)throw Error("Almacenamiento local no disponible");
   const bmp=await decodeFile(f);const RQ=RES[SET.photoRes]||RES.normal,MAX=RQ.max;let w=bmp.naturalWidth||bmp.width,h=bmp.naturalHeight||bmp.height;const k=Math.min(1,MAX/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
   const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(bmp,0,0,w,h);try{bmp.close&&bmp.close()}catch(e){}
   const now=Date.now(),d=new Date(now),name='Foto '+d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   const rec={id:uid(),name,projectId:pid,created:now,updated:now,img:null,thumb:null,w,h,objs:[],calib:null};
   const job=(async()=>{rec.thumb=await makeThumb(rec,c);rec.img=await toBlob(c,'image/jpeg',RQ.q);await put('photos',rec)})();
   pending.set(rec.id,job);store.photos.push(rec);
-  job.then(()=>{pending.delete(rec.id);if(!$('#gallery').hidden)renderGallery();scheduleSync()},()=>{pending.delete(rec.id);toast('No se pudo guardar la foto. Comprueba el espacio libre.')});
+  job.then(()=>{pending.delete(rec.id);if(!$('#gallery').hidden)renderGallery();scheduleSync()},()=>{pending.delete(rec.id);if(background)store.photos=store.photos.filter(p=>p!==rec);toast('No se pudo guardar la foto. Comprueba el espacio libre.')});
   if(!background)await Promise.resolve();else await job;
   return {rec,canvas:c};
 }
@@ -1746,7 +1898,7 @@ loadStyle();
 const saveStyle=()=>{SET.style=style;saveSettings()};
 if(!SET.acv){SET.acv=1;style.color='auto';saveStyle()}
 const HINTS={hand:'Toca una medida para seleccionarla · arrastra para mover la foto · elige una herramienta abajo para añadir cotas o dibujos',chain:'Toca cada punto de la cadena; las cotas se crean seguidas. Pulsa Terminar',poly:'Toca las esquinas de la zona. Toca el primer punto o Terminar para cerrar',angle:'Toca un extremo, el vértice y el otro extremo',rect:'Arrastra para dibujar un rectángulo',ellipse:'Arrastra para dibujar un círculo o elipse',plane:'Arrastra sobre un rectángulo real (puerta, azulejo…) y luego ajusta sus 4 esquinas',write:'Escribe a mano y pulsa «Convertir en texto» · mantén pulsado algo para moverlo o cambiar su tamaño',dimsel:'Toca el número para cambiar la medida · arrástralo para moverlo por la cota',dim:'Arrastra de un extremo a otro · marca una cota como referencia para calibrar la escala · mantén pulsada una medida para moverla',pen:'Dibuja a mano alzada · mantén pulsado un trazo para moverlo',text:'Toca donde quieras escribir · mantén pulsado un texto para moverlo'};
-const dirty=()=>!!rec&&hi!==savedHi;
+const dirty=()=>!!rec&&(imgChanged||hi!==savedHi);
 function homography(src,dst){const A=[],b=[];for(let i=0;i<4;i++){const{x,y}=src[i],{x:u,y:v}=dst[i];A.push([x,y,1,0,0,0,-u*x,-u*y]);b.push(u);A.push([0,0,0,x,y,1,-v*x,-v*y]);b.push(v)}
   const n=8;for(let c=0;c<n;c++){let p=c;for(let r=c+1;r<n;r++)if(Math.abs(A[r][c])>Math.abs(A[p][c]))p=r;[A[c],A[p]]=[A[p],A[c]];[b[c],b[p]]=[b[p],b[c]];const d=A[c][c];if(Math.abs(d)<1e-12)return null;
     for(let r=0;r<n;r++){if(r===c)continue;const f=A[r][c]/d;if(!f)continue;for(let k=c;k<n;k++)A[r][k]-=f*A[c][k];b[r]-=f*b[c]}}
@@ -1789,12 +1941,38 @@ async function openEditor(r,canvas){
   pushView({v:'editor'});$('#eName').textContent=r.name;clearTimeout(hintT);$('#hint').classList.add('fade');ui();requestAnimationFrame(resize);
 }
 function closeEditor(){clearDraft();crop=null;$('#cropbar').hidden=true;imgChanged=false;rec=null;src=null;objs=[];sel=-1;ink=[];inkUI();exitSel()}
-async function saveEditor(){
-  if(!rec)return false;
-  try{delete rec.fresh;await ready(rec);if(imgChanged){rec.img=await toBlob(src,'image/jpeg',0.92);rec.w=W;rec.h=H;rec.imgRev=(rec.imgRev||0)+1;imgChanged=false}rec.objs=JSON.parse(JSON.stringify(objs));rec.calib=calib;rec.updated=stamp(rec.updated);rec.thumb=await makeThumb(rec,src);await put('photos',rec);
-    if(rec.projectId){const p=projById(rec.projectId);if(p){p.updated=rec.updated;await put('projects',p)}}
-    savedHi=hi;clearDraft();ui();toast('Guardado en la app');scheduleSync();return true}
-  catch(e){toast('No se pudo guardar. Comprueba el espacio libre.');return false}
+let editorSave=null;
+function saveEditor(){
+  if(!rec)return Promise.resolve(false);
+  if(editorSave)return editorSave;
+  const photo=rec, image=src, revision=hist[hi], transformed=imgChanged;
+  const next={...photo,objs:structuredClone(objs),calib:structuredClone(calib),updated:stamp(photo.updated)};
+  delete next.fresh;
+  if(transformed){next.w=W;next.h=H;next.imgRev=(photo.imgRev||0)+1}
+  editorSave=(async()=>{
+    try{
+      try{await ready(photo)}catch(e){}
+      next.img=transformed||!photo.img?await toBlob(image,'image/jpeg',0.92):photo.img;
+      next.thumb=await makeThumb(next,image);
+      const project=next.projectId&&projById(next.projectId);
+      const updatedProject=project&&{...project,updated:stamp(project.updated)};
+      await commitBackupPlan({photos:[next],projects:updatedProject?[updatedProject]:[]});
+      Object.assign(photo,next);
+      delete photo.fresh;
+      if(project)Object.assign(project,updatedProject);
+      if(rec===photo){
+        if(src===image)imgChanged=false;
+        savedHi=hist.lastIndexOf(revision);
+        if(!dirty())clearDraft();
+        ui();
+      }
+      toast('Guardado en la app');
+      scheduleSync();
+      return rec===photo&&!dirty();
+    }catch(e){toast('No se pudo guardar. Comprueba el espacio libre e inténtalo de nuevo.');return false}
+    finally{editorSave=null}
+  })();
+  return editorSave;
 }
 let imgChanged=false,crop=null;
 function srcCanvas(){if(src instanceof HTMLCanvasElement)return src;const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(src,0,0,W,H);return c}
@@ -1804,7 +1982,7 @@ async function rotatePhoto(dir){
   const s0=srcCanvas(),c=document.createElement('canvas');c.width=H;c.height=W;const g=c.getContext('2d');
   if(dir>0){g.translate(H,0);g.rotate(Math.PI/2)}else{g.translate(0,W);g.rotate(-Math.PI/2)}g.drawImage(s0,0,0);
   const oW=W,oH=H;mapObjs(dir>0?q=>({x:oH-q.y,y:q.x}):q=>({x:q.y,y:oW-q.x}));
-  src=c;W=c.width;H=c.height;imgChanged=true;needFit=true;fit();recalc();await saveEditor();hist=[];hi=-1;commit();savedHi=hi;ui();render();
+  src=c;W=c.width;H=c.height;imgChanged=true;needFit=true;fit();recalc();if(await saveEditor()){hist=[];hi=-1;commit();savedHi=hi}ui();render();
 }
 function startCrop(){sel=-1;crop={a:{x:W*0.08,y:H*0.08},b:{x:W*0.92,y:H*0.92}};$('#cropbar').hidden=false;$('#ctx').hidden=true;render();toast('Arrastra las esquinas para elegir la zona')}
 function endCrop(){crop=null;$('#cropbar').hidden=true;ui();render()}
@@ -1813,7 +1991,7 @@ $('#crApply').onclick=async()=>{if(!crop)return;const x0=Math.max(0,Math.round(M
   if(x1-x0<20||y1-y0<20){toast('La zona es demasiado pequeña');return}
   await keepOriginal();
   const s0=srcCanvas(),c=document.createElement('canvas');c.width=x1-x0;c.height=y1-y0;c.getContext('2d').drawImage(s0,-x0,-y0);
-  mapObjs(q=>({x:q.x-x0,y:q.y-y0}));src=c;W=c.width;H=c.height;imgChanged=true;crop=null;$('#cropbar').hidden=true;needFit=true;fit();recalc();await saveEditor();hist=[];hi=-1;commit();savedHi=hi;ui();render()};
+  mapObjs(q=>({x:q.x-x0,y:q.y-y0}));src=c;W=c.width;H=c.height;imgChanged=true;crop=null;$('#cropbar').hidden=true;needFit=true;fit();recalc();if(await saveEditor()){hist=[];hi=-1;commit();savedHi=hi}ui();render()};
 /* ================= straighten: fine rotation (auto + manual) and perspective ================= */
 // Estimates how many degrees the photo must turn so its main lines become horizontal/vertical (Hough vote over ±30°).
 function detectTilt(img){
@@ -2004,7 +2182,7 @@ function render(){
       const ym=(y0+y1)/2,aw=7*px;ctx.fillStyle='#ffb21a';[[-1,-hw2-4*px],[1,hw2+4*px]].forEach(([k,x])=>{ctx.beginPath();ctx.moveTo(x+k*aw*1.4,ym);ctx.lineTo(x,ym-aw);ctx.lineTo(x,ym+aw);ctx.closePath();ctx.fill()});ctx.restore()}
     const b=bbox(o),m=10*px;ctx.setLineDash([6*px,4*px]);ctx.lineWidth=1.5*px;ctx.strokeStyle='#ffb21a';if(!o.a&&!(o.pts&&SHAPES.has(o.type))||o.locked)ctx.strokeRect(b.x-m,b.y-m,b.w+2*m,b.h+2*m);ctx.setLineDash([])}
 }
-function resize(){if($('#editor').hidden)return;const r=stage.getBoundingClientRect();if(!r.width)return;cssW=r.width;cssH=r.height;dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(cssW*dpr);cv.height=Math.round(cssH*dpr);loupe.width=loupe.height=Math.round(150*dpr);if(needFit)fit();render()}
+function resize(){if($('#editor').hidden)return;const r=stage.getBoundingClientRect();if(!r.width)return;if(Math.abs(cssW-r.width)>1)needFit=true;cssW=r.width;cssH=r.height;dpr=Math.min(window.devicePixelRatio||1,3);cv.width=Math.round(cssW*dpr);cv.height=Math.round(cssH*dpr);loupe.width=loupe.height=Math.round(150*dpr);if(needFit)fit();render()}
 function fit(){if(!W||!cssW)return;const pad=(cssW>cssH&&cssH<520)?4:16,s=Math.min((cssW-pad*2)/W,(cssH-pad*2)/H);view={s,x:(cssW-W*s)/2,y:(cssH-H*s)/2};needFit=false}
 function toDoc(cx,cy){const r=cv.getBoundingClientRect();return{x:(cx-r.left-view.x)/view.s,y:(cy-r.top-view.y)/view.s}}
 function zoomAt(cx,cy,f){const r=cv.getBoundingClientRect(),mx=cx-r.left,my=cy-r.top,ns=Math.max(0.05,Math.min(view.s*f,40)),dx=(mx-view.x)/view.s,dy=(my-view.y)/view.s;view={s:ns,x:mx-dx*ns,y:my-dy*ns};render()}
@@ -2098,7 +2276,7 @@ async function checkDraft(){
   if(k==='y'){await openEditor(r);if(d.fresh)rec.fresh=true;objs=JSON.parse(JSON.stringify(d.objs||[]));calib=d.calib||null;commit();render();toast('Recuperado: pulsa Guardar para conservarlo')}
   else if(k==='n'){clearDraft();if(d.fresh){try{await del('photos',r.id);addTomb('photo',r.id)}catch(e){}store.photos=store.photos.filter(x=>x.id!==r.id);renderGallery();toast('Foto descartada')}}
 }
-function commit(){recalc();declutter();autoColors();saveDraft();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
+function commit(){recalc();declutter();autoColors();saveDraft();hist=hist.slice(0,hi+1);hist.push(JSON.stringify({objs,calib}));if(hi>=0&&hist[hi]!==hist[hist.length-1])signalInterfaceEdit();if(hist.length>100){hist.shift();savedHi--}hi=hist.length-1;ui()}
 function restore(){const s=JSON.parse(hist[hi]);objs=s.objs;calib=s.calib;sel=-1;ui();render()}
 $('#undo').onclick=()=>{if(hi>0){hi--;restore()}};
 $('#redo').onclick=()=>{if(hi<hist.length-1){hi++;restore()}};
@@ -2180,7 +2358,7 @@ function openColors(){
   });
 }
 $('#moreTool').onclick=()=>{
-  const m=openModal(`<div class="sheet"><h2>Más herramientas</h2><div class="plist">${MORE.map(([t,n,ic])=>`<button data-t="${t}" style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 24 24">${ic}</svg><span style="margin:0;font-size:15px;color:var(--fg);font-weight:700">${n}</span></button>`).join('')}</div>
+  const m=openModal(`<div class="sheet"><h2>Más herramientas</h2><div class="plist editor-more-tools">${MORE.map(([t,n,ic])=>`<button data-t="${t}" style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 24 24">${ic}</svg><span style="margin:0;font-size:15px;color:var(--fg);font-weight:700">${n}</span></button>`).join('')}</div>
     <p class="note">El plano de perspectiva corrige las medidas de fotos hechas en ángulo: marca un rectángulo cuyas medidas reales conozcas y las cotas de ese mismo plano se calculan bien aunque la foto esté torcida.</p><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`,{bottom:true});
   m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-t]');if(b){m.close(true);if(b.dataset.t===tool)return;setTool(b.dataset.t)}});
 };
@@ -2539,6 +2717,7 @@ async function renderSettings(){
     ${NATIVE?row('Solo con Wi-Fi','No usa datos móviles para sincronizar.',swH('wifiOnly')):''}
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
+  ${interfaceSettingsGroup()}
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
     <div class="srow lookrow"><div class="sl"><b>Temas completos</b><small>Cambian también las letras, el fondo y las tarjetas.${SET.look&&lookById(SET.look)&&lookById(SET.look).tex?' Toca el tema elegido otra vez para quitarlo.':''}</small></div><div class="looks" role="group" aria-label="Temas completos">${LOOKS_FULL.map(lookCard).join('')}</div></div>
     <div class="srow lookrow"><div class="sl"><b>Estilos de color</b><small>Solo cambian los colores; siguen el modo claro u oscuro del sistema.</small></div><div class="looks" role="group" aria-label="Estilos de color">${LOOKS_COLOR.map(lookCard).join('')}</div></div>
@@ -2630,6 +2809,7 @@ async function renderSettings(){
     'Datos':['datos','Copia de seguridad, tamaño de fotos y almacenamiento',`<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>`]};
   SECS['Rotulación y cálculo de material']=['rotulacion','Materiales y precios de rotulación','<rect x="3" y="7" width="18" height="11" rx="2"/><path d="M6 7V4h12v3M7 12h10M7 15h6"/>'];
   SECS['Acerca de MedLoM']=['acerca','Versión instalada y actualizaciones','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>'];
+  SECS['Interfaz']=['interfaz','Espectro, Prisma, Mando y Rueda','<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 4v16M4 12h16"/>'];
   SECS['Ayuda']=['ayuda','Guía de cada herramienta y opción de MedLoM','<circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 4.4 1.3c-.9 1.2-2.1 1.5-2.1 3.2M12 17.5h.01"/>'];
   const groups=[...body.querySelectorAll('.sgroup')];
   groups.forEach(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];g.dataset.sec=info?info[0]:'';g.hidden=!!sec?g.dataset.sec!==sec:true;if(sec)g.querySelector('h3').hidden=true});
@@ -2639,6 +2819,7 @@ async function renderSettings(){
   if(!sec){const idx=document.createElement('div');idx.className='sgroup';
     idx.innerHTML='<div class="scard">'+groups.map(g=>{const t=g.querySelector('h3').textContent,info=SECS[t];if(!info)return'';
       return`<button class="srow secbtn" data-sec="${info[0]}"><svg viewBox="0 0 24 24" class="secic">${info[2]}</svg><span class="sl"><b>${esc(t)}</b><small>${esc(info[1])}</small></span><svg viewBox="0 0 24 24" class="chev"><path d="M9 5l7 7-7 7"/></svg></button>`}).join('')+'</div>';
+    const first=idx.querySelector('[data-sec=interfaz]');if(first)first.parentElement.prepend(first);
     body.prepend(idx)}
   body.scrollTop=sec===renderSettings._last?sc:0;renderSettings._last=sec;
   const pv=$('#stylePv');if(pv){const q=Math.min(window.devicePixelRatio||1,3),w=120,h=44;pv.width=w*q;pv.height=h*q;const c=pv.getContext('2d');c.setTransform(q,0,0,q,0,0);c.fillStyle='#3b4047';c.fillRect(0,0,w,h);drawObj(c,{type:'dim',a:{x:18,y:30},b:{x:w-18,y:30},color:style.color,...SHD(),w:[1.6,2.2,3,4][style.lw],fs:14,val:'120',unit:'cm',ds:D})}
@@ -2662,7 +2843,7 @@ $('#settings').addEventListener('click',async e=>{
     else if(a==='reconnect'){if(SET.laser&&SET.laser.addr){try{NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}catch(err){}}}
     else if(a==='forgetdev'){const d=SET.laser;if(!d)return;const r=await dialog('¿Olvidar el medidor?',`MedLoM dejará de conectarse a «${d.name||d.addr}».${SET.laserRule?' También se borra la lectura que le enseñaste.':''}`,[{id:'y',label:'Olvidar',kind:'danger'},{id:'n',label:'Cancelar'}]);
       if(r!=='y')return;try{NATIVE.laserDisconnect()}catch(err){}SET.laser=null;SET.laserRule=null;LASER.state='';LASER.msg='';saveSettings();renderSettings();toast('Medidor olvidado')}
-    else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){SET.laser={addr:d.addr,name:d.name};saveSettings();try{NATIVE.laserConnect(d.addr,d.name)}catch(err){}}}
+    else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){if(SET.laser?.addr!==d.addr){SET.laserRule=null;LASER.raw=[];LASER.last=null;LASER.total=0}SET.laser={addr:d.addr,name:d.name};saveSettings();try{NATIVE.laserConnect(d.addr,d.name)}catch(err){}}}
     return}
   const ja=e.target.closest('[data-jotta]');
   if(ja){const a=ja.dataset.jotta;
@@ -3022,7 +3203,7 @@ async function createBackup(){
   try{
     const z=new JSZip(),photos=[];
     for(let i=0;i<list.length;i++){const r=list[i];const p=m.wrap.querySelector('#bkp');if(p)p.textContent=`Foto ${i+1} de ${list.length}`;
-      await ready(r);if(!r.img)continue;z.file(`fotos/${r.id}.jpg`,r.img);
+      await ready(r);if(!r.img)throw Error('Hay una foto pendiente de guardar');z.file(`fotos/${r.id}.jpg`,r.img);
       photos.push({id:r.id,name:r.name,projectId:r.projectId||null,created:r.created,updated:r.updated,w:r.w,h:r.h,objs:r.objs||[],calib:r.calib||null,imgRev:r.imgRev||0})}
     const materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]');if(!Array.isArray(materials))throw new Error('la biblioteca de materiales no es válida');
     const st={...SET};delete st.drive;delete st.jotta;delete st.onedrive;delete st.tomb;delete st.clouds;
@@ -3064,14 +3245,13 @@ $('#fileZip').addEventListener('change',async e=>{
   }catch(err){document.getElementById('rotFrame')?.contentWindow?.rotulomJobs?.resume();if(m2)m2.close(true);m.close(true);toast('No se pudo restaurar: '+err.message)}
 });
 
-/* OneDrive was removed from the app: forget any old connection */
-try{if(NATIVE&&NATIVE.msConnected&&NATIVE.msConnected()&&NATIVE.msSignOut)NATIVE.msSignOut()}catch(e){}
+/* Clean up preferences from versions with OneDrive. */
 try{if(SET.onedrive||SET.msClient){delete SET.onedrive;delete SET.msClient;if(SET.clouds)delete SET.clouds.onedrive;saveSettings()}}catch(e){}
 
 /* ================= Bluetooth laser meter ================= */
 const LASER={state:'',msg:'',found:[],last:null};
 function hasLaser(){try{return !!(NATIVE&&NATIVE.hasLaser&&NATIVE.hasLaser())}catch(e){return false}}
-window.__medlomLaserState=o=>{const quiet=LASER.auto&&o.state!=='connected';if(o.state!=='connecting')LASER.auto=false;LASER.state=o.state;LASER.generic=o.msg==='generic';LASER.msg=o.msg==='generic'?'':o.msg||'';if(o.state==='connected')toast('Medidor conectado: '+(o.name||''));if(o.msg&&o.state!=='connected'&&!quiet)toast(o.msg);if(!$('#settings').hidden)renderSettings();laserBadge()};
+window.__medlomLaserState=o=>{const quiet=LASER.auto&&o.state!=='connected';if(o.state!=='connecting')LASER.auto=false;LASER.state=o.state;LASER.generic=o.msg==='generic';LASER.msg=o.msg==='generic'?'':o.msg||'';if(o.state==='connected')toast('Medidor conectado: '+(o.name||''));if(o.msg&&o.state!=='connected'&&!quiet)toast(o.msg);if(!$('#settings').hidden)renderSettings();laserBadge();window.dispatchEvent(new Event("medlom-laser-state"))};
 window.__medlomLaserFound=o=>{LASER.found=o.devices||[];if(!$('#settings').hidden)renderSettings()};
 window.__medlomLaser=o=>{
   const m=o.m;LASER.last={m,at:Date.now()};
@@ -3083,8 +3263,9 @@ function laserBadge(){const b=$('#laserBadge');if(b)b.hidden=LASER.state!=='conn
 function laserRow(){
   const st=LASER.state,dev=SET.laser,found=LASER.found||[];
   const status=st==='connected'?'Conectado: '+(dev&&dev.name||''):st==='connecting'?'Conectando…':st==='scanning'?'Buscando medidores…':st==='error'?LASER.msg:dev?'Último: '+dev.name:'Sin conectar';
-  return`<div class="srow"><div class="sl"><b>Medidor láser Bluetooth</b><small class="status ${st==='connected'?'on':''}">${esc(status)}</small><small>Leica DISTO y Bosch GLM directamente; otros, como Mileseey, se enseñan una vez (función experimental). Con una cota seleccionada, la medida del láser se pone sola.</small></div>
+  return`<div class="srow"><div class="sl"><b>Medidor láser Bluetooth</b><small class="status ${st==='connected'?'on':''}">${esc(status)}</small><small>Selecciona una cota y mide para rellenarla.</small></div>
     <div class="row">${st==='connected'?'<button class="btn ghost" data-laser="off">Desconectar</button>':`${dev&&st!=='connecting'?'<button class="btn primary" data-laser="reconnect">Conectar</button>':''}<button class="btn ${dev?'ghost':'primary'}" data-laser="scan" ${st==='scanning'?'disabled':''}>Buscar</button><button class="btn ghost" data-laser="scanall" ${st==='scanning'?'disabled':''}>Ver todos</button>`}</div></div>
+    <div class="srow"><details class="sl"><summary><b>Medidores compatibles</b></summary><small><strong>Conexión directa:</strong> Leica DISTO Bluetooth Smart con el servicio DISTO y Bosch GLM con el protocolo BLE compatible (familias 50 C, 100 C y 120 C).</small><small><strong>Modo experimental:</strong> algunos Mileseey y otros BLE que transmiten la distancia. Usa «Ver todos» y después «Enseñar».</small><small>La compatibilidad depende de la variante y el firmware. Verifica una medida conocida antes de usarla en un proyecto.</small></details></div>
     ${dev?`<div class="srow"><div class="sl"><b>Conectar al abrir la app</b><small>Si está apagado o lejos, no se muestra ningún aviso.</small></div>${swH('laserAuto')}</div>
     <div class="srow"><div class="sl"><b>Medidor guardado: ${esc(dev.name||dev.addr||'')}</b><small>Olvídalo para que MedLoM deje de usarlo. Podrás volver a buscarlo cuando quieras.</small></div><button class="btn danger" data-laser="forgetdev">Olvidar</button></div>`:''}
     ${st==='connected'&&LASER.generic?`<div class="srow"><div class="sl"><b>${SET.laserRule?'Lectura aprendida':'Enseñar a leer el medidor'}</b><small>${SET.laserRule?'MedLoM ya sabe leer este medidor.':'Para medidores sin conexión conocida, como Mileseey: haz 2 o 3 mediciones y escribe lo que marca la pantalla.'}</small></div><div class="row"><button class="btn ghost" data-laser="diag">Diagnóstico</button><button class="btn ${SET.laserRule?'ghost':'primary'}" data-laser="learn">${SET.laserRule?'Volver a enseñar':'Enseñar'}</button>${SET.laserRule?'<button class="btn danger" data-laser="forget">Olvidar</button>':''}</div></div>`:''}
@@ -3145,8 +3326,7 @@ function openLaserLearn(){
     <div class="row"><button type="button" class="btn ghost" data-raw>Datos técnicos</button><button type="button" class="btn ghost" data-c>Cerrar</button><button type="submit" class="btn primary">Comprobar</button></div></form>`,{onClose:()=>{LASER.learning=null}});
   const f=m.wrap.querySelector('form'),msg=f.querySelector('#lrnMsg');
   f.querySelector('[data-c]').onclick=()=>m.close();
-  f.querySelector('[data-raw]').onclick=()=>{openLaserDiag();return;const t='';
-    const m2=openModal(`<div class="sheet"><h2>Datos técnicos</h2><p class="note">Si MedLoM no consigue aprender tu medidor, copia esto y mándaselo a quien te prepara la app, junto con lo que marcaba la pantalla en cada medición.</p><textarea readonly aria-label="Datos técnicos del medidor" style="min-height:200px;font-family:ui-monospace,monospace;font-size:12px;user-select:all">${esc(t)}</textarea><div class="row"><button class="btn ghost" data-c>Cerrar</button></div></div>`);m2.wrap.querySelector('[data-c]').onclick=()=>m2.close()};
+  f.querySelector('[data-raw]').onclick=openLaserDiag;
   f.onsubmit=e=>{e.preventDefault();const L=LASER.learning;const v=parseNum(f.querySelector('#lrnV').value),u=f.querySelector('#lrnU').value;if(!(v>0)){msg.textContent='Escribe la medida que marca el medidor.';return}
     const target=v*UNITM[u],tol=Math.max(.0015,target*.0012),pk=LASER.raw.filter(r=>r.t>=L.since-1500);
     if(!pk.length){msg.textContent='Todavía no han llegado datos del medidor. Comprueba que en su pantalla se ve el icono de Bluetooth y mide de nuevo. Si el contador sigue en 0, pulsa «Datos técnicos» y envíame lo que sale.';msg.style.color='var(--danger,#e5322d)';return}
@@ -3341,7 +3521,7 @@ async function seed(){
 
 /* Rotulación: módulo local; comparte instalación y actualizaciones con MedLoM. */
 const rotView=document.createElement('section');rotView.className='view';rotView.id='rotulacion';rotView.hidden=true;
-rotView.innerHTML='<header class="top band"><button id="rotBack" class="btn ghost">← MedLoM</button><div class="brand"><b>Rotulación</b><span class="sub">Vehículos · áreas · material</span></div><button id="rotSettings" class="btn ghost">Ajustes</button></header><iframe id="rotFrame" title="Rotulación y cálculo de material" allow="clipboard-write" style="flex:1;width:100%;min-height:0;border:0"></iframe>';
+rotView.innerHTML='<header class="top band"><button id="rotBack" class="btn ghost" aria-label="Volver a MedLoM">← <span class="rot-back-label">MedLoM</span></button><div class="brand"><b>Rotulación</b></div><button id="rotSettings" class="btn ghost">Ajustes</button></header><iframe id="rotFrame" title="Rotulación y cálculo de material" allow="clipboard-write" style="flex:1;width:100%;min-height:0;border:0"></iframe>';
 document.querySelector('.app').append(rotView);
 let rotReady=false,rotPendingMaterials=false;
 function openRotulacion(materials=false){rotPendingMaterials=materials;if(!$('#rotFrame').getAttribute('src'))$('#rotFrame').src='./rotulom/index.html';pushView({v:'rotulacion'});if(rotReady&&materials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);}
@@ -3384,6 +3564,7 @@ function rotChrome(){
   const n=selected.size,total=rotJobIds.length;
   $('#gHead').innerHTML=selMode?`<button class="ib" data-act="rotcancel" aria-label="Cancelar selección">${IC.x}</button><div class="brand"><b>${n} ${n===1?'seleccionado':'seleccionados'}</b><span class="sub">Toca para marcar o desmarcar</span></div><button class="btn ghost" data-act="rotall">${n===total&&n?'Ninguno':'Todos'}</button>`
     :`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib gallery-select" data-act="rotselect" aria-label="Seleccionar" title="Seleccionar" ${total?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
+  if(!selMode)prependInterfaceBack($('#gHead'));
   $('#gBar').innerHTML=selMode?`<div class="acts"><button class="act" data-act="rotexport" ${n?'':'disabled'}>${IC.share}<span>Enviar</span></button><button class="act danger" data-act="rotdel" ${n?'':'disabled'}>${IC.trash}<span>Eliminar</span></button></div>`
     :`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;
   if(!selMode)$('#newRotJob').onclick=()=>openRotJob();
@@ -3517,8 +3698,15 @@ async function importVehicleTemplate(model,view,pid,withDimensions=true){
 const RoomViews=(()=>{
   const e=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const value=(n,unit)=>Number(n/(TOMM[unit]||10)).toLocaleString('es-ES',{maximumFractionDigits:unit==='m'?3:unit==='cm'?1:0})+' '+unit;
-  const palette=paper=>paper?{bg:'#ffffff',fg:'#25343d',muted:'#65747d',accent:'#b66c00',wall:'#d9e1e5',opening:'#287d99'}:{bg:themeColors().panel,fg:themeColors().fg,muted:'#87959d',accent:themeColors().accent,wall:'#718d9c',opening:'#40a7c4'};
-  const wrap=(content,height=660,paper=false,width=1000)=>{const p=palette(paper);return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Plano de habitación" style="display:block;width:100%;height:auto"><rect width="${width}" height="${height}" fill="${p.bg}"/><g font-family="Arial,sans-serif" fill="${p.fg}">${content}</g></svg>`;};
+  function palette(paper){
+    if(paper)return {bg:'#ffffff',fg:'#25343d',muted:'#65747d',accent:'#b66c00',wall:'#d9e1e5',opening:'#287d99',danger:'#a83024'};
+    const theme=themeColors();
+    const style=typeof document==='undefined'?null:getComputedStyle(document.documentElement);
+    const token=(name,fallback)=>style?.getPropertyValue(name).trim()||fallback;
+    return {...theme,bg:theme.panel,muted:token('--muted','#87959d'),wall:token('--fg',theme.fg),
+      opening:token('--accent-text',theme.accent),danger:token('--danger','#d65a48')};
+  }
+  const wrap=(content,height=660,paper=false,width=1000)=>{const p=palette(paper);return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Plano de habitación" style="display:block;width:100%;height:auto"><rect width="${width}" height="${height}" fill="${p.bg}"/><g font-family="Arial,sans-serif" ${paper?'':'style="font-family:var(--f-body,Arial,sans-serif)"'} fill="${p.fg}">${content}</g></svg>`;};
   function fit(points,width=1000,height=660,pad=90){const xs=points.map(p=>p.x),ys=points.map(p=>p.y),x0=Math.min(...xs),y0=Math.min(...ys),w=Math.max(1,Math.max(...xs)-x0),h=Math.max(1,Math.max(...ys)-y0),k=Math.min((width-pad*2)/w,(height-pad*2)/h);return p=>({x:(p.x-x0)*k+(width-w*k)/2,y:(p.y-y0)*k+(height-h*k)/2});}
   function plan(r,selected,unit='cm',camera={},paper=false){
     const g=RoomPlan.geometry(r),p=palette(paper),map=fit(g.points),point=v=>{const q=map(v),z=camera.zoom||1;return{x:500+(q.x-500)*z+(camera.panX||0),y:330+(q.y-330)*z+(camera.panY||0)};};
@@ -3531,7 +3719,7 @@ const RoomViews=(()=>{
       labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="25" text-anchor="middle" ${w.kind==='column'?'font-weight="700"':''}>${e(label)}</text>`;
       w.openings.forEach(o=>{const t0=o.offsetMm/s.length,t1=(o.offsetMm+o.widthMm)/s.length;out+=`<path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.bg}" stroke-width="13"/><path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.opening}" stroke-width="5" ${o.type==='door'?'stroke-dasharray="8 5"':''}/>`;});
     });
-    if(!g.closed){const a=point(g.points[0]),b=point(g.points[g.points.length-1]);out+=`<path d="M${a.x},${a.y}L${b.x},${b.y}" stroke="#d65a48" stroke-width="5" stroke-dasharray="9 8"/><text x="500" y="630" text-anchor="middle" font-size="25" fill="#d65a48">Desfase de cierre: ${e(value(g.gapMm,unit))}</text>`;}
+    if(!g.closed){const a=point(g.points[0]),b=point(g.points[g.points.length-1]);out+=`<path d="M${a.x},${a.y}L${b.x},${b.y}" stroke="${p.danger}" stroke-width="5" stroke-dasharray="9 8"/><text x="500" y="630" text-anchor="middle" font-size="25" fill="${p.danger}">Desfase de cierre: ${e(value(g.gapMm,unit))}</text>`;}
     return wrap(out,660,paper);
   }
   const elementName=o=>({door:'Puerta',window:'Ventana',switch:'Interruptor',socket:'Enchufe'}[o.type]||'Elemento');
@@ -3613,10 +3801,10 @@ function openRoomLibrary(){pushView({v:'rooms'});}
 function renderRoomLibrary(){
  roomView.classList.remove("room-editing","room-controls-open");
  const rooms=[];for(const p of store.projects)for(const input of Array.isArray(p.rooms)?p.rooms:[]){try{rooms.push({project:p,room:RoomPlan.clean(input)});}catch(e){}}
- roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><div class="brand"><b>Habitaciones</b><span class="sub">${rooms.length} planos guardados</span></div><button class="btn primary" data-room-new>Nuevo plano</button></header><div class="scroll band rooms-library">${rooms.length?`<div class="grid sz-m">${rooms.map(({project,room:r})=>`<article class="room-card"><button class="room-card-open" data-room-open="${esc(r.id)}" data-room-project="${esc(project.id)}"><div class="room-card-preview">${RoomViews.plan(r,null,roomUnit(),{},true)}</div><b>${esc(r.name)}</b><small>${esc(project.name)} · ${r.walls.length} paredes</small></button><button class="btn ghost danger" data-room-delete="${esc(r.id)}" data-room-project="${esc(project.id)}">Eliminar plano</button></article>`).join('')}</div>`:'<div class="empty"><b>Dibuja tu primera habitación</b>Marca sus esquinas, mide las paredes por orden y añade puertas y ventanas. Tendrás planta, alzados y una vista 3D.</div>'}</div>`;
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><div class="brand"><b>Habitaciones</b><span class="sub">${rooms.length} planos guardados</span></div><button class="btn primary" data-room-new>Nuevo plano</button></header><div class="scroll band rooms-library">${rooms.length?`<div class="grid sz-m">${rooms.map(({project,room:r})=>`<article class="room-card"><button class="room-card-open" data-room-open="${esc(r.id)}" data-room-project="${esc(project.id)}"><div class="room-card-preview">${RoomViews.plan(r,null,roomUnit(),{},true)}</div><b>${esc(r.name)}</b><small>${esc(project.name)} · ${r.walls.length} paredes</small></button><button class="btn ghost danger" data-room-delete="${esc(r.id)}" data-room-project="${esc(project.id)}">Eliminar plano</button></article>`).join('')}</div>`:'<div class="empty"><b>Dibuja tu primera habitación</b>Traza el contorno y añade las medidas de las paredes.</div>'}</div>`;
 }
 function newRoomForm(projectId=null){
- const m=openModal(`<form class="sheet" id="roomNewForm"><h2>Nueva habitación</h2><label class="col"><span>Nombre</span><input name="name" required maxlength="100" placeholder="Ej. Despacho"></label><label class="col"><span>Proyecto</span><select name="project"><option value="">Crear proyecto con este nombre</option>${store.projects.map(p=>`<option value="${esc(p.id)}" ${p.id===projectId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="note">Dibuja el contorno con el dedo o el lápiz y vuelve al inicio. Las esquinas se detectan al terminar el trazo.</p><div class="row"><button type="button" class="btn ghost" data-room-cancel>Cancelar</button><button class="btn primary" type="submit">Dibujar</button></div></form>`);
+ const m=openModal(`<form class="sheet" id="roomNewForm"><h2>Nueva habitación</h2><label class="col"><span>Nombre</span><input name="name" required maxlength="100" placeholder="Ej. Despacho"></label><label class="col"><span>Proyecto</span><select name="project"><option value="">Nuevo proyecto</option>${store.projects.map(p=>`<option value="${esc(p.id)}" ${p.id===projectId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="note">Traza el contorno y cierra el dibujo en el punto de inicio.</p><div class="row"><button type="button" class="btn ghost" data-room-cancel>Cancelar</button><button class="btn primary" type="submit">Dibujar</button></div></form>`);
  m.wrap.querySelector('[data-room-cancel]').onclick=()=>m.close();
  m.wrap.querySelector('form').onsubmit=e=>{e.preventDefault();const f=e.currentTarget,name=f.elements.name.value.trim();if(!name)return;const pid=f.elements.project.value||null;m.close(true);startRoomEditor(null,pid,{name});};
 }
@@ -3772,6 +3960,12 @@ function setRoomFullscreen(value){
 }
 
 window.addEventListener('resize',()=>{if(stack[stack.length-1]?.v==='room')refreshRoom();});
+
+window.addEventListener('medlom-appearance',()=>{
+ const view=stack.at(-1)?.v;
+ if(view==='room')drawRoomScene();
+ else if(view==='rooms')renderRoomLibrary();
+});
 /* Exportación local de la planta y de los alzados de habitaciones. */
 async function roomSvgRaster(svg){
  const blob=new Blob([svg],{type:'image/svg+xml'}),url=URL.createObjectURL(blob);
@@ -3829,6 +4023,200 @@ function roomOpeningForm(type,openingId=null){
  m.wrap.querySelector('[data-opening-delete]')?.addEventListener('click',()=>{roomChange(RoomPlan.removeOpening(r,w.id,current.id));m.close(true);});
  form.onsubmit=e=>{e.preventDefault();try{const o=read(),next=current?RoomPlan.updateOpening(r,w.id,o):RoomPlan.addOpening(r,w.id,o);ROOMUI.selectedOpening=o.id;roomChange(next);m.close(true);}catch(err){toast(err.message);}};
 }
+/* Each interface opens the same persisted records and native workflows. */
+const INTERFACES = {
+  classic: ['Clásica', 'Galería y pestañas'],
+  espectro: ['Espectro', 'Visor oscuro y mandos laterales'],
+  prisma: ['Prisma', 'Acciones en filas y cabecera roja'],
+  mando: ['Espectro Mando', 'Indicador circular y teclado iluminado'],
+  rueda: ['Prisma Rueda', 'Selector de modos giratorio'],
+};
+const interfaceMode = () => Object.hasOwn(INTERFACES, SET.interfaceMode) ? SET.interfaceMode : 'classic';
+const interfaceHome = document.createElement('section');
+interfaceHome.id = 'interfaceHome';
+interfaceHome.className = 'view';
+interfaceHome.hidden = true;
+$('.app').append(interfaceHome);
+const interfaceIcons = {
+  laser:'<svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></svg>',
+  dim:'<svg viewBox="0 0 24 24"><path d="M4 6v12m16-12v12M4 12h16"/></svg>',
+  next:'<svg viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>',
+  room:'<svg viewBox="0 0 24 24"><path d="M4 4h16v7h-7v9H4zM4 14h5v6"/></svg>',
+};
+const interfaceItems = [
+  ['photo','Medir foto','Foto',IC.cam],
+  ['wrap','Rotulación','Rotular',IC.cube],
+  ['rooms','Habitaciones','Plano',interfaceIcons.room],
+  ['laser','Medidor láser','Láser',interfaceIcons.laser],
+];
+const interfaceButton = (action,text,icon='',css='',attrs='') =>
+  `<button type="button" class="interface-button ${css}" data-ia="${action}" ${attrs}>${icon}<span>${text}</span></button>`;
+let wheelMode = 0;
+let wheelPointer = null;
+let interfaceFlash;
+function interfaceSettingsGroup(){
+  const buttons=Object.entries(INTERFACES).map(([id,[label,desc]])=>
+    `<button class="srow interface-option" data-interface-choice="${id}" aria-pressed="${interfaceMode()===id}"><span class="sl"><b>${label}</b><small>${desc}</small></span><span aria-hidden="true">${interfaceMode()===id?'●':'○'}</span></button>`).join('');
+  return `<div class="sgroup"><h3>Interfaz</h3><div class="scard">${buttons}</div></div>`;
+}
+function initInterface(){
+  const mode=interfaceMode();
+  document.documentElement.dataset.interface=mode;
+  stack[0].v=mode==='classic'?'gallery':'interface';
+}
+function prependInterfaceBack(head){
+  if(stack[0].v!=='interface'||!head)return;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='ib';
+  button.setAttribute('aria-label','Volver al inicio');
+  button.dataset.act='back';
+  button.innerHTML=IC.back;
+  head.prepend(button);
+}
+function interfaceRecent(){
+  const candidates=store.photos.filter(photo=>photo.thumb);
+  return candidates.reduce((last,p)=>!last||p.updated>last.updated?p:last,null);
+}
+function interfacePreview(photo,featured=false){
+  const art=photo?thumbURL(photo):(featured?'./rotulom/interface-vehicle.webp':'');
+  return art?`<img src="${esc(art)}" alt="${photo?esc(photo.name):''}">`:'';
+}
+function interfaceHeader(extra=''){
+  return `<header class="interface-top"><strong>MedLoM</strong>${extra}${interfaceButton('settings','Ajustes',IC.gear,'interface-icon')}</header>`;
+}
+function laserLabel(){
+  return hasLaser()?(LASER.state==='connected'?'Láser conectado':'Láser sin conectar'):'Láser · Android';
+}
+function interfaceFooter(){
+  return `<nav class="interface-footer" aria-label="Accesos">${interfaceButton('jobs','Trabajos',IC.folder)}${interfaceButton('laser','Láser',interfaceIcons.laser)}</nav>`;
+}
+function renderInterface(){
+  const recent=interfaceRecent();
+  const mode=interfaceMode();
+  if(mode==='espectro'){
+    interfaceHome.innerHTML=interfaceHeader(`<small class="interface-laser">${laserLabel()}</small>`)+
+      `<div class="interface-visor">${interfacePreview(recent)}<div class="interface-grid"></div>
+      <div class="interface-rail">
+      ${interfaceButton('recent','Última foto',interfaceIcons.dim,'interface-icon',recent?'':'disabled')}
+      ${interfaceButton('wrap','Rotulación',IC.cube,'interface-icon')}
+      ${interfaceButton('rooms','Habitaciones',interfaceIcons.room,'interface-icon')}
+      ${interfaceButton('jobs','Trabajos',IC.folder,'interface-icon')}
+      </div>
+      ${recent?`<p class="interface-photo-title">${esc(recent.name)}</p>`:''}
+      ${interfaceButton('photo','Medir',IC.cam,'interface-shutter')}
+      </div>`;
+    return;
+  }
+  if(mode==='prisma'){
+    interfaceHome.innerHTML=`<div class="interface-poster">
+      <header><h1>MedLoM</h1>${interfaceButton('settings','Ajustes',IC.gear,'interface-icon')}</header>
+      <img src="./rotulom/interface-vehicle.webp" alt=""><i aria-hidden="true"></i></div>
+      <nav class="interface-index" aria-label="Modos de trabajo">${interfaceItems.slice(0,3).map(([id,name])=>interfaceButton(id,name,interfaceIcons.next)).join('')}</nav>`+interfaceFooter();
+    return;
+  }
+  if(mode==='mando'){
+    interfaceHome.innerHTML=interfaceHeader()+`<div class="interface-mando">
+      <div class="interface-monitor">${interfacePreview(recent,true)}<div class="interface-grid"></div></div>
+      <div class="interface-reading"><span class="interface-gauge" aria-hidden="true"></span><div>
+      <b>${recent?esc(recent.name):'Medir foto'}</b><small class="interface-laser">${laserLabel()}</small>
+      </div>${interfaceButton('recent','Abrir última foto',interfaceIcons.next,'interface-icon',recent?'':'disabled')}</div>
+      <div class="interface-keys">
+      ${interfaceButton('wrap','Rotular',IC.cube,'interface-key')}
+      ${interfaceButton('photo','Medir',IC.cam,'interface-key interface-trigger')}
+      ${interfaceButton('rooms','Plano',interfaceIcons.room,'interface-key')}
+      </div></div>`+interfaceFooter();
+    return;
+  }
+  interfaceHome.innerHTML=interfaceHeader()+`<div class="interface-wheel-layout">
+    <div class="interface-wheel-preview">${interfacePreview(recent,true)}</div>
+    <h1 class="interface-wheel-title" aria-live="polite">${interfaceItems[wheelMode][1]}</h1>
+    <div class="interface-turntable"><div class="interface-wheel" role="group" aria-label="Rueda de modos" style="--wheel-angle:${wheelMode*90}deg">
+      <i class="interface-pointer" aria-hidden="true"></i>
+      ${interfaceItems.map(([,name,short,icon],index)=>interfaceButton('wheel-select',short,icon,`interface-slot slot-${index}`,`data-wheel-index="${index}" aria-label="${name}" aria-pressed="${index===wheelMode}"`)).join('')}
+      ${interfaceButton('wheel-open','Abrir',interfaceIcons.next,'interface-wheel-open')}
+    </div></div></div>`+interfaceFooter();
+}
+function chooseWheel(index){
+  const wheel=interfaceHome.querySelector('.interface-wheel');
+  if(!wheel)return;
+  wheelMode=(index+interfaceItems.length)%interfaceItems.length;
+  wheel.style.setProperty('--wheel-angle',`${wheelMode*90}deg`);
+  wheel.querySelectorAll('[data-wheel-index]').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===wheelMode)));
+  interfaceHome.querySelector('.interface-wheel-title').textContent=interfaceItems[wheelMode][1];
+  buzz();
+}
+async function openInterfaceAction(action){
+  if(action==='jobs'){
+    tab='projects'; searchOpen=false; query='';
+    pushView({v:'gallery',scope:null});
+  }else if(action==='photo'){
+    openSourcePicker();
+  }else if(action==='recent'){
+    const recent=interfaceRecent();
+    if(recent){
+      try{await openEditor(recent)}catch(error){toast('No se pudo abrir la última foto')}
+    }
+  }else if(action==='wrap'){
+    tab='rotulacion'; searchOpen=false; query='';
+    pushView({v:'gallery',scope:null});
+  }else if(action==='rooms'){
+    openRoomLibrary();
+  }else if(action==='settings'){
+    pushView({v:'settings'});
+  }else if(action==='laser'){
+    if(hasLaser())pushView({v:'settings',sec:'laser'});
+    else dialog('Medidor láser','La conexión Bluetooth está disponible en el APK de MedLoM para Android.',[{id:'ok',label:'Cerrar',kind:'primary'}]);
+  }
+}
+interfaceHome.addEventListener('click',event=>{
+  const button=event.target.closest('[data-ia]');
+  if(!button)return;
+  const action=button.dataset.ia;
+  if(action==='wheel-select')chooseWheel(Number(button.dataset.wheelIndex));
+  else openInterfaceAction(action==='wheel-open'?interfaceItems[wheelMode][0]:action);
+});
+interfaceHome.addEventListener('keydown',event=>{
+  if(!event.target.closest('.interface-wheel')||!['ArrowLeft','ArrowUp','ArrowRight','ArrowDown'].includes(event.key))return;
+  event.preventDefault();
+  chooseWheel(wheelMode+(['ArrowLeft','ArrowUp'].includes(event.key)?-1:1));
+  interfaceHome.querySelector(`[data-wheel-index="${wheelMode}"]`).focus();
+});
+interfaceHome.addEventListener('pointerdown',event=>{
+  if(event.target.closest('.interface-wheel')&&!event.target.closest('button'))wheelPointer={id:event.pointerId,x:event.clientX};
+});
+interfaceHome.addEventListener('pointerup',event=>{
+  const pointer=wheelPointer;
+  wheelPointer=null;
+  if(!pointer||pointer.id!==event.pointerId)return;
+  const dx=event.clientX-pointer.x;
+  if(Math.abs(dx)>=30)chooseWheel(wheelMode+(dx<0?1:-1));
+});
+interfaceHome.addEventListener('pointercancel',()=>{wheelPointer=null});
+$('#settings').addEventListener('click',event=>{
+  const option=event.target.closest('[data-interface-choice]');
+  if(!option||!Object.hasOwn(INTERFACES,option.dataset.interfaceChoice))return;
+  SET.interfaceMode=option.dataset.interfaceChoice;
+  saveSettings();
+  initInterface();
+  renderSettings();
+});
+function signalInterfaceEdit(){
+  if(!['espectro','mando'].includes(interfaceMode()))return;
+  stage.classList.add('interface-sweep');
+  clearTimeout(interfaceFlash);
+  interfaceFlash=setTimeout(()=>stage.classList.remove('interface-sweep'),420);
+}
+const showBeforeInterface=show;
+show=function(){
+  showBeforeInterface();
+  interfaceHome.hidden=stack.at(-1).v!=='interface';
+  if(!interfaceHome.hidden)renderInterface();
+};
+window.addEventListener('medlom-appearance',initInterface);
+window.addEventListener('medlom-laser-state',()=>{
+  for(const label of interfaceHome.querySelectorAll('.interface-laser'))label.textContent=laserLabel();
+});
 /* ================= start ================= */
 (async()=>{
   await idbOpen();
@@ -3838,7 +4226,9 @@ function roomOpeningForm(type,openingId=null){
   let seeded=null;try{seeded=await getOne('meta','seeded')}catch(e){}
   if(!seeded){try{await seed();await put('meta',{id:'seeded',at:Date.now()})}catch(e){}}
   try{await loadAll()}catch(e){toast('No se pudieron leer las fotos guardadas')}
+  initInterface();
   show();
+  if(!DB.ok)toast("Almacenamiento local no disponible. Vuelve a abrir MedLoM antes de editar.");
   if(cloudsOn().length)scheduleSync(1500);
   try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false){LASER.auto=true;NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}}catch(e){}
   let firstRun=false;try{const g=await getOne('meta','guide');if(!g){firstRun=true;await put('meta',{id:'guide',at:Date.now()});showGuide()}}catch(e){}

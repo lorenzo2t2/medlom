@@ -1,0 +1,17 @@
+{
+  "id": "documented-mercedes-vito-447-compacta",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+  "sourcePages": "Tabla ampliada: todos los datos técnicos",
+  "sourceArchive": "vito-tabla-completa.txt",
+  "sourceSha256": "d104d9084dfc4d1b72a3b2a052385e0e2792297834d0250cee4e813a4764080d",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4895,
+    "exteriorWidth": 2244,
+    "exteriorHeight": 1910,
+    "wheelbase": 3200
+  },
+  "widthConvention": "de ficha con retrovisores",
+  "notes": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+  "validationIssues": []
+}

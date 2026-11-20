@@ -1,0 +1,18 @@
+{
+  "id": "documented-renault-kangoo-furgon-l2-2025",
+  "sourceUrl": "https://cdn.group.renault.com/ren/es/modelos/kangoo-furgon/catalogo/catalogo_renault_kangoo_furgon.pdf",
+  "sourcePages": "17, catálogo agosto 2025",
+  "sourceArchive": "kangoo-furgon-catalogo-es.pdf",
+  "sourceSha256": "39335cfb4c5bb902fdc80484f1bd1627a63d9532acc5c6c103882249cbec06c5",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4910,
+    "exteriorWidth": 1860,
+    "exteriorHeight": 1854,
+    "wheelbase": 3100,
+    "widthWithMirrors": 2159
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Dimensiones nominales de la variante larga L2 del documento enlazado. Configuración visual de puertas orientativa; no es una plantilla de corte.",
+  "validationIssues": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "documented-citroen-jumpy-2014-l1h1",
+  "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+  "sourcePages": "144-145 impresas; PDF146-147",
+  "sourceArchive": "jumpy-2014-es.pdf",
+  "sourceSha256": "0da1293a77ea27ee165ee11e7184629b6cab0d51fc9da206ccc09040a001b4ef",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4805,
+    "exteriorWidth": 1895,
+    "exteriorHeight": 1942,
+    "wheelbase": 3000
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Ancho con varillas sin retrovisores; longitud nominal inferior del intervalo y altura sin asterisco de suspensión.",
+  "validationIssues": []
+}

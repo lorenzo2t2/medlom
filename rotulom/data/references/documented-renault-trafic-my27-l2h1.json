@@ -1,0 +1,17 @@
+{
+  "id": "documented-renault-trafic-my27-l2h1",
+  "sourceUrl": "https://empresas.renault.es/comerciales/trafic-furgon/medidas.html",
+  "sourcePages": "Esquema oficial MY27 L2",
+  "sourceArchive": "trafic-my27-l2.webp",
+  "sourceSha256": "78633f44d76e2fe95119588142cdd88eb19fc0d7dc4b93be7d95b9c063ed4be4",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5502,
+    "exteriorWidth": 1956,
+    "exteriorHeight": 1979,
+    "wheelbase": 3498
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+  "validationIssues": []
+}

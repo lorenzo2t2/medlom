@@ -1,0 +1,17 @@
+{
+  "id": "documented-peugeot-boxer-2015-l3h3",
+  "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+  "sourcePages": "172-175 impresas; PDF174-177",
+  "sourceArchive": "boxer-2015-es.pdf",
+  "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5998,
+    "exteriorWidth": 2050,
+    "exteriorHeight": 2764,
+    "wheelbase": 4035
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas nominales de la variante indicada. Ilustración orientativa para presentación y presupuesto.",
+  "validationIssues": []
+}

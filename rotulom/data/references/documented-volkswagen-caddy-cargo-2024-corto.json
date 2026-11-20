@@ -1,0 +1,17 @@
+{
+  "id": "documented-volkswagen-caddy-cargo-2024-corto",
+  "sourceUrl": "https://www.volkswagen-comerciales.es/idhub/content/dam/onehub_nfz/importers/es/modelos/catalogos/Cata%CC%81logo%20Caddy%20Cargo_Julio24.pdf",
+  "sourcePages": "30-31",
+  "sourceArchive": "caddy-cargo-2024-es.pdf",
+  "sourceSha256": "26c663f7bac9fceedb8da4a8f9da90c15d817c6daad35946610b2b85b550fdd5",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4500,
+    "exteriorWidth": 1855,
+    "exteriorHeight": 1856,
+    "wheelbase": 2755
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Caddy Cargo, no pasajeros. Alturas1856/1860 de la ficha Cargo; cifras nominales con tolerancias del fabricante.",
+  "validationIssues": []
+}

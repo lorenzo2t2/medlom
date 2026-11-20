@@ -1,0 +1,17 @@
+{
+  "id": "documented-fiat-doblo-my26a-l2",
+  "sourceUrl": "https://www.fiat.co.uk/content/dam/fiat2023/professional/uk/tools/pricelist/doblo-and-e-doblo-van.pdf",
+  "sourcePages": "25",
+  "sourceArchive": "doblo-uk-oficial.pdf",
+  "sourceSha256": "af19941bb83f64915ddfd7efad9e726df65c2f34882170898e5b0185561a6a1d",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4753,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1860,
+    "wheelbase": 2975
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Altura nominal1860, extremo superior del intervalo1812–1860. Referencia británicaMY26A.",
+  "validationIssues": []
+}

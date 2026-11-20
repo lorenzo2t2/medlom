@@ -1,0 +1,4 @@
+- Cuatro interfaces elegibles en Ajustes: Espectro, Prisma, Espectro Mando y Prisma Rueda.
+- Las cuatro comparten fotos, proyectos, rotulación, planos y conexión con el medidor láser.
+- Rotulación muestra qué escala se está aplicando. Ajustes explica los protocolos de láser compatibles.
+- Mejoras de guardado, descarte de fotos y controles en pantallas estrechas.
