@@ -1,0 +1,118 @@
+<div class="rot-body medlom-embedded" data-theme="claro">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#presupuestos" aria-label="RotuLoM, inicio"><span class="brand-mark">R</span><span>RotuLoM</span></a>
+      <div class="workspace-switch"><span class="studio-avatar">RL</span><span><b>Estudio de rotulación</b><small>Catálogo local</small></span><span class="switch-chevron">⌄</span></div>
+      <div class="nav-caption">TRABAJO</div>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <button class="nav-item active" data-view="presupuestos"><span class="nav-icon">▤</span><span>Cálculo de material</span><span class="nav-count" id="navQuoteCount">0</span></button>
+        <button class="nav-item" data-view="vehiculos"><span class="nav-icon">▣</span><span>Vehículos</span><span class="nav-count" id="navVehicleCount">0</span></button>
+        <button class="nav-item" data-view="medir"><span class="nav-icon">⌗</span><span>Medir mockup</span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="library-meter"><div class="meter-label"><b>Base de vehículos</b><span id="coverageLabel">Inicial</span></div><div class="meter-track"><i></i></div><small>Se amplía importando fichas con fuente y variante.</small></div>
+      <div class="sidebar-user"><span class="user-dot">RL</span><span><b>RotuLoM</b><small>Área de trabajo</small></span><button id="themeQuick" aria-label="Cambiar tema" title="Cambiar tema">◐</button></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>RotuLoM</span><span class="crumb-sep">/</span><b id="currentCrumb">Cálculo de material</b></div>
+        <div class="top-actions">
+          <label class="theme-select-wrap"><span class="sr-only">Tema visual</span><span aria-hidden="true">◐</span><select id="themeSelect" aria-label="Tema visual"><option value="claro">Luz de taller</option><option value="grafito">Grafito</option><option value="bosque">Bosque</option><option value="azul">Azul técnico</option></select></label>
+          <button class="update-pill" id="updateStatus" title="Comprobar actualizaciones"><span class="status-dot"></span><span id="updateLabel">Versión actual</span></button>
+          <button class="install-button" id="installButton" hidden>＋ Instalar app</button>
+          <button class="icon-button" id="checkUpdateButton" aria-label="Comprobar actualizaciones" title="Comprobar actualizaciones">⟳</button>
+          <div class="user-avatar">RL</div>
+        </div>
+      </header>
+
+      <section class="view active" id="view-presupuestos">
+        <div class="page-heading">
+          <div><div class="eyebrow"><span class="eyebrow-dot"></span> ROTULACIÓN · PRESUPUESTOS</div><h1>Convierte cada idea en un presupuesto claro.</h1><p>Elige la configuración del vehículo, mide el diseño y calcula materiales y mano de obra.</p></div>
+          <button class="button button-primary" id="newQuoteButton"><span>＋</span> Nuevo presupuesto</button>
+        </div>
+        <div class="summary-grid">
+          <article class="summary-card"><div class="summary-top"><span>Fichas de vehículos</span><span class="summary-symbol sage">▣</span></div><strong id="vehicleTotal">0</strong><small id="vehicleCoverage">Incluye modelo, versión y fuente</small></article>
+          <article class="summary-card"><div class="summary-top"><span>Presupuestos guardados</span><span class="summary-symbol sand">▤</span></div><strong id="quoteTotal">0</strong><small>Guardados en esta base SQLite</small></article>
+          <article class="summary-card highlight-card"><div class="summary-top"><span>Última estimación</span><span class="summary-symbol lime">↗</span></div><strong id="lastEstimate">—</strong><small>IVA incluido · editable antes de guardar</small></article>
+        </div>
+
+        <div class="section-bar"><div><h2>Nuevo presupuesto</h2><p>Tarifas orientativas editables. Ajusta los valores a tu taller.</p></div><button class="text-button" id="openMeasure">Medir un mockup <span>↗</span></button></div>
+        <div class="quote-layout">
+          <section class="panel quote-form-panel">
+            <div class="panel-title"><span class="step-mark">01</span><div><h3>Vehículo y trabajo</h3><p>Las medidas dependen de la generación y la carrocería.</p></div></div>
+            <div class="form-grid">
+              <div class="field span-2"><label for="quoteVehicle">Vehículo</label><select id="quoteVehicle"><option value="">Selecciona marca, modelo y versión</option></select><small id="quoteVehicleInfo">La base guarda las medidas exteriores y de carga publicadas.</small></div>
+              <div class="field"><label for="customerName">Cliente</label><input id="customerName" type="text" placeholder="Nombre o empresa" maxlength="100"></div>
+              <div class="field"><label for="serviceType">Tipo de trabajo</label><select id="serviceType"><option>Rotulación parcial</option><option>Rotulación integral</option><option>Vinilo impreso</option><option>Vinilo de corte</option><option>Diseño y montaje</option></select></div>
+              <div class="field"><label for="designWidth">Ancho del diseño (mm)</label><input id="designWidth" type="number" min="0" step="1" placeholder="Medir mockup"></div>
+              <div class="field"><label for="designHeight">Alto del diseño (mm)</label><input id="designHeight" type="number" min="0" step="1" placeholder="Medir mockup"></div>
+              <div class="field"><label for="quoteArea">Superficie estimada (m²)</label><input id="quoteArea" type="number" min="0.01" max="500" step="0.01" value="1.00"></div>
+              <div class="field"><label for="wasteRate">Margen de material (%)</label><input id="wasteRate" type="number" min="0" max="100" step="1" value="15"></div>
+            </div>
+            <div class="pricing-divider"><span>Costes del taller</span><span>EUR · editables</span></div>
+            <div class="form-grid pricing-grid">
+              <div class="field"><label for="materialRate">Vinilo por m²</label><div class="input-suffix"><input id="materialRate" type="number" min="0" step="0.01" value="30"><span>€/m²</span></div></div>
+              <div class="field"><label for="laborHours">Horas de montaje</label><div class="input-suffix"><input id="laborHours" type="number" min="0" step="0.25" value="2"><span>h</span></div></div>
+              <div class="field"><label for="laborRate">Mano de obra</label><div class="input-suffix"><input id="laborRate" type="number" min="0" step="0.01" value="35"><span>€/h</span></div></div>
+              <div class="field"><label for="designFee">Diseño y preparación</label><div class="input-suffix"><input id="designFee" type="number" min="0" step="0.01" value="0"><span>€</span></div></div>
+              <div class="field"><label for="prepFee">Preparación del vehículo</label><div class="input-suffix"><input id="prepFee" type="number" min="0" step="0.01" value="0"><span>€</span></div></div>
+              <div class="field"><label for="taxRate">IVA</label><div class="input-suffix"><input id="taxRate" type="number" min="0" max="100" step="0.1" value="21"><span>%</span></div></div>
+            </div>
+          </section>
+          <aside class="panel price-panel">
+            <div class="price-top"><span class="price-icon">€</span><div><h3>Resumen</h3><p id="quoteVehicleLabel">Selecciona un vehículo</p></div></div>
+            <div class="price-line"><span>Vinilo y desperdicio</span><b id="materialCost">0,00 €</b></div>
+            <div class="price-line"><span>Montaje</span><b id="laborCost">0,00 €</b></div>
+            <div class="price-line"><span>Diseño y preparación</span><b id="designPrepCost">0,00 €</b></div>
+            <div class="price-line"><span>Subtotal</span><b id="subtotal">0,00 €</b></div>
+            <div class="price-line muted-line"><span id="taxLabel">IVA (21%)</span><span id="taxAmount">0,00 €</span></div>
+            <div class="price-total"><span>Total estimado</span><strong id="totalPrice">0,00 €</strong></div>
+            <div class="estimate-note"><span>ⓘ</span><span>La superficie sale del mockup o de tu entrada. Confírmala antes de enviar el presupuesto.</span></div>
+            <div class="button-stack"><button class="button button-primary wide" id="saveQuoteButton">Guardar presupuesto</button><button class="button button-secondary wide" id="printQuoteButton">Imprimir / Guardar PDF</button></div>
+            <div class="quote-number" id="quoteSaveNote" role="status"></div>
+          </aside>
+        </div>
+        <div class="section-bar recent-bar"><div><h2>Presupuestos recientes</h2><p id="recentQuoteCount">Todavía no hay presupuestos guardados.</p></div></div>
+        <div class="recent-quotes" id="recentQuotes"></div>
+      </section>
+
+      <section class="view" id="view-vehiculos">
+        <div class="page-heading compact-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> CATÁLOGO</div><h1>Vehículos y medidas</h1><p>Consulta la fuente y la configuración exacta de cada ficha.</p></div><div class="heading-actions"><a class="button button-secondary" href="/data/vehiculos_importar.csv" download>Descargar plantilla CSV</a><button class="button button-primary" id="importVehiclesButton">＋ Importar catálogo</button><input type="file" id="vehicleCsv" accept=".csv,text/csv" hidden></div></div>
+        <div class="catalog-notice" id="catalogNotice"><span>i</span><div><b>Catálogo progresivo: coches, furgonetas y vehículos con caja.</b> Cobertura completa desde 2005 pendiente de incorporar fuentes y plantillas técnicas. Cada dimensión debe incluir su fuente y su variante.</div></div>
+        <div class="catalog-toolbar"><div class="search-box"><span>⌕</span><input id="vehicleSearch" type="search" placeholder="Buscar marca, modelo o generación…"></div><div class="filters" role="group" aria-label="Filtrar categoría"><button class="filter-chip active" data-category="">Todos</button><button class="filter-chip" data-category="Coche">Coches</button><button class="filter-chip" data-category="Furgoneta">Furgonetas</button><button class="filter-chip" data-category="Furgoneta con caja">Con caja</button></div><span class="catalog-count" id="catalogCount">0 fichas</span></div>
+        <div class="catalog-facets"><label>Marca<select id="catalogMake"><option value="">Todas las marcas</option></select></label><label>Año de referencia<select id="catalogYear"><option value="">Todos los años</option></select></label><label>Tipo de fuente<select id="catalogSource"><option value="">Todas las fuentes</option><option value="fabricante">Fabricante</option><option value="fuente_secundaria">Fuente secundaria</option></select></label><label>Imágenes<select id="catalogPhoto"><option value="">Todas las imágenes</option><option value="profile">Foto de perfil disponible</option><option value="reference">Solo referencia de catálogo</option></select></label><span>Los años indican la referencia o el intervalo publicado; no garantizan todas las variantes.</span></div>
+        <div class="vehicle-grid" id="vehicleGrid" aria-live="polite"></div>
+        <div id="catalogPagination" class="catalog-pagination"></div>
+        <div class="catalog-detail panel" id="vehicleDetail" hidden></div>
+      </section>
+
+      <section class="view" id="view-medir">
+        <div class="page-heading compact-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> MEDICIÓN VISUAL</div><h1>Sube el mockup. Ajusta el área. Mide.</h1><p>La app propone una zona y calcula dimensiones usando una referencia conocida.</p></div></div>
+        <div class="measure-layout">
+          <section class="panel measure-panel">
+            <div class="panel-title"><span class="step-mark">01</span><div><h3>Foto del vehículo con el mockup</h3><p>Una vista lateral o poco inclinada da una estimación más útil.</p></div></div>
+            <label class="upload-zone" for="mockupFile" id="uploadZone"><span class="upload-symbol">↑</span><b>Elige una imagen</b><span>JPG, PNG o WebP · se procesa en este dispositivo</span><input id="mockupFile" type="file" accept="image/png,image/jpeg,image/webp" hidden></label>
+            <div class="image-frame" id="imageFrame" hidden><canvas id="measureCanvas" aria-label="Imagen cargada. Usa el ratón o el dedo para marcar medidas"></canvas><div class="image-hint" id="imageHint">Sube una imagen para empezar.</div></div>
+            <div class="measure-tools" id="measureTools" hidden>
+              <button class="tool-button active" id="detectDesignButton">✦ Detectar diseño</button>
+              <button class="tool-button" id="markDesignButton">▱ Ajustar área</button>
+              <button class="tool-button" id="calibrateButton">↔ Marcar referencia</button>
+              <button class="tool-button text-button" id="clearImageButton">Quitar foto</button>
+            </div>
+            <div class="detect-status" id="detectStatus" role="status">La detección automática es preliminar. Ajusta el rectángulo para excluir partes que no se van a rotular.</div>
+          </section>
+          <aside class="panel calibration-panel">
+            <div class="panel-title"><span class="step-mark">02</span><div><h3>Escala y dimensiones</h3><p>Convierte píxeles a milímetros con una medida real.</p></div></div>
+            <div class="field"><label for="measureVehicle">Vehículo de referencia</label><select id="measureVehicle"><option value="">Selecciona vehículo (opcional)</option></select><small>La longitud se rellena desde la ficha elegida.</small></div>
+            <div class="field"><label for="knownLength">Longitud de la referencia marcada</label><div class="input-suffix"><input id="knownLength" type="number" min="1" step="1" placeholder="Marca dos puntos primero"><span>mm</span></div><small>Marca en la foto dos puntos cuya distancia real conoces, por ejemplo el largo visible del vehículo.</small></div>
+            <div class="measure-results" id="measureResults"><div class="empty-result"><span>⌗</span><b>Esperando imagen y escala</b><small>Después de marcar el diseño y la referencia, verás ancho, alto y superficie.</small></div></div>
+            <button class="button button-primary wide" id="useMeasurementButton" disabled>Usar medidas en el presupuesto</button>
+            <p class="calibration-warning">El cálculo es aproximado. Perspectiva, carrocería y selección manual pueden cambiar el resultado. La imagen no se guarda en el servidor.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+</div>

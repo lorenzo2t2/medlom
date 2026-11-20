@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.4";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.5";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -479,6 +479,8 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 :root[data-look] body{background:var(--bg);background-image:var(--look-tex,none),var(--look-grad);background-attachment:fixed}
 :root[data-look] .tabs{background:transparent}
 :root[data-look] header.top,:root[data-look] .toolbar,:root[data-look] footer.bar{background:var(--bar)}
+:root[data-look="if-prisma"] header.top,:root[data-look="if-rueda"] header.top{--muted:#3d1409;--accent:#211915;--accent-text:#211915;--fg:#211915;border-bottom:2px solid #22190e}
+:root[data-look="if-prisma"] .toolbar,:root[data-look="if-rueda"] .toolbar,:root[data-look="if-prisma"] footer.bar,:root[data-look="if-rueda"] footer.bar{background:var(--panel);border-top:2px solid #22190e}
 :root[data-upper] :is(h2,.brand b,.tabs button,.sgroup h3){text-transform:uppercase;letter-spacing:.04em}
 :root[data-look] body{font-size-adjust:.52}
 :root[data-tex="renglones"]{--look-tex:linear-gradient(90deg,transparent 46px,#e57373aa 46px 47px,transparent 47px),repeating-linear-gradient(transparent 0 27px,var(--lc) 27px 28px)}
@@ -532,6 +534,8 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}.hint{transition:none}.empty::before{animation:none}}
 
 #rotulacion.rot-fullscreen>header{display:none}
+#rotScroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+#rotHost{display:block;min-height:100%}
 
 button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);background:var(--panel)}.rot-job-card.just-saved{outline:2px solid var(--accent);outline-offset:1px}.rot-job-price{color:var(--accent-text);font-weight:700}.rot-pdf-placeholder{display:grid;place-items:center;width:100%;height:100%;font-size:24px;font-weight:700;color:var(--muted)}
 
@@ -1151,15 +1155,26 @@ const CVARS=['--bg','--panel','--raise','--line','--fg','--muted','--accent','--
 function themeColors(){const s=getComputedStyle(document.documentElement),g=(k,d)=>{let v=s.getPropertyValue(k).trim();if(/^#[0-9a-f]{3}$/i.test(v))v='#'+v.slice(1).replace(/./g,'$&$&');return /^#[0-9a-f]{6}$/i.test(v)?v.toLowerCase():d};
   return{accent:g('--accent','#ffb21a'),bg:g('--bg','#141619'),panel:g('--panel','#1d2024'),fg:g('--fg','#ecebe6')}}
 const LOOK_VARS=['--bar','--lc','--acc2','--look-grad'];
+/* Cada interfaz trae su propia paleta y se aplica a TODA la app (galería, ajustes, editor, habitaciones, Rotulación y avisos).
+   Solo la deja de mandar si el usuario activa colores propios. */
+const IF_SKINS={
+  espectro:{bg:'#12101c',panel:'#1d1730',fg:'#faf5ff',accent:'#cb90ff',bar:'#241b35',acc2:'#78f5ec'},
+  mando:{bg:'#0d1420',panel:'#15222f',fg:'#eaf8ff',accent:'#78f5ec',bar:'#173741',acc2:'#d0a2f7'},
+  prisma:{bg:'#f6efdf',panel:'#fff9ec',fg:'#211915',accent:'#f94120',bar:'#f94120',acc2:'#211915'},
+  rueda:{bg:'#f3e7d0',panel:'#fff5df',fg:'#2a1a0e',accent:'#e65b3d',bar:'#f45632',acc2:'#ff9e64'}
+};
 function applyLook(sysDark){
   const R=document.documentElement,c=SET.colors,L=lookById(SET.look);
   CVARS.concat(LOOK_VARS).forEach(k=>R.style.removeProperty(k));
   let dark=null;
   if(c&&c.on){const v=colorVars(c);for(const k in v)R.style.setProperty(k,v[k]);dark=relLum(c.bg)<.2}
+  else if(IF_SKINS[SET.interfaceMode]){const sk=IF_SKINS[SET.interfaceMode],v=colorVars(sk);for(const k in v)R.style.setProperty(k,v[k]);
+    R.style.setProperty('--bar',sk.bar);R.style.setProperty('--lc',v['--line']);R.style.setProperty('--acc2',sk.acc2);R.style.setProperty('--look-grad','none');dark=relLum(sk.bg)<.2}
   else if(L){const lc=lookColors(L,!!sysDark),v=colorVars(lc);for(const k in v)R.style.setProperty(k,v[k]);
     R.style.setProperty('--bar',lc.bar);R.style.setProperty('--lc',lc.line||v['--line']);R.style.setProperty('--acc2',lc.acc2);R.style.setProperty('--look-grad',lc.grad);dark=lc.isDark}
   // complete-theme look: texture, card shape and capital titles (colour styles only change colours)
-  if(L&&!(c&&c.on)){R.dataset.look=L.id;if(L.tex){R.dataset.tex=L.tex;R.dataset.piece=L.pz}else{delete R.dataset.tex;delete R.dataset.piece}if(L.up)R.dataset.upper='1';else delete R.dataset.upper}
+  if(IF_SKINS[SET.interfaceMode]&&!(c&&c.on)){R.dataset.look='if-'+SET.interfaceMode;delete R.dataset.tex;delete R.dataset.piece;delete R.dataset.upper}
+  else if(L&&!(c&&c.on)){R.dataset.look=L.id;if(L.tex){R.dataset.tex=L.tex;R.dataset.piece=L.pz}else{delete R.dataset.tex;delete R.dataset.piece}if(L.up)R.dataset.upper='1';else delete R.dataset.upper}
   else{delete R.dataset.look;delete R.dataset.tex;delete R.dataset.piece;delete R.dataset.upper}
   const fd=fontCss(SET.fontD,'d'),fb=fontCss(SET.fontB,'b');
   if(fd&&SET.fontD!=='barlow')R.style.setProperty('--f-display',fd);else R.style.removeProperty('--f-display');
@@ -2719,6 +2734,7 @@ async function renderSettings(){
   </div></div>
   ${interfaceSettingsGroup()}
   <div class="sgroup"><h3>Apariencia</h3><div class="scard">
+    ${IF_SKINS[SET.interfaceMode]&&!(SET.colors&&SET.colors.on)?'<div class="srow"><div class="sl"><b>Colores de la interfaz</b><small>Con esta interfaz los colores y el aspecto los marca ella en toda la app. Para usar los temas de aquí abajo, elige «Clásica» o activa colores propios.</small></div></div>':''}
     <div class="srow lookrow"><div class="sl"><b>Temas completos</b><small>Cambian también las letras, el fondo y las tarjetas.${SET.look&&lookById(SET.look)&&lookById(SET.look).tex?' Toca el tema elegido otra vez para quitarlo.':''}</small></div><div class="looks" role="group" aria-label="Temas completos">${LOOKS_FULL.map(lookCard).join('')}</div></div>
     <div class="srow lookrow"><div class="sl"><b>Estilos de color</b><small>Solo cambian los colores; siguen el modo claro u oscuro del sistema.</small></div><div class="looks" role="group" aria-label="Estilos de color">${LOOKS_COLOR.map(lookCard).join('')}</div></div>
     ${row(SET.look?'Temas clásicos':'Tema',SET.look?'Elige uno para volver a los temas de siempre.':'Elige el aspecto de la app. Automático sigue el sistema.',segH(SET.look?'temaClasico':'tema',[
@@ -3239,7 +3255,7 @@ $('#fileZip').addEventListener('change',async e=>{
     try{await commitBackupPlan(plan);}catch(e){if(previousMaterials===null)localStorage.removeItem('rotulom-materials');else localStorage.setItem('rotulom-materials',previousMaterials);throw e;}
     const catalogue=plan.meta.find(x=>x.id==='rot:catalog');if(catalogue)localStorage.setItem('rotulom-mobile-vehicles-v1',JSON.stringify(Object.fromEntries(catalogue.vehicles.map(v=>[v.id,v]))));
     await loadAll();SET=restoredSettings;saveSettings();applySettings();loadStyle();lastUnit=SET.unit||'cm';
-    if(data.rotulacion)localStorage.setItem('rotulom-clickprinting-v1','1');if(rotFrame?.getAttribute('src'))rotFrame.contentWindow.location.reload();
+    if(data.rotulacion)localStorage.setItem('rotulom-clickprinting-v1','1');if(rotMounted)rotFrame.contentWindow.location.reload();
     m2.close(true);toast(`Restauradas ${nF} fotos y ${nP} proyectos`);scheduleSync();
     if(!$('#settings').hidden)renderSettings();
   }catch(err){document.getElementById('rotFrame')?.contentWindow?.rotulomJobs?.resume();if(m2)m2.close(true);m.close(true);toast('No se pudo restaurar: '+err.message)}
@@ -3519,30 +3535,152 @@ async function seed(){
   await put('projects',proj);
 }
 
-/* Rotulación: módulo local; comparte instalación y actualizaciones con MedLoM. */
+/* Rotulación: forma parte de MedLoM. Se monta dentro de esta misma pantalla (sin marco aparte): sus estilos van en un
+   "shadow DOM" para no mezclarse con los de MedLoM y se comunica con el resto de la app por un canal interno. */
 const rotView=document.createElement('section');rotView.className='view';rotView.id='rotulacion';rotView.hidden=true;
-rotView.innerHTML='<header class="top band"><button id="rotBack" class="btn ghost" aria-label="Volver a MedLoM">← <span class="rot-back-label">MedLoM</span></button><div class="brand"><b>Rotulación</b></div><button id="rotSettings" class="btn ghost">Ajustes</button></header><iframe id="rotFrame" title="Rotulación y cálculo de material" allow="clipboard-write" style="flex:1;width:100%;min-height:0;border:0"></iframe>';
+rotView.innerHTML='<header class="top band"><button id="rotBack" class="btn ghost" aria-label="Volver a MedLoM">← <span class="rot-back-label">MedLoM</span></button><div class="brand"><b>Rotulación</b></div><button id="rotSettings" class="btn ghost">Ajustes</button></header><div id="rotScroll"><div id="rotHost"></div></div><div id="rotFrame" hidden></div>';
 document.querySelector('.app').append(rotView);
-let rotReady=false,rotPendingMaterials=false;
-function openRotulacion(materials=false){rotPendingMaterials=materials;if(!$('#rotFrame').getAttribute('src'))$('#rotFrame').src='./rotulom/index.html';pushView({v:'rotulacion'});if(rotReady&&materials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);}
-$('#rotBack').onclick=requestBack;$('#rotSettings').onclick=()=>$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow||e.data?.type!=='medlom-rotulacion-ready')return;rotReady=true;$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);if(rotPendingMaterials)$('#rotFrame').contentWindow.postMessage({type:'medlom-materials'},location.origin);});
-const baseShowRot=show;show=function(){baseShowRot();rotView.hidden=stack[stack.length-1].v!=='rotulacion';if(!rotView.hidden&&rotReady){$('#rotFrame').contentWindow.postMessage({type:'medlom-theme'},location.origin);$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);}};
-
+let rotReady=false,rotPendingMaterials=false,rotMounted=false,rotMounting=null;
+const rotHostEl=$('#rotHost'),rotScroll=$('#rotScroll'),rotShadow=rotHostEl.attachShadow({mode:'open'});
+const rotListeners=[],rotRemovers=[];
+/* Canal MedLoM <-> Rotulación: lo que antes viajaba por postMessage entre dos ventanas ahora se entrega directamente. */
+const rotParent={
+  postMessage(msg){const ev=new MessageEvent('message',{data:msg,origin:location.origin});ev.fromRot=true;window.dispatchEvent(ev);},
+  document,location
+};
+const rotWin={
+  postMessage(msg){for(const fn of rotListeners.slice()){try{fn({data:msg,origin:location.origin,source:rotParent});}catch(err){console.error(err);}}},
+  get rotulomJobs(){return window.rotulomJobs;},
+  get rotulomNavigation(){return window.rotulomNavigation;},
+  location:{reload(){return remountRotulacion();}}
+};
+const rotFrame=$('#rotFrame');
+Object.defineProperty(rotFrame,'contentWindow',{get:()=>rotWin});
+const rotVisible=()=>!rotView.hidden;
+function syncRotTheme(){
+  const R=document.documentElement,h=rotHostEl,st=R.style;
+  h.dataset.medlomTheme='1';
+  for(const a of ['look','tex','piece','upper','btn','btnfill','interface']){if(R.dataset[a]!==undefined)h.dataset[a]=R.dataset[a];else delete h.dataset[a];}
+  const fb=st.getPropertyValue('--f-body').trim(),fd=st.getPropertyValue('--f-display').trim();
+  h.toggleAttribute('data-fb',!!fb);h.toggleAttribute('data-fd',!!fd);h.toggleAttribute('data-fw',/Press Start|Orbitron/.test(fd));
+  try{const bs=getComputedStyle(document.body);for(const k of ['Image','Size','Position','Attachment'])h.style.setProperty('--r-medlom-bg-'+k.toLowerCase(),bs['background'+k]);}catch(e){}
+}
+/* El código de Rotulación se ejecuta con su propio "document", "window" y "localStorage" que apuntan a esta pantalla. */
+function rotContext(){
+  const realDoc=document,realWin=window,realLS=localStorage;
+  const rotBody=rotShadow.querySelector('.rot-body');
+  const GUARDED=['keydown','keyup','paste','dragenter','dragover','dragleave','drop'];
+  const retarget=ev=>new Proxy(ev,{get(t,p){if(p==='target')return (t.composedPath&&t.composedPath()[0])||t.target;const v=t[p];return typeof v==='function'?v.bind(t):v;}});
+  const track=(target,kind)=>{
+    const map=new Map();
+    return{
+      add(type,fn,opts){
+        if(type==='message'&&kind==='window'){rotListeners.push(fn);return;}
+        const wrapped=GUARDED.includes(type)?(ev=>{if(rotVisible())fn(retarget(ev));}):fn;
+        map.set(fn,wrapped);target.addEventListener(type,wrapped,opts);
+        rotRemovers.push(()=>target.removeEventListener(type,wrapped,opts));
+      },
+      remove(type,fn,opts){
+        if(type==='message'&&kind==='window'){const i=rotListeners.indexOf(fn);if(i>=0)rotListeners.splice(i,1);return;}
+        target.removeEventListener(type,map.get(fn)||fn,opts);
+      }
+    };
+  };
+  const winEvents=track(realWin,'window'),docEvents=track(realDoc,'document');
+  const bindFn=(t,v)=>typeof v==='function'&&!/^[A-Z]/.test(v.name||'')?v.bind(t):v;
+  const rotDocument=new Proxy(realDoc,{
+    get(t,p){
+      switch(p){
+        case 'getElementById':return id=>rotShadow.getElementById(id);
+        case 'querySelector':return s=>rotShadow.querySelector(s);
+        case 'querySelectorAll':return s=>rotShadow.querySelectorAll(s);
+        case 'body':case 'head':return rotBody;
+        case 'documentElement':return rotHostEl;
+        case 'activeElement':return rotShadow.activeElement||null;
+        case 'currentScript':return{src:rotHref};
+        case 'addEventListener':return(type,fn,o)=>docEvents.add(type,fn,o);
+        case 'removeEventListener':return(type,fn,o)=>docEvents.remove(type,fn,o);
+      }
+      return bindFn(t,t[p]);
+    },
+    set(t,p,v){if(p==='title')return true;t[p]=v;return true;}
+  });
+  let rotFetch=realWin.fetch.bind(realWin);
+  const rotHref=new URL('./rotulom/index.html',location.href).href;
+  const rotLocation=new Proxy(realWin.location,{get(t,p){if(p==='href')return rotHref;const v=t[p];return typeof v==='function'?v.bind(t):v;}});
+  const notify=(key,oldValue,newValue)=>{if(String(key).startsWith('rotulom-')){try{window.dispatchEvent(new StorageEvent('storage',{key,oldValue,newValue,storageArea:realLS,url:location.href}));}catch(err){}}};
+  const rotStorage=new Proxy(realLS,{
+    get(t,p){
+      if(p==='setItem')return(k,v)=>{const old=t.getItem(k);t.setItem(k,v);notify(k,old,String(v));};
+      if(p==='removeItem')return k=>{const old=t.getItem(k);t.removeItem(k);notify(k,old,null);};
+      const v=t[p];return typeof v==='function'?v.bind(t):v;
+    },
+    set(t,p,v){t[p]=v;return true;}
+  });
+  const scrollTo=(a,b)=>{if(a&&typeof a==='object')rotScroll.scrollTo(a);else rotScroll.scrollTo(a||0,b||0);};
+  const rotWindow=new Proxy(realWin,{
+    get(t,p){
+      switch(p){
+        case 'window':case 'self':return rotWindow;
+        case 'document':return rotDocument;
+        case 'parent':case 'top':return rotParent;
+        case 'fetch':return rotFetch;
+        case 'localStorage':return rotStorage;
+        case 'location':return rotLocation;
+        case 'scrollTo':return scrollTo;
+        case 'scrollY':case 'pageYOffset':return rotScroll.scrollTop;
+        case 'addEventListener':return(type,fn,o)=>winEvents.add(type,fn,o);
+        case 'removeEventListener':return(type,fn,o)=>winEvents.remove(type,fn,o);
+      }
+      return bindFn(t,t[p]);
+    },
+    set(t,p,v){if(p==='fetch'){rotFetch=v;return true;}t[p]=v;return true;}
+  });
+  const scope={document:rotDocument,window:rotWindow,self:rotWindow,parent:rotParent,localStorage:rotStorage,location:rotLocation,
+    addEventListener:(type,fn,o)=>winEvents.add(type,fn,o),removeEventListener:(type,fn,o)=>winEvents.remove(type,fn,o)};
+  Object.defineProperty(scope,'fetch',{get:()=>rotFetch,enumerable:true});
+  return new Proxy(scope,{has:(t,k)=>typeof k==='string'&&k in t,get:(t,k)=>k===Symbol.unscopables?undefined:t[k]});
+}
+async function mountRotulacion(){
+  if(rotMounting)return rotMounting;
+  rotMounting=(async()=>{
+    const files=await Promise.all(['rot-embed.html','rot-embed.css','rot-embed.js'].map(f=>fetch('./rotulom/'+f).then(r=>{if(!r.ok)throw new Error('No se pudo cargar '+f);return r.text();})));
+    rotShadow.innerHTML='<style>'+files[1]+'</style>'+files[0];
+    syncRotTheme();
+    window.__ROT_EMBED=true;
+    new Function('__rot','with(__rot){'+files[2]+'\n}')(rotContext());
+    rotMounted=true;
+  })().catch(err=>{rotMounting=null;toast('No se pudo abrir Rotulación: '+err.message);throw err;});
+  return rotMounting;
+}
+function remountRotulacion(){
+  if(!rotMounted&&!rotMounting)return Promise.resolve();
+  for(const off of rotRemovers.splice(0))try{off();}catch(err){}
+  rotListeners.length=0;rotMounted=false;rotMounting=null;rotReady=false;rotJobsReady=false;rotShadow.innerHTML='';
+  return mountRotulacion();
+}
+const rotProjects=()=>store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}));
+function openRotulacion(materials=false){rotPendingMaterials=materials;mountRotulacion().catch(()=>{});pushView({v:'rotulacion'});if(rotReady&&materials)rotWin.postMessage({type:'medlom-materials'});}
+$('#rotBack').onclick=requestBack;$('#rotSettings').onclick=()=>rotWin.postMessage({type:'medlom-materials'});
+window.addEventListener('message',e=>{if(!e.fromRot||e.data?.type!=='medlom-rotulacion-ready')return;rotReady=true;rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});if(rotPendingMaterials)rotWin.postMessage({type:'medlom-materials'});});
+const baseShowRot=show;show=function(){baseShowRot();rotView.hidden=stack[stack.length-1].v!=='rotulacion';if(!rotView.hidden&&rotReady){syncRotTheme();rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});}};
+const rotButton=document.createElement('button');rotButton.id='gRotulacion';rotButton.dataset.tab='rotulacion';rotButton.textContent='Rotulación';rotButton.setAttribute('aria-pressed','false');$('#gTabs').append(rotButton);
 
 $('#settings').addEventListener('click',e=>{if(e.target.closest('#openRotMaterials'))openRotulacion(true);});
 
-window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-rotulacion-changed')scheduleSync();});
+window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-rotulacion-changed')scheduleSync();});
 window.addEventListener('storage',e=>{if(e.key==='rotulom-materials'&&e.oldValue!==null){put('meta',{id:'rot:materials',updated:Date.now(),materials:JSON.parse(e.newValue||'[]')}).then(()=>scheduleSync()).catch(()=>toast('No se pudieron guardar los materiales'));}});
 
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow||e.data?.type!=='medlom-export-materials'||typeof e.data.text!=='string'||e.data.text.length>2*1024*1024)return;shareSheet(new Blob([e.data.text],{type:'application/json'}),'MedLoM materiales.json',[]);});
+window.addEventListener('message',e=>{if(!e.fromRot||e.data?.type!=='medlom-export-materials'||typeof e.data.text!=='string'||e.data.text.length>2*1024*1024)return;shareSheet(new Blob([e.data.text],{type:'application/json'}),'MedLoM materiales.json',[]);});
 
 window.addEventListener('storage',e=>{if(e.key==='rotulom-mobile-vehicles-v1'){try{put('meta',{id:'rot:catalog',updated:Date.now(),vehicles:Object.values(JSON.parse(e.newValue||'{}'))}).then(()=>scheduleSync()).catch(()=>toast('No se pudo guardar el catálogo propio'));}catch(err){toast('Catálogo propio no válido');}}});
 
-window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-request-projects')$('#rotFrame').contentWindow.postMessage({type:'medlom-projects',projects:store.projects.filter(p=>!isSampleProj(p)).map(p=>({id:p.id,name:p.name}))},location.origin);});
+window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-request-projects')rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});});
 
-window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===$('#rotFrame').contentWindow&&e.data?.type==='medlom-editor-fullscreen')rotView.classList.toggle('rot-fullscreen',e.data.active===true);});
-const originalRotBack=window.__medlomBack;window.__medlomBack=()=>{const editor=$('#rotFrame').contentWindow?.rotulomNavigation;if(stack[stack.length-1].v==='rotulacion'&&editor?.fullscreen()){editor.showStep(0);return true;}return originalRotBack();};
+window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-editor-fullscreen')rotView.classList.toggle('rot-fullscreen',e.data.active===true);});
+const originalRotBack=window.__medlomBack;window.__medlomBack=()=>{const editor=rotMounted?window.rotulomNavigation:null;if(stack[stack.length-1].v==='rotulacion'&&editor?.fullscreen()){editor.showStep(0);return true;}return originalRotBack();};
+syncRotTheme();
+window.addEventListener('medlom-appearance',()=>setTimeout(syncRotTheme,0));
 function validRotRecord(r){return !!r&&typeof r.id==='string'&&/^rot:(materials$|catalog$|job:[a-zA-Z0-9-]+$)/.test(r.id)&&Number.isFinite(r.updated)&&(r.deleted===true||(r.id==='rot:materials'?Array.isArray(r.materials):r.id==='rot:catalog'?Array.isArray(r.vehicles):r.session?.version===1&&Array.isArray(r.session.docs)));}
 function rotRemoteWins(local,remote){return validRotRecord(remote)&&(!local||(remote.updated||0)>(local.updated||0));}
 async function rotRecords(){return(await getAll('meta')).filter(r=>r.id.startsWith('rot:'));}
@@ -3622,12 +3760,12 @@ $('#gallery').addEventListener('click',e=>{
   else if(act==='rotdel')deleteRotJobs([...selected]).catch(()=>toast('No se pudo eliminar'));
 });
 window.addEventListener('message',e=>{
-  if(e.origin!==location.origin||e.source!==$('#rotFrame').contentWindow)return;
+  if(e.origin!==location.origin||!e.fromRot)return;
   if(e.data?.type==='medlom-rotulacion-ready')rotJobsReady=false;
   if(e.data?.type==='medlom-jobs-ready'){rotJobsReady=true;sendRotJobAction();}
   if(e.data?.type==='medlom-job-saved'){
     rotSavedHighlight=String(e.data.id||'');stack.splice(1);pushed=0;try{history.replaceState({cf:1},'');}catch(err){}
-    tab='rotulacion';exitSel();rotView.classList.remove('rot-fullscreen');show();toast('Trabajo guardado en Rotulación');
+    tab='rotulacion';exitSel();rotView.classList.remove('rot-fullscreen');if(stack[0].v==='interface')pushView({v:'gallery',scope:null});else show();toast('Trabajo guardado en Rotulación');
   }
   if(e.data?.type==='medlom-rotulacion-changed'&&tab==='rotulacion'&&stack[stack.length-1].v==='gallery')renderRotGallery();
 });
@@ -4198,6 +4336,7 @@ $('#settings').addEventListener('click',event=>{
   if(!option||!Object.hasOwn(INTERFACES,option.dataset.interfaceChoice))return;
   SET.interfaceMode=option.dataset.interfaceChoice;
   saveSettings();
+  applySettings();
   initInterface();
   renderSettings();
 });

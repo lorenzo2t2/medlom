@@ -21,7 +21,7 @@
  };
  function theme(){
   try{
-   if(parent===window)return;
+   if(window.__ROT_EMBED||parent===window)return;
    const source=parent.document,parentRoot=source.documentElement;
    const ref=parent.getComputedStyle(parentRoot),body=parent.getComputedStyle(source.body);
    for(const [to,from] of Object.entries(tokens)){

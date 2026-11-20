@@ -1,13 +1,14 @@
 {
- "versionCode": 73,
- "versionName": "0.50.4",
+ "versionCode": 74,
+ "versionName": "0.50.5",
  "apk": "MedLoM.apk",
- "size": 21508919,
- "sha256": "f114f86c9410af4b4d74c0e5896788fd5bf6d54f06d356d79ef2600636e9ba02",
+ "size": 21577558,
+ "sha256": "fc95a51b40d941c6279f6384c82a3cc90fcdf7fa0e7de43f65fd6e16871b5e72",
  "notes": [
-  "Cuatro interfaces elegibles en Ajustes: Espectro, Prisma, Espectro Mando y Prisma Rueda.",
-  "Las cuatro comparten fotos, proyectos, rotulación, planos y conexión con el medidor láser.",
-  "Rotulación muestra qué escala se está aplicando. Ajustes explica los protocolos de láser compatibles.",
-  "Mejoras de guardado, descarte de fotos y controles en pantallas estrechas."
+  "Rotulación ahora forma parte de MedLoM: se abre dentro de la misma pantalla, sin marco aparte, y usa sus mismos colores, letras y formas.",
+  "Cada interfaz (Espectro, Prisma, Espectro Mando y Prisma Rueda) cambia ahora toda la app: galería, ajustes, editor, habitaciones, Rotulación y avisos, no solo la pantalla de inicio.",
+  "Al guardar un trabajo de rotulación con una interfaz especial, se abre la lista de trabajos con el nuevo resaltado.",
+  "Mejor legibilidad de títulos, botones y campos con los colores de cada interfaz.",
+  "La versión web (iPhone y PC) incluye lo mismo que la de Android."
  ]
 }
