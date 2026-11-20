@@ -1,12 +1,14 @@
 {
- "versionCode": 75,
- "versionName": "0.50.6",
+ "versionCode": 76,
+ "versionName": "0.51.0",
  "apk": "MedLoM.apk",
- "size": 21680614,
- "sha256": "4566bf865f9717c5c61647453f8ea502dfdfcc7ca37990248177a2c662d52e53",
+ "size": 21697608,
+ "sha256": "897ea3894a283e56142049e0b8118fce1c326907340e6f4887730dee86fa0f42",
  "notes": [
-  "La pantalla de inicio de las interfaces nuevas enseña una imagen de muestra a todo color: una furgoneta rotulada con sus medidas.",
-  "La imagen de muestra se ve más grande en Espectro, Prisma, Espectro Mando y Prisma Rueda.",
-  "Si solo tienes la foto de ejemplo, ya no aparece su nombre sobre la imagen."
+  "Nuevo «Mockup con diseño» en Rotulación: coloca un PDF, un SVG o una imagen sobre la plantilla o la foto del vehículo.",
+  "Muévelo, agrándalo y gíralo con el dedo (con dos dedos o con las esquinas); también hay deslizadores de tamaño, giro y opacidad.",
+  "«Curvar para adaptar» deforma el diseño con una malla de puntos para seguir las curvas de la carrocería.",
+  "El diseño se mezcla con las sombras y molduras del vehículo y se recorta fuera de la carrocería en las plantillas.",
+  "Guarda o comparte el mockup como imagen para enseñárselo al cliente."
  ]
 }

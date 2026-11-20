@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.50.6";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -536,6 +536,7 @@ body.in-editor .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 #rotulacion.rot-fullscreen>header{display:none}
 #rotScroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
 #rotHost{display:block;min-height:100%}
+#rotulacion{isolation:isolate}
 
 button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);background:var(--panel)}.rot-job-card.just-saved{outline:2px solid var(--accent);outline-offset:1px}.rot-job-price{color:var(--accent-text);font-weight:700}.rot-pdf-placeholder{display:grid;place-items:center;width:100%;height:100%;font-size:24px;font-weight:700;color:var(--muted)}
 
@@ -3678,6 +3679,7 @@ $('#settings').addEventListener('click',e=>{if(e.target.closest('#openRotMateria
 window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-rotulacion-changed')scheduleSync();});
 window.addEventListener('storage',e=>{if(e.key==='rotulom-materials'&&e.oldValue!==null){put('meta',{id:'rot:materials',updated:Date.now(),materials:JSON.parse(e.newValue||'[]')}).then(()=>scheduleSync()).catch(()=>toast('No se pudieron guardar los materiales'));}});
 
+window.addEventListener('message',e=>{if(!e.fromRot||e.data?.type!=='medlom-export-image'||!(e.data.blob instanceof Blob)||e.data.blob.size>60*1024*1024)return;shareSheet(e.data.blob,String(e.data.name||'Mockup.png').slice(0,120),[]);});
 window.addEventListener('message',e=>{if(!e.fromRot||e.data?.type!=='medlom-export-materials'||typeof e.data.text!=='string'||e.data.text.length>2*1024*1024)return;shareSheet(new Blob([e.data.text],{type:'application/json'}),'MedLoM materiales.json',[]);});
 
 window.addEventListener('storage',e=>{if(e.key==='rotulom-mobile-vehicles-v1'){try{put('meta',{id:'rot:catalog',updated:Date.now(),vehicles:Object.values(JSON.parse(e.newValue||'{}'))}).then(()=>scheduleSync()).catch(()=>toast('No se pudo guardar el catálogo propio'));}catch(err){toast('Catálogo propio no válido');}}});
@@ -3685,7 +3687,7 @@ window.addEventListener('storage',e=>{if(e.key==='rotulom-mobile-vehicles-v1'){t
 window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-request-projects')rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});});
 
 window.addEventListener('message',e=>{if(e.fromRot&&e.data?.type==='medlom-editor-fullscreen')rotView.classList.toggle('rot-fullscreen',e.data.active===true);});
-const originalRotBack=window.__medlomBack;window.__medlomBack=()=>{const editor=rotMounted?window.rotulomNavigation:null;if(stack[stack.length-1].v==='rotulacion'&&editor?.fullscreen()){editor.showStep(0);return true;}return originalRotBack();};
+const originalRotBack=window.__medlomBack;window.__medlomBack=()=>{if(rotMounted&&stack[stack.length-1].v==='rotulacion'&&window.rotulomMockup?.isOpen()){window.rotulomMockup.close();return true;}const editor=rotMounted?window.rotulomNavigation:null;if(stack[stack.length-1].v==='rotulacion'&&editor?.fullscreen()){editor.showStep(0);return true;}return originalRotBack();};
 syncRotTheme();
 window.addEventListener('medlom-appearance',()=>setTimeout(syncRotTheme,0));
 function validRotRecord(r){return !!r&&typeof r.id==='string'&&/^rot:(materials$|catalog$|job:[a-zA-Z0-9-]+$)/.test(r.id)&&Number.isFinite(r.updated)&&(r.deleted===true||(r.id==='rot:materials'?Array.isArray(r.materials):r.id==='rot:catalog'?Array.isArray(r.vehicles):r.session?.version===1&&Array.isArray(r.session.docs)));}

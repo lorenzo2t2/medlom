@@ -291,6 +291,6 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
   function refreshMaterials(){materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]');materialLibrary();}
   async function jobThumbnail(){const d=current();if(!d)return null;const image=document.createElement('canvas'),scale=Math.min(360/d.image.width,280/d.image.height,1);image.width=Math.max(1,Math.round(d.image.width*scale));image.height=Math.max(1,Math.round(d.image.height*scale));const g=image.getContext('2d');g.drawImage(d.image,0,0,image.width,image.height);g.strokeStyle='#27b778';g.lineWidth=2;for(const z of d.zones)g.strokeRect(z.x*scale,z.y*scale,z.w*scale,z.h*scale);return new Promise(resolve=>image.toBlob(resolve,'image/jpeg',.85));}
   function jobSummary(){const c=cost(),v=sourceVehicle();return{documents:state.docs.length,vehicle:v?v.make+' '+v.model:'',area:c.area||0,material:c.material?.name||'',price:c.ready?c.value:null};}
-  window.rotulomSession={export:exportSession,import:importSession,refreshMaterials,thumbnail:jobThumbnail,summary:jobSummary};
+  window.rotulomSession={export:exportSession,import:importSession,refreshMaterials,thumbnail:jobThumbnail,summary:jobSummary,pdfEngine:loadPdfEngine,currentBase:()=>{const d=current();return d?{image:d.image,name:d.name,template:!!d.templatePlane&&!d.pdf}:null;}};
   window.rotulomSimpleCalculation={getTotals:total,getCost:cost};
 })();

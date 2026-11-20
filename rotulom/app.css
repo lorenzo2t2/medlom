@@ -170,3 +170,23 @@ body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-wrap:wrap}
     overscroll-behavior:contain;
   }
 }
+
+/* Mockup con diseño */
+.mockup-overlay{position:fixed;inset:0;z-index:3000;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);outline:0}
+.mockup-overlay[hidden]{display:none}
+.mockup-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:var(--medlom-header,var(--surface));border-bottom:1px solid var(--line)}
+.mockup-bar b{flex:1;text-align:center;font-family:var(--f-display)}
+.mockup-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:repeating-conic-gradient(#8881 0 25%,#0000 0 50%) 0 0/22px 22px}
+.mockup-stage canvas{display:block;max-width:none;box-shadow:0 4px 22px #0006;background:#fff}
+.mockup-hint{position:absolute;left:12px;right:12px;bottom:12px;margin:0;padding:10px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);text-align:center;pointer-events:none}
+.mockup-hint[hidden]{display:none}
+.mockup-panel{display:grid;gap:8px;padding:10px 12px max(12px,env(safe-area-inset-bottom));max-height:46%;overflow:auto;background:var(--surface);border-top:1px solid var(--line)}
+.mockup-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mockup-row select{flex:1;min-width:120px;min-height:44px}
+.mockup-row .tool-button,.mockup-row .button,.mockup-row .text-button{min-height:44px}
+.mockup-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 14px}
+.mockup-sliders label{display:grid;grid-template-columns:96px 1fr 44px;align-items:center;gap:8px;font-size:13px}
+.mockup-sliders input{width:100%;min-width:0}
+.mockup-sliders output{text-align:right;font-variant-numeric:tabular-nums}
+.mockup-help{margin:0;font-size:13px;color:var(--muted)}
+.mockup-toggles [hidden]{display:none}
