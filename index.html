@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.5";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.6";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -833,6 +833,8 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 :root[data-look="if-prisma"] .grid>* *{border-radius:0}
 
 .esp-top small{white-space:nowrap}.esp-top strong{white-space:nowrap}
+.pr-poster h1,.pr-row span{min-width:0;max-width:100%}
+.pr-row{overflow:hidden}
 </style>
 
 <div class="app">
@@ -4852,13 +4854,16 @@ show=function(){
 function fitInterfaceText(){
   const width=el=>{const r=document.createRange();r.selectNodeContents(el);return r.getBoundingClientRect().width};
   const fit=()=>{
+    const full=interfaceHome.clientWidth;if(!full)return;
     const h1=interfaceHome.querySelector('.pr-poster h1');
-    if(h1){h1.style.fontSize='';const cs=getComputedStyle(h1),w=width(h1),avail=h1.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
-      if(w>0&&w>avail*.97)h1.style.fontSize=(parseFloat(cs.fontSize)*avail*.97/w)+'px';}
-    const spans=[...interfaceHome.querySelectorAll('.pr-row span')];
-    if(spans.length){spans.forEach(s=>s.style.fontSize='');let k=1;
-      for(const s of spans){const w=width(s),avail=s.clientWidth;if(w>avail*.97)k=Math.min(k,avail*.97/w);}
-      if(k<1)for(const s of spans)s.style.fontSize=(parseFloat(getComputedStyle(s).fontSize)*k)+'px';}
+    if(h1){h1.style.fontSize='';const w=width(h1),avail=full*.9;
+      if(w>0&&w>avail)h1.style.fontSize=(parseFloat(getComputedStyle(h1).fontSize)*avail/w)+'px';}
+    const rows=[...interfaceHome.querySelectorAll('.pr-row')];
+    if(rows.length){let k=1;
+      for(const r of rows){const s=r.querySelector('span');s.style.fontSize='';
+        const used=(r.querySelector('sup')?.offsetWidth||0)+(r.querySelector('svg')?.getBoundingClientRect().width||0)+56;
+        const avail=Math.max(60,full-used),w=width(s);if(w>avail)k=Math.min(k,avail/w);}
+      if(k<1)for(const r of rows){const s=r.querySelector('span');s.style.fontSize=(parseFloat(getComputedStyle(s).fontSize)*k)+'px';}}
   };
   fit();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(!interfaceHome.hidden)fit();});
