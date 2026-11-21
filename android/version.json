@@ -1,14 +1,11 @@
 {
- "versionCode": 76,
- "versionName": "0.51.0",
+ "versionCode": 77,
+ "versionName": "0.51.1",
  "apk": "MedLoM.apk",
- "size": 21697608,
- "sha256": "897ea3894a283e56142049e0b8118fce1c326907340e6f4887730dee86fa0f42",
+ "size": 21697830,
+ "sha256": "7ff343199d2ac0ea3f50cf4b45e8854efcc8cb606b33c8122edf80eda5f25376",
  "notes": [
-  "Nuevo «Mockup con diseño» en Rotulación: coloca un PDF, un SVG o una imagen sobre la plantilla o la foto del vehículo.",
-  "Muévelo, agrándalo y gíralo con el dedo (con dos dedos o con las esquinas); también hay deslizadores de tamaño, giro y opacidad.",
-  "«Curvar para adaptar» deforma el diseño con una malla de puntos para seguir las curvas de la carrocería.",
-  "El diseño se mezcla con las sombras y molduras del vehículo y se recorta fuera de la carrocería en las plantillas.",
-  "Guarda o comparte el mockup como imagen para enseñárselo al cliente."
+  "Las interfaces nuevas (Espectro, Espectro Mando, Prisma, Prisma Rueda) tienen el mismo aspecto en la pantalla principal y en Trabajos, fotos, ajustes y demás pantallas: botones con relieve y brillo, pestañas, cabeceras y fondo.",
+  "La pantalla principal enseña siempre la misma imagen llamativa (furgoneta rotulada con medidas), ya no la última foto. El botón «Última foto» sigue abriendo la última."
  ]
 }
