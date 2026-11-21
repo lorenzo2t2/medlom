@@ -1,10 +1,10 @@
 {
- "versionCode": 103,
- "versionName": "0.51.17",
+ "versionCode": 105,
+ "versionName": "0.52.0",
  "apk": "MedLoM.apk",
- "size": 21708749,
- "sha256": "ce03919efb3c9e8bc9d4100e04cde07ca656db18b3121e2acb91a650289a73ea",
+ "size": 21715218,
+ "sha256": "4ec62db98e8a42556f9284851ca288d6813c2bdada9a86c7f4073c3b2f1cb444",
  "notes": [
-  "Las plantillas de vehículos comerciales salen solo en Rotulación, no en Nueva foto"
+  "Foto óptima para medir"
  ]
 }

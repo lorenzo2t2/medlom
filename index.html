@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.17";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.52.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1464,7 +1464,7 @@ async function renderAnnotated(rec,maxSide,srcImg,clean){
 const makeThumb=async(rec,src)=>toBlob(await renderAnnotated(rec,480,src),'image/jpeg',0.82);
 
 /* ================= ui helpers: toast, modals, back button ================= */
-let toastT;function toast(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2400)}
+let toastT;function toast(m,ms){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');document.body.appendChild(t)}t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||2400)}
 const modals=[];
 function openModal(html,{bottom=false,onClose}={}){
   const wrap=document.createElement('div');wrap.className='scrim'+(bottom?' bottom':'');wrap.innerHTML=html;document.body.appendChild(wrap);
@@ -1704,14 +1704,14 @@ function openSourcePicker(){
 $('#fileCam').addEventListener('change',e=>handleFiles(e));
 $('#fileIn').addEventListener('change',e=>handleFiles(e));
 async function handleFiles(e){
-  const files=[...e.target.files];e.target.value='';if(!files.length)return;
+  const files=[...e.target.files],fromCam=e.target.id==='fileCam';e.target.value='';if(!files.length)return;
   const pid=scope()||null,made=[];
   const single=files.length===1;
   const m=openModal(`<div class="sheet"><h2>${single?'Abriendo la foto…':'Guardando '+files.length+' fotos…'}</h2><div class="spin"></div></div>`);
   for(const f of files){try{made.push(await importFile(f,pid,!single))}catch(err){toast('No se pudo abrir '+(f.name||'la foto'))}}
   m.close(true);
   if(pid){const p=projById(pid);if(p){p.updated=stamp(p.updated);put('projects',p)}}
-  if(made.length===1){made[0].rec.fresh=true;openEditor(made[0].rec,made[0].canvas)}else{if(made.length)toast(`${made.length} fotos guardadas`);renderGallery()}
+  if(made.length===1){made[0].rec.fresh=true;openEditor(made[0].rec,made[0].canvas);if(fromCam)adviseFoto(made[0].canvas)}else{if(made.length)toast(`${made.length} fotos guardadas`);renderGallery()}
 }
 /* Fast import: decode off the main thread, scale once, open the editor right away and store in the background. */
 const pending=new Map();
@@ -1733,6 +1733,11 @@ async function importFile(f,pid,background){
 }
 async function ready(r){const j=pending.get(r.id);if(j)await j}
 
+
+/* Tras hacer una foto con la cámara: dice si es óptima para medir o cómo mejorarla (nunca bloquea). */
+function adviseFoto(canvas){
+  setTimeout(()=>{try{const a=FotoAuto.analyze(canvas);toast(a.msg,a.level==='ok'?3500:6500)}catch(e){}},700);
+}
 /* ================= export / share ================= */
 let downloads=null;
 if(window.claude&&window.claude.use)window.claude.use('downloads').then(d=>{downloads=d}).catch(()=>{});
@@ -2111,6 +2116,7 @@ function openStraighten(){
       <div class="srow" style="padding:4px 0"><div class="sl"><b>Recortar las esquinas vacías</b><small>Si lo quitas, se rellenan en blanco y no se pierde nada de la foto.</small></div><label class="switch"><input type="checkbox" id="stCrop" checked aria-label="Recortar las esquinas vacías"><i></i></label></div>
     </div>
     <div class="stctl" id="stPersp" hidden>
+      <div class="stline"><button class="btn primary" id="stAutoP">Automático</button><span class="sub" id="stMsgP" role="status" style="flex:1;min-width:120px">Detecta la inclinación y deja la fachada de frente.</span></div>
       <p class="note" style="margin:0">Arrastra las 4 esquinas sobre algo que en la realidad sea rectangular (una pared, una puerta, un azulejo…). La foto se recorta a esa zona vista de frente.</p>
       <div class="stline stdims"><span>Medidas reales (opcional):</span><input type="text" inputmode="decimal" id="stRW" placeholder="Ancho" aria-label="Ancho real"><span>×</span><input type="text" inputmode="decimal" id="stRH" placeholder="Alto" aria-label="Alto real"><select id="stRU" aria-label="Unidad">${['mm','cm','m','in'].map(u=>`<option ${u===lastUnit?'selected':''}>${u}</option>`).join('')}</select></div>
       <div class="srow" style="padding:4px 0"><div class="sl"><b>Ver resultado</b><small>Con medidas reales, la forma sale exacta y la foto queda calibrada.</small></div><label class="switch"><input type="checkbox" id="stRes" aria-label="Ver resultado"><i></i></label></div>
@@ -2163,6 +2169,9 @@ function openStraighten(){
   W$('#stAuto').onclick=async()=>{busy(true);await tick();let a=null;try{a=detectTilt(pv)}catch(err){}busy(false);
     const msg=W$('#stMsg');if(a==null){msg.textContent='No se encontraron líneas claras. Ajusta el giro con el deslizador.';return}
     if(a===0){msg.textContent='La foto ya parece recta.';setAng(0);return}setAng(a);msg.textContent=`Propuesta: ${fmtA(S.ang)}. Revisa la cuadrícula y ajusta si hace falta.`};
+  W$('#stAutoP').onclick=async()=>{busy(true);await tick();let q=null,a=null;try{a=FotoAuto.analyze(pv);q=FotoAuto.quad(pv)}catch(err){}busy(false);
+    const msg=W$('#stMsgP');if(!q){msg.textContent='No se detectó perspectiva clara. Coloca las esquinas a mano.';return}
+    S.q=q.map(p=>({x:p.x*W,y:p.y*H}));S.result=false;W$('#stRes').checked=false;msg.textContent=(a&&a.tilt!=null?`Inclinación detectada: ${a.tilt.toFixed(1)}°. `:'')+'Revisa las esquinas y pulsa Aplicar (puedes ajustarlas).';draw()};
   W$('#stRes').addEventListener('change',e=>{S.result=e.target.checked;if(S.result)preview();else draw()});
   ['#stRW','#stRH','#stRU'].forEach(s=>W$(s).addEventListener('change',()=>{if(S.result)preview()}));
   const toImg=e=>{const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left-ox)/fitS,y:(e.clientY-r.top-oy)/fitS}};
@@ -2186,6 +2195,115 @@ function openStraighten(){
     const r=realDims();if(r){objs.forEach(x=>x.ref=false);setPpmm(o.w/(r.w*TOMM[r.u]))}
     m.close(true);await finishImageEdit(out);toast(r?'Perspectiva corregida y escala calibrada':'Perspectiva corregida')};
 }
+/* ================= foto óptima para medir: análisis de la foto y corrección automática de perspectiva =================
+   Se buscan los puntos de fuga de las líneas verticales y horizontales (bordes de ventanas, cornisas, esquinas).
+   Con ellos se calcula cuánto está inclinada la cámara respecto a la fachada y qué recuadro la deja «de frente». */
+const FotoAuto=(()=>{
+  const FOCAL=.8;   // distancia focal típica de un móvil, en unidades del lado largo de la foto
+  function eig3(M){   // vector propio de menor valor propio de una matriz simétrica 3×3 (Jacobi)
+    const A=M.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];
+    for(let it=0;it<30;it++){
+      let p=0,q=1,m=Math.abs(A[0][1]);if(Math.abs(A[0][2])>m){p=0;q=2;m=Math.abs(A[0][2])}if(Math.abs(A[1][2])>m){p=1;q=2;m=Math.abs(A[1][2])}
+      if(m<1e-14)break;
+      const th=(A[q][q]-A[p][p])/(2*A[p][q]),t=Math.sign(th||1)/(Math.abs(th)+Math.sqrt(th*th+1)),c=1/Math.sqrt(t*t+1),s=t*c;
+      for(let k=0;k<3;k++){const akp=A[k][p],akq=A[k][q];A[k][p]=c*akp-s*akq;A[k][q]=s*akp+c*akq}
+      for(let k=0;k<3;k++){const apk=A[p][k],aqk=A[q][k];A[p][k]=c*apk-s*aqk;A[q][k]=s*apk+c*aqk}
+      for(let k=0;k<3;k++){const vkp=V[k][p],vkq=V[k][q];V[k][p]=c*vkp-s*vkq;V[k][q]=s*vkp+c*vkq}
+    }
+    let b=0;for(let i=1;i<3;i++)if(A[i][i]<A[b][b])b=i;return[V[0][b],V[1][b],V[2][b]];
+  }
+  function edges(img){
+    const k=Math.min(1,520/Math.max(img.width,img.height)),w=Math.max(16,Math.round(img.width*k)),h=Math.max(16,Math.round(img.height*k));
+    const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(img,0,0,w,h);
+    const d=g.getImageData(0,0,w,h).data,gr=new Float32Array(w*h);let sum=0;
+    for(let i=0;i<w*h;i++){gr[i]=d[i*4]*.299+d[i*4+1]*.587+d[i*4+2]*.114;sum+=gr[i]}
+    const pts=[],GX=new Float32Array(w*h),GY=new Float32Array(w*h);let lap=0,ln=0;
+    for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){const i=y*w+x;
+      const gx=gr[i-w+1]+2*gr[i+1]+gr[i+w+1]-gr[i-w-1]-2*gr[i-1]-gr[i+w-1],gy=gr[i+w-1]+2*gr[i+w]+gr[i+w+1]-gr[i-w-1]-2*gr[i-w]-gr[i-w+1];
+      GX[i]=gx;GY[i]=gy;const m=Math.hypot(gx,gy);if(m>60)pts.push({x,y,m});
+      const l=4*gr[i]-gr[i-1]-gr[i+1]-gr[i-w]-gr[i+w];lap+=l*l;ln++}
+    pts.sort((a,b)=>b.m-a.m);const top=pts.slice(0,Math.min(pts.length,5000)),R=3;
+    // orientación del borde con una ventana 7×7 (tensor de estructura): resuelve bien las pendientes pequeñas
+    for(const p of top){let jxx=0,jxy=0,jyy=0;
+      for(let yy=Math.max(1,p.y-R);yy<=Math.min(h-2,p.y+R);yy++)for(let xx=Math.max(1,p.x-R);xx<=Math.min(w-2,p.x+R);xx++){const j=yy*w+xx,a=GX[j],b=GY[j];jxx+=a*a;jxy+=a*b;jyy+=b*b}
+      const th=.5*Math.atan2(2*jxy,jxx-jyy);p.nx=Math.cos(th);p.ny=Math.sin(th)}
+    return{w,h,s:Math.max(w,h),pts:top,light:sum/(w*h),sharp:Math.sqrt(lap/Math.max(1,ln))};
+  }
+  // punto de fuga (homogéneo) de las rectas cuyas normales cumplen sel(): búsqueda por votos sobre la dirección en el espacio
+  // (axis 'v' = vertical, 'h' = horizontal); null si no hay acuerdo suficiente
+  function vanishing(E,sel,axis,rangeA,rangeB){
+    let rows=[];for(const p of E.pts){if(!sel(p))continue;rows.push({x:(p.x-E.w/2)/E.s,y:(p.y-E.h/2)/E.s,nx:p.nx,ny:p.ny,w:Math.min(p.m,400)})}
+    if(rows.length<150)return null;
+    const all=rows,sub=rows.length>1500?rows.filter((_,i)=>i%Math.ceil(rows.length/1500)===0):rows,D=Math.PI/180,SIG=.012;
+    const vecOf=(a,b)=>{const t=axis==='v'?[Math.tan(a),1,Math.tan(b)]:[1,Math.tan(a),Math.tan(b)],l=Math.hypot(...t);return[FOCAL*t[0]/l,FOCAL*t[1]/l,t[2]/l]};
+    const score=(V,R)=>{let sc=0;for(const r of R){const vx=V[0]-V[2]*r.x,vy=V[1]-V[2]*r.y,l=Math.hypot(vx,vy)||1,res=Math.abs(r.nx*vx+r.ny*vy)/l;sc+=r.w/(1+(res/SIG)*(res/SIG))}return sc};
+    let best={a:0,b:0,s:-1},aR=rangeA*D,bR=rangeB*D,stepA=1.2*D,stepB=axis==='v'?1.2*D:2*D;
+    for(let a=-aR;a<=aR+1e-9;a+=stepA)for(let b=-bR;b<=bR+1e-9;b+=stepB){const s=score(vecOf(a,b),sub);if(s>best.s)best={a,b,s}}
+    for(let k=0;k<3;k++){stepA/=3;stepB/=3;const c=best;for(let a=c.a-stepA*3;a<=c.a+stepA*3+1e-9;a+=stepA)for(let b=c.b-stepB*3;b<=c.b+stepB*3+1e-9;b+=stepB){const s=score(vecOf(a,b),sub);if(s>best.s)best={a,b,s}}}
+    const V=vecOf(best.a,best.b);let good=0,tot=0;for(const r of all){const vx=V[0]-V[2]*r.x,vy=V[1]-V[2]*r.y,l=Math.hypot(vx,vy)||1,res=Math.abs(r.nx*vx+r.ny*vy)/l;tot+=r.w;if(res<.02)good+=r.w}
+    if(good<tot*.22)return null;   // las rectas no se ponen de acuerdo: no hay perspectiva clara
+    return{v:V,support:good/tot};
+  }
+  const S35=Math.sin(35*Math.PI/180);
+  function solve(img){
+    const E=edges(img);if(E.pts.length<250)return{E,ok:false};
+    const vv=vanishing(E,p=>Math.abs(p.ny)<S35,'v',35,50),vh=vanishing(E,p=>Math.abs(p.nx)<S35,'h',35,60);
+    if(!vv&&!vh)return{E,ok:false};
+    let f=FOCAL;
+    if(vv&&vh&&Math.abs(vv.v[2])>1e-3&&Math.abs(vh.v[2])>1e-3){
+      const a1=vv.v[0]/vv.v[2],b1=vv.v[1]/vv.v[2],a2=vh.v[0]/vh.v[2],b2=vh.v[1]/vh.v[2],f2=-(a1*a2+b1*b2);
+      if(f2>.35*.35&&f2<2*2)f=Math.sqrt(f2);
+    }
+    const nrm=v=>{const l=Math.hypot(...v)||1;return v.map(x=>x/l)},dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+    let r2,r1;
+    if(vv){r2=nrm([vv.v[0]/f,vv.v[1]/f,vv.v[2]]);if(r2[1]<0)r2=r2.map(x=>-x)}else r2=[0,1,0];
+    if(vh){const d=nrm([vh.v[0]/f,vh.v[1]/f,vh.v[2]]);r1=nrm(d.map((x,i)=>x-dot(d,r2)*r2[i]))}else{const ex=[1,0,0];r1=nrm(ex.map((x,i)=>x-dot(ex,r2)*r2[i]))}
+    if(r1[0]<0)r1=r1.map(x=>-x);
+    if(!vv){r2=nrm(cross(cross(r1,[0,1,0]),r1));if(r2[1]<0)r2=r2.map(x=>-x)}
+    const r3=nrm(cross(r1,r2));if(r3[2]<=.05)return{E,ok:false};
+    const tilt=Math.acos(Math.min(1,r3[2]))*180/Math.PI;
+    return{E,ok:true,f,r1,r2,r3,tilt,vv,vh,pitch:Math.asin(Math.max(-1,Math.min(1,r3[1])))*180/Math.PI,yaw:Math.asin(Math.max(-1,Math.min(1,r3[0])))*180/Math.PI};
+  }
+  // H = K·Rᵀ·K⁻¹ (en coordenadas normalizadas centradas): lleva la foto a una vista de frente
+  function rectifier(sol){
+    const f=sol.f,R=[sol.r1,sol.r2,sol.r3];   // filas r1,r2,r3
+    // K·Rᵀ·K⁻¹ con K=diag(f,f,1)
+    const H=[[R[0][0],R[0][1],R[0][2]*f],[R[1][0],R[1][1],R[1][2]*f],[R[2][0]/f,R[2][1]/f,R[2][2]]];
+    return H;
+  }
+  const ap=(H,x,y)=>{const w=H[2][0]*x+H[2][1]*y+H[2][2];return w>1e-6?{x:(H[0][0]*x+H[0][1]*y+H[0][2])/w,y:(H[1][0]*x+H[1][1]*y+H[1][2])/w}:null};
+  function inv3(m){const[a,b,c,d,e,f,g,h,i]=[].concat(...m),A=e*i-f*h,B=-(d*i-f*g),C=d*h-e*g,det=a*A+b*B+c*C;if(Math.abs(det)<1e-12)return null;
+    return[[A/det,-(b*i-c*h)/det,(b*f-c*e)/det],[B/det,(a*i-c*g)/det,-(a*f-c*d)/det],[C/det,-(a*h-b*g)/det,(a*e-b*d)/det]]}
+  const insideConvex=(Q,p)=>{let sg=0;for(let i=0;i<4;i++){const a=Q[i],b=Q[(i+1)%4],z=(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);if(Math.abs(z)<1e-12)continue;if(!sg)sg=Math.sign(z);else if(Math.sign(z)!==sg)return false}return true};
+  /** Recuadro (en fracciones 0..1 de la foto, TL,TR,BR,BL) que, al enderezarlo, deja la fachada de frente. */
+  function quad(img,sol){
+    sol=sol||solve(img);if(!sol.ok)return null;
+    const H=rectifier(sol),iw=img.width,ih=img.height,s=Math.max(iw,ih),wn=iw/s/2,hn=ih/s/2;
+    const Q=[[-wn,-hn],[wn,-hn],[wn,hn],[-wn,hn]].map(p=>ap(H,p[0],p[1]));if(Q.some(p=>!p))return null;
+    const cx=Q.reduce((a,p)=>a+p.x,0)/4,cy=Q.reduce((a,p)=>a+p.y,0)/4,bw=(Math.max(...Q.map(p=>p.x))-Math.min(...Q.map(p=>p.x)))/2,bh=(Math.max(...Q.map(p=>p.y))-Math.min(...Q.map(p=>p.y)))/2;
+    let lo=0,hi=1;for(let i=0;i<24;i++){const t=(lo+hi)/2,ok=[[-1,-1],[1,-1],[1,1],[-1,1]].every(c=>insideConvex(Q,{x:cx+c[0]*bw*t,y:cy+c[1]*bh*t}));if(ok)lo=t;else hi=t}
+    const t=lo*.97,Hi=inv3(H);if(!Hi||t<.2)return null;
+    const out=[[-1,-1],[1,-1],[1,1],[-1,1]].map(c=>ap(Hi,cx+c[0]*bw*t,cy+c[1]*bh*t));if(out.some(p=>!p))return null;
+    const q=out.map(p=>({x:p.x*s/iw+.5,y:p.y*s/ih+.5}));
+    return q.every(p=>p.x>-.02&&p.x<1.02&&p.y>-.02&&p.y<1.02)?q.map(p=>({x:Math.max(0,Math.min(1,p.x)),y:Math.max(0,Math.min(1,p.y))})):null;
+  }
+  /** Valoración de la foto: {level:'ok'|'warn'|'bad'|'unknown', tilt, msg, problems[]} */
+  function analyze(img){
+    const sol=solve(img),E=sol.E,problems=[];
+    if(E.light<55)problems.push('Hay poca luz');
+    if(E.light>225)problems.push('Está sobreexpuesta (demasiada luz)');
+    if(E.sharp<9)problems.push('Está movida o desenfocada');
+    if(!sol.ok)return{level:problems.length?'warn':'unknown',tilt:null,problems,msg:problems.length?problems.join('. ')+'. Repítela para medir mejor.':'No he podido evaluar la perspectiva (pocas líneas rectas). Si hay ventanas o bordes rectos, haz la foto de frente.'};
+    const tilt=sol.tilt,dir=[];
+    if(Math.abs(sol.pitch)>2.5)dir.push(sol.pitch>0?'apunta hacia arriba':'apunta hacia abajo');
+    if(Math.abs(sol.yaw)>2.5)dir.push('estás de lado');
+    const how=dir.length?' ('+dir.join(' y ')+')':'';
+    if(tilt<=3&&!problems.length)return{level:'ok',tilt,problems,msg:`Foto óptima para medir (inclinación ${tilt.toFixed(1)}°). Añade una medida real como referencia.`};
+    if(tilt<=8)return{level:'warn',tilt,problems,msg:`Inclinación ${tilt.toFixed(1)}°${how}. Se puede corregir en Enderezar → Perspectiva → Automático${problems.length?'. '+problems.join('. '):''}.`};
+    return{level:'bad',tilt,problems,msg:`Muy inclinada (${tilt.toFixed(0)}°)${how}. Repite la foto de frente: a la altura del pecho, sin mirar arriba ni abajo${problems.length?'. '+problems.join('. '):''}.`};
+  }
+  return{analyze,quad,solve};
+})();
 /* ================= editor: photo menu, tools and drawing ================= */
 async function keepOriginal(){
   if(!rec)return;const k='orig:'+rec.id;
@@ -2794,6 +2912,7 @@ async function renderSettings(){
     ${CLOUDS.filter(c=>!WEBAPP||c.id==='gdrive').map(c=>(NATIVE||WEBAPP)&&c.id==='gdrive'?driveRow(c):NATIVE&&c.id==='jotta'?jottaRow(c):`<div class="srow"><span class="cloudic" style="background:${c.bg}">${c.ini}</span><div class="sl"><b>${c.name}</b><small class="status ${SET.clouds[c.id]?'on':''}">${SET.clouds[c.id]?(NATIVE?'Elegida · se enlazará en la próxima versión':'Elegida · se enlazará al instalar la app'):'Sin enlazar'}</small></div><button class="btn ${SET.clouds[c.id]?'ghost':'primary'}" data-cloud="${c.id}">${SET.clouds[c.id]?'Quitar':'Conectar'}</button></div>`).join('')}
     ${row('Sincronizar automáticamente','Sube las fotos y medidas al guardar y descarga las de tus otros dispositivos.',swH('autoSync'))}
     ${NATIVE?row('Solo con Wi-Fi','No usa datos móviles para sincronizar.',swH('wifiOnly')):''}
+    ${NATIVE&&NATIVE.camGuideOn?row('Guía de posición en la cámara','Al hacer una foto, muestra sobre la cámara del móvil si estás en la posición óptima (vertical y sin inclinar). Necesita el permiso «Mostrar sobre otras apps».',`<label class="switch"><input type="checkbox" data-camguide ${NATIVE.camGuideOn()?'checked':''} aria-label="Guía de posición"><i></i></label>`):''}
     ${row('Carpeta en la nube','Dónde se guardarán las fotos y los PDF.',`<input class="tin" aria-label="Carpeta en la nube" data-k="cloudFolder" value="${esc(SET.cloudFolder)}" maxlength="60">`)}
   </div></div>
   ${interfaceSettingsGroup()}
@@ -2967,7 +3086,7 @@ $('#settings').addEventListener('click',async e=>{
 });
 // PC with a mouse: the wheel moves the theme rows sideways; at either end the page scrolls as usual
 $('#settings').addEventListener('wheel',e=>{const L=e.target.closest('.looks');if(!L||e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const max=L.scrollWidth-L.clientWidth;if(max<=0)return;const d=e.deltaMode===1?e.deltaY*40:e.deltaY;if((d<0&&L.scrollLeft<=0)||(d>0&&L.scrollLeft>=max-1))return;e.preventDefault();L.scrollLeft+=d},{passive:false});
-$('#settings').addEventListener('change',e=>{const i=e.target.closest('input[type=checkbox][data-k]');if(i){SET[i.dataset.k]=i.checked;saveSettings();if(i.dataset.k==='toolNames')applySettings()}});
+$('#settings').addEventListener('change',e=>{const g=e.target.closest('input[data-camguide]');if(g){try{NATIVE.setCamGuide(g.checked)}catch(err){}return}const i=e.target.closest('input[type=checkbox][data-k]');if(i){SET[i.dataset.k]=i.checked;saveSettings();if(i.dataset.k==='toolNames')applySettings()}});
 $('#settings').addEventListener('input',e=>{const i=e.target.closest('input.tin[data-k]');if(i){SET[i.dataset.k]=i.value;saveSettings()}});
 
 /* ================= native async calls ================= */
