@@ -1,12 +1,12 @@
 {
- "versionCode": 115,
- "versionName": "0.55.0",
+ "versionCode": 116,
+ "versionName": "0.56.0",
  "apk": "MedLoM.apk",
- "size": 21731028,
- "sha256": "d3d404c05cf56d7b6a6e90c11fc1bb3cebb14dc60d08f0abec56eec8e30d1394",
+ "size": 21975980,
+ "sha256": "f11ac122cb016187f935293c79bb60f05f9a1fd4f773e1bd40b69710a5dae54a",
  "notes": [
-  "Plano: detectar huecos, plano desde foto y hacer la foto desde la pared (se endereza sola y propone puertas, ventanas y enchufes).",
-  "Mockup con diseño: PDF, guardado dentro del trabajo, proteger zonas con pincel y varita, y detección automática de ventanas y ruedas.",
-  "Interfaces nuevas con el mismo aspecto en todas las pantallas; la pantalla principal enseña siempre la furgoneta."
+  "Espectro y Prisma: la pantalla principal se copia de la referencia (nave con la puerta medida y botones con aro morado; cartel rojo con MedLoM enorme, furgoneta y filas 01, 02, 03).",
+  "Al elegir Espectro o Prisma cambia toda la app: Ajustes, Trabajos, Plano, Rotulación y botones, con las mismas letras, colores y formas que la pantalla principal.",
+  "Se añade la letra Anton para Prisma."
  ]
 }
