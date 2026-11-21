@@ -1,8 +1,8 @@
 {
- "versionCode": 120,
- "versionName": "0.56.4",
+ "versionCode": 121,
+ "versionName": "0.56.5",
  "apk": "MedLoM.apk",
- "size": 21984331,
- "sha256": "0d59dc9b5538828e8217fa4b9b2a6c80510484de652673dec1aa622848bcc8f8",
+ "size": 21984369,
+ "sha256": "ff3efbdaab5516cc57906dfa6f2cd77cfa5b4c6790decedaba2d82ea5039c538",
  "notes": []
 }

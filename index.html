@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.4";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.5";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -4746,6 +4746,7 @@ function renderInterface(){
       <img class="pr-van" src="./rotulom/interface-prisma.webp" alt="Furgoneta Fiat Ducato L2H2 con su medida: 5,41 m"></div>
       <nav class="pr-index" aria-label="Modos de trabajo">${interfaceItems.slice(0,3).map(([id,name],n)=>`<button type="button" class="pr-row" data-ia="${id}"><sup>0${n+1}</sup><span>${name}</span>${interfaceIcons.next}</button>`).join('')}</nav>
       <nav class="pr-foot" aria-label="Accesos"><button type="button" data-ia="jobs">${IC.folder}<span>Trabajos</span></button><i aria-hidden="true"></i><button type="button" data-ia="laser">${interfaceIcons.laser}<span>Láser</span></button></nav>`;
+    fitInterfaceText();requestAnimationFrame(fitInterfaceText);setTimeout(fitInterfaceText,400);
     return;
   }
   if(mode==='mando'){
