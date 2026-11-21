@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.13";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.14";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1572,7 +1572,7 @@ function renderGallery(){
     $('#gSearch').hidden=true;
     head.querySelector('[data-act="select"]').hidden=true;
     head.querySelector('[data-act="search"]').hidden=true;
-    body.innerHTML='<div class="more-tools"><button type="button" id="gRotulacion" class="btn ghost more-tool">Rotulación</button><button type="button" class="btn ghost more-tool" data-room-entry>Habitaciones</button></div>';
+    body.innerHTML='<div class="more-tools"><button type="button" id="gRotulacion" class="btn ghost more-tool">Rotulación</button><button type="button" class="btn ghost more-tool" data-room-entry>Plano</button></div>';
     $('#gBar').innerHTML='';
     return;
   }
@@ -4067,7 +4067,7 @@ function openRoomLibrary(){pushView({v:'rooms'});}
 function renderRoomLibrary(){
  roomView.classList.remove("room-editing","room-controls-open");
  const rooms=[];for(const p of store.projects)for(const input of Array.isArray(p.rooms)?p.rooms:[]){try{rooms.push({project:p,room:RoomPlan.clean(input)});}catch(e){}}
- roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><div class="brand"><b>Habitaciones</b><span class="sub">${rooms.length} planos guardados</span></div><button class="btn primary" data-room-new>Nuevo plano</button></header><div class="scroll band rooms-library">${rooms.length?`<div class="grid sz-m">${rooms.map(({project,room:r})=>`<article class="room-card"><button class="room-card-open" data-room-open="${esc(r.id)}" data-room-project="${esc(project.id)}"><div class="room-card-preview">${RoomViews.plan(r,null,roomUnit(),{},true)}</div><b>${esc(r.name)}</b><small>${esc(project.name)} · ${r.walls.length} paredes</small></button><button class="btn ghost danger" data-room-delete="${esc(r.id)}" data-room-project="${esc(project.id)}">Eliminar plano</button></article>`).join('')}</div>`:'<div class="empty"><b>Dibuja tu primera habitación</b>Traza el contorno y añade las medidas de las paredes.</div>'}</div>`;
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><div class="brand"><b>Plano</b><span class="sub">${rooms.length} planos guardados</span></div><button class="btn primary" data-room-new>Nuevo plano</button></header><div class="scroll band rooms-library">${rooms.length?`<div class="grid sz-m">${rooms.map(({project,room:r})=>`<article class="room-card"><button class="room-card-open" data-room-open="${esc(r.id)}" data-room-project="${esc(project.id)}"><div class="room-card-preview">${RoomViews.plan(r,null,roomUnit(),{},true)}</div><b>${esc(r.name)}</b><small>${esc(project.name)} · ${r.walls.length} paredes</small></button><button class="btn ghost danger" data-room-delete="${esc(r.id)}" data-room-project="${esc(project.id)}">Eliminar plano</button></article>`).join('')}</div>`:'<div class="empty"><b>Dibuja tu primera habitación</b>Traza el contorno y añade las medidas de las paredes.</div>'}</div>`;
 }
 function newRoomForm(projectId=null){
  const m=openModal(`<form class="sheet" id="roomNewForm"><h2>Nueva habitación</h2><label class="col"><span>Nombre</span><input name="name" required maxlength="100" placeholder="Ej. Despacho"></label><label class="col"><span>Proyecto</span><select name="project"><option value="">Nuevo proyecto</option>${store.projects.map(p=>`<option value="${esc(p.id)}" ${p.id===projectId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label><p class="note">Traza el contorno y cierra el dibujo en el punto de inicio.</p><div class="row"><button type="button" class="btn ghost" data-room-cancel>Cancelar</button><button class="btn primary" type="submit">Dibujar</button></div></form>`);
@@ -4368,7 +4368,7 @@ const interfaceIcons = {
 const interfaceItems = [
   ['photo','Medir foto','Foto',IC.cam],
   ['wrap','Rotulación','Rotular',IC.cube],
-  ['rooms','Habitaciones','Plano',interfaceIcons.room],
+  ['rooms','Plano','Plano',interfaceIcons.room],
   ['laser','Medidor láser','Láser',interfaceIcons.laser],
 ];
 const interfaceButton = (action,text,icon='',css='',attrs='') =>
@@ -4424,7 +4424,7 @@ function renderInterface(){
       <div class="interface-rail">
       ${interfaceButton('recent','Última foto',interfaceIcons.dim,'interface-icon',recent?'':'disabled')}
       ${interfaceButton('wrap','Rotulación',IC.cube,'interface-icon')}
-      ${interfaceButton('rooms','Habitaciones',interfaceIcons.room,'interface-icon')}
+      ${interfaceButton('rooms','Plano',interfaceIcons.room,'interface-icon')}
       ${interfaceButton('jobs','Trabajos',IC.folder,'interface-icon')}
       </div>
       ${interfaceButton('photo','Medir',IC.cam,'interface-shutter')}
