@@ -1,10 +1,10 @@
 {
- "versionCode": 100,
- "versionName": "0.51.14",
+ "versionCode": 101,
+ "versionName": "0.51.15",
  "apk": "MedLoM.apk",
- "size": 21708752,
- "sha256": "7f12201cf7b4f7dbefe156e80bd55d226740eaa2626f097025078bbcc7422306",
+ "size": 21708750,
+ "sha256": "93cf1f663b07cc4b5e179691f0523e8b13ab9831852162e4cc069aeba338af78",
  "notes": [
-  "El apartado Habitaciones pasa a llamarse Plano"
+  "Plano: 'Altura de pared' y 'Dibuja tu primer plano'"
  ]
 }
