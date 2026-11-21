@@ -1,10 +1,10 @@
 {
- "versionCode": 94,
- "versionName": "0.51.10",
+ "versionCode": 96,
+ "versionName": "0.51.11",
  "apk": "MedLoM.apk",
- "size": 21708050,
- "sha256": "9ad7a202250709750c7043f5793f8e476011692224146dcc8d0f2a21c22fdaef",
+ "size": 21708605,
+ "sha256": "af50f928ef790c293d7bd5a67604f73145acbde6d557b2d7ca32bdc0d4ba50ad",
  "notes": [
-  "Habitaciones: en el móvil los botones y campos ya no se salen de la pantalla"
+  "Habitaciones: pregunta si una medida es la distancia total"
  ]
 }

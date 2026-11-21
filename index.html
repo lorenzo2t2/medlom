@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.10";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.11";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -4144,8 +4144,27 @@ function flushRoomInputs(force=false){
  if(height!=='')r=RoomPlan.setHeight(r,Number(height)*TOMM[roomUnit()]);
  roomChange(r);
 }
-function applyRoomLength(advance){
+// ¿La medida escrita parece la distancia total del lado (mucho mayor que lo que da el dibujo)? Se pregunta antes de guardarla.
+function roomSuspect(r,id,mm){
+ const w=r.walls.find(x=>x.id===id),ref=r.walls.find(x=>x.id===r.referenceWallId&&x.lengthMm>0&&x.id!==id)||r.walls.find(x=>x.lengthMm>0&&x.id!==id);
+ if(!w||!ref||w.lengthMm!==null)return false;
+ const exp=w.ratio*ref.lengthMm/ref.ratio,info=RoomPlan.differenceInfo(r,id);
+ return !!info&&mm>exp*1.6&&mm>exp+500;
+}
+function roomAskTotal(id,mm,advance){
+ const r=ROOMUI.model,lab=i=>RoomPlan.segmentLabel(r,r.walls.find(w=>w.id===i),true),info=RoomPlan.differenceInfo(r,id),u=roomUnit();
+ const m=openModal(`<form class="sheet"><h2>¿Es la medida de ${esc(lab(id))}?</h2>
+  <p class="note">${esc(RoomViews.value(mm,u))} es mucho más que lo que tiene ${esc(lab(id))} en el dibujo. ¿Mediste la distancia total de <b>${esc(lab(info.from))}</b> a <b>${esc(lab(info.to))}</b>? Si es así, MedLoM la guarda y calcula ${esc(lab(id))} restando los demás tramos de ese lado cuando los midas.</p>
+  <div class="row"><button type="button" class="btn ghost" data-own>Sí, es de ${esc(lab(id))}</button><button type="submit" class="btn primary">Es la distancia total</button></div></form>`);
+ const f=m.wrap.querySelector('form');
+ f.querySelector('[data-own]').onclick=()=>{m.close(true);applyRoomLength(advance,true);};
+ f.onsubmit=e=>{e.preventDefault();m.close(true);ROOMUI.totals=ROOMUI.totals||{};ROOMUI.totals[id]=mm;ROOMUI.diffAsked=null;roomChange(RoomPlan.setPending(r,id,true));
+  const nid=RoomPlan.nextWall(ROOMUI.model,id);if(nid){ROOMUI.selected=nid;ROOMUI.selectedOpening=null;refreshRoom();}
+  toast(lab(id)+' queda pendiente: se calculará con esa distancia total al medir los demás de su lado');};
+}
+function applyRoomLength(advance,force){
  const r=ROOMUI.model;if(!r)return;
+ {const mm=Number($('#roomLength').value)*TOMM[roomUnit()];if(!force&&mm>0&&roomSuspect(r,ROOMUI.selected,mm)){roomAskTotal(ROOMUI.selected,mm,advance);return;}}
  const next=RoomPlan.setLength(r,ROOMUI.selected,Number($('#roomLength').value)*TOMM[roomUnit()]);roomChange(next);
  if(advance){const id=RoomPlan.nextWall(next,ROOMUI.selected);if(id){ROOMUI.selected=id;ROOMUI.selectedOpening=null;refreshRoom();$('#roomLength').focus();$('#roomLength').select();{const di=RoomPlan.differenceInfo(ROOMUI.model,id);if(di&&di.ready)toast('Si no puedes medir este tramo con el láser, pulsa «No puedo medirla: calcular…»');}}else{toast('Todas las paredes tienen longitud');$('#roomHeight').focus();}}
 }
@@ -4264,6 +4283,7 @@ function roomDifferenceForm(){
   inp.oninput=calc;
   f.querySelector('[data-c]').onclick=()=>m.close();
   f.onsubmit=e=>{e.preventDefault();const n=calc();if(!n)return;m.close(true);roomChange(n);toast(out.textContent);};
+  {const t=(ROOMUI.totals||{})[id];if(t>0){inp.value=String(+(t/TOMM[u]).toFixed(1));calc();}}
   setTimeout(()=>inp.focus(),60);
 }
 /* Exportación local de la planta y de los alzados de habitaciones. */
