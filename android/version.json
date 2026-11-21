@@ -1,10 +1,11 @@
 {
- "versionCode": 89,
- "versionName": "0.51.8",
+ "versionCode": 93,
+ "versionName": "0.51.9",
  "apk": "MedLoM.apk",
- "size": 21707255,
- "sha256": "518a685043ed067f8dea5b53d4c4e983108a1ae6980636637abee510cd3f4302",
+ "size": 21707947,
+ "sha256": "54a85547a6b63d9a99c99bee3a8fd7f485cd98699f28c5134afad72bb22c12d7",
  "notes": [
-  "Habitaciones: el plano ocupa todo el recuadro y ya no se corta al desplazarlo"
+  "Habitaciones: un tramo que no se puede medir queda pendiente y se calcula al medir los demás de su lado",
+  "los textos del plano crecen con el zoom"
  ]
 }

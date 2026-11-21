@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.8";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.9";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1060,7 +1060,7 @@ const RoomPlan=(()=>{
       ids.add(w.id);checkOpenings(w,input.heightMm);
       const openings=w.openings.map(o=>{if(openingIds.has(o.id))throw Error('Identificador de hueco repetido');openingIds.add(o.id);return{id:o.id,type:o.type,offsetMm:o.offsetMm,widthMm:o.widthMm,heightMm:o.heightMm,sillMm:o.sillMm,referenceId:o.referenceId||null};});
       if(w.kind!=null&&!['wall','column'].includes(w.kind))throw Error('Tipo de tramo no válido');
-      return {id:w.id,angle:w.angle,ratio:w.ratio,lengthMm:w.lengthMm,kind:w.kind||'wall',kindManual:!!w.kindManual,openings};
+      return {id:w.id,angle:w.angle,ratio:w.ratio,lengthMm:w.lengthMm,kind:w.kind||'wall',kindManual:!!w.kindManual,...(w.pendingDiff&&w.lengthMm===null?{pendingDiff:true}:{}),openings};
     });
     if(!ids.has(input.firstWallId)||input.referenceWallId!==null&&!ids.has(input.referenceWallId))throw Error('Orden de paredes no válido');
     return {v:1,id:input.id,name:input.name.trim().slice(0,128),heightMm:input.heightMm,firstWallId:input.firstWallId,referenceWallId:input.referenceWallId,walls,created:finite(input.created)?input.created:0,updated:finite(input.updated)?input.updated:0};
@@ -1074,7 +1074,7 @@ const RoomPlan=(()=>{
     let areaMm2=0;if(closed&&!intersects){for(let i=0;i<polygon.length;i++){const a=polygon[i],b=polygon[(i+1)%polygon.length];areaMm2+=a.x*b.y-b.x*a.y;}areaMm2=Math.abs(areaMm2)/2;}
     return {points,segments,gapMm,closed,intersects,areaMm2,measured,complete:measured===r.walls.length&&closed&&!intersects};
   }
-  function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');const n=clone(r),w=wall(n,id);w.lengthMm=value;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
+  function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');const n=clone(r),w=wall(n,id);w.lengthMm=value;delete w.pendingDiff;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
   function setHeight(r,value){if(!positive(value))throw Error('Introduce una altura positiva');const n=clone(r);n.walls.forEach(w=>checkOpenings(w,value));n.heightMm=value;return n;}
   function setFirst(r,id){wall(r,id);return {...clone(r),firstWallId:id};}
   function segmentLabel(r,wall,short=false){
@@ -1085,7 +1085,10 @@ const RoomPlan=(()=>{
     return label+(1+segments.filter(w=>number(r,w.id)<position).length);
   }
   function number(r,id){const i=r.walls.findIndex(w=>w.id===id),first=r.walls.findIndex(w=>w.id===r.firstWallId);return (i-first+r.walls.length)%r.walls.length+1;}
-  function nextWall(r,id){const index=r.walls.findIndex(w=>w.id===id);for(let i=1;i<=r.walls.length;i++){const w=r.walls[(index+i)%r.walls.length];if(w.lengthMm===null)return w.id;}return null;}
+  // Los tramos «pendientes de cálculo» se saltan en la cadena: esperan a que se midan los demás de su lado.
+  function nextWall(r,id){const index=r.walls.findIndex(w=>w.id===id);for(let i=1;i<=r.walls.length;i++){const w=r.walls[(index+i)%r.walls.length];if(w.lengthMm===null&&!w.pendingDiff)return w.id;}return null;}
+  function setPending(r,id,flag){const n=clone(r),w=wall(n,id);if(flag&&w.lengthMm===null)w.pendingDiff=true;else delete w.pendingDiff;return n;}
+  function pendingReady(r){const w=r.walls.find(w=>w.pendingDiff&&w.lengthMm===null&&(differenceInfo(r,w.id)||{}).ready);return w?w.id:null;}
   function addOpening(r,id,opening){const n=clone(r),w=wall(n,id);if(n.walls.some(x=>x.openings.some(o=>o.id===opening.id)))throw Error('Hueco repetido');w.openings.push({...opening});checkOpenings(w,n.heightMm);return clean(n);}
   function updateOpening(r,id,opening){const n=clone(r),w=wall(n,id),i=w.openings.findIndex(o=>o.id===opening.id);if(i<0)throw Error('Elemento no encontrado');w.openings[i]={...opening};return clean(n);}
   function removeOpening(r,id,openingId){const n=clone(r),w=wall(n,id);w.openings=w.openings.filter(o=>o.id!==openingId).map(o=>({...o,referenceId:o.referenceId===openingId?null:o.referenceId||null}));return n;}
@@ -1136,7 +1139,7 @@ const RoomPlan=(()=>{
       if(!voids.some(o=>cx>o.offsetMm&&cx<o.offsetMm+o.widthMm&&cz>o.sillMm&&cz<o.sillMm+o.heightMm))out.push({x0:xs[i],x1:xs[i+1],z0:zs[j],z1:zs[j+1]});
     }return out;
   }
-  return {differenceInfo,solveByDifference,fromSketch,clean,geometry,setLength,setHeight,setFirst,number,segmentLabel,nextWall,addOpening,removeOpening,panels,setKind,distances,updateOpening,winding,viewOrder,reframe,columnRuns,frontOffset,frontDistances};
+  return {setPending,pendingReady,differenceInfo,solveByDifference,fromSketch,clean,geometry,setLength,setHeight,setFirst,number,segmentLabel,nextWall,addOpening,removeOpening,panels,setKind,distances,updateOpening,winding,viewOrder,reframe,columnRuns,frontOffset,frontDistances};
 })();
 function roomCopyList(value){if(!Array.isArray(value)||value.length>200)throw Error('Lista de habitaciones no válida');return value.map(RoomPlan.clean);}
 function projectForRoomSync(p,previous){return {id:p.id,name:p.name,created:p.created,updated:p.updated,notes:p.notes||null,rooms:roomCopyList(p.rooms??previous?.rooms??[])};}
@@ -3450,12 +3453,14 @@ function openLaserTuya(){
 /* láser en Habitaciones y en campos de texto: en cadena (pared tras pared) o escrito donde esté el cursor */
 const roomOpen=()=>stack.length&&stack[stack.length-1].v==='room'&&typeof ROOMUI!=='undefined'&&ROOMUI.model;
 const roomVal=m=>{const u=roomUnit(),dec={mm:0,cm:1,in:2,m:3}[u]??1;return{u,v:+(m*1000/TOMM[u]).toFixed(dec)}};
+const roomPendingSel=()=>{const w=roomOpen()&&ROOMUI.model.walls.find(x=>x.id===ROOMUI.selected);return w&&w.pendingDiff&&w.lengthMm===null;};
 function laserToField(m){
   const el=document.activeElement;
   if(!el||!(el.tagName==='INPUT'||el.tagName==='TEXTAREA')||el.readOnly||el.disabled)return false;
   const t=(el.type||'').toLowerCase();if(['checkbox','radio','file','range','color','button','submit'].includes(t))return false;
   if(t==='number'||el.inputMode==='decimal'){
     if(!roomOpen())return false;
+    if(el.id==='roomLength'&&roomPendingSel()){toast('Este tramo está pendiente de cálculo: mide primero los demás de su lado');return true}
     const r=roomVal(m);el.value=String(r.v);el.dispatchEvent(new Event('input',{bubbles:true}));
     if(el.id==='roomLength')applyRoomLength(true);
     else if(el.id==='roomHeight'){try{flushRoomInputs(true)}catch(e){toast(e.message)}}
@@ -3467,6 +3472,7 @@ function laserToField(m){
   el.dispatchEvent(new Event('input',{bubbles:true}));toast(`Láser: ${txt} escrito en el texto`);return true}
 function laserToRoom(m){
   if(!roomOpen())return false;const el=$('#roomLength');if(!el)return false;
+  if(roomPendingSel()){toast('Este tramo está pendiente de cálculo: mide primero los demás de su lado');return true}
   try{const r=roomVal(m);el.value=String(r.v);ROOMUI.pending=true;applyRoomLength(true);toast(`Láser: ${fmt(m,'m')} m en la pared (${r.v} ${r.u})`);return true}catch(e){toast(e.message);return true}}
 /* ================= folder-based sync (Jottacloud, OneDrive) ================= */
 async function stageToNative(data){
@@ -3964,9 +3970,9 @@ const RoomViews=(()=>{
     g.segments.forEach((s,i)=>{
       const a=point(s.a),b=point(s.b),w=r.walls[i],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,color=w.id===selected?p.accent:w.kind==='column'?p.opening:p.fg;
       out+=`<g data-room-wall="${e(w.id)}"><path d="M${a.x},${a.y} L${b.x},${b.y}" fill="none" stroke="${color}" stroke-width="${w.id===selected?8:w.kind==='column'?7:5}" ${s.estimated?'stroke-dasharray="14 8"':''}/><path d="M${a.x},${a.y} L${b.x},${b.y}" stroke="transparent" stroke-width="40"/></g>`;
-      const label=RoomPlan.segmentLabel(r,w,true)+(w.lengthMm!==null&&len>150?' · '+value(w.lengthMm,unit):''),lw=label.length*14+8,sign=-RoomPlan.winding(r);let lx,ly;
-      for(let lane=0;lane<12;lane++){lx=Math.max(lw/2+12,Math.min(988-lw/2,(a.x+b.x)/2+nx*sign*(30+lane*24)));ly=Math.max(35,Math.min(600,(a.y+b.y)/2+ny*sign*(30+lane*24)));if(!labelBoxes.some(q=>Math.abs(q.x-lx)<(q.w+lw)/2+8&&Math.abs(q.y-ly)<30))break;}
-      labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="25" text-anchor="middle" ${w.kind==='column'?'font-weight="700"':''}>${e(label)}</text>`;
+      const tz=Math.max(1,Math.min(camera.zoom||1,4)),label=RoomPlan.segmentLabel(r,w,true)+(w.lengthMm!==null&&len>150?' · '+value(w.lengthMm,unit):''),lw=(label.length*14+8)*tz,sign=-RoomPlan.winding(r);let lx,ly;
+      for(let lane=0;lane<12;lane++){lx=(a.x+b.x)/2+nx*sign*(30+lane*24)*tz;ly=(a.y+b.y)/2+ny*sign*(30+lane*24)*tz;if(tz===1){lx=Math.max(lw/2+12,Math.min(988-lw/2,lx));ly=Math.max(35,Math.min(600,ly));}if(!labelBoxes.some(q=>Math.abs(q.x-lx)<(q.w+lw)/2+8&&Math.abs(q.y-ly)<30*tz))break;}
+      labelBoxes.push({x:lx,y:ly,w:lw});out+=`<path d="M${(a.x+b.x)/2},${(a.y+b.y)/2}L${lx},${ly-8}" stroke="${color}" stroke-opacity=".3"/><text x="${lx}" y="${ly}" font-size="${25*tz}" text-anchor="middle" ${w.kind==='column'?'font-weight="700"':''}>${e(label)}</text>`;
       w.openings.forEach(o=>{const t0=o.offsetMm/s.length,t1=(o.offsetMm+o.widthMm)/s.length;out+=`<path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.bg}" stroke-width="13"/><path d="M${a.x+dx*t0},${a.y+dy*t0} L${a.x+dx*t1},${a.y+dy*t1}" stroke="${p.opening}" stroke-width="5" ${o.type==='door'?'stroke-dasharray="8 5"':''}/>`;});
     });
     if(!g.closed){const a=point(g.points[0]),b=point(g.points[g.points.length-1]);out+=`<path d="M${a.x},${a.y}L${b.x},${b.y}" stroke="${p.danger}" stroke-width="5" stroke-dasharray="9 8"/><text x="500" y="630" text-anchor="middle" font-size="25" fill="${p.danger}">Desfase de cierre: ${e(value(g.gapMm,unit))}</text>`;}
@@ -4046,7 +4052,11 @@ const roomUnit=()=>['mm','cm','m','in'].includes(SET.unit)?SET.unit:'cm';
 const roomKey=()=>JSON.stringify(ROOMUI.model||ROOMUI.points);
 const roomDirty=()=>ROOMUI.pending||roomKey()!==ROOMUI.savedKey;
 function roomRemember(){ROOMUI.history.push(JSON.parse(JSON.stringify({model:ROOMUI.model,points:ROOMUI.points})));if(ROOMUI.history.length>30)ROOMUI.history.shift();}
-function roomChange(model){roomRemember();ROOMUI.model=model;ROOMUI.pending=false;refreshRoom();}
+function roomChange(model){roomRemember();ROOMUI.model=model;ROOMUI.pending=false;refreshRoom();
+ // un tramo pendiente de cálculo se abre solo en cuanto están medidos los demás de su lado
+ const rid=RoomPlan.pendingReady(model);
+ if(rid&&rid!==ROOMUI.diffAsked){ROOMUI.diffAsked=rid;ROOMUI.selected=rid;ROOMUI.selectedOpening=null;refreshRoom();setTimeout(()=>{if(ROOMUI.model&&stack[stack.length-1].v==='room'&&RoomPlan.pendingReady(ROOMUI.model)===rid){ROOMUI.selected=rid;ROOMUI.selectedOpening=null;refreshRoom();roomDifferenceForm();}},150);}
+}
 function openRoomLibrary(){pushView({v:'rooms'});}
 function renderRoomLibrary(){
  roomView.classList.remove("room-editing","room-controls-open");
@@ -4083,9 +4093,9 @@ function refreshRoom(){
  if(r){
   if(!r.walls.some(w=>w.id===ROOMUI.selected))ROOMUI.selected=r.firstWallId;
   const ordered=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
-  $('#roomWall').innerHTML=ordered.map(w=>`<option value="${esc(w.id)}">${RoomPlan.segmentLabel(r,w)}${w.lengthMm!==null?' · '+esc(RoomViews.value(w.lengthMm,u)):' · por medir'}</option>`).join('');$('#roomWall').value=ROOMUI.selected;
+  $('#roomWall').innerHTML=ordered.map(w=>`<option value="${esc(w.id)}">${RoomPlan.segmentLabel(r,w)}${w.lengthMm!==null?' · '+esc(RoomViews.value(w.lengthMm,u)):w.pendingDiff?' · pendiente de cálculo':' · por medir'}</option>`).join('');$('#roomWall').value=ROOMUI.selected;
   const w=r.walls.find(w=>w.id===ROOMUI.selected),g=RoomPlan.geometry(r);$('#roomKind').value=w.kind||'wall';
-  $('#roomLengthLabel').textContent=`Longitud · ${RoomPlan.segmentLabel(r,w)}`;{const di=RoomPlan.differenceInfo(r,w.id),db=$('#roomDiff');if(db){db.hidden=!di||w.lengthMm!==null;if(di){const f=r.walls.find(x=>x.id===di.from),t=r.walls.find(x=>x.id===di.to);db.textContent=`No puedo medirla: calcular de ${RoomPlan.segmentLabel(r,f,true)} a ${RoomPlan.segmentLabel(r,t,true)}`;}}}$('#roomLength').value=w.lengthMm===null?'':String(w.lengthMm/TOMM[u]);$('#roomHeight').value=r.heightMm===null?'':String(r.heightMm/TOMM[u]);
+  $('#roomLengthLabel').textContent=`Longitud · ${RoomPlan.segmentLabel(r,w)}`;{const di=RoomPlan.differenceInfo(r,w.id),db=$('#roomDiff');if(db){db.hidden=!di||w.lengthMm!==null;if(di){const f=r.walls.find(x=>x.id===di.from),t=r.walls.find(x=>x.id===di.to);{const falta=di.others.filter(i=>!(r.walls.find(x=>x.id===i).lengthMm>0)).map(i=>RoomPlan.segmentLabel(r,r.walls.find(x=>x.id===i),true));db.textContent=w.pendingDiff?'Pendiente de cálculo · quitar':di.ready?`No puedo medirla: calcular de ${RoomPlan.segmentLabel(r,f,true)} a ${RoomPlan.segmentLabel(r,t,true)}`:`No puedo medirla: calcular cuando mida ${falta.join(' y ')}`;}}}}$('#roomLength').value=w.lengthMm===null?'':String(w.lengthMm/TOMM[u]);$('#roomHeight').value=r.heightMm===null?'':String(r.heightMm/TOMM[u]);
   $('#roomOpenings').innerHTML=w.openings.length?'<h3>Elementos del tramo</h3>'+w.openings.map(o=>`<button class="room-opening-item" data-room-edit-opening="${esc(o.id)}"><b>${roomElementName(o.type)}</b><span>${esc(RoomViews.value(o.widthMm,u))} × ${esc(RoomViews.value(o.heightMm,u))} · a ${esc(RoomViews.value(o.offsetMm,u))} del inicio</span></button>`).join(''):'<p class="note">Sin elementos en este tramo.</p>';
   const columns=r.walls.filter(w=>w.kind==='column'),walls=r.walls.filter(w=>w.kind!=='column');
   const measured=segments=>segments.filter(w=>w.lengthMm!==null).length+'/'+segments.length;
@@ -4094,7 +4104,7 @@ function refreshRoom(){
  }else $('#roomHint').textContent='Trazo libre: dibuja el perímetro. Puedes continuar en varios trazos y deshacer el último.';
  roomView.querySelectorAll('[data-room-action=close-contour]').forEach(b=>{b.disabled=ROOMUI.points.length<3;b.hidden=!!r;});
  roomView.querySelectorAll('[data-room-action^=rotate-]').forEach(b=>b.hidden=ROOMUI.mode!=='three');
- const ribbon=$('#roomStripMeasures');ribbon.hidden=!r||!['plan','elevations'].includes(ROOMUI.mode);if(!ribbon.hidden)ribbon.innerHTML=RoomPlan.viewOrder(r).map(w=>`<button data-room-select="${esc(w.id)}" aria-pressed="${w.id===ROOMUI.selected}" data-segment-kind="${w.kind}"><b>${RoomPlan.segmentLabel(r,w,true)}</b><span>${w.lengthMm===null?'Por medir':esc(RoomViews.value(w.lengthMm,u))}</span></button>`).join('');
+ const ribbon=$('#roomStripMeasures');ribbon.hidden=!r||!['plan','elevations'].includes(ROOMUI.mode);if(!ribbon.hidden)ribbon.innerHTML=RoomPlan.viewOrder(r).map(w=>`<button data-room-select="${esc(w.id)}" aria-pressed="${w.id===ROOMUI.selected}" data-segment-kind="${w.kind}"><b>${RoomPlan.segmentLabel(r,w,true)}</b><span>${w.lengthMm===null?(w.pendingDiff?'Pendiente':'Por medir'):esc(RoomViews.value(w.lengthMm,u))}</span></button>`).join('');
  const edit=roomView.querySelector('[data-room-action=edit-wall]');if(edit)edit.hidden=!(matchMedia('(orientation:landscape) and (max-height:600px)').matches||(ROOMUI.fullscreen&&r));
  drawRoomScene();
  if(r&&ROOMUI.mode==='elevations'&&!ROOMUI.camera.fitStrip){const stage=$('#roomStage'),g=Array.from(stage.querySelectorAll('[data-room-wall]')).find(g=>g.dataset.roomWall===ROOMUI.selected);if(g){const a=stage.getBoundingClientRect(),b=g.getBoundingClientRect();if(b.left<a.left||b.right>a.right)stage.scrollLeft+=(b.left+b.right-a.left-a.right)/2;}}
@@ -4195,7 +4205,15 @@ roomView.addEventListener('click',async e=>{
  try{
   if(action==='fullscreen'){setRoomFullscreen(!ROOMUI.fullscreen);}
   else if(action==='edit-wall'){if(matchMedia('(orientation:landscape) and (max-height:600px)').matches){roomView.classList.toggle('room-controls-open');}else{setRoomFullscreen(false);$('#roomLength').focus();}}
-  else if(action==='diff'&&ROOMUI.model){try{flushRoomInputs();}catch(err){toast(err.message);return;}roomDifferenceForm();}
+  else if(action==='diff'&&ROOMUI.model){try{flushRoomInputs();}catch(err){toast(err.message);return;}
+   const r=ROOMUI.model,id=ROOMUI.selected,info=RoomPlan.differenceInfo(r,id),wl=r.walls.find(x=>x.id===id),lab=i=>RoomPlan.segmentLabel(r,r.walls.find(x=>x.id===i),true);
+   if(!info){toast('Este tramo no se puede calcular por diferencia');return;}
+   if(wl.pendingDiff){roomChange(RoomPlan.setPending(r,id,false));toast('Ya no está pendiente');return;}
+   if(info.ready){roomDifferenceForm();return;}
+   ROOMUI.diffAsked=null;const n=RoomPlan.setPending(r,id,true),falta=info.others.filter(i=>!(r.walls.find(x=>x.id===i).lengthMm>0)).map(lab);
+   const next=RoomPlan.nextWall(n,id);roomChange(n);toast(`${lab(id)} queda pendiente: se calculará cuando midas ${falta.join(' y ')}`);
+   if(next){ROOMUI.selected=next;ROOMUI.selectedOpening=null;refreshRoom();$('#roomLength').focus();}
+  }
   else if(action==='straighten'&&ROOMUI.model){flushRoomInputs();const points=RoomPlan.geometry(ROOMUI.model).points.slice(0,-1);roomChange(RoomPlan.reframe(ROOMUI.model,RoomSketch.orthogonalize(points)));}
   else if(action==='zoom-in'||action==='zoom-out'){ROOMUI.camera.fitStrip=false;ROOMUI.camera.zoom=Math.max(.35,Math.min(4,ROOMUI.camera.zoom*(action==='zoom-in'?1.2:1/1.2)));drawRoomScene();}
   else if(action==='fit'){Object.assign(ROOMUI.camera,{zoom:1,panX:0,panY:0,yaw:-.7,pitch:.65,fitStrip:true});drawRoomScene();}
