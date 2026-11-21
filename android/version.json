@@ -1,12 +1,8 @@
 {
- "versionCode": 116,
- "versionName": "0.56.0",
+ "versionCode": 117,
+ "versionName": "0.56.1",
  "apk": "MedLoM.apk",
- "size": 21975980,
- "sha256": "f11ac122cb016187f935293c79bb60f05f9a1fd4f773e1bd40b69710a5dae54a",
- "notes": [
-  "Espectro y Prisma: la pantalla principal se copia de la referencia (nave con la puerta medida y botones con aro morado; cartel rojo con MedLoM enorme, furgoneta y filas 01, 02, 03).",
-  "Al elegir Espectro o Prisma cambia toda la app: Ajustes, Trabajos, Plano, Rotulación y botones, con las mismas letras, colores y formas que la pantalla principal.",
-  "Se añade la letra Anton para Prisma."
- ]
+ "size": 21976359,
+ "sha256": "a105e4f595a617cf03829c9153efce8773f8fd9b674441333028439bc07a0f76",
+ "notes": []
 }

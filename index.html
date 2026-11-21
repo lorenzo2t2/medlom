@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.1";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -766,7 +766,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .esp-top .esp-gear{position:static;transform:none;width:34px;height:34px;flex:none;box-shadow:0 0 8px #a02cff80}
 .esp-top .esp-gear:active{transform:scale(.94)}
 .esp-shutter{position:absolute;left:49.4%;top:86.8%;width:31%;aspect-ratio:1;transform:translate(-50%,-50%);padding:0;border:0;background:none;cursor:pointer;touch-action:manipulation}
-.esp-ring{width:100%;height:100%;border-radius:50%;border:3px solid #fff;background:#0a0314;box-shadow:0 0 18px #d85bff,0 0 38px #9b2cff88,inset 0 0 16px #b03cff55;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#fff;font:600 clamp(15px,4.6cqw,19px)/1.1 "Inter",var(--f-body)}
+.esp-ring{width:100%;height:100%;border-radius:50%;border:3px solid #fff;background:#0a0314;box-shadow:0 0 18px #d85bff,0 0 38px #9b2cff88,inset 0 0 16px #b03cff55;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#fff;font:600 min(19px,3.7cqw)/1.1 "Inter",var(--f-body)}
 .esp-ring svg{width:46%;height:46%;stroke:#fff;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .esp-shutter:active .esp-ring{transform:scale(.95)}
 
@@ -831,6 +831,8 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 :root[data-look="if-espectro"] :is(input,select,textarea):not([type=range]):not([type=checkbox]):not([type=radio]){border:1.5px solid #6a35c4;border-radius:12px;background:#0a0418;color:#fff}
 :root[data-look="if-espectro"] :is(#gallery,#settings,#rooms){background:#05030d radial-gradient(ellipse at 50% 0,#241058 0,#05030d 62%)}
 :root[data-look="if-prisma"] .grid>* *{border-radius:0}
+
+.esp-top small{white-space:nowrap}.esp-top strong{white-space:nowrap}
 </style>
 
 <div class="app">
@@ -4843,8 +4845,24 @@ const showBeforeInterface=show;
 show=function(){
   showBeforeInterface();
   interfaceHome.hidden=stack.at(-1).v!=='interface';
-  if(!interfaceHome.hidden)renderInterface();
+  if(!interfaceHome.hidden){renderInterface();fitInterfaceText();}
 };
+/* Los títulos grandes de Prisma se encogen hasta caber, también si el móvil tiene la letra aumentada. */
+function fitInterfaceText(){
+  const width=el=>{const r=document.createRange();r.selectNodeContents(el);return r.getBoundingClientRect().width};
+  const fit=()=>{
+    const h1=interfaceHome.querySelector('.pr-poster h1');
+    if(h1){h1.style.fontSize='';const cs=getComputedStyle(h1),w=width(h1),avail=h1.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+      if(w>0&&w>avail*.97)h1.style.fontSize=(parseFloat(cs.fontSize)*avail*.97/w)+'px';}
+    const spans=[...interfaceHome.querySelectorAll('.pr-row span')];
+    if(spans.length){spans.forEach(s=>s.style.fontSize='');let k=1;
+      for(const s of spans){const w=width(s),avail=s.clientWidth;if(w>avail*.97)k=Math.min(k,avail*.97/w);}
+      if(k<1)for(const s of spans)s.style.fontSize=(parseFloat(getComputedStyle(s).fontSize)*k)+'px';}
+  };
+  fit();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(!interfaceHome.hidden)fit();});
+}
+window.addEventListener('resize',()=>{if(!interfaceHome.hidden)fitInterfaceText();});
 window.addEventListener('medlom-appearance',initInterface);
 window.addEventListener('medlom-laser-state',()=>{
   for(const label of interfaceHome.querySelectorAll('.interface-laser')){label.textContent=laserLabel();label.classList.toggle('is-on',LASER.state==='connected');}
