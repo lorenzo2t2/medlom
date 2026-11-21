@@ -673,6 +673,9 @@ button#photoEmpty:focus-visible{outline:3px solid var(--r-accent);outline-offset
 .mockup-sliders output{text-align:right;font-variant-numeric:tabular-nums}
 .mockup-help{margin:0;font-size:13px;color:var(--r-muted)}
 .mockup-toggles [hidden]{display:none}
+#partRef,#partRef *{min-width:0;max-width:100%;box-sizing:border-box}
+#partRef select,#partRef input{width:100%;text-overflow:ellipsis}
+.rot-body select,.rot-body input{max-width:100%}
 :host{display:block;color-scheme:inherit;--r-bg:var(--bg);--r-surface:var(--panel);--r-surface-soft:var(--raise);--r-surface-raised:var(--raise);--r-line:var(--line);--r-line-strong:var(--line);--r-ink:var(--fg);--r-ink-soft:var(--muted);--r-muted:var(--muted);--r-accent:var(--accent);--r-accent-strong:var(--accent);--r-accent-ink:var(--accent-ink);--r-accent-text:var(--accent-text,var(--accent));--r-accent-soft:var(--raise);--r-warning-bg:var(--raise);--r-warning:var(--accent-text,var(--fg));--r-danger:var(--danger,#b3261e);--r-medlom-field:var(--field,var(--panel));--r-medlom-header:var(--bar,var(--panel));--r-f-body:var(--f-body);--r-f-display:var(--f-display);font-family:var(--f-body);}
 .rot-body{min-height:100%;}
 :host([data-interface="prisma"]),:host([data-interface="rueda"]){--r-medlom-header:var(--panel);--r-medlom-field:var(--raise);}

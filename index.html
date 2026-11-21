@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.8";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.9";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -835,6 +835,11 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .esp-top small{white-space:nowrap}.esp-top strong{white-space:nowrap}
 .pr-poster h1,.pr-row span{min-width:0;max-width:100%}
 .pr-row{overflow:hidden}
+/* Listas largas dentro de hojas: el texto se parte en líneas y nunca se sale de la caja (todas las interfaces). */
+.sheet,.sheet .col{min-width:0;max-width:100%}
+.sheet .btn{max-width:100%}
+.sheet .col>.btn,.sheet>.btn{white-space:normal;height:auto;min-height:44px;padding-top:9px;padding-bottom:9px;text-align:left;justify-content:flex-start;line-height:1.25;overflow-wrap:anywhere}
+.sheet [data-template-brand]{text-align:center;justify-content:center}
 </style>
 
 <div class="app">
@@ -1816,7 +1821,7 @@ async function decodeFile(f){
 }
 async function importFile(f,pid,background){
   if(!DB.ok)throw Error("Almacenamiento local no disponible");
-  const bmp=await decodeFile(f);const RQ=RES[SET.photoRes]||RES.normal,MAX=RQ.max;let w=bmp.naturalWidth||bmp.width,h=bmp.naturalHeight||bmp.height;const k=Math.min(1,MAX/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
+  const bmp=(typeof HTMLCanvasElement!=='undefined'&&f instanceof HTMLCanvasElement)?f:await decodeFile(f);const RQ=RES[SET.photoRes]||RES.normal,MAX=RQ.max;let w=bmp.naturalWidth||bmp.width,h=bmp.naturalHeight||bmp.height;const k=Math.min(1,MAX/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
   const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(bmp,0,0,w,h);try{bmp.close&&bmp.close()}catch(e){}
   const now=Date.now(),d=new Date(now),name='Foto '+d.toLocaleDateString('es-ES',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   const rec={id:uid(),name,projectId:pid,created:now,updated:now,img:null,thumb:null,w,h,objs:[],calib:null};
@@ -4253,8 +4258,7 @@ async function importVehicleTemplate(model,view,pid,withDimensions=true){
   const image=await decodeFile(await response.blob());
   const canvas=document.createElement('canvas');canvas.width=geometry.width;canvas.height=geometry.height;
   try{const g=canvas.getContext('2d');g.fillStyle='#ffffff';g.fillRect(0,0,canvas.width,canvas.height);g.imageSmoothingQuality='high';g.drawImage(image,...geometry.clip,geometry.draw.x,geometry.draw.y,geometry.draw.width,geometry.draw.height);}finally{image.close?.();}
-  const blob=await toBlob(canvas,'image/jpeg',.9);if(!blob)throw Error('No se pudo preparar la plantilla');
-  const imported=await importFile(new File([blob],'plantilla.jpg',{type:'image/jpeg'}),pid,true),r=imported.rec;
+  const imported=await importFile(canvas,pid,false),r=imported.rec;
   // importFile puede reducir la imagen según los ajustes de fotos: conservar la calibración.
   const kx=r.w/canvas.width,ky=r.h/canvas.height;
   r.name=`${model.name} · ${model.variant} · ${model.views[view].label}`;
@@ -4263,9 +4267,11 @@ async function importVehicleTemplate(model,view,pid,withDimensions=true){
     const scaled={width:r.w,height:r.h,plane:r.calib.plane};
     r.objs=vehicleTemplateDimensionLines(scaled).map(d=>({type:'dim',a:d.a,b:d.b,unit:d.unit,val:String(d.value),auto:true,color:'#263238',w:Math.max(2,r.w/600),fs:d.fs,shw:1,shc:'#ffffff',ds:{...DEF_DS}}));
   }
-  r.updated=stamp(r.updated);await put('photos',r);
-  if(pid){const project=projById(pid);if(project){project.updated=stamp(project.updated);await put('projects',project);}}
-  r.fresh=true;openEditor(r,imported.canvas);scheduleSync();
+  r.fresh=true;openEditor(r,imported.canvas);
+  /* El editor se abre ya; la foto termina de guardarse en segundo plano. */
+  ready(r).then(async()=>{r.updated=stamp(r.updated);await put('photos',r);
+    if(pid){const project=projById(pid);if(project){project.updated=stamp(project.updated);await put('projects',project);}}
+    scheduleSync();}).catch(()=>toast('No se pudo guardar la plantilla'));
 }
 /* Las vistas 2D y 3D consumen el mismo modelo de paredes y huecos. */
 const RoomViews=(()=>{

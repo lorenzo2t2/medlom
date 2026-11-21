@@ -190,3 +190,7 @@ body.editor-expanded .editor-top-controls>.zoom-toolbar{flex-wrap:wrap}
 .mockup-sliders output{text-align:right;font-variant-numeric:tabular-nums}
 .mockup-help{margin:0;font-size:13px;color:var(--muted)}
 .mockup-toggles [hidden]{display:none}
+/* Selectores con textos largos: nunca más anchos que su panel */
+#partRef,#partRef *{min-width:0;max-width:100%;box-sizing:border-box}
+#partRef select,#partRef input{width:100%;text-overflow:ellipsis}
+.rot-body select,.rot-body input{max-width:100%}
