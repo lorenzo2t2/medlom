@@ -1,11 +1,11 @@
 {
- "versionCode": 77,
- "versionName": "0.51.1",
+ "versionCode": 78,
+ "versionName": "0.51.2",
  "apk": "MedLoM.apk",
- "size": 21697830,
- "sha256": "7ff343199d2ac0ea3f50cf4b45e8854efcc8cb606b33c8122edf80eda5f25376",
+ "size": 21697809,
+ "sha256": "ef961f11e7db08a7f9d954867dc10c0ea3fe6854fb9e7ea308c4547756649763",
  "notes": [
-  "Las interfaces nuevas (Espectro, Espectro Mando, Prisma, Prisma Rueda) tienen el mismo aspecto en la pantalla principal y en Trabajos, fotos, ajustes y demás pantallas: botones con relieve y brillo, pestañas, cabeceras y fondo.",
-  "La pantalla principal enseña siempre la misma imagen llamativa (furgoneta rotulada con medidas), ya no la última foto. El botón «Última foto» sigue abriendo la última."
+  "Rotulación vuelve a estar solo dentro de «Más» (ya no hay una cuarta pestaña aparte); «Más» se queda marcada cuando estás en Rotulación.",
+  "En Espectro y Espectro Mando, la pestaña activa y los botones principales usan el mismo morado brillante de la pantalla principal."
  ]
 }

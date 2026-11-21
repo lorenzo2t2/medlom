@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.1";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.2";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -733,6 +733,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 :root[data-look="if-espectro"] .interface-top,:root[data-look="if-mando"] .interface-top{border-bottom:1px solid #7043ac}
 :root[data-look="if-espectro"] :is(#gallery,#settings,#rooms),:root[data-look="if-mando"] :is(#gallery,#settings,#rooms){background:radial-gradient(ellipse at 50% 0,#2f2059 0,#12101c 62%)}
 :root[data-look^="if-"] #gTabs{padding-bottom:10px}
+:root[data-look="if-espectro"] :is(.btn.primary,#gTabs button[aria-pressed=true],.tabs button[aria-pressed=true]),:root[data-look="if-mando"] :is(.btn.primary,#gTabs button[aria-pressed=true],.tabs button[aria-pressed=true]){background:linear-gradient(#e5b1fe,#945dda);color:#200d30;border-color:#f2c7ff;box-shadow:inset 0 1px 1px #fff9,0 4px 0 #42296b,0 0 16px #d092ff6e}
 </style>
 
 <div class="app">
@@ -1524,7 +1525,7 @@ function renderGallery(){
   if(!s&&!selMode)prependInterfaceBack(head);
   $('#gSearch').hidden=!searchOpen;
   $('#gTabs').hidden=!!s;
-  $('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===tab));
+  $('#gTabs').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===(tab==='rotulacion'?'more':tab)));
   const body=$('#gBody');
   if(!s&&tab==='more'){
     $('#gSearch').hidden=true;
@@ -3683,7 +3684,6 @@ function openRotulacion(materials=false){rotPendingMaterials=materials;mountRotu
 $('#rotBack').onclick=requestBack;$('#rotSettings').onclick=()=>rotWin.postMessage({type:'medlom-materials'});
 window.addEventListener('message',e=>{if(!e.fromRot||e.data?.type!=='medlom-rotulacion-ready')return;rotReady=true;rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});if(rotPendingMaterials)rotWin.postMessage({type:'medlom-materials'});});
 const baseShowRot=show;show=function(){baseShowRot();rotView.hidden=stack[stack.length-1].v!=='rotulacion';if(!rotView.hidden&&rotReady){syncRotTheme();rotWin.postMessage({type:'medlom-projects',projects:rotProjects()});}};
-const rotButton=document.createElement('button');rotButton.id='gRotulacion';rotButton.dataset.tab='rotulacion';rotButton.textContent='Rotulación';rotButton.setAttribute('aria-pressed','false');$('#gTabs').append(rotButton);
 
 $('#settings').addEventListener('click',e=>{if(e.target.closest('#openRotMaterials'))openRotulacion(true);});
 
