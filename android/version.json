@@ -1,10 +1,10 @@
 {
- "versionCode": 87,
- "versionName": "0.51.7",
+ "versionCode": 89,
+ "versionName": "0.51.8",
  "apk": "MedLoM.apk",
- "size": 21706998,
- "sha256": "b4f00bcac7eae7b916864603765543df05bfc56f9e750ef25290388998ad1a3f",
+ "size": 21707255,
+ "sha256": "518a685043ed067f8dea5b53d4c4e983108a1ae6980636637abee510cd3f4302",
  "notes": [
-  "Habitaciones: calcular por diferencia un tramo que el láser no puede medir"
+  "Habitaciones: el plano ocupa todo el recuadro y ya no se corta al desplazarlo"
  ]
 }
