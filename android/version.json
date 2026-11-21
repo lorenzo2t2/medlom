@@ -1,10 +1,10 @@
 {
- "versionCode": 98,
- "versionName": "0.51.12",
+ "versionCode": 99,
+ "versionName": "0.51.13",
  "apk": "MedLoM.apk",
- "size": 21708694,
- "sha256": "a1f5496af882745286cfff5a06811892f01e1fc98c47c83e242e5711c23c81c7",
+ "size": 21708758,
+ "sha256": "11895c901058d4b6adbf63370b988f07c0d6ecb910eb20a7115230a7f001a7e6",
  "notes": [
-  "Habitaciones: giro 3D estable"
+  "Habitaciones: al añadir puerta o ventana, ancho y alto se escriben tú (o con el láser) en vez de venir fijados"
  ]
 }
