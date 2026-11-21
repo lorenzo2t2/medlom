@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.2";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.3";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -2873,13 +2873,15 @@ $('#settings').addEventListener('click',async e=>{
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}
     else if(a==='learn')openLaserLearn();
+    else if(a==='tuya')openLaserTuya();
+    else if(a==='tuyaoff'){SET.laserTuya=null;saveSettings();try{NATIVE.laserTuya('','','')}catch(err){}renderSettings();toast('Código Tuya quitado')}
     else if(a==='diag')openLaserDiag();
     else if(a==='forget'){SET.laserRule=null;saveSettings();renderSettings()}
     else if(a==='off'){try{NATIVE.laserDisconnect()}catch(err){}}
-    else if(a==='reconnect'){if(SET.laser&&SET.laser.addr){try{NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}catch(err){}}}
+    else if(a==='reconnect'){if(SET.laser&&SET.laser.addr){laserConnectNow(SET.laser.addr,SET.laser.name)}}
     else if(a==='forgetdev'){const d=SET.laser;if(!d)return;const r=await dialog('¿Olvidar el medidor?',`MedLoM dejará de conectarse a «${d.name||d.addr}».${SET.laserRule?' También se borra la lectura que le enseñaste.':''}`,[{id:'y',label:'Olvidar',kind:'danger'},{id:'n',label:'Cancelar'}]);
       if(r!=='y')return;try{NATIVE.laserDisconnect()}catch(err){}SET.laser=null;SET.laserRule=null;LASER.state='';LASER.msg='';saveSettings();renderSettings();toast('Medidor olvidado')}
-    else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){if(SET.laser?.addr!==d.addr){SET.laserRule=null;LASER.raw=[];LASER.last=null;LASER.total=0}SET.laser={addr:d.addr,name:d.name};saveSettings();try{NATIVE.laserConnect(d.addr,d.name)}catch(err){}}}
+    else if(a==='dev'){const d=LASER.found[+la.dataset.i];if(d){if(SET.laser?.addr!==d.addr){SET.laserRule=null;LASER.raw=[];LASER.last=null;LASER.total=0}SET.laser={addr:d.addr,name:d.name};saveSettings();laserConnectNow(d.addr,d.name)}}
     return}
   const ja=e.target.closest('[data-jotta]');
   if(ja){const a=ja.dataset.jotta;
@@ -3305,6 +3307,7 @@ function laserRow(){
     ${dev?`<div class="srow"><div class="sl"><b>Conectar al abrir la app</b><small>Si está apagado o lejos, no se muestra ningún aviso.</small></div>${swH('laserAuto')}</div>
     <div class="srow"><div class="sl"><b>Medidor guardado: ${esc(dev.name||dev.addr||'')}</b><small>Olvídalo para que MedLoM deje de usarlo. Podrás volver a buscarlo cuando quieras.</small></div><button class="btn danger" data-laser="forgetdev">Olvidar</button></div>`:''}
     ${st==='connected'&&LASER.generic?`<div class="srow"><div class="sl"><b>${SET.laserRule?'Lectura aprendida':'Enseñar a leer el medidor'}</b><small>${SET.laserRule?'MedLoM ya sabe leer este medidor.':'Para medidores sin conexión conocida, como Mileseey: haz 2 o 3 mediciones y escribe lo que marca la pantalla.'}</small></div><div class="row"><button class="btn ghost" data-laser="diag">Diagnóstico</button><button class="btn ${SET.laserRule?'ghost':'primary'}" data-laser="learn">${SET.laserRule?'Volver a enseñar':'Enseñar'}</button>${SET.laserRule?'<button class="btn danger" data-laser="forget">Olvidar</button>':''}</div></div>`:''}
+    <div class="srow"><div class="sl"><b>Código Tuya (Smart Life)</b><small>${SET.laserTuya?'Código guardado. MedLoM lee tu medidor Mileseey «APP Version» (D5, D5T, DP20 Pro…). Cierra Smart Life antes de conectar.':'Para medidores Mileseey «APP Version» que usan la app Smart Life: pega aquí su código (id|uuid|clave).'}</small></div><div class="row"><button class="btn ${SET.laserTuya?'ghost':'primary'}" data-laser="tuya">${SET.laserTuya?'Cambiar':'Pegar código'}</button>${SET.laserTuya?'<button class="btn danger" data-laser="tuyaoff">Quitar</button>':''}</div></div>
     ${found.length&&st!=='connected'?`<div class="srow"><div class="plist" style="width:100%">${found.map((d,i)=>`<button data-laser="dev" data-i="${i}">${esc(d.name)}<span>${esc(d.addr)}</span></button>`).join('')}</div></div>`:''}`;
 }
 
@@ -3376,6 +3379,25 @@ function openLaserLearn(){
   setTimeout(()=>f.querySelector('#lrnV').focus(),60);
 }
 
+/* medidores Tuya / Smart Life: el código es id|uuid|clave y se guarda solo en este móvil */
+function laserConnectNow(addr,name){
+  try{if(SET.laserTuya)NATIVE.laserTuya(SET.laserTuya.id,SET.laserTuya.uuid,SET.laserTuya.key)}catch(e){}
+  try{NATIVE.laserConnect(addr,name)}catch(e){}
+}
+function openLaserTuya(){
+  const m=openModal(`<form class="sheet" autocomplete="off"><h2>Código Tuya del medidor</h2>
+    <p class="note">Pega el código con tres partes separadas por «|»: <b>id|uuid|clave</b>. Se guarda solo en este móvil. Cierra la app Smart Life antes de conectar el medidor.</p>
+    <textarea id="tyC" aria-label="Código Tuya" style="min-height:96px;font-family:ui-monospace,monospace;font-size:12px" placeholder="id|uuid|clave"></textarea>
+    <p class="txt" id="tyM"></p>
+    <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Guardar</button></div></form>`);
+  const f=m.wrap.querySelector('form');
+  f.querySelector('[data-c]').onclick=()=>m.close();
+  f.onsubmit=e=>{e.preventDefault();const p=f.querySelector('#tyC').value.trim().split('|').map(x=>x.trim());
+    if(p.length!==3||!p[0]||!p[1]||p[2].length<6){f.querySelector('#tyM').textContent='Faltan partes: tiene que ser id|uuid|clave.';return}
+    SET.laserTuya={id:p[0],uuid:p[1],key:p[2]};saveSettings();try{NATIVE.laserTuya(p[0],p[1],p[2])}catch(err){}
+    m.close(true);toast('Código guardado');renderSettings()};
+  setTimeout(()=>f.querySelector('#tyC').focus(),60);
+}
 /* ================= folder-based sync (Jottacloud, OneDrive) ================= */
 async function stageToNative(data){
   const blob=data instanceof Blob?data:new Blob([data],{type:'application/json'});
@@ -4390,7 +4412,7 @@ window.addEventListener('medlom-laser-state',()=>{
   show();
   if(!DB.ok)toast("Almacenamiento local no disponible. Vuelve a abrir MedLoM antes de editar.");
   if(cloudsOn().length)scheduleSync(1500);
-  try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false){LASER.auto=true;NATIVE.laserConnect(SET.laser.addr,SET.laser.name)}}catch(e){}
+  try{if(NATIVE&&hasLaser()&&SET.laser&&SET.laser.addr&&SET.laserAuto!==false){LASER.auto=true;laserConnectNow(SET.laser.addr,SET.laser.name)}}catch(e){}
   let firstRun=false;try{const g=await getOne('meta','guide');if(!g){firstRun=true;await put('meta',{id:'guide',at:Date.now()});showGuide()}}catch(e){}
   if(!firstRun)try{await checkDraft()}catch(e){}
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cloudsOn().length)scheduleSync(1000)});

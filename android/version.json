@@ -1,11 +1,10 @@
 {
- "versionCode": 78,
- "versionName": "0.51.2",
+ "versionCode": 80,
+ "versionName": "0.51.3",
  "apk": "MedLoM.apk",
- "size": 21697809,
- "sha256": "ef961f11e7db08a7f9d954867dc10c0ea3fe6854fb9e7ea308c4547756649763",
+ "size": 21703825,
+ "sha256": "743d9edf7ab7b03c29c9f53ebbe1653cdbb13236e25a9df6ebff7bd5513e4cc9",
  "notes": [
-  "Rotulación vuelve a estar solo dentro de «Más» (ya no hay una cuarta pestaña aparte); «Más» se queda marcada cuando estás en Rotulación.",
-  "En Espectro y Espectro Mando, la pestaña activa y los botones principales usan el mismo morado brillante de la pantalla principal."
+  "Medidores Mileseey APP Version (Tuya / Smart Life): lectura por Bluetooth con un código que se pega en Ajustes"
  ]
 }
