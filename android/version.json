@@ -1,11 +1,12 @@
 {
- "versionCode": 114,
- "versionName": "0.52.1",
+ "versionCode": 115,
+ "versionName": "0.55.0",
  "apk": "MedLoM.apk",
- "size": 21731021,
- "sha256": "fe4982ffd36d6e24ba23448fe91c903c0583ea624c3e3b11f07b8f5b5e195530",
+ "size": 21731028,
+ "sha256": "d3d404c05cf56d7b6a6e90c11fc1bb3cebb14dc60d08f0abec56eec8e30d1394",
  "notes": [
-  "Mockup: «✨ Detectar ventanas y ruedas». En «Proteger zonas», un toque protege solo cristales, ruedas con sus tapacubos, retrovisores, manillas, parachoques y molduras oscuras. Se ven en rojo y se corrigen a mano.",
-  "Mockup: «🪄 Varita». Tocas una zona (un cristal, una luz, una moldura) y se protege entera. Con «Borrador» activado, el toque la desprotege. La tolerancia se ajusta con el deslizador."
+  "Plano: detectar huecos, plano desde foto y hacer la foto desde la pared (se endereza sola y propone puertas, ventanas y enchufes).",
+  "Mockup con diseño: PDF, guardado dentro del trabajo, proteger zonas con pincel y varita, y detección automática de ventanas y ruedas.",
+  "Interfaces nuevas con el mismo aspecto en todas las pantallas; la pantalla principal enseña siempre la furgoneta."
  ]
 }
