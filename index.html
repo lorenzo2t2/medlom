@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.3";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.4";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -758,7 +758,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
     <header class="top band">
       <button class="ib" id="eBack" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="titlebtn" id="eTitle" title="Cambiar nombre"><span class="brand"><b id="eName">Foto</b></span></button>
-      <span id="laserBadge" hidden title="Medidor láser conectado" style="font-family:var(--f-display);font-weight:700;font-size:12px;color:var(--accent-text);border:1.5px solid var(--accent);border-radius:999px;padding:1px 7px">LÁSER</span>
+      <button id="laserBadge" type="button" hidden aria-label="Medidor láser" title="Medidor láser" style="background:none;cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:12px;color:var(--accent-text);border:1.5px solid var(--accent);border-radius:999px;padding:1px 7px">LÁSER</button>
       <button class="ib" id="eMenu" aria-label="Más opciones" title="Más opciones"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
       <button class="btn primary" id="eSave">Guardar</button>
     </header>
@@ -2694,10 +2694,12 @@ function openValueSheet(i,isNew,p){
       <div class="field"><input type="text" class="num" id="fVal" inputmode="decimal" enterkeyhint="done" placeholder="Ej. 120" value="${esc(o.val||'')}" aria-label="Valor de la cota">
       <select id="fUnit" aria-label="Unidad">${['mm','cm','m','in',''].map(u=>`<option value="${u}" ${u===(o.unit??lastUnit)?'selected':''}>${u||'—'}</option>`).join('')}</select></div>
       <p class="measured" id="fMeas">${hasScale()?'Medida estimada con la escala: '+esc(autoVal(o)+' '+(o.unit||''))+'. Escribe otra si la has medido tú; déjalo vacío para calcularla sola.':'Escribe la medida real que tomaste con el metro (por ejemplo el ancho de una puerta).'}</p>
+      ${hasLaser()?`<p class="measured" id="fLaser">${LASER.state==='connected'?'Láser conectado: mide con el aparato y el valor se rellena solo.':'Láser sin conectar: toca «LÁSER» arriba, en la cabecera del editor, para conectarlo.'}</p>`:''}
       <label class="check ${suggestRef?'suggest-ref':''}"><input type="checkbox" id="fRef" ${o.ref||suggestRef?'checked':''}><span>Usar como medida de referencia<small>${suggestRef?'Recomendado: calibra la escala de la foto con esta cota y las siguientes se rellenarán solas.':'Calibra la escala de la foto con esta cota: las siguientes se rellenarán solas.'}</small></span></label>
       <div class="row"><button type="button" class="btn ghost" data-c>Cancelar</button><button type="submit" class="btn primary">Aceptar</button></div></form>`,
-      {onClose:()=>{if(isNew){objs.splice(i,1);sel=-1;ui();render()}}});
+      {onClose:()=>{LASER.fill=null;if(isNew){objs.splice(i,1);sel=-1;ui();render()}}});
     const f=m.wrap.querySelector('form'),val=f.querySelector('#fVal'),unit=f.querySelector('#fUnit'),ref=f.querySelector('#fRef');
+    if(hasLaser()&&LASER.state==='connected')LASER.fill=lm=>{val.value=fmt(lm*1000/TOMM[unit.value||'mm'],unit.value);const t=f.querySelector('#fLaser');if(t)t.textContent='Láser: '+fmt(lm,'m')+' m aplicado. Pulsa Aceptar.';buzz()};
     unit.onchange=()=>{if(!calib)return;const was=o.unit;o.unit=unit.value;if(!ref.checked&&(o.auto||!val.value))val.value=autoVal(o);f.querySelector('#fMeas').textContent='Medida estimada con la escala: '+autoVal(o)+' '+o.unit;if(!isNew)o.unit=was};
     f.querySelector('[data-c]').onclick=()=>m.close();
     f.onsubmit=e=>{e.preventDefault();const v=val.value.trim(),n=parseNum(v);
@@ -3293,11 +3295,21 @@ window.__medlomLaserState=o=>{const quiet=LASER.auto&&o.state!=='connected';if(o
 window.__medlomLaserFound=o=>{LASER.found=o.devices||[];if(!$('#settings').hidden)renderSettings()};
 window.__medlomLaser=o=>{
   const m=o.m;LASER.last={m,at:Date.now()};
+  if(LASER.fill){LASER.fill(m);LASER.last=null;return}
   if(rec&&!$('#editor').hidden&&sel>=0&&objs[sel]&&objs[sel].type==='dim'){const d=objs[sel];d.val=fmt(m*1000/TOMM[d.unit||'mm'],d.unit);d.auto=false;
     if(d.ref){const n=parseNum(d.val);if(n>0)setPpmm(len(d.a,d.b)/(n*TOMM[d.unit||'mm']))}recalc();commit();render();LASER.last=null;toast(`Láser: ${fmt(m,'m')} m aplicado a la cota`);buzz();return}
   toast(`Láser: ${fmt(m,'m')} m · ${rec?'se usará en la próxima cota':'abre una foto y selecciona una cota'}`);buzz();
 };
-function laserBadge(){const b=$('#laserBadge');if(b)b.hidden=LASER.state!=='connected'}
+function laserBadge(){const b=$('#laserBadge');if(!b)return;const on=LASER.state==='connected';b.hidden=!hasLaser();b.style.opacity=on?'1':'.55';b.style.borderStyle=on?'solid':'dashed';b.title=on?'Medidor láser conectado':'Medidor láser sin conectar: toca para conectar'}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#laserBadge');if(!b)return;
+  const st=LASER.state;
+  if(st==='connected'){const d=sel>=0&&objs[sel]&&objs[sel].type==='dim'?objs[sel]:null;
+    if(d&&LASER.last&&Date.now()-LASER.last.at<120000)window.__medlomLaser({m:LASER.last.m,name:''});
+    else toast('Láser conectado: selecciona una cota (o dibuja una) y mide con el aparato; el valor se pone solo.');return}
+  if(st==='connecting'||st==='scanning'){toast('Conectando con el medidor…');return}
+  if(SET.laser&&SET.laser.addr){toast('Conectando con el medidor…');laserConnectNow(SET.laser.addr,SET.laser.name);return}
+  toast('Primero conecta el medidor en Ajustes › Medidor láser')});
+setTimeout(laserBadge,0);window.addEventListener('load',laserBadge);
 function laserRow(){
   const st=LASER.state,dev=SET.laser,found=LASER.found||[];
   const status=st==='connected'?'Conectado: '+(dev&&dev.name||''):st==='connecting'?'Conectando…':st==='scanning'?'Buscando medidores…':st==='error'?LASER.msg:dev?'Último: '+dev.name:'Sin conectar';
