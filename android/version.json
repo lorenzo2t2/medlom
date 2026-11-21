@@ -1,10 +1,10 @@
 {
- "versionCode": 82,
- "versionName": "0.51.4",
+ "versionCode": 84,
+ "versionName": "0.51.5",
  "apk": "MedLoM.apk",
- "size": 21704294,
- "sha256": "aa44a36f7ce21c15abfbe965d70db1534469dae489c159cebb2a4f503a2bdc88",
+ "size": 21705175,
+ "sha256": "5f17b35f170265489e3f1bdefa463adfa6553c999618b72e108395aa1fd3c2eb",
  "notes": [
-  "Botón LÁSER siempre visible en el editor para conectar el medidor, y la ventana de nueva cota rellena el valor al medir con el láser"
+  "Láser en Habitaciones (pared tras pared o en el campo de texto) y arreglo del texto cortado en Nueva foto"
  ]
 }

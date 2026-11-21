@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.4";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.5";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -269,7 +269,8 @@ body.in-editor #ctx:not([hidden])~#scaleInfo,#stage:has(.ctxbar:not([hidden])) #
 .chev{width:18px;height:18px;color:var(--muted);flex:none}
 .about{text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5;padding:4px 0 20px}
 .src{display:flex;flex-direction:column;gap:10px}
-.src .btn{height:56px;font-size:16px;justify-content:flex-start;padding:0 16px}
+.src .btn{height:auto;min-height:56px;font-size:16px;justify-content:flex-start;padding:10px 16px;white-space:normal;text-align:left;line-height:1.2}
+.src .btn svg{flex:none}
 .empty{max-width:360px;margin:56px auto;text-align:center;color:var(--muted);line-height:1.55;font-size:15px;padding:0 16px}
 .empty b{display:block;color:var(--fg);font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:.02em;margin-bottom:10px}
 .empty::before{content:"+";display:grid;place-items:center;width:64px;height:64px;margin:0 auto 18px;border-radius:18px;background:var(--raise);border:1px solid var(--line);color:var(--accent-text);font:400 32px/1 system-ui,sans-serif;animation:empty-pop .22s ease-out both}
@@ -3296,16 +3297,18 @@ window.__medlomLaserFound=o=>{LASER.found=o.devices||[];if(!$('#settings').hidde
 window.__medlomLaser=o=>{
   const m=o.m;LASER.last={m,at:Date.now()};
   if(LASER.fill){LASER.fill(m);LASER.last=null;return}
+  if(laserToField(m)||laserToRoom(m)){LASER.last=null;buzz();return}
   if(rec&&!$('#editor').hidden&&sel>=0&&objs[sel]&&objs[sel].type==='dim'){const d=objs[sel];d.val=fmt(m*1000/TOMM[d.unit||'mm'],d.unit);d.auto=false;
     if(d.ref){const n=parseNum(d.val);if(n>0)setPpmm(len(d.a,d.b)/(n*TOMM[d.unit||'mm']))}recalc();commit();render();LASER.last=null;toast(`Láser: ${fmt(m,'m')} m aplicado a la cota`);buzz();return}
   toast(`Láser: ${fmt(m,'m')} m · ${rec?'se usará en la próxima cota':'abre una foto y selecciona una cota'}`);buzz();
 };
-function laserBadge(){const b=$('#laserBadge');if(!b)return;const on=LASER.state==='connected';b.hidden=!hasLaser();b.style.opacity=on?'1':'.55';b.style.borderStyle=on?'solid':'dashed';b.title=on?'Medidor láser conectado':'Medidor láser sin conectar: toca para conectar'}
-document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#laserBadge');if(!b)return;
+function laserBadge(){const on=LASER.state==='connected';document.querySelectorAll('#laserBadge,[data-laser-btn]').forEach(b=>{b.hidden=!hasLaser();b.style.opacity=on?'1':'.55';b.style.borderStyle=on?'solid':'dashed';b.title=on?'Medidor láser conectado':'Medidor láser sin conectar: toca para conectar'})}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#laserBadge,[data-laser-btn]');if(!b)return;
+  const inRoom=stack.length&&stack[stack.length-1].v==='room';
   const st=LASER.state;
   if(st==='connected'){const d=sel>=0&&objs[sel]&&objs[sel].type==='dim'?objs[sel]:null;
     if(d&&LASER.last&&Date.now()-LASER.last.at<120000)window.__medlomLaser({m:LASER.last.m,name:''});
-    else toast('Láser conectado: selecciona una cota (o dibuja una) y mide con el aparato; el valor se pone solo.');return}
+    else toast(inRoom?'Láser conectado: elige una pared y mide; el valor se pone y pasa a la siguiente pared. Si tocas un campo (altura, texto), se escribe ahí.':'Láser conectado: selecciona una cota (o dibuja una) y mide con el aparato; el valor se pone solo.');return}
   if(st==='connecting'||st==='scanning'){toast('Conectando con el medidor…');return}
   if(SET.laser&&SET.laser.addr){toast('Conectando con el medidor…');laserConnectNow(SET.laser.addr,SET.laser.name);return}
   toast('Primero conecta el medidor en Ajustes › Medidor láser')});
@@ -3410,6 +3413,28 @@ function openLaserTuya(){
     m.close(true);toast('Código guardado');renderSettings()};
   setTimeout(()=>f.querySelector('#tyC').focus(),60);
 }
+
+/* láser en Habitaciones y en campos de texto: en cadena (pared tras pared) o escrito donde esté el cursor */
+const roomOpen=()=>stack.length&&stack[stack.length-1].v==='room'&&typeof ROOMUI!=='undefined'&&ROOMUI.model;
+const roomVal=m=>{const u=roomUnit(),dec={mm:0,cm:1,in:2,m:3}[u]??1;return{u,v:+(m*1000/TOMM[u]).toFixed(dec)}};
+function laserToField(m){
+  const el=document.activeElement;
+  if(!el||!(el.tagName==='INPUT'||el.tagName==='TEXTAREA')||el.readOnly||el.disabled)return false;
+  const t=(el.type||'').toLowerCase();if(['checkbox','radio','file','range','color','button','submit'].includes(t))return false;
+  if(t==='number'||el.inputMode==='decimal'){
+    if(!roomOpen())return false;
+    const r=roomVal(m);el.value=String(r.v);el.dispatchEvent(new Event('input',{bubbles:true}));
+    if(el.id==='roomLength')applyRoomLength(true);
+    else if(el.id==='roomHeight'){try{flushRoomInputs(true)}catch(e){toast(e.message)}}
+    else el.dispatchEvent(new Event('change',{bubbles:true}));
+    toast(`Láser: ${fmt(m,'m')} m → ${r.v} ${r.u}`);return true}
+  if(el.tagName!=='TEXTAREA'&&!el.closest('.sheet,#rooms'))return false;
+  const txt=fmt(m,'m')+' m',a=el.selectionStart??el.value.length,b=el.selectionEnd??a;
+  el.value=el.value.slice(0,a)+txt+el.value.slice(b);try{el.setSelectionRange(a+txt.length,a+txt.length)}catch(e){}
+  el.dispatchEvent(new Event('input',{bubbles:true}));toast(`Láser: ${txt} escrito en el texto`);return true}
+function laserToRoom(m){
+  if(!roomOpen())return false;const el=$('#roomLength');if(!el)return false;
+  try{const r=roomVal(m);el.value=String(r.v);ROOMUI.pending=true;applyRoomLength(true);toast(`Láser: ${fmt(m,'m')} m en la pared (${r.v} ${r.u})`);return true}catch(e){toast(e.message);return true}}
 /* ================= folder-based sync (Jottacloud, OneDrive) ================= */
 async function stageToNative(data){
   const blob=data instanceof Blob?data:new Blob([data],{type:'application/json'});
@@ -4006,7 +4031,7 @@ function startRoomEditor(model,projectId,options={}){
  ROOMUI.savedKey=roomKey();pushView({v:'room'});renderRoomEditor();
 }
 function renderRoomEditor(){
- roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><button class="titlebtn" data-room-rename><span class="brand"><b id="roomTitle">${esc(ROOMUI.name)}</b><span class="sub" id="roomSaveState"></span></span></button><button class="btn primary" id="roomSave" data-room-save>Guardar</button></header><div class="scroll band room-work"><div class="room-view-tabs" role="group" aria-label="Vista del plano"><button data-room-mode="plan">Planta</button><button data-room-mode="elevation">Frontal</button><button data-room-mode="elevations" aria-label="Todos los alzados">Alzados</button><button data-room-mode="three">3D</button></div><div class="room-layout"><section class="room-drawing"><div class="room-stage" id="roomStage" aria-label="Área de dibujo de la habitación"></div><div class="room-view-tools"><button class="btn ghost room-compact-back" data-room-back aria-label="Volver">←</button><button class="btn ghost" data-room-action="zoom-out" aria-label="Alejar">−</button><button class="btn ghost" data-room-action="fit">Ajustar</button><button class="btn ghost" data-room-action="zoom-in" aria-label="Acercar">+</button><button class="btn ghost" data-room-action="rotate-left" aria-label="Girar vista 3D a la izquierda">↶</button><button class="btn ghost" data-room-action="rotate-right" aria-label="Girar vista 3D a la derecha">↷</button><button class="btn ghost" data-room-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button><button class="btn ghost" data-room-action="edit-wall" hidden>Controles</button><button class="btn ghost" data-room-action="undo">Deshacer</button><button class="btn primary" data-room-action="close-contour" data-room-quick-close>Cerrar</button><button class="btn primary room-compact-save" data-room-save>Guardar</button></div><div id="roomStripMeasures" class="room-strip-measures" hidden></div><p class="note" id="roomHint" role="status"></p></section><section class="room-controls"><div id="roomSketchControls"><div class="room-input-modes" role="group" aria-label="Método de dibujo"><button class="btn ghost" data-room-input="points">Por puntos</button><button class="btn ghost" data-room-input="draw">Dibujar</button></div><label class="room-angle-toggle"><input type="checkbox" id="roomRightAngles" checked><span>Ángulos rectos</span></label><p class="txt">Dibuja el contorno con el dedo o el lápiz. Vuelve al inicio o pulsa Cerrar contorno; no necesitas contar las paredes.</p><button class="btn primary" data-room-action="close-contour">Cerrar contorno</button></div><div id="roomMeasureControls" hidden><label class="col"><span>Tramo seleccionado</span><select id="roomWall" aria-label="Tramo seleccionado"></select></label><label class="col"><span>Tipo de tramo</span><select id="roomKind"><option value="wall">Pared</option><option value="column">Cara de columna / entrante</option></select></label><button class="btn ghost" data-room-action="straighten">Enderezar paredes y columnas</button><button class="btn ghost" data-room-action="first">Esta será la primera pared</button><form id="roomLengthForm"><label class="col"><span id="roomLengthLabel">Longitud</span><div class="room-input-row"><input id="roomLength" type="number" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Longitud de pared"><span>${esc(roomUnit())}</span></div></label><button class="btn primary wide" type="submit">Confirmar y siguiente pared →</button></form><label class="col"><span>Altura de la habitación</span><div class="room-input-row"><input id="roomHeight" type="number" min="0" step="any" inputmode="decimal" aria-label="Altura de la habitación"><span>${esc(roomUnit())}</span></div></label><div class="room-opening-actions"><button class="btn ghost" data-room-action="door">+ Puerta</button><button class="btn ghost" data-room-action="window">+ Ventana</button><button class="btn ghost" data-room-action="switch">+ Interruptor</button><button class="btn ghost" data-room-action="socket">+ Enchufe</button></div><div id="roomOpenings"></div><div id="roomDimensions" class="room-dimensions"></div><div class="room-export-actions"><button class="btn ghost" data-room-action="svg">Exportar vista SVG</button><button class="btn ghost" data-room-action="pdf">Planta y alzados PDF</button><button class="btn ghost" data-room-action="redraw">Redibujar contorno</button></div></div></section></div></div>`;
+ roomView.innerHTML=`<header class="top band"><button class="ib" data-room-back aria-label="Volver">${IC.back}</button><button class="titlebtn" data-room-rename><span class="brand"><b id="roomTitle">${esc(ROOMUI.name)}</b><span class="sub" id="roomSaveState"></span></span></button><button type="button" class="btn ghost" data-laser-btn hidden aria-label="Medidor láser" style="padding:0 10px;min-width:0;font-size:12px;border:1.5px solid var(--accent);color:var(--accent-text)">LÁSER</button><button class="btn primary" id="roomSave" data-room-save>Guardar</button></header><div class="scroll band room-work"><div class="room-view-tabs" role="group" aria-label="Vista del plano"><button data-room-mode="plan">Planta</button><button data-room-mode="elevation">Frontal</button><button data-room-mode="elevations" aria-label="Todos los alzados">Alzados</button><button data-room-mode="three">3D</button></div><div class="room-layout"><section class="room-drawing"><div class="room-stage" id="roomStage" aria-label="Área de dibujo de la habitación"></div><div class="room-view-tools"><button class="btn ghost room-compact-back" data-room-back aria-label="Volver">←</button><button class="btn ghost" data-room-action="zoom-out" aria-label="Alejar">−</button><button class="btn ghost" data-room-action="fit">Ajustar</button><button class="btn ghost" data-room-action="zoom-in" aria-label="Acercar">+</button><button class="btn ghost" data-room-action="rotate-left" aria-label="Girar vista 3D a la izquierda">↶</button><button class="btn ghost" data-room-action="rotate-right" aria-label="Girar vista 3D a la derecha">↷</button><button class="btn ghost" data-room-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button><button class="btn ghost" data-room-action="edit-wall" hidden>Controles</button><button class="btn ghost" data-room-action="undo">Deshacer</button><button class="btn primary" data-room-action="close-contour" data-room-quick-close>Cerrar</button><button class="btn primary room-compact-save" data-room-save>Guardar</button></div><div id="roomStripMeasures" class="room-strip-measures" hidden></div><p class="note" id="roomHint" role="status"></p></section><section class="room-controls"><div id="roomSketchControls"><div class="room-input-modes" role="group" aria-label="Método de dibujo"><button class="btn ghost" data-room-input="points">Por puntos</button><button class="btn ghost" data-room-input="draw">Dibujar</button></div><label class="room-angle-toggle"><input type="checkbox" id="roomRightAngles" checked><span>Ángulos rectos</span></label><p class="txt">Dibuja el contorno con el dedo o el lápiz. Vuelve al inicio o pulsa Cerrar contorno; no necesitas contar las paredes.</p><button class="btn primary" data-room-action="close-contour">Cerrar contorno</button></div><div id="roomMeasureControls" hidden><label class="col"><span>Tramo seleccionado</span><select id="roomWall" aria-label="Tramo seleccionado"></select></label><label class="col"><span>Tipo de tramo</span><select id="roomKind"><option value="wall">Pared</option><option value="column">Cara de columna / entrante</option></select></label><button class="btn ghost" data-room-action="straighten">Enderezar paredes y columnas</button><button class="btn ghost" data-room-action="first">Esta será la primera pared</button><form id="roomLengthForm"><label class="col"><span id="roomLengthLabel">Longitud</span><div class="room-input-row"><input id="roomLength" type="number" min="0" step="any" inputmode="decimal" enterkeyhint="next" aria-label="Longitud de pared"><span>${esc(roomUnit())}</span></div></label><button class="btn primary wide" type="submit">Confirmar y siguiente pared →</button></form><label class="col"><span>Altura de la habitación</span><div class="room-input-row"><input id="roomHeight" type="number" min="0" step="any" inputmode="decimal" aria-label="Altura de la habitación"><span>${esc(roomUnit())}</span></div></label><div class="room-opening-actions"><button class="btn ghost" data-room-action="door">+ Puerta</button><button class="btn ghost" data-room-action="window">+ Ventana</button><button class="btn ghost" data-room-action="switch">+ Interruptor</button><button class="btn ghost" data-room-action="socket">+ Enchufe</button></div><div id="roomOpenings"></div><div id="roomDimensions" class="room-dimensions"></div><div class="room-export-actions"><button class="btn ghost" data-room-action="svg">Exportar vista SVG</button><button class="btn ghost" data-room-action="pdf">Planta y alzados PDF</button><button class="btn ghost" data-room-action="redraw">Redibujar contorno</button></div></div></section></div></div>`;
  $('#roomLengthForm').onsubmit=e=>{e.preventDefault();try{applyRoomLength(true);}catch(err){toast(err.message);}};
  $('#roomWall').onchange=e=>{const id=e.target.value;try{flushRoomInputs();ROOMUI.selected=id;ROOMUI.selectedOpening=null;refreshRoom();}catch(err){toast(err.message);e.target.value=ROOMUI.selected;}};
  $('#roomKind').onchange=e=>{try{flushRoomInputs();roomChange(RoomPlan.setKind(ROOMUI.model,ROOMUI.selected,e.target.value));}catch(err){toast(err.message);refreshRoom();}};
@@ -4014,6 +4039,7 @@ function renderRoomEditor(){
  for(const id of ['#roomHeight','#roomLength'])$(id).oninput=()=>{ROOMUI.pending=true;$('#roomSaveState').textContent='Cambios sin guardar';};
  $('#roomRightAngles').onchange=e=>ROOMUI.orthogonal=e.target.checked;
  wireRoomPointer();refreshRoom();
+ if(typeof laserBadge==='function')laserBadge();
 }
 function refreshRoom(){
  if(stack[stack.length-1].v!=='room')return;
