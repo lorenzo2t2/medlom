@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.16";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.17";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -739,6 +739,7 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 #rooms,.room-layout,.room-drawing,.room-controls{max-width:100%;min-width:0;box-sizing:border-box}
 .room-controls button,.room-controls .btn{max-width:100%;white-space:normal;text-align:left;line-height:1.2;height:auto;min-height:44px}
 .room-controls label,.room-controls .row{min-width:0}
+#gBar{flex-wrap:wrap;justify-content:center}
 </style>
 
 <div class="app">
@@ -1697,8 +1698,8 @@ function pickProject(exclude){return new Promise(res=>{
 
 /* ================= import ================= */
 function openSourcePicker(){
-  const m=openModal(`<div class="sheet"><h2>${scope()?'Añadir foto al proyecto':'Nueva foto'}</h2><div class="src"><button class="btn primary" data-s="cam">${IC.cam}Hacer foto con la cámara</button><button class="btn ghost" data-s="lib">${IC.img}Elegir fotos existentes</button><button class="btn ghost" data-s="template">${IC.cube}Plantillas de vehículos comerciales</button></div><p class="note">Las fotos se guardan dentro de MedLoM, no en la galería del móvil. Desde «Elegir fotos existentes» puedes marcar varias a la vez.</p><div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{bottom:true});
-  m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-s]');if(!b)return;m.close(true);if(b.dataset.s==='template'){openVehicleTemplates();return;}($(b.dataset.s==='cam'?'#fileCam':'#fileIn')).click()});
+  const m=openModal(`<div class="sheet"><h2>${scope()?'Añadir foto al proyecto':'Nueva foto'}</h2><div class="src"><button class="btn primary" data-s="cam">${IC.cam}Hacer foto con la cámara</button><button class="btn ghost" data-s="lib">${IC.img}Elegir fotos existentes</button></div><p class="note">Las fotos se guardan dentro de MedLoM, no en la galería del móvil. Desde «Elegir fotos existentes» puedes marcar varias a la vez.</p><div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{bottom:true});
+  m.wrap.addEventListener('click',e=>{if(e.target.closest('[data-c]'))return m.close();const b=e.target.closest('[data-s]');if(!b)return;m.close(true);($(b.dataset.s==='cam'?'#fileCam':'#fileIn')).click()});
 }
 $('#fileCam').addEventListener('change',e=>handleFiles(e));
 $('#fileIn').addEventListener('change',e=>handleFiles(e));
@@ -3826,8 +3827,8 @@ function rotChrome(){
     :`<div class="brand"><b>Med<span>LoM</span></b><span class="sub">Trabajos de rotulación</span></div><button class="ib gallery-select" data-act="rotselect" aria-label="Seleccionar" title="Seleccionar" ${total?'':'disabled'}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8 12 3 3 5-6"/></svg></button><button class="ib" data-act="search" aria-label="Buscar" title="Buscar">${IC.search}</button><button class="ib" data-act="settings" aria-label="Ajustes" title="Ajustes">${IC.gear}</button>`;
   if(!selMode)prependInterfaceBack($('#gHead'));
   $('#gBar').innerHTML=selMode?`<div class="acts"><button class="act" data-act="rotexport" ${n?'':'disabled'}>${IC.share}<span>Enviar</span></button><button class="act danger" data-act="rotdel" ${n?'':'disabled'}>${IC.trash}<span>Eliminar</span></button></div>`
-    :`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button>`;
-  if(!selMode)$('#newRotJob').onclick=()=>openRotJob();
+    :`<button id="newRotJob" class="btn primary big">${IC.plus}Nuevo trabajo</button><button id="rotTemplates" class="btn ghost big">${IC.cube}Plantillas de vehículos comerciales</button>`;
+  if(!selMode){$('#newRotJob').onclick=()=>openRotJob();$('#rotTemplates').onclick=()=>openVehicleTemplates();}
 }
 async function renderRotGallery(){
   const generation=++rotGalleryRevision;

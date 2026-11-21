@@ -1,10 +1,10 @@
 {
- "versionCode": 102,
- "versionName": "0.51.16",
+ "versionCode": 103,
+ "versionName": "0.51.17",
  "apk": "MedLoM.apk",
- "size": 21708725,
- "sha256": "30fc1509ee0da195a29488ea803c5983ae3d504ce52343e1627ee67c705619e9",
+ "size": 21708749,
+ "sha256": "ce03919efb3c9e8bc9d4100e04cde07ca656db18b3121e2acb91a650289a73ea",
  "notes": [
-  "Plano: el resto de textos de habitacion pasan a plano"
+  "Las plantillas de vehículos comerciales salen solo en Rotulación, no en Nueva foto"
  ]
 }
