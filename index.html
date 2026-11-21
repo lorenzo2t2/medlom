@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.5";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.6";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1021,7 +1021,7 @@ const RoomPlan=(()=>{
   function columnRuns(walls){
     const n=walls.length,max=Math.max(...walls.map(w=>w.ratio)),dot=(a,b)=>Math.cos(a.angle-b.angle),runs=[];
     for(let i=0;i<n;i++){const prev=walls[(i+n-1)%n],a=walls[i],b=walls[(i+1)%n],c=walls[(i+2)%n],next=walls[(i+3)%n];
-      if(n>=6&&Math.max(a.ratio,b.ratio,c.ratio)<max*.6&&dot(a,c)<-.94&&Math.abs(dot(a,b))<.25&&dot(prev,b)>.94&&dot(next,b)>.94)runs.push(i);
+      if(n>=6&&Math.max(a.ratio,b.ratio,c.ratio)<max*.3&&b.ratio<=Math.min(prev.ratio,next.ratio)*.8&&dot(a,c)<-.94&&Math.abs(dot(a,b))<.25&&dot(prev,b)>.94&&dot(next,b)>.94)runs.push(i);
     }return runs;
   }
   function classify(walls){const faces=new Set();columnRuns(walls).forEach(i=>[i,(i+1)%walls.length,(i+2)%walls.length].forEach(j=>faces.add(j)));walls.forEach((w,i)=>{if(!w.kindManual)w.kind=faces.has(i)?'column':'wall';});return walls;}
@@ -1089,7 +1089,11 @@ const RoomPlan=(()=>{
   function addOpening(r,id,opening){const n=clone(r),w=wall(n,id);if(n.walls.some(x=>x.openings.some(o=>o.id===opening.id)))throw Error('Hueco repetido');w.openings.push({...opening});checkOpenings(w,n.heightMm);return clean(n);}
   function updateOpening(r,id,opening){const n=clone(r),w=wall(n,id),i=w.openings.findIndex(o=>o.id===opening.id);if(i<0)throw Error('Elemento no encontrado');w.openings[i]={...opening};return clean(n);}
   function removeOpening(r,id,openingId){const n=clone(r),w=wall(n,id);w.openings=w.openings.filter(o=>o.id!==openingId).map(o=>({...o,referenceId:o.referenceId===openingId?null:o.referenceId||null}));return n;}
-  function setKind(r,id,kind){if(!['wall','column'].includes(kind))throw Error('Tipo de tramo no válido');const n=clone(r);wall(n,id).kind=kind;wall(n,id).kindManual=true;return n;}
+  function setKind(r,id,kind){if(!['wall','column'].includes(kind))throw Error('Tipo de tramo no válido');const n=clone(r);
+    // Un entrante se compone de tres tramos: al cambiar uno se cambian los tres (si los tres siguen juntos en la forma actual).
+    const idx=n.walls.findIndex(w=>w.id===id),len=n.walls.length;let group=[idx];
+    try{for(const i of columnRuns(n.walls)){const g=[i,(i+1)%len,(i+2)%len];if(g.includes(idx)){group=g;break;}}}catch(e){}
+    group.forEach(j=>{n.walls[j].kind=kind;n.walls[j].kindManual=true;});return n;}
   function distances(r,id,openingId){const w=wall(r,id),o=w.openings.find(x=>x.id===openingId);if(!o)throw Error('Elemento no encontrado');const out={left:o.offsetMm,right:w.lengthMm-o.offsetMm-o.widthMm,bottom:o.sillMm,top:r.heightMm-o.sillMm-o.heightMm,reference:null};const ref=w.openings.find(x=>x.id===o.referenceId);if(ref)out.reference={id:ref.id,horizontal:Math.max(0,ref.offsetMm-o.offsetMm-o.widthMm,o.offsetMm-ref.offsetMm-ref.widthMm),vertical:Math.max(0,ref.sillMm-o.sillMm-o.heightMm,o.sillMm-ref.sillMm-ref.heightMm)};return out;}
   function frontOffset(r,id,offset,width){const w=wall(r,id);return winding(r)<0?w.lengthMm-offset-width:offset;}
   function frontDistances(r,id,itemId){const d=distances(r,id,itemId);return winding(r)<0?{...d,left:d.right,right:d.left}:d;}

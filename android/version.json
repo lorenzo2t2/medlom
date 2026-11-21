@@ -1,10 +1,10 @@
 {
- "versionCode": 84,
- "versionName": "0.51.5",
+ "versionCode": 85,
+ "versionName": "0.51.6",
  "apk": "MedLoM.apk",
- "size": 21705175,
- "sha256": "5f17b35f170265489e3f1bdefa463adfa6553c999618b72e108395aa1fd3c2eb",
+ "size": 21705336,
+ "sha256": "4f51c9cc413e36b26bbf909ff5a1f491f67287bb5c02be5c4af9a919d6829bc6",
  "notes": [
-  "Láser en Habitaciones (pared tras pared o en el campo de texto) y arreglo del texto cortado en Nueva foto"
+  "Habitaciones: un escalón grande ya no se toma por una columna, y al cambiar un tramo entre pared y columna se cambian las tres caras del entrante"
  ]
 }
