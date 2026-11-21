@@ -1,11 +1,10 @@
 {
- "versionCode": 93,
- "versionName": "0.51.9",
+ "versionCode": 94,
+ "versionName": "0.51.10",
  "apk": "MedLoM.apk",
- "size": 21707947,
- "sha256": "54a85547a6b63d9a99c99bee3a8fd7f485cd98699f28c5134afad72bb22c12d7",
+ "size": 21708050,
+ "sha256": "9ad7a202250709750c7043f5793f8e476011692224146dcc8d0f2a21c22fdaef",
  "notes": [
-  "Habitaciones: un tramo que no se puede medir queda pendiente y se calcula al medir los demás de su lado",
-  "los textos del plano crecen con el zoom"
+  "Habitaciones: en el móvil los botones y campos ya no se salen de la pantalla"
  ]
 }
