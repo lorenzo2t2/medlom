@@ -680,12 +680,12 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
   materialLibrary();showStep(0);
   async function loadPdfEngine(){if(!Promise.withResolvers)throw Error('Actualiza Chrome o Android System WebView para abrir PDF en este dispositivo');state.pdf=state.pdf||await import('./rotulom/vendor/pdfjs/pdf.mjs');state.pdf.GlobalWorkerOptions.workerSrc='./rotulom/vendor/pdfjs/pdf.worker.mjs';return state.pdf;}
   const pdfFiles=new WeakMap();
-  async function exportSession(){const docs=[];for(const d of state.docs){let blob;if(d.kind==='pdf'){blob=pdfFiles.get(d.pdf);if(!blob){blob=new Blob([await d.pdf.getData()],{type:'application/pdf'});pdfFiles.set(d.pdf,blob);}}else{blob=d.storedImage;if(!blob){blob=await new Promise((resolve,reject)=>d.image.toBlob(b=>b?resolve(b):reject(Error('No se pudo guardar la imagen')),'image/png'));d.storedImage=blob;}}const keys=['kind','name','page','widthCm','heightCm','factor','pdfMode','vehicle','side','lengthChoice','knownCm','manual','points','zones','extent','zoom','referenceConfirmed','plane','templatePlane','templateVehicle','viewBoxes','sheetRefs','analysisVersion','outlineCandidates','recognitionCandidates','refNote','wheelCm','estimatedScale'];const out={blob};for(const k of keys)if(d[k]!==undefined)out[k]=structuredClone(d[k]);docs.push(out);}return{version:1,docs,active:state.active,materialId:$('designMaterial').value,waste:Number($('materialWaste').value)||0,vehicle:$('designVehicle').value};}
+  async function exportSession(){const docs=[];for(const d of state.docs){let blob;if(d.kind==='pdf'){blob=pdfFiles.get(d.pdf);if(!blob){blob=new Blob([await d.pdf.getData()],{type:'application/pdf'});pdfFiles.set(d.pdf,blob);}}else{blob=d.storedImage;if(!blob){blob=await new Promise((resolve,reject)=>d.image.toBlob(b=>b?resolve(b):reject(Error('No se pudo guardar la imagen')),'image/png'));d.storedImage=blob;}}const keys=['kind','name','page','widthCm','heightCm','factor','pdfMode','vehicle','side','lengthChoice','knownCm','manual','points','zones','extent','zoom','referenceConfirmed','plane','templatePlane','templateVehicle','viewBoxes','sheetRefs','analysisVersion','outlineCandidates','recognitionCandidates','refNote','wheelCm','estimatedScale'];const out={blob};for(const k of keys)if(d[k]!==undefined)out[k]=structuredClone(d[k]);if(d.mockup)out.mockup=d.mockup;docs.push(out);}return{version:1,docs,active:state.active,materialId:$('designMaterial').value,waste:Number($('materialWaste').value)||0,vehicle:$('designVehicle').value};}
   async function importSession(saved){if(!saved||saved.version!==1||!Array.isArray(saved.docs))throw Error('Trabajo no compatible');const docs=[],pdfs=new Map();for(const item of saved.docs){if(!(item.blob instanceof Blob)||!Array.isArray(item.zones)||!Array.isArray(item.points))throw Error('Trabajo incompleto');let d;if(item.kind==='pdf'){let pdf=pdfs.get(item.blob);if(!pdf){const engine=await loadPdfEngine();pdf=await engine.getDocument({data:new Uint8Array(await item.blob.arrayBuffer()),cMapUrl:'./rotulom/vendor/pdfjs/cmaps/',cMapPacked:true,standardFontDataUrl:'./rotulom/vendor/pdfjs/standard_fonts/',wasmUrl:'./rotulom/vendor/pdfjs/wasm/',isEvalSupported:false}).promise;pdfs.set(item.blob,pdf);pdfFiles.set(pdf,item.blob);}d=await pdfPage(pdf,item.page||1,item.name);}else{const im=await createImageBitmap(item.blob),image=document.createElement('canvas');image.width=im.width;image.height=im.height;image.getContext('2d').drawImage(im,0,0);im.close();d={image,storedImage:item.blob};}const meta={...item};delete meta.blob;Object.assign(d,meta);if(d.zones.some(z=>![z.x,z.y,z.w,z.h].every(Number.isFinite)||z.x<0||z.y<0||z.w<=0||z.h<=0||z.x+z.w>d.image.width+.01||z.y+z.h>d.image.height+.01))throw Error('Área fuera de la imagen');docs.push(d);}state.docs=docs;state.selected=-1;$('designMaterial').value=saved.materialId||'';$('materialWaste').value=saved.waste||0;$('designVehicle').value=saved.vehicle||'';activate(docs.length?Math.max(0,Math.min(docs.length-1,saved.active||0)):-1);}
   function refreshMaterials(){materials=JSON.parse(localStorage.getItem('rotulom-materials')||'[]');materialLibrary();}
   async function jobThumbnail(){const d=current();if(!d)return null;const image=document.createElement('canvas'),scale=Math.min(360/d.image.width,280/d.image.height,1);image.width=Math.max(1,Math.round(d.image.width*scale));image.height=Math.max(1,Math.round(d.image.height*scale));const g=image.getContext('2d');g.drawImage(d.image,0,0,image.width,image.height);g.strokeStyle='#27b778';g.lineWidth=2;for(const z of d.zones)g.strokeRect(z.x*scale,z.y*scale,z.w*scale,z.h*scale);return new Promise(resolve=>image.toBlob(resolve,'image/jpeg',.85));}
   function jobSummary(){const c=cost(),v=sourceVehicle();return{documents:state.docs.length,vehicle:v?v.make+' '+v.model:'',area:c.area||0,material:c.material?.name||'',price:c.ready?c.value:null};}
-  window.rotulomSession={export:exportSession,import:importSession,refreshMaterials,thumbnail:jobThumbnail,summary:jobSummary,pdfEngine:loadPdfEngine,currentBase:()=>{const d=current();return d?{image:d.image,name:d.name,template:!!d.templatePlane&&!d.pdf}:null;}};
+  window.rotulomSession={export:exportSession,import:importSession,refreshMaterials,thumbnail:jobThumbnail,summary:jobSummary,pdfEngine:loadPdfEngine,currentBase:()=>{const d=current();return d?{image:d.image,name:d.name,template:!!d.templatePlane&&!d.pdf,doc:d}:null;}};
   window.rotulomSimpleCalculation={getTotals:total,getCost:cost};
 })();
 
@@ -699,13 +699,13 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  if(!S||!$('clearZones'))return;
  const COLS=8,ROWS=5,MAX_LAYERS=6;
  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
- const state={base:null,outside:null,layers:[],sel:-1,curve:false,clip:true,guides:true,pointers:new Map(),drag:null,fit:1,busy:false};
+ const state={base:null,outside:null,layers:[],sel:-1,curve:false,clip:true,guides:true,pointers:new Map(),drag:null,fit:1,busy:false,protectMode:false,erase:false,brush:2.5,protect:null,hasProtect:false,doc:null,token:0,saveTimer:0};
  let ov,cv,g,raf=0;
 
  /* ---------- ventana del mockup ---------- */
  function build(){
   ov=document.createElement('div');ov.id='mockupOverlay';ov.className='mockup-overlay';ov.hidden=true;ov.tabIndex=-1;
-  ov.innerHTML='<div class="mockup-bar"><button type="button" class="tool-button" id="mkClose">← Volver</button><b>Mockup con diseño</b><button type="button" class="button button-primary" id="mkSave">Guardar imagen</button></div>'+
+  ov.innerHTML='<div class="mockup-bar"><button type="button" class="tool-button" id="mkClose">← Volver</button><b>Mockup con diseño</b><button type="button" class="tool-button" id="mkPdf">PDF</button><button type="button" class="button button-primary" id="mkSave">Guardar imagen</button></div>'+
    '<div class="mockup-stage" id="mkStage"><canvas id="mkCanvas" aria-label="Vehículo con el diseño colocado"></canvas><p id="mkHint" class="mockup-hint">Pulsa «＋ Añadir diseño» y elige un PDF, un SVG o una imagen.</p></div>'+
    '<div class="mockup-panel">'+
     '<div class="mockup-row"><label class="button button-secondary" for="mkFile">＋ Añadir diseño<input id="mkFile" type="file" accept="application/pdf,.pdf,image/svg+xml,.svg,image/png,image/jpeg,image/webp" hidden></label>'+
@@ -722,22 +722,28 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
      '<button type="button" class="tool-button" id="mkClip" aria-pressed="true">✂ Recortar fuera del vehículo</button>'+
      '<button type="button" class="tool-button" id="mkWhite" aria-pressed="false">Quitar fondo blanco</button>'+
      '<button type="button" class="tool-button" id="mkGuides" aria-pressed="true">Guías</button>'+
+     '<button type="button" class="tool-button" id="mkProtect" aria-pressed="false">🛡 Proteger zonas</button>'+
+     '<button type="button" class="tool-button" id="mkErase" aria-pressed="false" hidden>Borrador</button>'+
+     '<button type="button" class="tool-button" id="mkProtClear" hidden>Limpiar protección</button>'+
     '</div>'+
+    '<div class="mockup-sliders" id="mkBrushWrap" hidden><label>Grosor del pincel<input id="mkBrush" type="range" min="0.5" max="8" step="0.1" value="2.5"></label></div>'+
     '<p class="mockup-help" id="mkHelp">Arrastra el diseño para moverlo. Con dos dedos lo agrandas y lo giras. Con «Curvar» arrastra los puntos para adaptarlo a la curva de la carrocería.</p>'+
    '</div>';
   document.body.append(ov);cv=$('mkCanvas');g=cv.getContext('2d');
-  $('mkClose').onclick=close;$('mkSave').onclick=save;$('mkDel').onclick=removeLayer;
+  $('mkClose').onclick=close;$('mkSave').onclick=save;$('mkPdf').onclick=savePdf;$('mkDel').onclick=removeLayer;
   $('mkFile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(f)await addFile(f);};
   $('mkLayers').onchange=e=>{state.sel=Number(e.target.value);sync();draw();};
-  const bind=(id,fn)=>$(id).addEventListener('input',()=>{const L=cur();if(!L)return;fn(L,Number($(id).value));sync(true);draw();});
+  const bind=(id,fn)=>$(id).addEventListener('input',()=>{const L=cur();if(!L)return;fn(L,Number($(id).value));sync(true);draw();touch();});
   bind('mkSize',(L,v)=>{const w=state.base.w*v/100,r=w/L.w;L.off=L.off.map(o=>o*r);L.h*=r;L.w=w;});
   bind('mkRot',(L,v)=>{L.rot=v*Math.PI/180;});
   bind('mkOp',(L,v)=>{L.op=v/100;});
   bind('mkReal',(L,v)=>{L.real=v/100;});
   const toggle=(id,key,after)=>{$(id).onclick=()=>{state[key]=!state[key];$(id).setAttribute('aria-pressed',String(state[key]));after&&after();sync();draw();};};
-  toggle('mkCurve','curve');toggle('mkClip','clip');toggle('mkGuides','guides');
-  $('mkFlat').onclick=()=>{const L=cur();if(L){L.off.fill(0);draw();}};
-  $('mkWhite').onclick=()=>{const L=cur();if(!L)return;L.noWhite=!L.noWhite;prepare(L);sync();draw();};
+  toggle('mkCurve','curve');toggle('mkClip','clip',touch);toggle('mkGuides','guides');toggle('mkProtect','protectMode');toggle('mkErase','erase');
+  $('mkBrush').addEventListener('input',()=>{state.brush=Number($('mkBrush').value);});
+  $('mkProtClear').onclick=()=>{if(state.protect){state.protect.getContext('2d').clearRect(0,0,state.base.w,state.base.h);state.hasProtect=false;draw();touch();}};
+  $('mkFlat').onclick=()=>{const L=cur();if(L){L.off.fill(0);draw();touch();}};
+  $('mkWhite').onclick=()=>{const L=cur();if(!L)return;L.noWhite=!L.noWhite;prepare(L);sync();draw();touch();};
   cv.addEventListener('pointerdown',down);cv.addEventListener('pointermove',move);
   for(const t of ['pointerup','pointercancel','pointerleave'])cv.addEventListener(t,up);
   cv.style.touchAction='none';
@@ -816,12 +822,13 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
    const src=r.canvas,aspect=src.height/src.width,B=state.base;
    let w=B.w*.42;if(w*aspect>B.h*.7)w=B.h*.7/aspect;
    const L={name,src,view:src,w,h:w*aspect,cx:B.w/2,cy:B.h/2,rot:0,op:1,real:1,noWhite:false,off:new Float32Array(2*(COLS+1)*(ROWS+1))};
-   state.layers.push(L);state.sel=state.layers.length-1;hint.hidden=true;sync();draw();
+   L.blob=await new Promise(res=>src.toBlob(res,'image/png'));
+   state.layers.push(L);state.sel=state.layers.length-1;hint.hidden=true;sync();draw();touch();
    if(r.pages>1)alert('El PDF tiene '+r.pages+' páginas; se ha usado la primera.');
   }catch(err){hint.textContent=err.message||'No se pudo abrir el diseño';alert('No se pudo abrir el diseño: '+(err.message||err));}
   finally{state.busy=false;if(state.layers.length)hint.hidden=true;}
  }
- function removeLayer(){if(state.sel<0)return;state.layers.splice(state.sel,1);state.sel=Math.min(state.sel,state.layers.length-1);if(!state.layers.length)$('mkHint').hidden=false,$('mkHint').textContent='Pulsa «＋ Añadir diseño» y elige un PDF, un SVG o una imagen.';sync();draw();}
+ function removeLayer(){if(state.sel<0)return;state.layers.splice(state.sel,1);state.sel=Math.min(state.sel,state.layers.length-1);if(!state.layers.length)$('mkHint').hidden=false,$('mkHint').textContent='Pulsa «＋ Añadir diseño» y elige un PDF, un SVG o una imagen.';sync();draw();touch();}
 
  /* ---------- geometría y dibujo ---------- */
  function gridPoints(L){
@@ -866,6 +873,7 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
   for(const L of state.layers){
    t.clearRect(0,0,B.w,B.h);t.globalCompositeOperation='source-over';drawWarped(t,L,sub);
    if(state.clip&&state.outside){t.globalCompositeOperation='destination-out';t.drawImage(state.outside,0,0);t.globalCompositeOperation='source-over';}
+   if(state.hasProtect&&state.protect){t.globalCompositeOperation='destination-out';t.drawImage(state.protect,0,0);t.globalCompositeOperation='source-over';}
    ctx.save();ctx.globalAlpha=L.op*(1-L.real);ctx.drawImage(tmp,0,0);
    ctx.globalAlpha=L.op*L.real;ctx.globalCompositeOperation='multiply';ctx.drawImage(tmp,0,0);ctx.restore();
   }
@@ -892,7 +900,9 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  }
  function draw(){
   if(!state.base||ov.hidden)return;
-  cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{compose(g,false);guides(g);});
+  cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{compose(g,false);
+   if(state.protectMode&&state.hasProtect&&state.protect){const B=state.base,tn=draw.tint||(draw.tint=document.createElement('canvas'));tn.width=B.w;tn.height=B.h;const x=tn.getContext('2d');x.drawImage(state.protect,0,0);x.globalCompositeOperation='source-in';x.fillStyle='rgba(232,40,70,.5)';x.fillRect(0,0,B.w,B.h);g.drawImage(tn,0,0);}
+   if(!state.protectMode)guides(g);});
  }
  function fitCanvas(){
   const B=state.base;if(!B)return;const st=$('mkStage'),r=st.getBoundingClientRect();
@@ -911,6 +921,9 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
    $('mkSize').value=String(clamp(L.w/B.w*100,3,200));$('mkRot').value=String(Math.round(L.rot*1800/Math.PI)/10);$('mkOp').value=String(Math.round(L.op*100));$('mkReal').value=String(Math.round(L.real*100));
    $('mkSizeV').textContent=Math.round(L.w/B.w*100)+'%';$('mkRotV').textContent=(Math.round(L.rot*180/Math.PI)||0)+'°';$('mkOpV').textContent=Math.round(L.op*100)+'%';$('mkRealV').textContent=Math.round(L.real*100)+'%';
   }
+  for(const id of ['mkErase','mkProtClear','mkBrushWrap'])$(id).hidden=!state.protectMode;
+  $('mkProtect').setAttribute('aria-pressed',String(state.protectMode));$('mkErase').setAttribute('aria-pressed',String(state.erase));
+  if(state.protectMode){$('mkHelp').textContent='Pinta con el dedo sobre ventanas, ruedas, manillas o molduras: el diseño no se verá ahí. Con «Borrador» corriges. Vuelve a pulsar «Proteger zonas» para seguir moviendo el diseño.';return;}
   $('mkHelp').textContent=state.curve?'Arrastra un punto azul: la zona que lo rodea se dobla con él. Úsalo para seguir pasos de rueda, molduras y curvas.':'Arrastra el diseño para moverlo. Con dos dedos lo agrandas y lo giras. Las esquinas cambian el tamaño y el círculo superior lo gira.';
  }
 
@@ -920,6 +933,7 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  function hitLayer(p){for(let i=state.layers.length-1;i>=0;i--){const L=state.layers[i],q=local(L,p);if(Math.abs(q.x)<=L.w/2&&Math.abs(q.y)<=L.h/2)return i;}return -1;}
  function down(e){
   if(!state.base)return;cv.setPointerCapture?.(e.pointerId);state.pointers.set(e.pointerId,pos(e));
+  if(state.protectMode){const q=pos(e);state.drag={type:'paint',last:q};stroke(q,q);draw();return;}
   const p=pos(e),k=1/state.fit,L=cur();
   if(state.pointers.size===2&&L){const [a,b]=[...state.pointers.values()];state.drag={type:'pinch',d0:Math.hypot(b.x-a.x,b.y-a.y)||1,a0:Math.atan2(b.y-a.y,b.x-a.x),w0:L.w,h0:L.h,r0:L.rot,off0:Float32Array.from(L.off)};return;}
   if(L&&state.guides){
@@ -940,6 +954,7 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  }
  function move(e){
   if(!state.pointers.has(e.pointerId))return;state.pointers.set(e.pointerId,pos(e));
+  if(state.drag&&state.drag.type==='paint'){const q=pos(e);stroke(state.drag.last,q);state.drag.last=q;draw();return;}
   const d=state.drag,L=cur();if(!d||!L)return;const p=pos(e);
   if(d.type==='pinch'&&state.pointers.size>=2){
    const [a,b]=[...state.pointers.values()],f=Math.hypot(b.x-a.x,b.y-a.y)/d.d0;
@@ -958,8 +973,77 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  }
  function up(e){
   state.pointers.delete(e.pointerId);
+  if(state.drag&&state.pointers.size===0&&state.drag.type!=='pinch'){touch();}
   if(state.pointers.size<2&&state.drag?.type==='pinch')state.drag=null;
   if(!state.pointers.size){state.drag=null;draw();}
+ }
+
+
+ function stroke(a,b){
+  const c=state.protect.getContext('2d');c.save();c.lineCap='round';c.lineJoin='round';c.lineWidth=Math.max(2,state.base.w*state.brush/100);c.strokeStyle='#000';
+  c.globalCompositeOperation=state.erase?'destination-out':'source-over';c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x+.01,b.y);c.stroke();c.restore();
+  if(!state.erase)state.hasProtect=true;
+ }
+
+ /* ---------- se guarda dentro del trabajo (rotulomSession.export lo lee de doc.mockup) ---------- */
+ function touch(){
+  const doc=state.doc;if(!doc)return;clearTimeout(state.saveTimer);
+  state.saveTimer=setTimeout(async()=>{
+   try{
+    const layers=state.layers.filter(L=>L.blob).map(L=>({name:L.name,blob:L.blob,w:L.w,h:L.h,cx:L.cx,cy:L.cy,rot:L.rot,op:L.op,real:L.real,noWhite:!!L.noWhite,off:Array.from(L.off)}));
+    const mask=state.hasProtect&&state.protect?await new Promise(res=>state.protect.toBlob(res,'image/png')):null;
+    if(!layers.length&&!mask)delete doc.mockup;else doc.mockup={v:1,clip:state.clip,layers,mask};
+    window.dispatchEvent(new Event('rotulom-change'));
+   }catch(err){}
+  },500);
+ }
+ async function restore(m,token){
+  const layers=[];
+  for(const l of m.layers||[]){
+   if(!(l.blob instanceof Blob)||!Array.isArray(l.off)||l.off.length!==2*(COLS+1)*(ROWS+1))continue;
+   const bmp=await createImageBitmap(l.blob),src=document.createElement('canvas');src.width=bmp.width;src.height=bmp.height;src.getContext('2d').drawImage(bmp,0,0);bmp.close();
+   const L={name:l.name||'Diseño',src,view:src,blob:l.blob,w:l.w,h:l.h,cx:l.cx,cy:l.cy,rot:l.rot||0,op:l.op??1,real:l.real??1,noWhite:!!l.noWhite,off:Float32Array.from(l.off)};prepare(L);layers.push(L);
+  }
+  if(token!==state.token)return;
+  if(m.mask instanceof Blob){const bmp=await createImageBitmap(m.mask);if(token!==state.token){bmp.close();return;}state.protect.getContext('2d').drawImage(bmp,0,0);bmp.close();state.hasProtect=true;}
+  state.layers=layers;state.sel=layers.length-1;if(typeof m.clip==='boolean'&&state.outside)state.clip=m.clip;
+  $('mkHint').hidden=!!layers.length;sync();draw();
+ }
+
+ /* ---------- PDF (una página con la imagen) ---------- */
+ function makePdf(jpg,w,h,title,sub){
+  const enc=s=>{const a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i)&255;return a;};
+  const esc=s=>String(s).replace(/[\\()]/g,m=>'\\'+m).replace(/[^\x20-\xff]/g,'?');
+  const land=w>=h,PW=land?842:595,PH=land?595:842,M=30,top=64,bw=PW-2*M,bh=PH-M-top,k=Math.min(bw/w,bh/h),dw=w*k,dh=h*k,x=(PW-dw)/2,y=M+(bh-dh)/2,f=n=>n.toFixed(2);
+  const content=`q ${f(dw)} 0 0 ${f(dh)} ${f(x)} ${f(y)} cm /Im0 Do Q BT /F1 18 Tf ${M} ${PH-M-14} Td (${esc(title)}) Tj ET BT /F1 10 Tf 0.4 g ${M} ${PH-M-32} Td (${esc(sub)}) Tj ET`;
+  const objs=[
+   enc('<< /Type /Catalog /Pages 2 0 R >>'),
+   enc('<< /Type /Pages /Kids [3 0 R] /Count 1 >>'),
+   enc(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 5 0 R >> /Font << /F1 6 0 R >> >> /Contents 4 0 R >>`),
+   enc(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`),
+   [enc(`<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>\nstream\n`),jpg,enc('\nendstream')],
+   enc('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>')
+  ];
+  const parts=[enc('%PDF-1.4\n')],offs=[];let len=parts[0].length;
+  objs.forEach((o,i)=>{offs.push(len);const chunks=[enc(`${i+1} 0 obj\n`),...(Array.isArray(o)?o:[o]),enc('\nendobj\n')];for(const c of chunks){parts.push(c);len+=c.length;}});
+  let xref=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`;for(const o of offs)xref+=String(o).padStart(10,'0')+' 00000 n \n';
+  parts.push(enc(xref+`trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${len}\n%%EOF`));
+  return new Blob(parts,{type:'application/pdf'});
+ }
+ async function renderFinal(){
+  const out=document.createElement('canvas');out.width=state.base.w;out.height=state.base.h;compose(out.getContext('2d'),true);return out;
+ }
+ function deliver(blob,name){
+  if(parent&&parent!==window){parent.postMessage({type:'medlom-export-image',blob,name},location.origin);return;}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+ }
+ const safeName=()=>String(state.base.name||'vehículo').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,60);
+ async function savePdf(){
+  if(!state.base||!state.layers.length){alert('Añade primero un diseño.');return;}
+  const out=await renderFinal(),flat=document.createElement('canvas');flat.width=out.width;flat.height=out.height;const x=flat.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,flat.width,flat.height);x.drawImage(out,0,0);
+  const jb=await new Promise(res=>flat.toBlob(res,'image/jpeg',.92));if(!jb){alert('No se pudo crear el PDF');return;}
+  const jpg=new Uint8Array(await jb.arrayBuffer()),sub='MedLoM · '+new Date().toLocaleDateString('es-ES')+' · Vista previa para el cliente';
+  deliver(makePdf(jpg,flat.width,flat.height,'Mockup · '+safeName(),sub),'Mockup - '+safeName()+'.pdf');
  }
 
  /* ---------- abrir, cerrar y guardar ---------- */
@@ -968,7 +1052,12 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
   if(!ov)build();
   const same=state.base&&state.base.image===b.image;
   const w=b.image.width,h=b.image.height;
-  if(!same){state.layers=[];state.sel=-1;state.outside=b.template?floodOutside(b.image):null;state.clip=!!state.outside;}
+  state.doc=b.doc||null;
+  if(!same){
+   state.layers=[];state.sel=-1;state.outside=b.template?floodOutside(b.image):null;state.clip=!!state.outside;state.hasProtect=false;state.protectMode=false;state.erase=false;
+   state.protect=document.createElement('canvas');state.protect.width=w;state.protect.height=h;
+   const token=++state.token;if(b.doc&&b.doc.mockup)restore(b.doc.mockup,token).catch(()=>{});
+  }
   state.base={image:b.image,name:b.name,w,h};cv.width=w;cv.height=h;
   ov.hidden=false;$('mkHint').hidden=!!state.layers.length;sync();
   requestAnimationFrame(()=>{fitCanvas();ov.focus({preventScroll:true});});
@@ -977,11 +1066,9 @@ const status=$('recognitionStatus'),onDl=e=>{const p=e.detail;if(p.total&&p.done
  function close(){ov.hidden=true;state.drag=null;state.pointers.clear();window.dispatchEvent(new CustomEvent('rotulom-mockup-close'));}
  async function save(){
   if(!state.base||!state.layers.length){alert('Añade primero un diseño.');return;}
-  const out=document.createElement('canvas');out.width=state.base.w;out.height=state.base.h;compose(out.getContext('2d'),true);
+  const out=await renderFinal();
   const blob=await new Promise(res=>out.toBlob(res,'image/png'));if(!blob){alert('No se pudo crear la imagen');return;}
-  const name='Mockup - '+String(state.base.name||'vehículo').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,60)+'.png';
-  if(parent&&parent!==window){parent.postMessage({type:'medlom-export-image',blob,name},location.origin);return;}
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  deliver(blob,'Mockup - '+safeName()+'.png');
  }
  const btn=document.createElement('button');btn.type='button';btn.id='openMockup';btn.className='tool-button';btn.textContent='🖼 Mockup con diseño';
  btn.onclick=open;$('clearZones').after(btn);

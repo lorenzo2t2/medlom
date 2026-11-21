@@ -1,10 +1,12 @@
 {
- "versionCode": 112,
- "versionName": "0.54.1",
+ "versionCode": 113,
+ "versionName": "0.52.0",
  "apk": "MedLoM.apk",
- "size": 21722423,
- "sha256": "d006dda16543e094dd94b8acb3405eb93030257feb25dd4699c7832661ab2337",
+ "size": 21727320,
+ "sha256": "be22bf991a3c06ad8adbd24c5a2ad0b70669fc122195f7a0665ad828866e77b4",
  "notes": [
-  "Hacer foto desde la pared del plano"
+  "Mockup: botón «PDF» para sacar el mockup en un PDF listo para mandar al cliente (una página con el título, la fecha y la imagen).",
+  "Mockup: se guarda dentro del trabajo. Al volver a abrir el trabajo y pulsar «Mockup con diseño», vuelven los diseños, su posición, curvas, opacidad y zonas protegidas.",
+  "Mockup: «Proteger zonas». Pintas con el dedo sobre ventanas, ruedas, manillas o molduras y el diseño no se pinta ahí. Con borrador, grosor de pincel y «Limpiar protección»."
  ]
 }
