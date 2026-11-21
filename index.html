@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.54.0";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.54.1";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1715,7 +1715,7 @@ async function handleFiles(e){
   for(const f of files){try{made.push(await importFile(f,pid,!single))}catch(err){toast('No se pudo abrir '+(f.name||'la foto'))}}
   m.close(true);
   if(pid){const p=projById(pid);if(p){p.updated=stamp(p.updated);put('projects',p)}}
-  if(made.length===1){made[0].rec.fresh=true;openEditor(made[0].rec,made[0].canvas);if(fromCam)adviseFoto(made[0].canvas)}else{if(made.length)toast(`${made.length} fotos guardadas`);renderGallery()}
+  if(made.length===1){made[0].rec.fresh=true;if(fromCam&&ROOMUI.photoWall&&Date.now()-(ROOMUI.photoAt||0)<600000&&stack[stack.length-1].v==='room'){roomAfterPhoto(made[0])}else{ROOMUI.photoWall=null;openEditor(made[0].rec,made[0].canvas);if(fromCam)adviseFoto(made[0].canvas)}}else{if(made.length)toast(`${made.length} fotos guardadas`);renderGallery()}
 }
 /* Fast import: decode off the main thread, scale once, open the editor right away and store in the background. */
 const pending=new Map();
@@ -4770,11 +4770,11 @@ async function roomFromPhoto(){
   const r=ROOMUI.model,w=r&&r.walls.find(x=>x.id===ROOMUI.selected);if(!w)return;
   if(!w.lengthMm||!r.heightMm){toast('Mide esta pared e introduce la altura de pared antes de añadir elementos');return}
   const photos=(store.photos||[]).filter(p=>!p.deleted).sort((a,b)=>(b.updated||0)-(a.updated||0));
-  if(!photos.length){toast('Aún no hay fotos: haz una de la pared de frente');return}
   const pick=openModal(`<div class="sheet"><h2>Elige la foto de ${esc(RoomPlan.segmentLabel(r,w))}</h2><p class="note">Mejor con la pared de frente y enderezada, y con una medida de referencia (así salen las medidas reales).</p>
-    <div class="plist">${photos.slice(0,40).map(p=>`<button data-p="${esc(p.id)}" style="display:flex;gap:10px;align-items:center;text-align:left"><img src="${thumbURL(p)}" alt="" style="width:64px;height:48px;object-fit:cover;border-radius:6px"><span>${esc(p.name)}${p.calib&&(p.calib.ppmm||p.calib.plane)?'<br><small>con escala</small>':'<br><small>sin escala</small>'}</span></button>`).join('')}</div>
+    <button class="btn primary" data-cam style="width:100%;margin-bottom:8px">Hacer foto de esta pared ahora</button><div class="plist">${photos.slice(0,40).map(p=>`<button data-p="${esc(p.id)}" style="display:flex;gap:10px;align-items:center;text-align:left"><img src="${thumbURL(p)}" alt="" style="width:64px;height:48px;object-fit:cover;border-radius:6px"><span>${esc(p.name)}${p.calib&&(p.calib.ppmm||p.calib.plane)?'<br><small>con escala</small>':'<br><small>sin escala</small>'}</span></button>`).join('')}</div>
     <div class="row"><button class="btn ghost" data-c>Cancelar</button></div></div>`,{bottom:true});
-  pick.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return pick.close();const b=e.target.closest('[data-p]');if(!b)return;pick.close(true);
+  pick.wrap.addEventListener('click',async e=>{if(e.target.closest('[data-c]'))return pick.close();
+    if(e.target.closest('[data-cam]')){pick.close(true);ROOMUI.photoWall=w.id;ROOMUI.photoAt=Date.now();$('#fileCam').click();return}const b=e.target.closest('[data-p]');if(!b)return;pick.close(true);
     const p=photos.find(x=>x.id===b.dataset.p);if(!p)return;
     const busy=openModal('<div class="sheet"><h2>Buscando puertas, ventanas y enchufes…</h2><div class="spin"></div></div>');
     let img=null,list=[];try{if(!p.img)await ready(p);img=await bitmapOf(p.img);list=FotoAuto.detect(img,null)}catch(err){}
@@ -4794,7 +4794,7 @@ function roomPhotoSheet(r,w,p,img,list){
   const map=roomPhotoMapper(r,w,p,img),u=roomUnit(),k=TOMM[u],lab=RoomPlan.segmentLabel(r,w),items=list.map(c=>({...c,t:c.type==='socket'?'socket':c.type,on:c.type!=='socket'}));
   const m=openModal(`<form class="sheet" autocomplete="off"><h2>Añadir a ${esc(lab)}</h2>
     <canvas id="pfCv" style="width:100%;border-radius:10px;background:#000" aria-label="Foto con los elementos detectados"></canvas>
-    <p class="note">${map.scaled?'Medidas calculadas con la escala de la foto.':'Esta foto no tiene escala: se supone que abarca toda la pared (de esquina a esquina y de suelo a techo).'} Revisa los datos antes de añadir.</p>
+    <p class="note">${map.scaled?'Medidas calculadas con la escala de la foto.':'Esta foto no tiene escala: se supone que abarca toda la pared (de esquina a esquina y de suelo a techo); para más precisión haz la foto con la pared entera dentro.'} Revisa los datos antes de añadir.</p>
     ${map.scaled?`<div class="room-opening-form"><label class="col"><span>Esquina izquierda → borde izquierdo de la foto (${esc(u)})</span><input name="ml" type="number" step="any" inputmode="decimal" value="0"></label>
     <label class="col"><span>Suelo → borde inferior de la foto (${esc(u)})</span><input name="mb" type="number" step="any" inputmode="decimal" value="0"></label></div>`:''}
     <div class="det-list" id="pfList"></div>
@@ -4819,6 +4819,32 @@ function roomPhotoSheet(r,w,p,img,list){
       catch(err){failed.push(`${i+1}: ${err.message}`)}});
     m.close(true);if(added){ROOMUI.selected=w.id;roomChange(n)}
     toast(added?`${added} ${added===1?'elemento añadido':'elementos añadidos'} a ${lab}${failed.length?' · no caben: '+failed.length:''}`:(failed[0]||'No has marcado ningún elemento'),failed.length?5000:2600)};
+}
+
+// Foto hecha desde la pared del Plano: se endereza sola si hace falta y se propone qué añadir
+function pfRectify(img){
+  const q=FotoAuto.quad(img);if(!q)return img;
+  const Q=q.map(p=>({x:p.x*img.width,y:p.y*img.height})),d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+  let ow=Math.max(d(Q[0],Q[1]),d(Q[3],Q[2])),oh=Math.max(d(Q[0],Q[3]),d(Q[1],Q[2]));const k=Math.min(1,1400/Math.max(ow,oh));ow=Math.max(20,Math.round(ow*k));oh=Math.max(20,Math.round(oh*k));
+  const h=homography([{x:0,y:0},{x:ow,y:0},{x:ow,y:oh},{x:0,y:oh}],Q);if(!h)return img;
+  const sc=document.createElement('canvas');sc.width=img.width;sc.height=img.height;sc.getContext('2d').drawImage(img,0,0);
+  const sd=sc.getContext('2d').getImageData(0,0,sc.width,sc.height).data,out=document.createElement('canvas');out.width=ow;out.height=oh;const og=out.getContext('2d'),id=og.createImageData(ow,oh),o=id.data,hh=h[8]||1;
+  for(let y=0;y<oh;y++)for(let x=0;x<ow;x++){const w=(h[6]*x+h[7]*y+hh),px=Math.round((h[0]*x+h[1]*y+h[2])/w-.5),py=Math.round((h[3]*x+h[4]*y+h[5])/w-.5),j=(y*ow+x)*4;
+    if(px<0||py<0||px>=sc.width||py>=sc.height){o[j]=o[j+1]=o[j+2]=255;o[j+3]=255;continue}const a=(py*sc.width+px)*4;o[j]=sd[a];o[j+1]=sd[a+1];o[j+2]=sd[a+2];o[j+3]=255}
+  og.putImageData(id,0,0);return out;
+}
+async function roomAfterPhoto(made){
+  const r=ROOMUI.model,w=r&&r.walls.find(x=>x.id===ROOMUI.photoWall);ROOMUI.photoWall=null;
+  if(!w){openEditor(made.rec,made.canvas);return}
+  ROOMUI.selected=w.id;
+  const busy=openModal('<div class="sheet"><h2>Analizando la foto…</h2><div class="spin"></div></div>');
+  await new Promise(res=>setTimeout(res,60));
+  let img=made.canvas,list=[],msg='';
+  try{const a=FotoAuto.analyze(img);msg=a.msg;if(a.level==='warn'||a.level==='bad'){const r2=pfRectify(img);if(r2!==img){img=r2;msg=`Foto enderezada automáticamente (inclinación ${a.tilt.toFixed(1)}°).`+(a.level==='bad'?' Para más precisión, repítela de frente.':'')}}list=FotoAuto.detect(img,null)}catch(err){}
+  busy.close(true);
+  if(!list.length){dialog('Detectar huecos',(msg?msg+' ':'')+'No he encontrado puertas, ventanas ni enchufes claros. Prueba con la pared de frente y bien iluminada.',[{id:'ok',label:'Cerrar',kind:'primary'}]);return}
+  if(msg)toast(msg,5000);
+  roomPhotoSheet(r,w,made.rec,img,list);
 }
 /* ================= start ================= */
 (async()=>{
