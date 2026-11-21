@@ -1,10 +1,10 @@
 {
- "versionCode": 108,
- "versionName": "0.53.0",
+ "versionCode": 110,
+ "versionName": "0.54.0",
  "apk": "MedLoM.apk",
- "size": 21719144,
- "sha256": "13ded7a0a9b2f9222fbdef741e83fd442592b5c67cd1a5ed4b60b54ecf5ba396",
+ "size": 21721469,
+ "sha256": "021267cc061c5d998822ed9d339f00cca99db41d0ed56ec0a5ba2b7d43b0e35c",
  "notes": [
-  "Detectar huecos"
+  "Plano desde foto"
  ]
 }
