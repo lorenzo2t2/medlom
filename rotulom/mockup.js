@@ -6,7 +6,7 @@
  if(!S||!$('clearZones'))return;
  const COLS=8,ROWS=5,MAX_LAYERS=6;
  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
- const state={base:null,outside:null,layers:[],sel:-1,curve:false,clip:true,guides:true,pointers:new Map(),drag:null,fit:1,busy:false,protectMode:false,erase:false,brush:2.5,protect:null,hasProtect:false,doc:null,token:0,saveTimer:0};
+ const state={base:null,outside:null,layers:[],sel:-1,curve:false,clip:true,guides:true,pointers:new Map(),drag:null,fit:1,busy:false,protectMode:false,erase:false,tool:'brush',tol:40,px:null,outPx:null,brush:2.5,protect:null,hasProtect:false,doc:null,token:0,saveTimer:0};
  let ov,cv,g,raf=0;
 
  /* ---------- ventana del mockup ---------- */
@@ -30,10 +30,12 @@
      '<button type="button" class="tool-button" id="mkWhite" aria-pressed="false">Quitar fondo blanco</button>'+
      '<button type="button" class="tool-button" id="mkGuides" aria-pressed="true">Guías</button>'+
      '<button type="button" class="tool-button" id="mkProtect" aria-pressed="false">🛡 Proteger zonas</button>'+
+     '<button type="button" class="tool-button" id="mkAuto" hidden>✨ Detectar ventanas y ruedas</button>'+
+     '<button type="button" class="tool-button" id="mkWand" aria-pressed="false" hidden>🪄 Varita</button>'+
      '<button type="button" class="tool-button" id="mkErase" aria-pressed="false" hidden>Borrador</button>'+
      '<button type="button" class="tool-button" id="mkProtClear" hidden>Limpiar protección</button>'+
     '</div>'+
-    '<div class="mockup-sliders" id="mkBrushWrap" hidden><label>Grosor del pincel<input id="mkBrush" type="range" min="0.5" max="8" step="0.1" value="2.5"></label></div>'+
+    '<div class="mockup-sliders" id="mkBrushWrap" hidden><label>Grosor del pincel<input id="mkBrush" type="range" min="0.5" max="8" step="0.1" value="2.5"></label><label>Tolerancia de la varita<input id="mkTol" type="range" min="10" max="120" step="1" value="40"></label></div>'+
     '<p class="mockup-help" id="mkHelp">Arrastra el diseño para moverlo. Con dos dedos lo agrandas y lo giras. Con «Curvar» arrastra los puntos para adaptarlo a la curva de la carrocería.</p>'+
    '</div>';
   document.body.append(ov);cv=$('mkCanvas');g=cv.getContext('2d');
@@ -47,6 +49,9 @@
   bind('mkReal',(L,v)=>{L.real=v/100;});
   const toggle=(id,key,after)=>{$(id).onclick=()=>{state[key]=!state[key];$(id).setAttribute('aria-pressed',String(state[key]));after&&after();sync();draw();};};
   toggle('mkCurve','curve');toggle('mkClip','clip',touch);toggle('mkGuides','guides');toggle('mkProtect','protectMode');toggle('mkErase','erase');
+  $('mkWand').onclick=()=>{state.tool=state.tool==='wand'?'brush':'wand';sync();};
+  $('mkTol').addEventListener('input',()=>{state.tol=Number($('mkTol').value);});
+  $('mkAuto').onclick=()=>{$('mkAuto').disabled=true;setTimeout(()=>{try{autoDetect();}catch(err){alert('No se pudo detectar: '+(err.message||err));}$('mkAuto').disabled=false;},30);};
   $('mkBrush').addEventListener('input',()=>{state.brush=Number($('mkBrush').value);});
   $('mkProtClear').onclick=()=>{if(state.protect){state.protect.getContext('2d').clearRect(0,0,state.base.w,state.base.h);state.hasProtect=false;draw();touch();}};
   $('mkFlat').onclick=()=>{const L=cur();if(L){L.off.fill(0);draw();touch();}};
@@ -228,9 +233,10 @@
    $('mkSize').value=String(clamp(L.w/B.w*100,3,200));$('mkRot').value=String(Math.round(L.rot*1800/Math.PI)/10);$('mkOp').value=String(Math.round(L.op*100));$('mkReal').value=String(Math.round(L.real*100));
    $('mkSizeV').textContent=Math.round(L.w/B.w*100)+'%';$('mkRotV').textContent=(Math.round(L.rot*180/Math.PI)||0)+'°';$('mkOpV').textContent=Math.round(L.op*100)+'%';$('mkRealV').textContent=Math.round(L.real*100)+'%';
   }
-  for(const id of ['mkErase','mkProtClear','mkBrushWrap'])$(id).hidden=!state.protectMode;
+  for(const id of ['mkErase','mkProtClear','mkBrushWrap','mkAuto','mkWand'])$(id).hidden=!state.protectMode;
+  $('mkWand').setAttribute('aria-pressed',String(state.tool==='wand'));
   $('mkProtect').setAttribute('aria-pressed',String(state.protectMode));$('mkErase').setAttribute('aria-pressed',String(state.erase));
-  if(state.protectMode){$('mkHelp').textContent='Pinta con el dedo sobre ventanas, ruedas, manillas o molduras: el diseño no se verá ahí. Con «Borrador» corriges. Vuelve a pulsar «Proteger zonas» para seguir moviendo el diseño.';return;}
+  if(state.protectMode){$('mkHelp').textContent='Pulsa «Detectar ventanas y ruedas» para que lo haga solo y luego corrige: con «Varita» tocas una zona y se protege entera; con el pincel pintas a mano; con «Borrador» quitas protección. Vuelve a pulsar «Proteger zonas» para seguir moviendo el diseño.';return;}
   $('mkHelp').textContent=state.curve?'Arrastra un punto azul: la zona que lo rodea se dobla con él. Úsalo para seguir pasos de rueda, molduras y curvas.':'Arrastra el diseño para moverlo. Con dos dedos lo agrandas y lo giras. Las esquinas cambian el tamaño y el círculo superior lo gira.';
  }
 
@@ -240,7 +246,7 @@
  function hitLayer(p){for(let i=state.layers.length-1;i>=0;i--){const L=state.layers[i],q=local(L,p);if(Math.abs(q.x)<=L.w/2&&Math.abs(q.y)<=L.h/2)return i;}return -1;}
  function down(e){
   if(!state.base)return;cv.setPointerCapture?.(e.pointerId);state.pointers.set(e.pointerId,pos(e));
-  if(state.protectMode){const q=pos(e);state.drag={type:'paint',last:q};stroke(q,q);draw();return;}
+  if(state.protectMode){const q=pos(e);if(state.tool==='wand'){wandAt(q);return;}state.drag={type:'paint',last:q};stroke(q,q);draw();return;}
   const p=pos(e),k=1/state.fit,L=cur();
   if(state.pointers.size===2&&L){const [a,b]=[...state.pointers.values()];state.drag={type:'pinch',d0:Math.hypot(b.x-a.x,b.y-a.y)||1,a0:Math.atan2(b.y-a.y,b.x-a.x),w0:L.w,h0:L.h,r0:L.rot,off0:Float32Array.from(L.off)};return;}
   if(L&&state.guides){
@@ -290,6 +296,88 @@
   const c=state.protect.getContext('2d');c.save();c.lineCap='round';c.lineJoin='round';c.lineWidth=Math.max(2,state.base.w*state.brush/100);c.strokeStyle='#000';
   c.globalCompositeOperation=state.erase?'destination-out':'source-over';c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x+.01,b.y);c.stroke();c.restore();
   if(!state.erase)state.hasProtect=true;
+ }
+
+ /* ---------- detección automática de ventanas, ruedas y molduras oscuras ---------- */
+ function basePx(){
+  if(!state.px){const B=state.base,c=document.createElement('canvas');c.width=B.w;c.height=B.h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(B.image,0,0);state.px=x.getImageData(0,0,B.w,B.h).data;}
+  return state.px;
+ }
+ function outsidePx(){
+  if(!state.outside)return null;
+  if(!state.outPx){const B=state.base,c=document.createElement('canvas');c.width=B.w;c.height=B.h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(state.outside,0,0);const d=x.getImageData(0,0,B.w,B.h).data,o=new Uint8Array(B.w*B.h);for(let i=0;i<o.length;i++)o[i]=d[i*4+3]>128?1:0;state.outPx=o;}
+  return state.outPx;
+ }
+ function morph(m,w,h,r,er){
+  const a=new Uint8Array(m.length),b=new Uint8Array(m.length),P=new Int32Array(Math.max(w,h)+1);
+  const pass=(src,dst,len,lines,step,lineStep)=>{
+   for(let l=0;l<lines;l++){
+    const o=l*lineStep;P[0]=0;for(let i=0;i<len;i++)P[i+1]=P[i]+src[o+i*step];
+    for(let i=0;i<len;i++){
+     const lo=i-r,hi=i+r;
+     dst[o+i*step]=er?((lo>=0&&hi<len&&P[hi+1]-P[lo]===2*r+1)?1:0):((P[Math.min(len,hi+1)]-P[Math.max(0,lo)]>0)?1:0);
+    }
+   }
+  };
+  pass(m,a,w,h,1,w);pass(a,b,h,w,w,1);return b;
+ }
+ function flood(seedIdx,w,h,ok,stack,mark,markVal){
+  let sp=0,cnt=0;const members=[];stack[sp++]=seedIdx;mark[seedIdx]=markVal;
+  while(sp){
+   const i=stack[--sp];cnt++;members.push(i);const x=i%w;
+   if(x>0&&!mark[i-1]&&ok(i-1)){mark[i-1]=markVal;stack[sp++]=i-1;}
+   if(x<w-1&&!mark[i+1]&&ok(i+1)){mark[i+1]=markVal;stack[sp++]=i+1;}
+   if(i>=w&&!mark[i-w]&&ok(i-w)){mark[i-w]=markVal;stack[sp++]=i-w;}
+   if(i<w*(h-1)&&!mark[i+w]&&ok(i+w)){mark[i+w]=markVal;stack[sp++]=i+w;}
+  }
+  return members;
+ }
+ function applyRegion(P,add){
+  const B=state.base,c=document.createElement('canvas');c.width=B.w;c.height=B.h;const x=c.getContext('2d'),im=x.createImageData(B.w,B.h);
+  for(let i=0;i<P.length;i++)if(P[i])im.data[i*4+3]=255;
+  x.putImageData(im,0,0);
+  const pc=state.protect.getContext('2d');pc.save();pc.globalCompositeOperation=add?'source-over':'destination-out';pc.drawImage(c,0,0);pc.restore();
+  if(add)state.hasProtect=true;
+  draw();touch();
+ }
+ function autoDetect(){
+  const B=state.base,w=B.w,h=B.h,n=w*h,px=basePx(),out=outsidePx();
+  const D=new Uint8Array(n);
+  for(let i=0;i<n;i++){if(out&&out[i])continue;if(px[i*4+3]<200)continue;const l=.299*px[i*4]+.587*px[i*4+1]+.114*px[i*4+2];if(l<95)D[i]=1;}
+  const r=Math.max(2,Math.round(w*.0028));
+  const O=morph(morph(D,w,h,r,true),w,h,r,false);
+  const stack=new Int32Array(n),lab=new Uint8Array(n),minA=n*.0006;
+  for(let s=0;s<n;s++){
+   if(!O[s]||lab[s])continue;
+   const mem=flood(s,w,h,j=>O[j],stack,lab,1);
+   if(mem.length<minA)for(const j of mem)O[j]=0;
+  }
+  /* los huecos cerrados por piezas oscuras (cristal dentro del marco, tapacubos dentro del neumático) también se protegen */
+  const ext=new Uint8Array(n),free=j=>!O[j];
+  const seeds=[];for(let x=0;x<w;x++){seeds.push(x,(h-1)*w+x);}for(let y=0;y<h;y++){seeds.push(y*w,y*w+w-1);}if(out)for(let i=0;i<n;i++)if(out[i])seeds.push(i);
+  for(const s of seeds)if(!ext[s]&&!O[s])flood(s,w,h,free,stack,ext,1);
+  const P=new Uint8Array(O),hole=new Uint8Array(n),maxHole=n*.035;let windows=0;
+  for(let s=0;s<n;s++){
+   if(O[s]||ext[s]||hole[s])continue;
+   const mem=flood(s,w,h,free,stack,hole,1);
+   if(mem.length<=maxHole){for(const j of mem)P[j]=1;windows++;}
+  }
+  const R=morph(P,w,h,Math.max(1,Math.round(r/2)),false);
+  if(out)for(let i=0;i<n;i++)if(out[i])R[i]=0;
+  let cnt=0;for(let i=0;i<n;i++)if(R[i])cnt++;
+  if(!cnt){$('mkHelp').textContent='No encontré partes oscuras que proteger. Usa la varita o el pincel.';return;}
+  applyRegion(R,true);
+  $('mkHelp').textContent='Hecho: se protegieron cristales, ruedas, retrovisores y molduras oscuras (zonas en rojo). Corrige con la varita, el pincel o el borrador.';
+ }
+ function wandAt(p){
+  const B=state.base,w=B.w,h=B.h,n=w*h,px=basePx(),out=outsidePx(),x0=Math.floor(p.x),y0=Math.floor(p.y);
+  if(x0<0||y0<0||x0>=w||y0>=h)return;
+  const s=y0*w+x0,sr=px[s*4],sg=px[s*4+1],sb=px[s*4+2],tol2=state.tol*state.tol;
+  const ok=j=>{if(out&&out[j])return false;const dr=px[j*4]-sr,dg=px[j*4+1]-sg,db=px[j*4+2]-sb;return dr*dr+dg*dg+db*db<=tol2;};
+  if(!ok(s))return;
+  const mark=new Uint8Array(n),mem=flood(s,w,h,ok,new Int32Array(n),mark,1);
+  if(mem.length>n*.4){alert('Esa zona es demasiado grande (parece la carrocería). Baja la tolerancia o usa el pincel.');return;}
+  const R=morph(mark,w,h,1,false);applyRegion(R,!state.erase);
  }
 
  /* ---------- se guarda dentro del trabajo (rotulomSession.export lo lee de doc.mockup) ---------- */
@@ -361,7 +449,7 @@
   const w=b.image.width,h=b.image.height;
   state.doc=b.doc||null;
   if(!same){
-   state.layers=[];state.sel=-1;state.outside=b.template?floodOutside(b.image):null;state.clip=!!state.outside;state.hasProtect=false;state.protectMode=false;state.erase=false;
+   state.layers=[];state.sel=-1;state.outside=b.template?floodOutside(b.image):null;state.clip=!!state.outside;state.hasProtect=false;state.protectMode=false;state.erase=false;state.tool='brush';state.px=null;state.outPx=null;
    state.protect=document.createElement('canvas');state.protect.width=w;state.protect.height=h;
    const token=++state.token;if(b.doc&&b.doc.mockup)restore(b.doc.mockup,token).catch(()=>{});
   }

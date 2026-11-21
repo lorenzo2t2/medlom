@@ -1,12 +1,11 @@
 {
- "versionCode": 113,
- "versionName": "0.52.0",
+ "versionCode": 114,
+ "versionName": "0.52.1",
  "apk": "MedLoM.apk",
- "size": 21727320,
- "sha256": "be22bf991a3c06ad8adbd24c5a2ad0b70669fc122195f7a0665ad828866e77b4",
+ "size": 21731021,
+ "sha256": "fe4982ffd36d6e24ba23448fe91c903c0583ea624c3e3b11f07b8f5b5e195530",
  "notes": [
-  "Mockup: botón «PDF» para sacar el mockup en un PDF listo para mandar al cliente (una página con el título, la fecha y la imagen).",
-  "Mockup: se guarda dentro del trabajo. Al volver a abrir el trabajo y pulsar «Mockup con diseño», vuelven los diseños, su posición, curvas, opacidad y zonas protegidas.",
-  "Mockup: «Proteger zonas». Pintas con el dedo sobre ventanas, ruedas, manillas o molduras y el diseño no se pinta ahí. Con borrador, grosor de pincel y «Limpiar protección»."
+  "Mockup: «✨ Detectar ventanas y ruedas». En «Proteger zonas», un toque protege solo cristales, ruedas con sus tapacubos, retrovisores, manillas, parachoques y molduras oscuras. Se ven en rojo y se corrigen a mano.",
+  "Mockup: «🪄 Varita». Tocas una zona (un cristal, una luz, una moldura) y se protege entera. Con «Borrador» activado, el toque la desprotege. La tolerancia se ajusta con el deslizador."
  ]
 }
