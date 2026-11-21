@@ -1,10 +1,10 @@
 {
- "versionCode": 101,
- "versionName": "0.51.15",
+ "versionCode": 102,
+ "versionName": "0.51.16",
  "apk": "MedLoM.apk",
- "size": 21708750,
- "sha256": "93cf1f663b07cc4b5e179691f0523e8b13ab9831852162e4cc069aeba338af78",
+ "size": 21708725,
+ "sha256": "30fc1509ee0da195a29488ea803c5983ae3d504ce52343e1627ee67c705619e9",
  "notes": [
-  "Plano: 'Altura de pared' y 'Dibuja tu primer plano'"
+  "Plano: el resto de textos de habitacion pasan a plano"
  ]
 }
