@@ -1,10 +1,10 @@
 {
- "versionCode": 105,
- "versionName": "0.52.0",
+ "versionCode": 108,
+ "versionName": "0.53.0",
  "apk": "MedLoM.apk",
- "size": 21715218,
- "sha256": "4ec62db98e8a42556f9284851ca288d6813c2bdada9a86c7f4073c3b2f1cb444",
+ "size": 21719144,
+ "sha256": "13ded7a0a9b2f9222fbdef741e83fd442592b5c67cd1a5ed4b60b54ecf5ba396",
  "notes": [
-  "Foto óptima para medir"
+  "Detectar huecos"
  ]
 }
