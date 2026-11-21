@@ -1,10 +1,10 @@
 {
- "versionCode": 85,
- "versionName": "0.51.6",
+ "versionCode": 87,
+ "versionName": "0.51.7",
  "apk": "MedLoM.apk",
- "size": 21705336,
- "sha256": "4f51c9cc413e36b26bbf909ff5a1f491f67287bb5c02be5c4af9a919d6829bc6",
+ "size": 21706998,
+ "sha256": "b4f00bcac7eae7b916864603765543df05bfc56f9e750ef25290388998ad1a3f",
  "notes": [
-  "Habitaciones: un escalón grande ya no se toma por una columna, y al cambiar un tramo entre pared y columna se cambian las tres caras del entrante"
+  "Habitaciones: calcular por diferencia un tramo que el láser no puede medir"
  ]
 }
