@@ -1,10 +1,10 @@
 {
- "versionCode": 96,
- "versionName": "0.51.11",
+ "versionCode": 98,
+ "versionName": "0.51.12",
  "apk": "MedLoM.apk",
- "size": 21708605,
- "sha256": "af50f928ef790c293d7bd5a67604f73145acbde6d557b2d7ca32bdc0d4ba50ad",
+ "size": 21708694,
+ "sha256": "a1f5496af882745286cfff5a06811892f01e1fc98c47c83e242e5711c23c81c7",
  "notes": [
-  "Habitaciones: pregunta si una medida es la distancia total"
+  "Habitaciones: giro 3D estable"
  ]
 }

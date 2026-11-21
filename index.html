@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.11";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.51.12";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -4027,7 +4027,9 @@ const RoomViews=(()=>{
     const g=RoomPlan.geometry(r),p=palette(paper),yaw=camera.yaw??-.7,pitch=camera.pitch??.65,cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),height=r.heightMm||2600;
     const xs=g.points.map(q=>q.x),ys=g.points.map(q=>q.y),cx=(Math.min(...xs)+Math.max(...xs))/2,cz=(Math.min(...ys)+Math.max(...ys))/2;
     const project=q=>{const x=q.x-cx,z=q.y-cz,rx=x*cy-z*sy,rz=x*sy+z*cy;return {x:rx,y:rz*sp-q.z*cp,depth:rz*cp+q.z*sp};};
-    const bounds=g.points.flatMap(q=>[project({...q,z:0}),project({...q,z:height})]),normal=fit(bounds),toScreen=q=>{const a=project(q),b=normal(a),zoom=camera.zoom||1;return{x:500+(b.x-500)*zoom,y:330+(b.y-330)*zoom,depth:a.depth};};
+    // Escala fija: depende solo del radio de la habitación, no del ángulo, para que al girar no se amplíe ni se reduzca.
+    const R=Math.max(1,...g.points.map(q=>Math.hypot(q.x-cx,q.y-cz))),halfV=R*sp+height/2*cp,K=Math.min(820/(2*R),480/(2*Math.max(1,halfV))),
+      toScreen=q=>{const a=project(q),zoom=camera.zoom||1;return{x:500+a.x*K*zoom,y:330+(a.y+height/2*cp)*K*zoom,depth:a.depth};};
     const faces=[];
     if(g.closed&&!g.intersects)faces.push({pts:g.points.slice(0,-1).map(q=>({...q,z:0})),fill:p.wall,opacity:.23,id:''});
     g.segments.forEach((s,i)=>{
