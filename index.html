@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.1";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.2";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -854,6 +854,11 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .tpl-model>.col{padding:0 10px 10px;gap:8px}
 :root[data-look="if-prisma"] .tpl-model{border:3px solid #000;border-radius:0;background:#faf5ee}
 :root[data-look="if-espectro"] .tpl-model{border:2px solid #b84dff;box-shadow:0 0 10px #a02cff55;background:#0c0720}
+/* Marcas: nombre arriba y modelos/versiones debajo */
+.sheet .col>.tpl-brand{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name arrow" "info arrow";align-items:center;justify-content:stretch;column-gap:12px;row-gap:2px;text-align:left;min-height:62px}
+.tpl-brand b{grid-area:name;font-size:18px;line-height:1.15;overflow-wrap:normal;word-break:normal;white-space:normal}
+.tpl-brand small{grid-area:info;text-align:left;font-size:13px;white-space:normal}
+.tpl-brand i{grid-area:arrow}
 </style>
 
 <div class="app">
