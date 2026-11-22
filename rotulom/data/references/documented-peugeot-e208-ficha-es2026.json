@@ -1,0 +1,29 @@
+{
+  "id": "documented-peugeot-e208-ficha-es2026",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/208-equipamientos-caracteristicas.pdf",
+  "sourcePages": "34PDF · DIMENSIONES; vehículo ilustrado eléctrico",
+  "sourceArchive": "peugeot-208-es-20261121.pdf",
+  "sourceSha256": "ce36e4ef7b7aa2785cc2183d7211c92c1ccb5d61d354f5ec8060b97a80adfcb8",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4055,
+    "exteriorWidth": 1745,
+    "exteriorHeight": 1430,
+    "wheelbase": 2540
+  },
+  "widthConvention": "ancho de carrocería del esquema, sin retrovisores",
+  "notes": "Esquema dimensional propio Peugeot España. AER acredita la familia208, no ventas específicas de eléctrico. No aplicar E-208GTi ni generación anterior. Ancho1745 de carrocería en esquema frontal. Uso de presentación y presupuesto, no corte.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-car",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/11/NP-AER-Matriculaciones-renting-octubre-2026_.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-octubre-2026.pdf",
+    "sourceSha256": "8f6e4d35ba77b1d8931050868715d2a20760be5bb7ecc85ea54a92571ee33d2c",
+    "sourcePage": 3,
+    "period": "2026-01/2026-10",
+    "rank": 4,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

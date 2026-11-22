@@ -1,0 +1,17 @@
+{
+  "id": "documented-nissan-primastar-catalogo-es-l1h1",
+  "sourceUrl": "https://www.nissan.es/content/dam/Nissan/es/brochures/E-Catalogo_Primastar_ES.pdf",
+  "sourcePages": "16PDF",
+  "sourceArchive": "nissan-primastar-es-20261120-1.pdf",
+  "sourceSha256": "6d8d163c2d6f8ea7d6d41ec23150f3926d867288579c4616d8604bc02757e627",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5080,
+    "exteriorWidth": 1956,
+    "exteriorHeight": 1971,
+    "wheelbase": 3098
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla L1 de furgón: largo5080, ancho1956 sin espejos/2165 plegados/2312 abiertos, batalla3098. L2 tiene tabla propia que omite ancho de carrocería: no se completa ese dato por analogía. No corresponde al Primastar anterior a2014.",
+  "validationIssues": []
+}

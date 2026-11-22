@@ -1,0 +1,33 @@
+{
+  "id": "documented-ford-transit-es2017-van-l2h2-td",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+  "sourcePages": "5PDF /44-45 impresas · tabla Van",
+  "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+  "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 5531,
+    "exteriorWidth": 2059,
+    "exteriorHeight": 2490,
+    "wheelbase": 3300
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2474mm",
+  "notes": "Catálogo español creado mayo2017; archivo capturado2025 no cambia el año del vehículo. Van L2H2-TD. Altura2426–2490 por carga/payload, extremo superior nominal. Tracción delantera; no aplicar altura de TT/AWD. Ilustración de diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-2490-of-manufacturer-2426-2490-interval; load/payload-dependent",
+    "drive": "FWD",
+    "rearWheels": "single"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-FT-Transit_Van-20250505060002.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+    "archiveUrl": "https://web.archive.org/web/20250505060002id_/https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+    "archiveTimestamp": "20250505060002",
+    "cdxDigest": "5BNN5XCOXJNQZZ3UO4DY3W3DWTTM3HK4",
+    "checkedAt": "2026-11-21",
+    "bytes": 4757846,
+    "sha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8"
+  }
+}

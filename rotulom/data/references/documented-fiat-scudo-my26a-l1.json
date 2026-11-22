@@ -1,0 +1,17 @@
+{
+  "id": "documented-fiat-scudo-my26a-l1",
+  "sourceUrl": "https://www.fiat.co.uk/content/dam/fiat2023/professional/uk/tools/pricelist/scudo-and-e-scudo-van.pdf",
+  "sourcePages": "31 (PDF)",
+  "sourceArchive": "scudo-uk-oficial.pdf",
+  "sourceSha256": "ddd39462f2e225cdd08906d40cce5e47d4bb3dd8fdc740822cb6393ec1a23e4c",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4981,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1904,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Catálogo UK MY26A vigente desde1/07/2025. Anchura de carrocería1924; anchura con espejos2204. Se conservan las alturas específicas1904/1935 de esta ficha.",
+  "validationIssues": []
+}

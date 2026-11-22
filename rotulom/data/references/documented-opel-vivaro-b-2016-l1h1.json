@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-vivaro-b-2016-l1h1",
+  "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro_B/2014_2019/2016/manual_user/om_vivaro_kta-2769_2-es_eu_my16_ed0415_5_es_es_online%5B_vivaro%5D.pdf",
+  "sourcePages": "205impresa;207PDF",
+  "sourceArchive": "opel-vivaro-b-2016-es.pdf",
+  "sourceSha256": "0aa9ab149a02138e91e578ecadbda47cb1e8e724813fd00a314d46f1ab09f8da",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4999,
+    "exteriorWidth": 1956,
+    "exteriorHeight": 1971,
+    "wheelbase": 3098
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas de vehículo comercial sin carga y sin antena; sin retrovisores. No corresponden a Combi/Tour, doble cabina o cabina plataforma. Generación y techo explícitos.",
+  "validationIssues": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "documented-nissan-nv200-manual-es2018-van",
+  "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/nv200_m20_e0_2018/pdf/om18es-0m20e0eur.pdf",
+  "sourcePages": "267PDF · DIMENSIONES; identidad9-10PDF",
+  "sourceArchive": "nissan-nv200-2018-manual-es.pdf",
+  "sourceSha256": "24e6b1875732c8bae68ad6d0d9483a47e385b581cebbfce59a2e2b76017df0d3",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4400,
+    "exteriorWidth": 1695,
+    "exteriorHeight": 1860,
+    "wheelbase": 2725
+  },
+  "widthConvention": "anchura total publicada; retrovisores no especificados en el manual",
+  "notes": "Manual original español seleccionado por modelo/año en Nissan España. M20 de combustión:4400x1695x1860; no transferir cotas del eléctrico. La anchura total está publicada sin precisar retrovisores en el manual. Puertas representadas: carga con doble hoja; pasajeros con portón, sin barras. Ilustración nominal de diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "manufacturer scalar from own M20 manual"
+  },
+  "vehicleClass": "van"
+}

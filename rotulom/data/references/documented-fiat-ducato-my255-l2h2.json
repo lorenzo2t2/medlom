@@ -1,0 +1,18 @@
+{
+  "id": "documented-fiat-ducato-my255-l2h2",
+  "sourceUrl": "https://www.fiat.co.uk/content/dam/fiat2023/professional/uk/tools/pricelist/ducato-and-e-ducato-van.pdf",
+  "sourcePages": "31 (PDF)",
+  "sourceArchive": "ducato-uk-oficial.pdf",
+  "sourceSha256": "e207632d48d490dd47637cb012f7b7d5d499b4b7c72b3232fcbfe888a5a53a67",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 5413,
+    "exteriorWidth": 2050,
+    "wheelbase": 3450,
+    "cargoLength": 3120,
+    "exteriorHeight": 2522
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Catálogo UK vigente desde1/07/2025. No extrapolar alturas de otros fabricantes ni aplicar a chasis/cajas o versiones de propulsión diferentes.",
+  "validationIssues": []
+}

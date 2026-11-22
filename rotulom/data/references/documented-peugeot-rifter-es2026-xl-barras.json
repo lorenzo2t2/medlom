@@ -1,0 +1,20 @@
+{
+  "id": "documented-peugeot-rifter-es2026-xl-barras",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Rifter-equipamientos-caracteristicas.pdf",
+  "sourcePages": "11PDF",
+  "sourceArchive": "peugeot-rifter-es-20261120.pdf",
+  "sourceSha256": "0aaf894b08045c8a68487ca49f069458bf3f0f7dc2c9f01114868583e28ecd0f",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4760,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1818,
+    "wheelbase": 2975
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla de pasajeros: altura MÍNIMA en orden de funcionamiento, no una altura universal de todos los acabados. Ancho1848 sin espejos,1921 plegados y2107 desplegados. No confundir con furgón de4403/4753.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "minimum-in-running-order"
+  }
+}

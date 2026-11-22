@@ -1,0 +1,18 @@
+{
+  "id": "documented-volkswagen-caddy-life-uk-corto",
+  "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/caddy-life/caddy_life-brochure.pdf",
+  "sourcePages": "19PDF",
+  "sourceArchive": "vw-caddy-life-uk-2026.pdf",
+  "sourceSha256": "6cf3fe573e6ed20ff50d37150ce74fd4aa7ecfd301eafb7705f5119a919ec299",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4500,
+    "exteriorWidth": 1855,
+    "exteriorHeight": 1798,
+    "wheelbase": 2755
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "CaddyLife de pasajeros, no Cargo. Alturas1798/1800 sin barras de techo; con barras1832/1836. Ancho1855 sin espejos y2100 con espejos; tolerancia de altura±40mm. Referencia de la misma carrocería indicada.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-van"
+}

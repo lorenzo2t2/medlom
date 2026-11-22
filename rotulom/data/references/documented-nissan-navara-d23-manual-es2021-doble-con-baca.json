@@ -1,0 +1,22 @@
+{
+  "id": "documented-nissan-navara-d23-manual-es2021-doble-con-baca",
+  "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/navara np300_d23_e0_2021/pdf/om21es-0d23e0eur.pdf",
+  "sourcePages": "309PDF /303 impresa · CABINA DOBLE",
+  "sourceArchive": "nissan-navara-2021-manual-es.pdf",
+  "sourceSha256": "b51cd6697348baf8acf3a51ab70f87fbdff90537385e6ba4f90caf2b41f09d68",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 5330,
+    "exteriorWidth": 1850,
+    "exteriorHeight": 1840,
+    "wheelbase": 3150
+  },
+  "widthConvention": "anchura total publicada; retrovisores no especificados en el manual",
+  "notes": "Tabla propia manual español2021, cabina doble, carrocería ancha,4WD. Longitud5330 con base de carga Y parachoques trasero; no5120 chasis ni5300 sin parachoques. Altura1840 nota*1 con soporte para baca. Anchura total1850 sin aclaración expresa de retrovisores en el manual. Identidad europea del esquema, no Pro4X de otros mercados. Nominal de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorLength": "with pickup loadbed and rear bumper",
+    "exteriorHeight": "with roof carrier supports per note*1"
+  },
+  "vehicleClass": "pickup"
+}

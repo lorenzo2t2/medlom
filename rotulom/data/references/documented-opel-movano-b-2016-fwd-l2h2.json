@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-movano-b-2016-fwd-l2h2",
+  "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+  "sourcePages": "228impresa;230PDF",
+  "sourceArchive": "opel-movano-b-2016-es.pdf",
+  "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5548,
+    "exteriorWidth": 2070,
+    "exteriorHeight": 2500,
+    "wheelbase": 3682
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Vehículo comercial de tracción delantera. Altura sin carga y sin antena. L3 tiene altura específica2488/2744; no usar alturas de L2 ni de RWD.",
+  "validationIssues": []
+}

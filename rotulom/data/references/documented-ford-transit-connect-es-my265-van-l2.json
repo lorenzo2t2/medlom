@@ -1,0 +1,33 @@
+{
+  "id": "documented-ford-transit-connect-es-my265-van-l2",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/transit-connect/BRO-Transit_Connect_2026.5MY.pdf",
+  "sourcePages": "2PDF · tabla Van",
+  "sourceArchive": "ford-es-BRO-Transit_Connect_2026.5MY-20260711022459.pdf",
+  "sourceSha256": "efaf53bcb9735f273f95741d8a587b837c37a62bb9ffa755d3f13b5d25db52e9",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4853,
+    "exteriorWidth": 2100,
+    "exteriorHeight": 1860,
+    "wheelbase": 2970
+  },
+  "widthConvention": "con retrovisores desplegados; ancho de carrocería no publicado en esta tabla",
+  "notes": "Catálogo español MY26.5, creado marzo2026; columna Van, no FlexCab ni Active. Ancho2100 CON retrovisores desplegados, no ancho de chapa; no se inventa ancho de carrocería. Espejos plegados1931. Puertas ilustradas según gráfico del fabricante; verificar configuración de la unidad. Ilustración de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorWidth": "includes deployed mirrors; not body panel width",
+    "referenceYear": "MY26.5 manufacturer publication2026"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-BRO-Transit_Connect_2026.5MY-20260711022459.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/transit-connect/BRO-Transit_Connect_2026.5MY.pdf",
+    "archiveUrl": "https://web.archive.org/web/20260711022459id_/https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/transit-connect/BRO-Transit_Connect_2026.5MY.pdf",
+    "archiveTimestamp": "20260711022459",
+    "cdxDigest": "GMQ7ZEQU44KUJ4DCUCN4FIDL73AFJMVF",
+    "sha256": "efaf53bcb9735f273f95741d8a587b837c37a62bb9ffa755d3f13b5d25db52e9",
+    "pages": 9,
+    "usable": true,
+    "checkedAt": "2026-11-22"
+  }
+}

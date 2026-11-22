@@ -1,0 +1,33 @@
+{
+  "id": "documented-ford-transit-es2017-van-l4h3-tt-doble",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+  "sourcePages": "5PDF /44-45 impresas · tabla Van",
+  "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+  "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 6704,
+    "exteriorWidth": 2126,
+    "exteriorHeight": 2790,
+    "wheelbase": 3750
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2474mm",
+  "notes": "Catálogo español creado mayo2017; archivo capturado2025 no cambia el año del vehículo. Van L4H3-TT-DOBLE. Altura2687–2790 por carga/payload, extremo superior nominal. Tracción trasera, rueda doble2126; no confundir ancho con espejos2474. Ilustración de diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-2790-of-manufacturer-2687-2790-interval; load/payload-dependent",
+    "drive": "RWD",
+    "rearWheels": "twin"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-FT-Transit_Van-20250505060002.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+    "archiveUrl": "https://web.archive.org/web/20250505060002id_/https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+    "archiveTimestamp": "20250505060002",
+    "cdxDigest": "5BNN5XCOXJNQZZ3UO4DY3W3DWTTM3HK4",
+    "checkedAt": "2026-11-21",
+    "bytes": 4757846,
+    "sha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8"
+  }
+}

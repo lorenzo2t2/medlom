@@ -1,0 +1,28 @@
+{
+  "id": "documented-volkswagen-crafter-2025-m-alto",
+  "sourceUrl": "https://www.volkswagen-comerciales.es/idhub/content/dam/onehub_nfz/importers/es/modelos/crafter/nuevo-crafter/Cata%CC%81logoCrafterFurgo%CC%81n2025-ES.pdf",
+  "sourcePages": "11-12 (PDF) ytabla web deanchura",
+  "sourceArchive": "vw-crafter-datos-documentados.json",
+  "sourceSha256": "50b19160ac054bc304aa955301102eb624eaf653540e45316a90438982b60165",
+  "checkedAt": "2026-11-19",
+  "dimensionsMm": {
+    "exteriorLength": 5986,
+    "exteriorWidth": 2040,
+    "exteriorHeight": 2590,
+    "wheelbase": 3640
+  },
+  "widthConvention": "sin retrovisores; referencia CR30/CR35 de ruedas simples",
+  "notes": "Longitud/altura/batalla del PDF español2025. Ancho nominal2040 de tabla web española, corroborado como carrocería sin retrovisores por esquemas CR30/35 del folleto UK páginas29-30; con retrovisores2427. No usar2069 deCR50. Altura tolerancia±50mm.",
+  "validationIssues": [],
+  "widthReview": {
+    "checkedAt": "2026-11-19",
+    "sourceArchive": "vw-crafter-panel-uk-2026.pdf",
+    "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/crafter/crafter_panel_van-brochure.pdf",
+    "sourceSha256": "6b5953c86db51b280e7d141f2e68da7ada9a10347cfbc485f2d7df1bd828637d",
+    "sourcePages": "29-30PDF",
+    "bodyWidthMm": 2040,
+    "widthWithMirrorsMm": 2427,
+    "scope": "Esquemas CR30/CR35, ruedas simples. No aplicable a CR50 de2069mm ni a ruedas gemelas.",
+    "method": "Revisión del esquema frontal y de sus dos líneas de cota; PDF original y transcripción OCR archivados."
+  }
+}

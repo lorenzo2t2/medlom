@@ -1,0 +1,18 @@
+{
+  "id": "documented-hyundai-staria-us4-crdi-tecno-es",
+  "sourceUrl": "https://dmassets.hyundai.com/is/content/hyundaiautoever/staria_2601pdf",
+  "sourcePages": "18PDF",
+  "sourceArchive": "hyundai-staria-es-catalogo-consultado20261120.pdf",
+  "sourceSha256": "abedd680e717724843b163bdbe90e8352810ec064b7d5680c6373e127ce2f85e",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5253,
+    "exteriorWidth": 1997,
+    "exteriorHeight": 1990,
+    "wheelbase": 3273
+  },
+  "widthConvention": "sin retrovisores; referencia del esquema dimensional",
+  "notes": "El portal StariaHíbrido enlaza este PDF, pero su ficha técnica corresponde a2.2CRDi177 AT Tecno/Style. Se referencia expresamente el diésel US4, no se atribuyen sus especificaciones al híbrido. Cotas5253×1997×1990 y batalla3273 del esquema de página18. Tecno sin techo solar según tabla.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-van"
+}

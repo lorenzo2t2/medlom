@@ -1,0 +1,2368 @@
+{
+  "version": 1,
+  "country": "ES",
+  "scope": "commercial-models-sold-in-Spain",
+  "includeHistorical": true,
+  "checkedAt": "2026-11-21",
+  "catalogueComplete": false,
+  "includedTemplateIds": [
+    "bmw-x1-u11-sdrive18i-es2026",
+    "citroen-berlingo-2014-l1",
+    "citroen-berlingo-2014-l2",
+    "citroen-berlingo-vp-es2026-m-barras",
+    "citroen-berlingo-vp-es2026-m-sin-barras",
+    "citroen-berlingo-vp-es2026-xl-barras",
+    "citroen-berlingo-vp-es2026-xl-sin-barras",
+    "citroen-jumper-2015-l1h1",
+    "citroen-jumper-2015-l1h2",
+    "citroen-jumper-2015-l2h1",
+    "citroen-jumper-2015-l2h2",
+    "citroen-jumper-2015-l3h2",
+    "citroen-jumper-2015-l3h3",
+    "citroen-jumper-2015-l4h2",
+    "citroen-jumper-2015-l4h3",
+    "citroen-jumper-es2026-l2h1-h2254-cerrado",
+    "citroen-jumper-es2026-l2h2-h2524-cerrado",
+    "citroen-jumper-es2026-l2h2-h2539-cerrado",
+    "citroen-jumper-es2026-l3h2-h2524-cerrado",
+    "citroen-jumper-es2026-l3h2-h2534-cerrado",
+    "citroen-jumper-es2026-l3h2-h2534-semiacristalado",
+    "citroen-jumper-es2026-l3h2-h2539-cerrado",
+    "citroen-jumper-es2026-l3h2-h2612-cerrado",
+    "citroen-jumper-es2026-l3h3-h2764-cerrado",
+    "citroen-jumper-es2026-l3h3-h2850-cerrado",
+    "citroen-jumper-es2026-l4h2-h2534-cerrado",
+    "citroen-jumper-es2026-l4h2-h2539-cerrado",
+    "citroen-jumper-es2026-l4h3-h2774-cerrado",
+    "citroen-jumper-es2026-l4h3-h2850-cerrado",
+    "citroen-jumpy-2014-l1h1",
+    "citroen-jumpy-2014-l2h1",
+    "citroen-jumpy-2014-l2h2",
+    "citroen-jumpy-es-2023-m-aumentada",
+    "citroen-jumpy-es-2023-m-aumentada-altura-extra",
+    "citroen-jumpy-es-2023-m-estandar",
+    "citroen-jumpy-es-2023-xl-aumentada",
+    "citroen-jumpy-es-2023-xl-aumentada-altura-extra",
+    "citroen-jumpy-es-2024-m-aumentada",
+    "citroen-jumpy-es-2024-m-aumentada-altura-extra",
+    "citroen-jumpy-es-2024-m-estandar",
+    "citroen-jumpy-es-2024-xl-aumentada",
+    "citroen-jumpy-es-2024-xl-aumentada-altura-extra",
+    "fiat-doblo-my26a-l1",
+    "fiat-doblo-my26a-l2",
+    "fiat-ducato-my255-l2h1",
+    "fiat-ducato-my255-l2h2",
+    "fiat-ducato-my255-l3h2",
+    "fiat-ducato-my255-l3h3",
+    "fiat-ducato-my255-l4h3",
+    "fiat-scudo-my26a-l1",
+    "fiat-scudo-my26a-l2",
+    "ford-courier-es-tourneo2021-barras",
+    "ford-courier-es-tourneo2021-sin-barras",
+    "ford-courier-es-tourneo2024-active",
+    "ford-courier-es-tourneo2024-trend",
+    "ford-courier-es-transit-van2021",
+    "ford-transit-connect-es-archivo2019-van-l1",
+    "ford-transit-connect-es-archivo2019-van-l2",
+    "ford-transit-connect-es-my265-van-l1",
+    "ford-transit-connect-es-my265-van-l2",
+    "ford-transit-custom-es21-van-l1h1",
+    "ford-transit-custom-es21-van-l1h2",
+    "ford-transit-custom-es21-van-l2h1",
+    "ford-transit-custom-es21-van-l2h2",
+    "ford-transit-es2017-van-l2h2-td",
+    "ford-transit-es2017-van-l2h3-td",
+    "ford-transit-es2017-van-l3h2-td",
+    "ford-transit-es2017-van-l3h3-td",
+    "ford-transit-es2017-van-l4h3-tt-doble",
+    "ford-transit-es2017-van-l4h3-tt-simple",
+    "hyundai-staria-us4-crdi-tecno-es",
+    "isuzu-dmax-my26-es-crew-bstrong",
+    "isuzu-dmax-my26-es-crew-evolution",
+    "isuzu-dmax-my26-es-crew-nitro-sport",
+    "isuzu-dmax-my26-es-crew-prestige",
+    "isuzu-dmax-my26-es-single",
+    "isuzu-dmax-my26-es-space-bstrong",
+    "isuzu-dmax-my26-es-space-evolution",
+    "isuzu-dmax-my26-es-space-nitro-sport",
+    "isuzu-dmax-my26-es-space-prestige",
+    "kgm-musso-2026-corta-limited",
+    "kgm-musso-2026-corta-pro",
+    "kgm-musso-2026-larga-pro",
+    "kgm-musso-evx-2026-rieles",
+    "kgm-musso-evx-2026-sin-rieles",
+    "mercedes-benz-citan-2026-l1",
+    "mercedes-benz-citan-2026-l2",
+    "mercedes-benz-citan-c420-es2025-mixto-largo",
+    "mercedes-benz-citan-c420-es2025-tourer-estandar",
+    "mercedes-benz-citan-c420-es2025-tourer-largo",
+    "mercedes-benz-sprinter-extra-long-high",
+    "mercedes-benz-sprinter-long-high",
+    "mercedes-benz-sprinter-standard-high",
+    "mercedes-benz-vito-w447-extralarga",
+    "mercedes-benz-vito-w447-larga",
+    "mercedes-sprinter-907-estandar-normal",
+    "mercedes-vito-447-compacta",
+    "nissan-env200-manual-es2021-pasajeros",
+    "nissan-env200-manual-es2021-van",
+    "nissan-interstar-web2026-l2h2",
+    "nissan-interstar-web2026-l3h2",
+    "nissan-interstar-web2026-l3h3",
+    "nissan-interstar-web2026-l4h3-rueda-gemela",
+    "nissan-interstar-web2026-l4h3-rueda-simple",
+    "nissan-navara-d23-manual-es2021-doble-con-baca",
+    "nissan-navara-d23-manual-es2021-doble-r17-sin-baca",
+    "nissan-nv200-manual-es2018-pasajeros",
+    "nissan-nv200-manual-es2018-van",
+    "nissan-primastar-catalogo-es-l1h1",
+    "nissan-primastar-catalogo-es-l1h2",
+    "nissan-qashqai-j12-facelift-web-es2026",
+    "nissan-townstar-catalogo-es-l1-ev",
+    "nissan-townstar-catalogo-es-l1-gasolina",
+    "opel-combo-2026-m",
+    "opel-combo-2026-xl",
+    "opel-combo-d-2013-l1h1",
+    "opel-combo-d-2013-l1h2",
+    "opel-combo-d-2013-l2h1",
+    "opel-combo-d-2013-l2h2",
+    "opel-movano-2026-l2h1",
+    "opel-movano-2026-l2h2",
+    "opel-movano-2026-l3h2",
+    "opel-movano-2026-l3h3",
+    "opel-movano-2026-l4h2",
+    "opel-movano-2026-l4h3",
+    "opel-movano-b-2016-fwd-l1h1",
+    "opel-movano-b-2016-fwd-l1h2",
+    "opel-movano-b-2016-fwd-l2h2",
+    "opel-movano-b-2016-fwd-l2h3",
+    "opel-movano-b-2016-fwd-l3h2",
+    "opel-movano-b-2016-fwd-l3h3",
+    "opel-movano-b-2016-rwd-l3h2-gemelas",
+    "opel-movano-b-2016-rwd-l3h2-simples",
+    "opel-movano-b-2016-rwd-l3h3-gemelas",
+    "opel-movano-b-2016-rwd-l3h3-simples",
+    "opel-movano-b-2016-rwd-l4h2-gemelas",
+    "opel-movano-b-2016-rwd-l4h3-gemelas",
+    "opel-vivaro-2026-l2",
+    "opel-vivaro-2026-l3",
+    "opel-vivaro-a-2014-l1h1",
+    "opel-vivaro-a-2014-l1h2",
+    "opel-vivaro-a-2014-l2h1",
+    "opel-vivaro-a-2014-l2h2",
+    "opel-vivaro-b-2016-l1h1",
+    "opel-vivaro-b-2016-l1h2",
+    "opel-vivaro-b-2016-l2h1",
+    "opel-vivaro-b-2016-l2h2",
+    "peugeot-boxer-2015-l1h1",
+    "peugeot-boxer-2015-l1h2",
+    "peugeot-boxer-2015-l2h1",
+    "peugeot-boxer-2015-l2h2",
+    "peugeot-boxer-2015-l3h2",
+    "peugeot-boxer-2015-l3h3",
+    "peugeot-boxer-2015-l4h2",
+    "peugeot-boxer-2015-l4h3",
+    "peugeot-boxer-es2026-l2h2",
+    "peugeot-boxer-es2026-l3h2",
+    "peugeot-boxer-es2026-l3h3",
+    "peugeot-boxer-es2026-l4h2",
+    "peugeot-boxer-es2026-l4h3",
+    "peugeot-e2008-ficha-es2026",
+    "peugeot-e208-ficha-es2026",
+    "peugeot-expert-2014-l1h1",
+    "peugeot-expert-2014-l2h1",
+    "peugeot-expert-2014-l2h2",
+    "peugeot-expert-k0k4-es-m",
+    "peugeot-expert-k0k4-es-m-doble-fija",
+    "peugeot-expert-k0k4-es-m-doble-plegable",
+    "peugeot-expert-k0k4-es-xl",
+    "peugeot-partner-2014-l1",
+    "peugeot-partner-2014-l2",
+    "peugeot-rifter-es2026-m-barras",
+    "peugeot-rifter-es2026-m-sin-barras",
+    "peugeot-rifter-es2026-xl-barras",
+    "peugeot-rifter-es2026-xl-sin-barras",
+    "renault-clio-vi-catalogo-es2026",
+    "renault-kangoo-furgon-l1-2025",
+    "renault-kangoo-furgon-l2-2025",
+    "renault-master-web2026-l2h2",
+    "renault-master-web2026-l3h2",
+    "renault-master-web2026-l3h3",
+    "renault-trafic-my27-l1h1",
+    "renault-trafic-my27-l2h1",
+    "seat-arona-ficha-es2026",
+    "seat-ibiza-ficha-es2026",
+    "smart-fortwo-450-city-coupe-es",
+    "toyota-chr-my27-business",
+    "toyota-hilux-my27-double-cab",
+    "toyota-proace-city-my27-larga",
+    "toyota-proace-city-my27-media",
+    "toyota-proace-city-verso-my27-l1-business",
+    "toyota-proace-city-verso-my27-l1-family",
+    "toyota-proace-city-verso-my27-l2-family",
+    "toyota-proace-my27-larga",
+    "toyota-proace-my27-media",
+    "toyota-proace-verso-my27-l1-business",
+    "toyota-proace-verso-my27-l1-family",
+    "toyota-proace-verso-my27-l2-business",
+    "toyota-proace-verso-my27-l2-family",
+    "volkswagen-amarok-uk-esquema-5390",
+    "volkswagen-caddy-cargo-2024-corto",
+    "volkswagen-caddy-cargo-2024-maxi",
+    "volkswagen-caddy-life-uk-corto",
+    "volkswagen-caddy-life-uk-maxi",
+    "volkswagen-crafter-2025-l-alto",
+    "volkswagen-crafter-2025-l-sobreelevado",
+    "volkswagen-crafter-2025-m-alto",
+    "volkswagen-crafter-2025-m-normal",
+    "volkswagen-crafter-2025-xl-alto",
+    "volkswagen-crafter-2025-xl-sobreelevado",
+    "volkswagen-multivan-t7-uk-long",
+    "volkswagen-multivan-t7-uk-standard",
+    "volkswagen-tiguan-iii-dossier2024-sin-barras",
+    "volkswagen-transporter-2026-uk-lwb",
+    "volkswagen-transporter-2026-uk-swb"
+  ],
+  "families": [
+    {
+      "id": "renault-kangoo",
+      "manufacturerPage": "https://empresas.renault.es/gama-master/master-furgon.html",
+      "modelPage": "https://empresas.renault.es/comerciales/kangoo-furgon.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-renault-20261120.json",
+      "evidenceSha256": "f841b6de797ced693482c219a4995423ff2e85eb5651540dd4c370485b5b5e24",
+      "includedTemplateIds": [
+        "renault-kangoo-furgon-l1-2025",
+        "renault-kangoo-furgon-l2-2025"
+      ]
+    },
+    {
+      "id": "renault-trafic",
+      "manufacturerPage": "https://empresas.renault.es/gama-master/master-furgon.html",
+      "modelPage": "https://empresas.renault.es/comerciales/trafic-furgon.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-renault-20261120.json",
+      "evidenceSha256": "f841b6de797ced693482c219a4995423ff2e85eb5651540dd4c370485b5b5e24",
+      "includedTemplateIds": [
+        "renault-trafic-my27-l1h1",
+        "renault-trafic-my27-l2h1"
+      ]
+    },
+    {
+      "id": "renault-master",
+      "manufacturerPage": "https://empresas.renault.es/gama-master/master-furgon.html",
+      "modelPage": "https://empresas.renault.es/gama-master/master-furgon.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-renault-20261120.json",
+      "evidenceSha256": "f841b6de797ced693482c219a4995423ff2e85eb5651540dd4c370485b5b5e24",
+      "includedTemplateIds": [
+        "renault-master-web2026-l2h2",
+        "renault-master-web2026-l3h2",
+        "renault-master-web2026-l3h3"
+      ]
+    },
+    {
+      "id": "fiat-doblo",
+      "manufacturerPage": "https://www.fiat.es/professional",
+      "modelPage": "https://www.fiat.es/professional/modelo/doblo-termico",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-fiat-20261120.json",
+      "evidenceSha256": "3ecfbdb71c193e2a3fc1c6e738cab02a85f22ea22c51d3235a2404dc58cb9c95",
+      "includedTemplateIds": [
+        "fiat-doblo-my26a-l1",
+        "fiat-doblo-my26a-l2"
+      ]
+    },
+    {
+      "id": "fiat-scudo",
+      "manufacturerPage": "https://www.fiat.es/professional",
+      "modelPage": "https://www.fiat.es/professional/modelo/scudo-electrico",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-fiat-20261120.json",
+      "evidenceSha256": "3ecfbdb71c193e2a3fc1c6e738cab02a85f22ea22c51d3235a2404dc58cb9c95",
+      "includedTemplateIds": [
+        "fiat-scudo-my26a-l1",
+        "fiat-scudo-my26a-l2"
+      ]
+    },
+    {
+      "id": "fiat-ducato",
+      "manufacturerPage": "https://www.fiat.es/professional",
+      "modelPage": "https://www.fiat.es/professional/modelo/ducato-electrico",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-fiat-20261120.json",
+      "evidenceSha256": "3ecfbdb71c193e2a3fc1c6e738cab02a85f22ea22c51d3235a2404dc58cb9c95",
+      "includedTemplateIds": [
+        "fiat-ducato-my255-l2h1",
+        "fiat-ducato-my255-l2h2",
+        "fiat-ducato-my255-l3h2",
+        "fiat-ducato-my255-l3h3",
+        "fiat-ducato-my255-l4h3"
+      ]
+    },
+    {
+      "id": "mercedes-sprinter",
+      "manufacturerPage": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "modelPage": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html#first-component",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-mercedes-20261120.json",
+      "evidenceSha256": "26e767f503b0f2872a67a4f37dd96f470f6f32c748250e59a0ce77bc605c6940",
+      "includedTemplateIds": [
+        "mercedes-sprinter-907-estandar-normal",
+        "mercedes-benz-sprinter-standard-high",
+        "mercedes-benz-sprinter-long-high",
+        "mercedes-benz-sprinter-extra-long-high"
+      ]
+    },
+    {
+      "id": "mercedes-vito",
+      "manufacturerPage": "https://www.mercedes-benz.es/vans/models/sprinter/panel-van/overview.html",
+      "modelPage": "https://www.mercedes-benz.es/vans/models/vito/panel-van/overview.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-mercedes-20261120.json",
+      "evidenceSha256": "26e767f503b0f2872a67a4f37dd96f470f6f32c748250e59a0ce77bc605c6940",
+      "includedTemplateIds": [
+        "mercedes-vito-447-compacta",
+        "mercedes-benz-vito-w447-larga",
+        "mercedes-benz-vito-w447-extralarga"
+      ]
+    },
+    {
+      "id": "toyota-proace-city",
+      "manufacturerPage": "https://www.toyota.es/empresas/coches",
+      "modelPage": "https://www.toyota.es/empresas/coches/proace-city",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-toyota-20261120.json",
+      "evidenceSha256": "efdc4567781b99fa49bdf2cb349342b18002248a3ee2b44879a6fe998834b2d5",
+      "includedTemplateIds": [
+        "toyota-proace-city-my27-media",
+        "toyota-proace-city-my27-larga"
+      ]
+    },
+    {
+      "id": "toyota-proace",
+      "manufacturerPage": "https://www.toyota.es/empresas/coches",
+      "modelPage": "https://www.toyota.es/empresas/coches/proace",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-toyota-20261120.json",
+      "evidenceSha256": "efdc4567781b99fa49bdf2cb349342b18002248a3ee2b44879a6fe998834b2d5",
+      "includedTemplateIds": [
+        "toyota-proace-my27-media",
+        "toyota-proace-my27-larga"
+      ]
+    },
+    {
+      "id": "toyota-hilux",
+      "manufacturerPage": "https://www.toyota.es/empresas/coches",
+      "modelPage": "https://www.toyota.es/empresas/coches/hilux",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-toyota-20261120.json",
+      "evidenceSha256": "efdc4567781b99fa49bdf2cb349342b18002248a3ee2b44879a6fe998834b2d5",
+      "includedTemplateIds": [
+        "toyota-hilux-my27-double-cab"
+      ]
+    },
+    {
+      "id": "opel-combo",
+      "manufacturerPage": "https://www.opel.es/herramientas/catalogos-gama-opel.html",
+      "modelPage": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_COMBO_CARGO.pdf",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-opel-20261120.json",
+      "evidenceSha256": "3f1068b18ce8351d5d0a0991f4afc06c4a36c3cb88ce70db63e37ca891706220",
+      "includedTemplateIds": [
+        "opel-combo-2026-m",
+        "opel-combo-2026-xl"
+      ]
+    },
+    {
+      "id": "opel-vivaro",
+      "manufacturerPage": "https://www.opel.es/herramientas/catalogos-gama-opel.html",
+      "modelPage": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_VIVARO_FURGON.pdf",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-opel-20261120.json",
+      "evidenceSha256": "3f1068b18ce8351d5d0a0991f4afc06c4a36c3cb88ce70db63e37ca891706220",
+      "includedTemplateIds": [
+        "opel-vivaro-2026-l2",
+        "opel-vivaro-2026-l3"
+      ]
+    },
+    {
+      "id": "opel-movano",
+      "manufacturerPage": "https://www.opel.es/herramientas/catalogos-gama-opel.html",
+      "modelPage": "https://www.opel.es/content/dam/opel/spain/descargar-ficha-de-producto/OPEL_Catalogo_MOVANO.pdf",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-opel-20261120.json",
+      "evidenceSha256": "3f1068b18ce8351d5d0a0991f4afc06c4a36c3cb88ce70db63e37ca891706220",
+      "includedTemplateIds": [
+        "opel-movano-2026-l2h1",
+        "opel-movano-2026-l2h2",
+        "opel-movano-2026-l3h2",
+        "opel-movano-2026-l3h3",
+        "opel-movano-2026-l4h2",
+        "opel-movano-2026-l4h3"
+      ]
+    },
+    {
+      "id": "volkswagen-caddy-cargo",
+      "manufacturerPage": "https://www.volkswagen-comerciales.es/es.html",
+      "modelPage": "https://www.volkswagen-comerciales.es/es/modelos/caddy-cargo.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-volkswagen-20261120.json",
+      "evidenceSha256": "800ef5c17624bc3ecfbda5be06c04f0ef0336bee845f1860beb60b407c872700",
+      "includedTemplateIds": [
+        "volkswagen-caddy-cargo-2024-corto",
+        "volkswagen-caddy-cargo-2024-maxi"
+      ]
+    },
+    {
+      "id": "volkswagen-crafter",
+      "manufacturerPage": "https://www.volkswagen-comerciales.es/es.html",
+      "modelPage": "https://www.volkswagen-comerciales.es/es/modelos/crafter.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-volkswagen-20261120.json",
+      "evidenceSha256": "800ef5c17624bc3ecfbda5be06c04f0ef0336bee845f1860beb60b407c872700",
+      "includedTemplateIds": [
+        "volkswagen-crafter-2025-m-normal",
+        "volkswagen-crafter-2025-m-alto",
+        "volkswagen-crafter-2025-l-alto",
+        "volkswagen-crafter-2025-l-sobreelevado",
+        "volkswagen-crafter-2025-xl-alto",
+        "volkswagen-crafter-2025-xl-sobreelevado"
+      ]
+    },
+    {
+      "id": "nissan-townstar",
+      "manufacturerPage": "https://www.nissan.es/vehiculos/nuevos-vehiculos.html",
+      "modelPage": "https://www.nissan.es/vehiculos/nuevos-vehiculos/townstar-van.html",
+      "checkedAt": "2026-11-20",
+      "evidenceFile": "investigacion/plantillas/fuentes/gama-espana-nissan-20261120.json",
+      "evidenceSha256": "6bda7a2e583a07f0bb15bb013a99813275803038d47067736f9e09295fd505fc",
+      "includedTemplateIds": [
+        "nissan-townstar-catalogo-es-l1-gasolina",
+        "nissan-townstar-catalogo-es-l1-ev"
+      ]
+    },
+    {
+      "id": "peugeot-expert-2014",
+      "name": "Peugeot Expert",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "peugeot-expert-2014-l1h1",
+        "peugeot-expert-2014-l2h1",
+        "peugeot-expert-2014-l2h2"
+      ],
+      "references": [
+        {
+          "templateId": "peugeot-expert-2014-l1h1",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+          "sourceArchive": "peugeot-expert-2014-es.pdf",
+          "sourceSha256": "a4377b9127a583f6e43ba11001b5885356858439819cae3478c5b1509abbf4da",
+          "sourcePages": "144-145 impresas; 146-147 PDF"
+        },
+        {
+          "templateId": "peugeot-expert-2014-l2h1",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+          "sourceArchive": "peugeot-expert-2014-es.pdf",
+          "sourceSha256": "a4377b9127a583f6e43ba11001b5885356858439819cae3478c5b1509abbf4da",
+          "sourcePages": "144-145 impresas; 146-147 PDF"
+        },
+        {
+          "templateId": "peugeot-expert-2014-l2h2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/expert/expert_expertvu/ed01-14/es_es/expert_expert_expertvu_ed01-14_es_es.pdf",
+          "sourceArchive": "peugeot-expert-2014-es.pdf",
+          "sourceSha256": "a4377b9127a583f6e43ba11001b5885356858439819cae3478c5b1509abbf4da",
+          "sourcePages": "144-145 impresas; PDF146-147"
+        }
+      ]
+    },
+    {
+      "id": "peugeot-partner-2014",
+      "name": "Peugeot Partner",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "peugeot-partner-2014-l1",
+        "peugeot-partner-2014-l2"
+      ],
+      "references": [
+        {
+          "templateId": "peugeot-partner-2014-l1",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/partnervu/partnervu_partner2vu/ed01-14/es_es/partnervu_partnervu_partner2vu_ed01-14_es_es.pdf",
+          "sourceArchive": "partner-furgon-2014-es.pdf",
+          "sourceSha256": "fa037a211ea8a53eb0e86d452918359322508d80a6dd6cb2dba05e58b4589b83",
+          "sourcePages": "133-134 impresas; PDF135-136"
+        },
+        {
+          "templateId": "peugeot-partner-2014-l2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/partnervu/partnervu_partner2vu/ed01-14/es_es/partnervu_partnervu_partner2vu_ed01-14_es_es.pdf",
+          "sourceArchive": "partner-furgon-2014-es.pdf",
+          "sourceSha256": "fa037a211ea8a53eb0e86d452918359322508d80a6dd6cb2dba05e58b4589b83",
+          "sourcePages": "133-134 impresas; PDF135-136"
+        }
+      ]
+    },
+    {
+      "id": "peugeot-boxer-2015",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "peugeot-boxer-2015-l1h1",
+        "peugeot-boxer-2015-l1h2",
+        "peugeot-boxer-2015-l2h1",
+        "peugeot-boxer-2015-l2h2",
+        "peugeot-boxer-2015-l3h2",
+        "peugeot-boxer-2015-l3h3",
+        "peugeot-boxer-2015-l4h2",
+        "peugeot-boxer-2015-l4h3"
+      ],
+      "references": [
+        {
+          "templateId": "peugeot-boxer-2015-l1h1",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l1h2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l2h1",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l2h2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l3h2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l3h3",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l4h2",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "peugeot-boxer-2015-l4h3",
+          "sourceUrl": "https://public.servicebox.peugeot.com/APddb/modeles/boxer/boxer_boxer/ed01-15/es_es/boxer_boxer_boxer_ed01-15_es_es.pdf",
+          "sourceArchive": "boxer-2015-es.pdf",
+          "sourceSha256": "391007d32593d1fe2e1b2fde837af9f3ab7077860a0f7c83d504de5917b7d30d",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        }
+      ]
+    },
+    {
+      "id": "citroen-berlingo-2014",
+      "name": "Citroën Berlingo",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "citroen-berlingo-2014-l1",
+        "citroen-berlingo-2014-l2"
+      ],
+      "references": [
+        {
+          "templateId": "citroen-berlingo-2014-l1",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/berlingo/berlingo_berlingo2vu/ed01-14/es_es/berlingo_berlingo_berlingo2vu_ed01-14_es_es.pdf",
+          "sourceArchive": "berlingo-furgon-2014-es.pdf",
+          "sourceSha256": "e63d225a0f38e0ed90c1f037fd6422ac762bb3d73bd3cd0a62d1fb17c00c9d17",
+          "sourcePages": "133-134 impresas; PDF135-136"
+        },
+        {
+          "templateId": "citroen-berlingo-2014-l2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/berlingo/berlingo_berlingo2vu/ed01-14/es_es/berlingo_berlingo_berlingo2vu_ed01-14_es_es.pdf",
+          "sourceArchive": "berlingo-furgon-2014-es.pdf",
+          "sourceSha256": "e63d225a0f38e0ed90c1f037fd6422ac762bb3d73bd3cd0a62d1fb17c00c9d17",
+          "sourcePages": "133-134 impresas; PDF135-136"
+        }
+      ]
+    },
+    {
+      "id": "citroen-jumpy-2014",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "citroen-jumpy-2014-l1h1",
+        "citroen-jumpy-2014-l2h1",
+        "citroen-jumpy-2014-l2h2"
+      ],
+      "references": [
+        {
+          "templateId": "citroen-jumpy-2014-l1h1",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+          "sourceArchive": "jumpy-2014-es.pdf",
+          "sourceSha256": "0da1293a77ea27ee165ee11e7184629b6cab0d51fc9da206ccc09040a001b4ef",
+          "sourcePages": "144-145 impresas; PDF146-147"
+        },
+        {
+          "templateId": "citroen-jumpy-2014-l2h1",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+          "sourceArchive": "jumpy-2014-es.pdf",
+          "sourceSha256": "0da1293a77ea27ee165ee11e7184629b6cab0d51fc9da206ccc09040a001b4ef",
+          "sourcePages": "144-145 impresas; PDF146-147"
+        },
+        {
+          "templateId": "citroen-jumpy-2014-l2h2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumpy/jumpy_jumpyvu/ed01-14/es_es/jumpy_jumpy_jumpyvu_ed01-14_es_es.pdf",
+          "sourceArchive": "jumpy-2014-es.pdf",
+          "sourceSha256": "0da1293a77ea27ee165ee11e7184629b6cab0d51fc9da206ccc09040a001b4ef",
+          "sourcePages": "144-145 impresas; PDF146-147"
+        }
+      ]
+    },
+    {
+      "id": "citroen-jumper-2015",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "citroen-jumper-2015-l1h1",
+        "citroen-jumper-2015-l1h2",
+        "citroen-jumper-2015-l2h1",
+        "citroen-jumper-2015-l2h2",
+        "citroen-jumper-2015-l3h2",
+        "citroen-jumper-2015-l4h2",
+        "citroen-jumper-2015-l4h3",
+        "citroen-jumper-2015-l3h3"
+      ],
+      "references": [
+        {
+          "templateId": "citroen-jumper-2015-l1h1",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l1h2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l2h1",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l2h2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l3h2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l4h2",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l4h3",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        },
+        {
+          "templateId": "citroen-jumper-2015-l3h3",
+          "sourceUrl": "https://service.citroen.com/ACddb/modeles/jumper/jumper_jumper/ed01-15/es_es/jumper_jumper_jumper_ed01-15_es_es.pdf",
+          "sourceArchive": "jumper-2015-es.pdf",
+          "sourceSha256": "cc9cebe9d7164909595b7063d905ad07d58f1ae70578089a87b321d256ea26c1",
+          "sourcePages": "172-175 impresas; PDF174-177"
+        }
+      ]
+    },
+    {
+      "id": "opel-combo-d-2013",
+      "name": "Opel ComboD",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "opel-combo-d-2013-l1h1",
+        "opel-combo-d-2013-l2h1",
+        "opel-combo-d-2013-l1h2",
+        "opel-combo-d-2013-l2h2"
+      ],
+      "references": [
+        {
+          "templateId": "opel-combo-d-2013-l1h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Combo_D/2012_2018/2013/manual_user/om_combod_kta-2730_1-es_eu_my13_ed0812_7_es_es_online%5Bcombod%5D.pdf",
+          "sourceArchive": "opel-combo-d-2013-es.pdf",
+          "sourceSha256": "daaa503c7a1b24018087a247ba4f6cd8fdd2a9f9c330eae865e6ff1be8ac406f",
+          "sourcePages": "172impresa;174PDF"
+        },
+        {
+          "templateId": "opel-combo-d-2013-l2h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Combo_D/2012_2018/2013/manual_user/om_combod_kta-2730_1-es_eu_my13_ed0812_7_es_es_online%5Bcombod%5D.pdf",
+          "sourceArchive": "opel-combo-d-2013-es.pdf",
+          "sourceSha256": "daaa503c7a1b24018087a247ba4f6cd8fdd2a9f9c330eae865e6ff1be8ac406f",
+          "sourcePages": "172impresa;174PDF"
+        },
+        {
+          "templateId": "opel-combo-d-2013-l1h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Combo_D/2012_2018/2013/manual_user/om_combod_kta-2730_1-es_eu_my13_ed0812_7_es_es_online%5Bcombod%5D.pdf",
+          "sourceArchive": "opel-combo-d-2013-es.pdf",
+          "sourceSha256": "daaa503c7a1b24018087a247ba4f6cd8fdd2a9f9c330eae865e6ff1be8ac406f",
+          "sourcePages": "172impresa;174PDF"
+        },
+        {
+          "templateId": "opel-combo-d-2013-l2h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Combo_D/2012_2018/2013/manual_user/om_combod_kta-2730_1-es_eu_my13_ed0812_7_es_es_online%5Bcombod%5D.pdf",
+          "sourceArchive": "opel-combo-d-2013-es.pdf",
+          "sourceSha256": "daaa503c7a1b24018087a247ba4f6cd8fdd2a9f9c330eae865e6ff1be8ac406f",
+          "sourcePages": "172impresa;174PDF"
+        }
+      ]
+    },
+    {
+      "id": "opel-vivaro-a-2014",
+      "name": "Opel VivaroA",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "opel-vivaro-a-2014-l1h1",
+        "opel-vivaro-a-2014-l1h2",
+        "opel-vivaro-a-2014-l2h1",
+        "opel-vivaro-a-2014-l2h2"
+      ],
+      "references": [
+        {
+          "templateId": "opel-vivaro-a-2014-l1h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro/2011_2016/2014/manual_user/om_vivaro_kta-2682_6-es_eu_my14_ed0913_18_es_es_online%5Bvivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-a-2014-es.pdf",
+          "sourceSha256": "43cc3b9ca3e8f845b4b6530ce10121f17e48a2528dfd717c0f5e90c32f627250",
+          "sourcePages": "174impresa;176PDF"
+        },
+        {
+          "templateId": "opel-vivaro-a-2014-l1h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro/2011_2016/2014/manual_user/om_vivaro_kta-2682_6-es_eu_my14_ed0913_18_es_es_online%5Bvivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-a-2014-es.pdf",
+          "sourceSha256": "43cc3b9ca3e8f845b4b6530ce10121f17e48a2528dfd717c0f5e90c32f627250",
+          "sourcePages": "174impresa;176PDF"
+        },
+        {
+          "templateId": "opel-vivaro-a-2014-l2h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro/2011_2016/2014/manual_user/om_vivaro_kta-2682_6-es_eu_my14_ed0913_18_es_es_online%5Bvivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-a-2014-es.pdf",
+          "sourceSha256": "43cc3b9ca3e8f845b4b6530ce10121f17e48a2528dfd717c0f5e90c32f627250",
+          "sourcePages": "174impresa;176PDF"
+        },
+        {
+          "templateId": "opel-vivaro-a-2014-l2h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro/2011_2016/2014/manual_user/om_vivaro_kta-2682_6-es_eu_my14_ed0913_18_es_es_online%5Bvivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-a-2014-es.pdf",
+          "sourceSha256": "43cc3b9ca3e8f845b4b6530ce10121f17e48a2528dfd717c0f5e90c32f627250",
+          "sourcePages": "174impresa;176PDF"
+        }
+      ]
+    },
+    {
+      "id": "opel-vivaro-b-2016",
+      "name": "Opel VivaroB",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "opel-vivaro-b-2016-l1h1",
+        "opel-vivaro-b-2016-l1h2",
+        "opel-vivaro-b-2016-l2h1",
+        "opel-vivaro-b-2016-l2h2"
+      ],
+      "references": [
+        {
+          "templateId": "opel-vivaro-b-2016-l1h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro_B/2014_2019/2016/manual_user/om_vivaro_kta-2769_2-es_eu_my16_ed0415_5_es_es_online%5B_vivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-b-2016-es.pdf",
+          "sourceSha256": "0aa9ab149a02138e91e578ecadbda47cb1e8e724813fd00a314d46f1ab09f8da",
+          "sourcePages": "205impresa;207PDF"
+        },
+        {
+          "templateId": "opel-vivaro-b-2016-l1h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro_B/2014_2019/2016/manual_user/om_vivaro_kta-2769_2-es_eu_my16_ed0415_5_es_es_online%5B_vivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-b-2016-es.pdf",
+          "sourceSha256": "0aa9ab149a02138e91e578ecadbda47cb1e8e724813fd00a314d46f1ab09f8da",
+          "sourcePages": "205impresa;207PDF"
+        },
+        {
+          "templateId": "opel-vivaro-b-2016-l2h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro_B/2014_2019/2016/manual_user/om_vivaro_kta-2769_2-es_eu_my16_ed0415_5_es_es_online%5B_vivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-b-2016-es.pdf",
+          "sourceSha256": "0aa9ab149a02138e91e578ecadbda47cb1e8e724813fd00a314d46f1ab09f8da",
+          "sourcePages": "205impresa;207PDF"
+        },
+        {
+          "templateId": "opel-vivaro-b-2016-l2h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro_B/2014_2019/2016/manual_user/om_vivaro_kta-2769_2-es_eu_my16_ed0415_5_es_es_online%5B_vivaro%5D.pdf",
+          "sourceArchive": "opel-vivaro-b-2016-es.pdf",
+          "sourceSha256": "0aa9ab149a02138e91e578ecadbda47cb1e8e724813fd00a314d46f1ab09f8da",
+          "sourcePages": "205impresa;207PDF"
+        }
+      ]
+    },
+    {
+      "id": "opel-movano-b-2016",
+      "name": "Opel MovanoB",
+      "marketEvidence": "Manual original de fabricante, edición es_ES para la generación comercial indicada.",
+      "period": "historical",
+      "includedTemplateIds": [
+        "opel-movano-b-2016-fwd-l1h1",
+        "opel-movano-b-2016-fwd-l1h2",
+        "opel-movano-b-2016-fwd-l2h2",
+        "opel-movano-b-2016-fwd-l2h3",
+        "opel-movano-b-2016-fwd-l3h2",
+        "opel-movano-b-2016-fwd-l3h3",
+        "opel-movano-b-2016-rwd-l3h2-simples",
+        "opel-movano-b-2016-rwd-l3h2-gemelas",
+        "opel-movano-b-2016-rwd-l3h3-simples",
+        "opel-movano-b-2016-rwd-l3h3-gemelas",
+        "opel-movano-b-2016-rwd-l4h2-gemelas",
+        "opel-movano-b-2016-rwd-l4h3-gemelas"
+      ],
+      "references": [
+        {
+          "templateId": "opel-movano-b-2016-fwd-l1h1",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-fwd-l1h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-fwd-l2h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-fwd-l2h3",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-fwd-l3h2",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-fwd-l3h3",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "228impresa;230PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l3h2-simples",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l3h2-gemelas",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l3h3-simples",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l3h3-gemelas",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l4h2-gemelas",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        },
+        {
+          "templateId": "opel-movano-b-2016-rwd-l4h3-gemelas",
+          "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+          "sourceArchive": "opel-movano-b-2016-es.pdf",
+          "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+          "sourcePages": "229impresa;231PDF"
+        }
+      ]
+    },
+    {
+      "id": "mercedes-citan-c420-historico",
+      "period": "historical",
+      "marketEvidence": "Manual español oficial Citan furgoneta C420, febrero2025. Acredita generación histórica; no oferta nueva ni homologación de todos los acabados UK.",
+      "manufacturerPage": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux",
+      "checkedAt": "2026-11-21",
+      "evidenceFile": "investigacion/plantillas/fuentes/citan-manual-es-20261121.json",
+      "evidenceSha256": "98295cf303756a313131e5b5d7e53d4fa8aebd313160961c354c78c9bcd2bece",
+      "includedTemplateIds": [
+        "mercedes-benz-citan-2026-l1",
+        "mercedes-benz-citan-2026-l2"
+      ]
+    },
+    {
+      "id": "volkswagen-amarok-uk-esquema-5390",
+      "name": "Volkswagen Amarok",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/amarok/amarok-brochure.pdf",
+      "sourceArchive": "vw-amarok-uk-2026.pdf",
+      "sourceSha256": "f6241f4f97992720193c3cf0fc2f89603dfb80f9dda6b9d77271a4758140e84f",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-amarok-uk-esquema-5390"
+      ]
+    },
+    {
+      "id": "volkswagen-transporter-2026-uk-lwb",
+      "name": "Volkswagen Transporter",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/transporter-panel-van/transporter-brochure.pdf",
+      "sourceArchive": "vw-transporter-uk-2026.pdf",
+      "sourceSha256": "eae2f332659e15d43cbb6e4c187ac678920f140f50c484fcb64786baddc2e7b6",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-transporter-2026-uk-lwb"
+      ]
+    },
+    {
+      "id": "hyundai-staria-us4-crdi-tecno-es",
+      "name": "Hyundai Staria",
+      "marketEvidence": "Catálogo español de la generación diésel US4",
+      "sourceUrl": "https://dmassets.hyundai.com/is/content/hyundaiautoever/staria_2601pdf",
+      "sourceArchive": "hyundai-staria-es-catalogo-consultado20261120.pdf",
+      "sourceSha256": "abedd680e717724843b163bdbe90e8352810ec064b7d5680c6373e127ce2f85e",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "hyundai-staria-us4-crdi-tecno-es"
+      ]
+    },
+    {
+      "id": "volkswagen-caddy-life-uk-corto",
+      "name": "Volkswagen Caddy Life",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/caddy-life/caddy_life-brochure.pdf",
+      "sourceArchive": "vw-caddy-life-uk-2026.pdf",
+      "sourceSha256": "6cf3fe573e6ed20ff50d37150ce74fd4aa7ecfd301eafb7705f5119a919ec299",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-caddy-life-uk-corto"
+      ]
+    },
+    {
+      "id": "volkswagen-caddy-life-uk-maxi",
+      "name": "Volkswagen Caddy Life",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/caddy-life/caddy_life-brochure.pdf",
+      "sourceArchive": "vw-caddy-life-uk-2026.pdf",
+      "sourceSha256": "6cf3fe573e6ed20ff50d37150ce74fd4aa7ecfd301eafb7705f5119a919ec299",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-caddy-life-uk-maxi"
+      ]
+    },
+    {
+      "id": "volkswagen-multivan-t7-uk-long",
+      "name": "Volkswagen Multivan",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/multivan/multivan-brochure.pdf",
+      "sourceArchive": "vw-multivan-uk-2026.pdf",
+      "sourceSha256": "e72d0e837da04305431d62438702a10932120f35f05cf4e52805fbfadeb5cae0",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-multivan-t7-uk-long"
+      ]
+    },
+    {
+      "id": "volkswagen-transporter-2026-uk-swb",
+      "name": "Volkswagen Transporter",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/transporter-panel-van/transporter-brochure.pdf",
+      "sourceArchive": "vw-transporter-uk-2026.pdf",
+      "sourceSha256": "eae2f332659e15d43cbb6e4c187ac678920f140f50c484fcb64786baddc2e7b6",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-transporter-2026-uk-swb"
+      ]
+    },
+    {
+      "id": "volkswagen-multivan-t7-uk-standard",
+      "name": "Volkswagen Multivan",
+      "marketEvidence": "Familia y generación ofrecida en la gama española archivada; cotas nominales del catálogo propio UK",
+      "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/multivan/multivan-brochure.pdf",
+      "sourceArchive": "vw-multivan-uk-2026.pdf",
+      "sourceSha256": "e72d0e837da04305431d62438702a10932120f35f05cf4e52805fbfadeb5cae0",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "volkswagen-multivan-t7-uk-standard"
+      ]
+    },
+    {
+      "id": "nissan-interstar-web2026-l2h2",
+      "name": "Nissan Interstar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+      "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+      "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-interstar-web2026-l2h2"
+      ]
+    },
+    {
+      "id": "nissan-interstar-web2026-l3h2",
+      "name": "Nissan Interstar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+      "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+      "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-interstar-web2026-l3h2"
+      ]
+    },
+    {
+      "id": "nissan-interstar-web2026-l3h3",
+      "name": "Nissan Interstar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+      "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+      "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-interstar-web2026-l3h3"
+      ]
+    },
+    {
+      "id": "nissan-interstar-web2026-l4h3-rueda-simple",
+      "name": "Nissan Interstar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+      "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+      "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-interstar-web2026-l4h3-rueda-simple"
+      ]
+    },
+    {
+      "id": "nissan-interstar-web2026-l4h3-rueda-gemela",
+      "name": "Nissan Interstar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+      "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+      "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-interstar-web2026-l4h3-rueda-gemela"
+      ]
+    },
+    {
+      "id": "nissan-primastar-catalogo-es-l1h1",
+      "name": "Nissan Primastar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/content/dam/Nissan/es/brochures/E-Catalogo_Primastar_ES.pdf",
+      "sourceArchive": "nissan-primastar-es-20261120-1.pdf",
+      "sourceSha256": "6d8d163c2d6f8ea7d6d41ec23150f3926d867288579c4616d8604bc02757e627",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-primastar-catalogo-es-l1h1"
+      ]
+    },
+    {
+      "id": "nissan-primastar-catalogo-es-l1h2",
+      "name": "Nissan Primastar",
+      "marketEvidence": "Ficha dimensional propia publicada por Nissan España para esta generación.",
+      "sourceUrl": "https://www.nissan.es/content/dam/Nissan/es/brochures/E-Catalogo_Primastar_ES.pdf",
+      "sourceArchive": "nissan-primastar-es-20261120-1.pdf",
+      "sourceSha256": "6d8d163c2d6f8ea7d6d41ec23150f3926d867288579c4616d8604bc02757e627",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "nissan-primastar-catalogo-es-l1h2"
+      ]
+    },
+    {
+      "id": "peugeot-expert-k0k4-es-m",
+      "name": "Peugeot Expert",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-expert-es-20261120.pdf",
+      "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-expert-k0k4-es-m"
+      ]
+    },
+    {
+      "id": "peugeot-expert-k0k4-es-xl",
+      "name": "Peugeot Expert",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-expert-es-20261120.pdf",
+      "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-expert-k0k4-es-xl"
+      ]
+    },
+    {
+      "id": "peugeot-rifter-es2026-m-sin-barras",
+      "name": "Peugeot Rifter",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Rifter-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-rifter-es-20261120.pdf",
+      "sourceSha256": "0aaf894b08045c8a68487ca49f069458bf3f0f7dc2c9f01114868583e28ecd0f",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-rifter-es2026-m-sin-barras"
+      ]
+    },
+    {
+      "id": "peugeot-rifter-es2026-xl-sin-barras",
+      "name": "Peugeot Rifter",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Rifter-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-rifter-es-20261120.pdf",
+      "sourceSha256": "0aaf894b08045c8a68487ca49f069458bf3f0f7dc2c9f01114868583e28ecd0f",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-rifter-es2026-xl-sin-barras"
+      ]
+    },
+    {
+      "id": "peugeot-rifter-es2026-m-barras",
+      "name": "Peugeot Rifter",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Rifter-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-rifter-es-20261120.pdf",
+      "sourceSha256": "0aaf894b08045c8a68487ca49f069458bf3f0f7dc2c9f01114868583e28ecd0f",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-rifter-es2026-m-barras"
+      ]
+    },
+    {
+      "id": "peugeot-rifter-es2026-xl-barras",
+      "name": "Peugeot Rifter",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Rifter-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-rifter-es-20261120.pdf",
+      "sourceSha256": "0aaf894b08045c8a68487ca49f069458bf3f0f7dc2c9f01114868583e28ecd0f",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-rifter-es2026-xl-barras"
+      ]
+    },
+    {
+      "id": "mercedes-benz-citan-c420-es2025-tourer-estandar",
+      "name": "Mercedes-Benz Citan",
+      "marketEvidence": "Manual español oficial Citan C420 de febrero2025 para las carrocerías Mixto/Tourer.",
+      "sourceUrl": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux/datos-del-vehiculo/medidas-del-vehiculo",
+      "sourceArchive": "citan-cotas-es-20261121.json",
+      "sourceSha256": "cf4660cbd2178d3bcffcac1ce38d810429942969e4bbad23a0fa4faa1086957c",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "mercedes-benz-citan-c420-es2025-tourer-estandar"
+      ]
+    },
+    {
+      "id": "mercedes-benz-citan-c420-es2025-tourer-largo",
+      "name": "Mercedes-Benz Citan",
+      "marketEvidence": "Manual español oficial Citan C420 de febrero2025 para las carrocerías Mixto/Tourer.",
+      "sourceUrl": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux/datos-del-vehiculo/medidas-del-vehiculo",
+      "sourceArchive": "citan-cotas-es-20261121.json",
+      "sourceSha256": "cf4660cbd2178d3bcffcac1ce38d810429942969e4bbad23a0fa4faa1086957c",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "mercedes-benz-citan-c420-es2025-tourer-largo"
+      ]
+    },
+    {
+      "id": "peugeot-expert-k0k4-es-m-doble-plegable",
+      "name": "Peugeot Expert",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-expert-es-20261120.pdf",
+      "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-expert-k0k4-es-m-doble-plegable"
+      ]
+    },
+    {
+      "id": "peugeot-expert-k0k4-es-m-doble-fija",
+      "name": "Peugeot Expert",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-expert-es-20261120.pdf",
+      "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-expert-k0k4-es-m-doble-fija"
+      ]
+    },
+    {
+      "id": "citroen-berlingo-vp-es2026-m-sin-barras",
+      "name": "Citroën Berlingo",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_NUEVO_BERLINGO.pdf",
+      "sourceArchive": "citroen-berlingo-vp-es-20261120.pdf",
+      "sourceSha256": "40d867682738f2e7170a39b81764e95db4600888e62464a0324a1a79abdf3332",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-berlingo-vp-es2026-m-sin-barras"
+      ]
+    },
+    {
+      "id": "peugeot-boxer-es2026-l2h2",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+      "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-boxer-es2026-l2h2"
+      ]
+    },
+    {
+      "id": "peugeot-boxer-es2026-l3h2",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+      "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-boxer-es2026-l3h2"
+      ]
+    },
+    {
+      "id": "peugeot-boxer-es2026-l3h3",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+      "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-boxer-es2026-l3h3"
+      ]
+    },
+    {
+      "id": "citroen-berlingo-vp-es2026-m-barras",
+      "name": "Citroën Berlingo",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_NUEVO_BERLINGO.pdf",
+      "sourceArchive": "citroen-berlingo-vp-es-20261120.pdf",
+      "sourceSha256": "40d867682738f2e7170a39b81764e95db4600888e62464a0324a1a79abdf3332",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-berlingo-vp-es2026-m-barras"
+      ]
+    },
+    {
+      "id": "citroen-berlingo-vp-es2026-xl-sin-barras",
+      "name": "Citroën Berlingo",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_NUEVO_BERLINGO.pdf",
+      "sourceArchive": "citroen-berlingo-vp-es-20261120.pdf",
+      "sourceSha256": "40d867682738f2e7170a39b81764e95db4600888e62464a0324a1a79abdf3332",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-berlingo-vp-es2026-xl-sin-barras"
+      ]
+    },
+    {
+      "id": "mercedes-benz-citan-c420-es2025-mixto-largo",
+      "name": "Mercedes-Benz Citan",
+      "marketEvidence": "Manual español oficial Citan C420 de febrero2025 para las carrocerías Mixto/Tourer.",
+      "sourceUrl": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux/datos-del-vehiculo/medidas-del-vehiculo",
+      "sourceArchive": "citan-cotas-es-20261121.json",
+      "sourceSha256": "cf4660cbd2178d3bcffcac1ce38d810429942969e4bbad23a0fa4faa1086957c",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "mercedes-benz-citan-c420-es2025-mixto-largo"
+      ]
+    },
+    {
+      "id": "peugeot-boxer-es2026-l4h2",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+      "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-boxer-es2026-l4h2"
+      ]
+    },
+    {
+      "id": "peugeot-boxer-es2026-l4h3",
+      "name": "Peugeot Boxer",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+      "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "peugeot-boxer-es2026-l4h3"
+      ]
+    },
+    {
+      "id": "citroen-berlingo-vp-es2026-xl-barras",
+      "name": "Citroën Berlingo",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_NUEVO_BERLINGO.pdf",
+      "sourceArchive": "citroen-berlingo-vp-es-20261120.pdf",
+      "sourceSha256": "40d867682738f2e7170a39b81764e95db4600888e62464a0324a1a79abdf3332",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-berlingo-vp-es2026-xl-barras"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2024-m-estandar",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2024-m-estandar"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2024-m-aumentada",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2024-m-aumentada"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2024-m-aumentada-altura-extra",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2024-m-aumentada-altura-extra"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2024-xl-aumentada",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2024-xl-aumentada"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2024-xl-aumentada-altura-extra",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2024-xl-aumentada-altura-extra"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h3-h2764-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h3-h2764-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l2h2-h2524-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l2h2-h2524-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l2h1-h2254-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l2h1-h2254-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h2-h2524-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h2-h2524-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l2h2-h2539-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l2h2-h2539-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h2-h2534-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h2-h2534-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l4h2-h2534-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l4h2-h2534-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l4h3-h2774-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l4h3-h2774-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h2-h2612-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h2-h2612-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h3-h2850-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h3-h2850-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l4h3-h2850-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l4h3-h2850-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h2-h2539-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h2-h2539-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l4h2-h2539-cerrado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l4h2-h2539-cerrado"
+      ]
+    },
+    {
+      "id": "citroen-jumper-es2026-l3h2-h2534-semiacristalado",
+      "name": "Citroën Jumper",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+      "sourceArchive": "citroen-jumper-es-20261120.pdf",
+      "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumper-es2026-l3h2-h2534-semiacristalado"
+      ]
+    },
+    {
+      "id": "kgm-musso-2026-corta-pro",
+      "name": "KGM Musso",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://kgm.com.es/uploads/documentacion/fichas_tecnicas/ficha-musso-2026.pdf",
+      "sourceArchive": "kgm-ficha-musso-2026.pdf",
+      "sourceSha256": "042548ac6c1e43d1bc585f111074487edc1bf79e128954b338c520c5a47f31a5",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "kgm-musso-2026-corta-pro"
+      ]
+    },
+    {
+      "id": "kgm-musso-2026-corta-limited",
+      "name": "KGM Musso",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://kgm.com.es/uploads/documentacion/fichas_tecnicas/ficha-musso-2026.pdf",
+      "sourceArchive": "kgm-ficha-musso-2026.pdf",
+      "sourceSha256": "042548ac6c1e43d1bc585f111074487edc1bf79e128954b338c520c5a47f31a5",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "kgm-musso-2026-corta-limited"
+      ]
+    },
+    {
+      "id": "kgm-musso-evx-2026-sin-rieles",
+      "name": "KGM Musso EVX",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://kgm.com.es/uploads/modelos/musso-evx/ficha-tecnica-musso-evx.pdf",
+      "sourceArchive": "kgm-ficha-tecnica-musso-evx.pdf",
+      "sourceSha256": "8f36a37a16dc5da2627aeb837796618529db56f0fa17bf3b33297c7a24551db8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "kgm-musso-evx-2026-sin-rieles"
+      ]
+    },
+    {
+      "id": "kgm-musso-evx-2026-rieles",
+      "name": "KGM Musso EVX",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://kgm.com.es/uploads/modelos/musso-evx/ficha-tecnica-musso-evx.pdf",
+      "sourceArchive": "kgm-ficha-tecnica-musso-evx.pdf",
+      "sourceSha256": "8f36a37a16dc5da2627aeb837796618529db56f0fa17bf3b33297c7a24551db8",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "kgm-musso-evx-2026-rieles"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-single",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/11372ac2-9c93-4522-bdda-34ae9d6d169b/SINGLE_N60B-4X4-Euro-6e-bis-GSR-III-ES.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-1.pdf",
+      "sourceSha256": "327c9013728fccd9cf4c421fd94aec57a494a3f570c12be739ecc2307ab727e5",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-single"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-space-bstrong",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/59342f6a-58d5-4b47-acde-91db35b727ea/SPACE_BSTRONG-Euro-6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-2.pdf",
+      "sourceSha256": "2a1e0257818f17aa3af74d3a3d3f80f38c5d9ab1267a86e693dc943fdafa5311",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-space-bstrong"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-space-evolution",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/5ae4e5ad-da64-4a1e-ae69-a28ce342692b/SPACE_EVOLUTION_Euro-6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-3.pdf",
+      "sourceSha256": "4f27d409b1e460ae38cf6381cf736c5e10c6cd6b3f3dfd2ded825fe642db825a",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-space-evolution"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-space-prestige",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/c6b9cdce-609a-4c83-993b-8deab7780747/SPACE_PRESTIGE-Euro6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-4.pdf",
+      "sourceSha256": "d76ae4ed40bfaa030751bc035d9b2354810ff8715e70ef004dbac169d21d73ca",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-space-prestige"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-space-nitro-sport",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/993d81eb-a4f0-469f-ad19-53d91b830b08/SPACE_NITRO-SPORT-Euro6e-bis_MY26---GSR-III_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-5.pdf",
+      "sourceSha256": "4425a24242c58252688206fc6ac76513d6a2ca01bd50cfd0e99dfca0d479f1d3",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-space-nitro-sport"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-crew-bstrong",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/f43d1175-8f3c-4053-a36a-918f4e928ac6/CREW_BSTRONG-Euro-6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-6.pdf",
+      "sourceSha256": "e168ed91a68550e7d7ce355355b412ae88394807435e44f2119e4b65514d8afb",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-crew-bstrong"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-crew-evolution",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/23c971c9-1a15-4543-ba1c-84b89e6999eb/CREW_EVOLUTION-Euro-6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-7.pdf",
+      "sourceSha256": "a65406ac1fa1bc2cc78888d5dd8a32fce23e21be82da8a289d6463dcb2d84034",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-crew-evolution"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-crew-prestige",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/701498cb-0127-4b3c-ada3-6742e83ce061/CREW_PRESTIGE-Euro6e-bis_MY26_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-8.pdf",
+      "sourceSha256": "d86aa60bf1be6befdfffcf6caa96558ba67db9ddd973e2c5ede064304411b3b7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-crew-prestige"
+      ]
+    },
+    {
+      "id": "isuzu-dmax-my26-es-crew-nitro-sport",
+      "name": "Isuzu D-Max",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://www.isuzu.it/storage/uploads/0d66345a-7440-4714-8e31-e5cbe2423e5e/CREW_NITRO-SPORT-Euro6e-bis_MY26---GSR-III_SPA.pdf",
+      "sourceArchive": "isuzu-dmax-my26-es-9.pdf",
+      "sourceSha256": "0ff6b31849b725c81e83b246da8771711c81ff9a75b4b425af432139460df1c1",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "isuzu-dmax-my26-es-crew-nitro-sport"
+      ]
+    },
+    {
+      "id": "kgm-musso-2026-larga-pro",
+      "name": "KGM Musso",
+      "marketEvidence": "Ficha técnica española de la variante publicada por el distribuidor oficial.",
+      "sourceUrl": "https://kgm.com.es/uploads/documentacion/fichas_tecnicas/ficha-musso-2026.pdf",
+      "sourceArchive": "kgm-ficha-musso-2026.pdf",
+      "sourceSha256": "042548ac6c1e43d1bc585f111074487edc1bf79e128954b338c520c5a47f31a5",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "kgm-musso-2026-larga-pro"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2023-m-estandar",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2023-m-estandar"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2023-m-aumentada",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2023-m-aumentada"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2023-m-aumentada-altura-extra",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2023-m-aumentada-altura-extra"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2023-xl-aumentada",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2023-xl-aumentada"
+      ]
+    },
+    {
+      "id": "citroen-jumpy-es-2023-xl-aumentada-altura-extra",
+      "name": "Citroën Jumpy",
+      "marketEvidence": "Catálogo publicado por la filial española del fabricante para esta carrocería.",
+      "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+      "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+      "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+      "checkedAt": "2026-11-20",
+      "includedTemplateIds": [
+        "citroen-jumpy-es-2023-xl-aumentada-altura-extra"
+      ]
+    },
+    {
+      "id": "toyota-proace-city-verso-my27-l1-family",
+      "name": "Toyota Proace City Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city-verso/Catalogo-PROACE-CITY-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-city-verso.pdf",
+      "sourceSha256": "b1cf8ba9f80fbaeb7c2d952b8faba36e2ec4f495a0aa0ca58db12fb03b3def7e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-city-verso-my27-l1-family"
+      ]
+    },
+    {
+      "id": "toyota-proace-city-verso-my27-l2-family",
+      "name": "Toyota Proace City Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/coches/proace-city-verso/build.pf.epr.eee13b41-39c7-4269-bfe0-62eb9374cc1b?path=specs/74c690bd-868d-47df-9f4f-98277d13615c/eee13b41-39c7-4269-bfe0-62eb9374cc1b&u=b1aad99e-1040-4bd3-be7f-87a329323c46",
+      "sourceArchive": "toyota-city-verso-active-l-cotas-es-20261121.json",
+      "sourceSha256": "6c3ecf712fecb86c0b2b8912ad02c99b367333c90f25612c85a078437dd221c3",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "toyota-proace-city-verso-my27-l2-family"
+      ]
+    },
+    {
+      "id": "toyota-proace-verso-my27-l1-business",
+      "name": "Toyota Proace Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-verso/Catalogo-PROACE-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-verso.pdf",
+      "sourceSha256": "1feb112a42cc46058bde3a1516b300e015f77f71df3df53d3cee3328ce19e12e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-verso-my27-l1-business"
+      ]
+    },
+    {
+      "id": "toyota-proace-verso-my27-l1-family",
+      "name": "Toyota Proace Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-verso/Catalogo-PROACE-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-verso.pdf",
+      "sourceSha256": "1feb112a42cc46058bde3a1516b300e015f77f71df3df53d3cee3328ce19e12e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-verso-my27-l1-family"
+      ]
+    },
+    {
+      "id": "toyota-proace-verso-my27-l2-business",
+      "name": "Toyota Proace Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-verso/Catalogo-PROACE-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-verso.pdf",
+      "sourceSha256": "1feb112a42cc46058bde3a1516b300e015f77f71df3df53d3cee3328ce19e12e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-verso-my27-l2-business"
+      ]
+    },
+    {
+      "id": "toyota-proace-verso-my27-l2-family",
+      "name": "Toyota Proace Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-verso/Catalogo-PROACE-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-verso.pdf",
+      "sourceSha256": "1feb112a42cc46058bde3a1516b300e015f77f71df3df53d3cee3328ce19e12e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-verso-my27-l2-family"
+      ]
+    },
+    {
+      "id": "toyota-proace-city-verso-my27-l1-business",
+      "name": "Toyota Proace City Verso",
+      "marketEvidence": "Catálogo MY27 de Toyota España con parrilla de variantes y ficha dimensional propias.",
+      "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city-verso/Catalogo-PROACE-CITY-VERSO-MY27.pdf",
+      "sourceArchive": "toyota-proace-city-verso.pdf",
+      "sourceSha256": "b1cf8ba9f80fbaeb7c2d952b8faba36e2ec4f495a0aa0ca58db12fb03b3def7e",
+      "checkedAt": "2026-11-18",
+      "includedTemplateIds": [
+        "toyota-proace-city-verso-my27-l1-business"
+      ]
+    },
+    {
+      "id": "seat-ibiza-ficha-es2026",
+      "name": "SEAT Ibiza",
+      "marketEvidence": "Modelo2026 en la gama SEATEspaña y posición2 del rankingAER de renting de empresas a octubre2026.",
+      "sourceUrl": "https://www.seat-mediacenter.com/mediacenter_netstor/seat-media-center/Img/2025/modelos/Ficha-tecnica-Ibiza-2026.zip",
+      "sourceArchive": "seat-ibiza-ficha-2026-Ficha técnica NUEVO SEAT Ibiza (2026).pdf",
+      "sourceSha256": "873a1e96b149010d3118c130fcfc4cd2ddce7b929ae68b5b60c0107354029a3c",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "seat-ibiza-ficha-es2026"
+      ]
+    },
+    {
+      "id": "seat-arona-ficha-es2026",
+      "name": "SEAT Arona",
+      "marketEvidence": "Modelo2026 en la gama SEATEspaña y posición9 del rankingAER de renting de empresas a octubre2026.",
+      "sourceUrl": "https://www.seat-mediacenter.com/mediacenter_netstor/seat-media-center/Img/2025/modelos/Ficha-tecnica-SEAT-Arona.zip",
+      "sourceArchive": "seat-arona-ficha-2026-Ficha-tecnica-SEAT-Arona-2026.pdf",
+      "sourceSha256": "1a4adfd3aa0976502c8661216d3c2af0ed11ee8c8b63bdc8c4a2291cd21b76ba",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "seat-arona-ficha-es2026"
+      ]
+    },
+    {
+      "id": "toyota-chr-my27-business",
+      "name": "Toyota C-HR",
+      "marketEvidence": "Toyota España ofrece Business MY27; familiaC-HR posición10 de renting empresarial AER enero-octubre2026.",
+      "sourceUrl": "https://www.toyota.es/coches/toyota-c-hr/caracteristicas",
+      "sourceArchive": "toyota-chr-business-cotas-es-20261121.json",
+      "sourceSha256": "d90a00741c4d61508e5cf2cbc3bc5fab3f2d82278539bb11b1f1ab48c148d7c5",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "toyota-chr-my27-business"
+      ]
+    },
+    {
+      "id": "bmw-x1-u11-sdrive18i-es2026",
+      "name": "BMW X1",
+      "marketEvidence": "Modelo en BMW España; familiaX1 posición8 de renting empresarial AER enero-octubre2026.",
+      "sourceUrl": "https://www.bmw.es/es/coches-bmw/x/x1/datos-tecnicos-bmw-x1.html/bmw-x1-sdrive18i.bmw",
+      "sourceArchive": "bmw-x1-sdrive18i-es-20261121.json",
+      "sourceSha256": "5f59b5c34eb8a324fe0cc41880cf383366921eba2fda8649b5792d57913ea0ba",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "bmw-x1-u11-sdrive18i-es2026"
+      ]
+    },
+    {
+      "id": "peugeot-e208-ficha-es2026",
+      "name": "Peugeot E-208",
+      "marketEvidence": "Catálogo oficial Peugeot España; familia208 en ranking de renting de empresas AER.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/208-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-208-es-20261121.pdf",
+      "sourceSha256": "ce36e4ef7b7aa2785cc2183d7211c92c1ccb5d61d354f5ec8060b97a80adfcb8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "peugeot-e208-ficha-es2026"
+      ]
+    },
+    {
+      "id": "peugeot-e2008-ficha-es2026",
+      "name": "Peugeot E-2008",
+      "marketEvidence": "Catálogo oficial Peugeot España; familia2008 en ranking de renting de empresas AER.",
+      "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/2008-equipamientos-caracteristicas.pdf",
+      "sourceArchive": "peugeot-2008-es-20261121.pdf",
+      "sourceSha256": "0b4270c42f21f1b462d9d641c5b584008621ff90e9cc96d297d00cf2902f0592",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "peugeot-e2008-ficha-es2026"
+      ]
+    },
+    {
+      "id": "renault-clio-vi-catalogo-es2026",
+      "name": "Renault Clio",
+      "marketEvidence": "Catálogo y gama Renault España; familiaClio posición2 de renting empresarial2025.",
+      "sourceUrl": "https://cdn.group.renault.com/ren/es/modelos/clio/catalogo/clio.pdf.asset.pdf/1783584128492.pdf",
+      "sourceArchive": "renault-clio-es-20261121.pdf",
+      "sourceSha256": "9e442cf286b5699ede1ece786deb25a38823e6a9d38fc805613f38dc7f271321",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "renault-clio-vi-catalogo-es2026"
+      ]
+    },
+    {
+      "id": "nissan-qashqai-j12-facelift-web-es2026",
+      "name": "Nissan Qashqai",
+      "marketEvidence": "Gama Qashqai Nissan España; familia posición5 en renting de empresas AER2026.",
+      "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/qashqai.html",
+      "sourceArchive": "nissan-qashqai-cotas-web-es-20261121.json",
+      "sourceSha256": "d2c340db5a85db11dbd6f93e889e28a00443dddc604e0d8baa0cc82a1c833176",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "nissan-qashqai-j12-facelift-web-es2026"
+      ]
+    },
+    {
+      "id": "volkswagen-tiguan-iii-dossier2024-sin-barras",
+      "name": "Volkswagen Tiguan",
+      "marketEvidence": "Gama Tiguan Volkswagen España; familia puesto3 renting empresarial AER2026.",
+      "sourceUrl": "https://www.volkswagen-newsroom.com/en/publications/more/the-all-new-tiguan-2625/download",
+      "sourceArchive": "vw-tiguan-iii-dossier2024.pdf",
+      "sourceSha256": "81e79a9e65658d41c1c209ee7cb20f07f7b3872061c00edb2136f77c361604d3",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "volkswagen-tiguan-iii-dossier2024-sin-barras"
+      ]
+    },
+    {
+      "id": "ford-transit-custom-es21-van-l1h1",
+      "name": "Ford Transit Custom",
+      "marketEvidence": "Catálogo original de Ford España MY2021, conservado en archivo público20220704; edición histórica española y tabla específica Van.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+      "sourceArchive": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+      "sourceSha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-custom-es21-van-l1h1"
+      ]
+    },
+    {
+      "id": "ford-transit-custom-es21-van-l1h2",
+      "name": "Ford Transit Custom",
+      "marketEvidence": "Catálogo original de Ford España MY2021, conservado en archivo público20220704; edición histórica española y tabla específica Van.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+      "sourceArchive": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+      "sourceSha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-custom-es21-van-l1h2"
+      ]
+    },
+    {
+      "id": "ford-transit-custom-es21-van-l2h1",
+      "name": "Ford Transit Custom",
+      "marketEvidence": "Catálogo original de Ford España MY2021, conservado en archivo público20220704; edición histórica española y tabla específica Van.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+      "sourceArchive": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+      "sourceSha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-custom-es21-van-l2h1"
+      ]
+    },
+    {
+      "id": "ford-transit-custom-es21-van-l2h2",
+      "name": "Ford Transit Custom",
+      "marketEvidence": "Catálogo original de Ford España MY2021, conservado en archivo público20220704; edición histórica española y tabla específica Van.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+      "sourceArchive": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+      "sourceSha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-custom-es21-van-l2h2"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l2h2-td",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l2h2-td"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l2h3-td",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l2h3-td"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l3h2-td",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l3h2-td"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l3h3-td",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l3h3-td"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l4h3-tt-simple",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l4h3-tt-simple"
+      ]
+    },
+    {
+      "id": "ford-transit-es2017-van-l4h3-tt-doble",
+      "name": "Ford Transit",
+      "marketEvidence": "Ficha técnica original Ford España, creada2017 según metadatos y nota de bisagrasQ3 2017; referencia histórica española preservada en archivo público.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-Transit_Van.pdf",
+      "sourceArchive": "ford-es-FT-Transit_Van-20250505060002.pdf",
+      "sourceSha256": "8cae935bed8c4f98cff9f75e7c736dddd59b02cab91a8bb0d90fa7479857d1d8",
+      "checkedAt": "2026-11-21",
+      "includedTemplateIds": [
+        "ford-transit-es2017-van-l4h3-tt-doble"
+      ]
+    },
+    {
+      "id": "ford-transit-connect-es-archivo2019-van-l1",
+      "name": "Ford Transit Connect",
+      "marketEvidence": "Tabla Van en ficha original Ford España, conservada con URL ford.es y capturaCDX verificable.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-new-Transit_Connect.pdf",
+      "sourceArchive": "ford-es-FT-new-Transit_Connect-20191118043119.pdf",
+      "sourceSha256": "af54ff37a3513b876fe41c837efbf50f01c7a11377a5f382fbc488796d1ec94c",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-transit-connect-es-archivo2019-van-l1"
+      ]
+    },
+    {
+      "id": "ford-transit-connect-es-archivo2019-van-l2",
+      "name": "Ford Transit Connect",
+      "marketEvidence": "Tabla Van en ficha original Ford España, conservada con URL ford.es y capturaCDX verificable.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-new-Transit_Connect.pdf",
+      "sourceArchive": "ford-es-FT-new-Transit_Connect-20191118043119.pdf",
+      "sourceSha256": "af54ff37a3513b876fe41c837efbf50f01c7a11377a5f382fbc488796d1ec94c",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-transit-connect-es-archivo2019-van-l2"
+      ]
+    },
+    {
+      "id": "ford-transit-connect-es-my265-van-l1",
+      "name": "Ford Transit Connect",
+      "marketEvidence": "Tabla Van en ficha original Ford España, conservada con URL ford.es y capturaCDX verificable.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/transit-connect/BRO-Transit_Connect_2026.5MY.pdf",
+      "sourceArchive": "ford-es-BRO-Transit_Connect_2026.5MY-20260711022459.pdf",
+      "sourceSha256": "efaf53bcb9735f273f95741d8a587b837c37a62bb9ffa755d3f13b5d25db52e9",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-transit-connect-es-my265-van-l1"
+      ]
+    },
+    {
+      "id": "ford-transit-connect-es-my265-van-l2",
+      "name": "Ford Transit Connect",
+      "marketEvidence": "Tabla Van en ficha original Ford España, conservada con URL ford.es y capturaCDX verificable.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/transit-connect/BRO-Transit_Connect_2026.5MY.pdf",
+      "sourceArchive": "ford-es-BRO-Transit_Connect_2026.5MY-20260711022459.pdf",
+      "sourceSha256": "efaf53bcb9735f273f95741d8a587b837c37a62bb9ffa755d3f13b5d25db52e9",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-transit-connect-es-my265-van-l2"
+      ]
+    },
+    {
+      "id": "ford-courier-es-transit-van2021",
+      "name": "Ford Transit Courier",
+      "marketEvidence": "Catálogo original Ford España y captura archivada con procedencia/huella verificable; generación histórica y versiones expresamente identificadas.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-courier/BRO-nueva_transit_courier.pdf",
+      "sourceArchive": "ford-es-BRO-nueva_transit_courier-20220606133159.pdf",
+      "sourceSha256": "8cae961aa843909b815c1eee5804c1265abe4fae3b0fed64aaf1d690fa17f630",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-courier-es-transit-van2021"
+      ]
+    },
+    {
+      "id": "ford-courier-es-tourneo2021-sin-barras",
+      "name": "Ford Tourneo Courier",
+      "marketEvidence": "Catálogo original Ford España y captura archivada con procedencia/huella verificable; generación histórica y versiones expresamente identificadas.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-New_Tourneo_Courier.pdf",
+      "sourceArchive": "ford-es-FT-New_Tourneo_Courier-20240217124351.pdf",
+      "sourceSha256": "44aba51f4e690f6227bb470edd4988eb0435ac3c21b76ce8a657000ba20afe00",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-courier-es-tourneo2021-sin-barras"
+      ]
+    },
+    {
+      "id": "ford-courier-es-tourneo2021-barras",
+      "name": "Ford Tourneo Courier",
+      "marketEvidence": "Catálogo original Ford España y captura archivada con procedencia/huella verificable; generación histórica y versiones expresamente identificadas.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-New_Tourneo_Courier.pdf",
+      "sourceArchive": "ford-es-FT-New_Tourneo_Courier-20240217124351.pdf",
+      "sourceSha256": "44aba51f4e690f6227bb470edd4988eb0435ac3c21b76ce8a657000ba20afe00",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-courier-es-tourneo2021-barras"
+      ]
+    },
+    {
+      "id": "ford-courier-es-tourneo2024-trend",
+      "name": "Ford Tourneo Courier",
+      "marketEvidence": "Catálogo original Ford España y captura archivada con procedencia/huella verificable; generación histórica y versiones expresamente identificadas.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/cars/tourneo-courier/BRO-Tourneo_Courier_24MY.pdf",
+      "sourceArchive": "ford-es-BRO-Tourneo_Courier_24MY-20240612012504.pdf",
+      "sourceSha256": "fbba72940875d16a9bcdb83eff31e6322a89efa8ecea3fc08aa76baf40153363",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-courier-es-tourneo2024-trend"
+      ]
+    },
+    {
+      "id": "ford-courier-es-tourneo2024-active",
+      "name": "Ford Tourneo Courier",
+      "marketEvidence": "Catálogo original Ford España y captura archivada con procedencia/huella verificable; generación histórica y versiones expresamente identificadas.",
+      "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/cars/tourneo-courier/BRO-Tourneo_Courier_24MY.pdf",
+      "sourceArchive": "ford-es-BRO-Tourneo_Courier_24MY-20240612012504.pdf",
+      "sourceSha256": "fbba72940875d16a9bcdb83eff31e6322a89efa8ecea3fc08aa76baf40153363",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "ford-courier-es-tourneo2024-active"
+      ]
+    },
+    {
+      "id": "nissan-nv200-manual-es2018-van",
+      "name": "Nissan NV200",
+      "marketEvidence": "Selector oficial Nissan España identificaNV200 2018 y enlaza manual español códigoM20.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/nv200_m20_e0_2018/pdf/om18es-0m20e0eur.pdf",
+      "sourceArchive": "nissan-nv200-2018-manual-es.pdf",
+      "sourceSha256": "24e6b1875732c8bae68ad6d0d9483a47e385b581cebbfce59a2e2b76017df0d3",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-nv200-manual-es2018-van"
+      ]
+    },
+    {
+      "id": "nissan-env200-manual-es2021-van",
+      "name": "Nissan e-NV200",
+      "marketEvidence": "Selector oficial Nissan España identificaE-NV200 2021 y enlaza manual español códigoME0.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/e-nv200_me0_e0_2021/pdf/om21es-0me0e0eur.pdf",
+      "sourceArchive": "nissan-env200-2021-manual-es.pdf",
+      "sourceSha256": "bf4d0227442f18e2bae19da5a353388504db7bc7a9b09ffd55c449115f18e2eb",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-env200-manual-es2021-van"
+      ]
+    },
+    {
+      "id": "nissan-env200-manual-es2021-pasajeros",
+      "name": "Nissan e-NV200",
+      "marketEvidence": "Selector oficial Nissan España identificaE-NV200 2021 y enlaza manual español códigoME0.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/e-nv200_me0_e0_2021/pdf/om21es-0me0e0eur.pdf",
+      "sourceArchive": "nissan-env200-2021-manual-es.pdf",
+      "sourceSha256": "bf4d0227442f18e2bae19da5a353388504db7bc7a9b09ffd55c449115f18e2eb",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-env200-manual-es2021-pasajeros"
+      ]
+    },
+    {
+      "id": "nissan-navara-d23-manual-es2021-doble-r17-sin-baca",
+      "name": "Nissan Navara",
+      "marketEvidence": "Nissan España identificaNavaraNP3002021 en selector oficial y enlaza manual español; tablaCabinaDoble y figuras de identidad propias.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/navara np300_d23_e0_2021/pdf/om21es-0d23e0eur.pdf",
+      "sourceArchive": "nissan-navara-2021-manual-es.pdf",
+      "sourceSha256": "b51cd6697348baf8acf3a51ab70f87fbdff90537385e6ba4f90caf2b41f09d68",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-navara-d23-manual-es2021-doble-r17-sin-baca"
+      ]
+    },
+    {
+      "id": "nissan-navara-d23-manual-es2021-doble-con-baca",
+      "name": "Nissan Navara",
+      "marketEvidence": "Nissan España identificaNavaraNP3002021 en selector oficial y enlaza manual español; tablaCabinaDoble y figuras de identidad propias.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/navara np300_d23_e0_2021/pdf/om21es-0d23e0eur.pdf",
+      "sourceArchive": "nissan-navara-2021-manual-es.pdf",
+      "sourceSha256": "b51cd6697348baf8acf3a51ab70f87fbdff90537385e6ba4f90caf2b41f09d68",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-navara-d23-manual-es2021-doble-con-baca"
+      ]
+    },
+    {
+      "id": "nissan-nv200-manual-es2018-pasajeros",
+      "name": "Nissan NV200",
+      "marketEvidence": "Selector oficial Nissan España identificaNV200 2018 y enlaza manual español códigoM20.",
+      "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/nv200_m20_e0_2018/pdf/om18es-0m20e0eur.pdf",
+      "sourceArchive": "nissan-nv200-2018-manual-es.pdf",
+      "sourceSha256": "24e6b1875732c8bae68ad6d0d9483a47e385b581cebbfce59a2e2b76017df0d3",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "nissan-nv200-manual-es2018-pasajeros"
+      ]
+    },
+    {
+      "id": "smart-fortwo-450-city-coupe-es",
+      "name": "Smart Fortwo",
+      "marketEvidence": "Página oficial smart España describe primera generación4501998–2007 y muestra City-Coupé temprano; no Smart moderno453.",
+      "sourceUrl": "https://www.manua.ls/smart/fortwo-2006/manual?p=277",
+      "sourceArchive": "smart-fortwo-450-manual-2006-p276-279.json",
+      "sourceSha256": "727330f147ee055ae4fd2417326be178450729031076ae4f2fdb877ba30599af",
+      "checkedAt": "2026-11-22",
+      "includedTemplateIds": [
+        "smart-fortwo-450-city-coupe-es"
+      ]
+    }
+  ],
+  "excludedTemplates": [
+    {
+      "id": "renault-master-web2026-l4h3-rwd",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    },
+    {
+      "id": "renault-master-web2026-l4h3-rwd-doble-rueda",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    },
+    {
+      "id": "nissan-townstar-catalogo-es-l2-gasolina",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    },
+    {
+      "id": "nissan-townstar-catalogo-es-l2-ev",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    },
+    {
+      "id": "nissan-townstar-catalogo-es-l2-crew-gasolina",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    },
+    {
+      "id": "nissan-townstar-catalogo-es-l2-crew-ev",
+      "reason": "La referencia de esta configuración conserva notas de homologación en curso; falta contrastar su oferta actual en España."
+    }
+  ],
+  "notes": [
+    "La inclusión acredita la familia en la gama española consultada; las cotas siguen siendo referencias nominales de la variante documentada.",
+    "Incluye generaciones antiguas vendidas en España, según aclaración explícita del usuario. No borra registros personales ni investigación. Las configuraciones aún sin plantilla o sin prueba de mercado no se incorporan automáticamente."
+  ]
+}

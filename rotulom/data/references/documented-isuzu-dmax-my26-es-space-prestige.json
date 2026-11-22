@@ -1,0 +1,28 @@
+{
+  "id": "documented-isuzu-dmax-my26-es-space-prestige",
+  "sourceUrl": "https://www.isuzu.it/storage/uploads/c6b9cdce-609a-4c83-993b-8deab7780747/SPACE_PRESTIGE-Euro6e-bis_MY26_SPA.pdf",
+  "sourcePages": "1PDF",
+  "sourceArchive": "isuzu-dmax-my26-es-4.pdf",
+  "sourceSha256": "d76ae4ed40bfaa030751bc035d9b2354810ff8715e70ef004dbac169d21d73ca",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5280,
+    "exteriorWidth": 1870,
+    "exteriorHeight": 1790,
+    "wheelbase": 3125,
+    "cargoLength": 1805,
+    "cargoWidth": 1530,
+    "cargoHeight": 490
+  },
+  "widthConvention": "ancho de cabina OW; retrovisores no especificados por la ficha",
+  "notes": "Tabla española MY2026: OW es ANCHO DE CABINA1810/1870; BW1760/1835 es ancho exterior de la caja, no el ancho máximo del vehículo. No sustituir OW por BW. La ficha no especifica retrovisores en la denominación OW; conservar esa limitación. Cabinas SINGLE/SPACE/CREW tienen cajas distintas.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorWidth": "cab-width-OW-mirror-inclusion-unspecified"
+  },
+  "manufacturerWidthFields": {
+    "cabWidthOW": 1870,
+    "loadBodyWidthBW": 1835
+  },
+  "vehicleClass": "pickup"
+}

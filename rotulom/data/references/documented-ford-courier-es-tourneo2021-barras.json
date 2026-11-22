@@ -1,0 +1,32 @@
+{
+  "id": "documented-ford-courier-es-tourneo2021-barras",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-New_Tourneo_Courier.pdf",
+  "sourcePages": "8PDF · dimensiones /32-33 impresas",
+  "sourceArchive": "ford-es-FT-New_Tourneo_Courier-20240217124351.pdf",
+  "sourceSha256": "44aba51f4e690f6227bb470edd4988eb0435ac3c21b76ce8a657000ba20afe00",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4157,
+    "exteriorWidth": 1764,
+    "exteriorHeight": 1784
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2112mm",
+  "notes": "Edición técnica española propia, año de creación del documento2021; la fecha posterior del archivo no identifica un nuevo año de modelo. Alturas Tourneo propias1741 sin barras y1784 con barras; no usar1770 del Transit. No se incorpora batalla no publicada en la ficha Tourneo. Ilustración de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "with roof rails",
+    "wheelbase": "not published in own Tourneo specification; not borrowed from Transit"
+  },
+  "vehicleClass": "passenger-van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-FT-New_Tourneo_Courier-20240217124351.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-New_Tourneo_Courier.pdf",
+    "archiveUrl": "https://web.archive.org/web/20240217124351id_/https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-New_Tourneo_Courier.pdf",
+    "archiveTimestamp": "20240217124351",
+    "cdxDigest": "YGZK52ZVESPJ6OA3SALVGXXQOOLZZUGN",
+    "sha256": "44aba51f4e690f6227bb470edd4988eb0435ac3c21b76ce8a657000ba20afe00",
+    "pages": 9,
+    "partialArchive": false,
+    "checkedAt": "2026-11-22"
+  }
+}

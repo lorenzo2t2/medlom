@@ -1,0 +1,18 @@
+{
+  "id": "documented-volkswagen-amarok-uk-esquema-5390",
+  "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/amarok/amarok-brochure.pdf",
+  "sourcePages": "28PDF",
+  "sourceArchive": "vw-amarok-uk-2026.pdf",
+  "sourceSha256": "f6241f4f97992720193c3cf0fc2f89603dfb80f9dda6b9d77271a4758140e84f",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5390,
+    "exteriorWidth": 1910,
+    "exteriorHeight": 1884,
+    "wheelbase": 3270
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Referencia nominal conjunta del esquema5390×1910×1884 y batalla3270. La tabla declara largo5350–5390 y altura máxima1884: no se asigna esa cifra a todos los acabados ni se inventa una correspondencia por acabado. Caja abierta de doble cabina; no furgón cerrado.",
+  "validationIssues": [],
+  "vehicleClass": "pickup"
+}

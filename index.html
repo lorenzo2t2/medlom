@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.56.9";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -840,6 +840,20 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .sheet .btn{max-width:100%}
 .sheet .col>.btn,.sheet>.btn{white-space:normal;height:auto;min-height:44px;padding-top:9px;padding-bottom:9px;text-align:left;justify-content:flex-start;line-height:1.25;overflow-wrap:anywhere}
 .sheet [data-template-brand]{text-align:center;justify-content:center}
+/* Selector de plantillas: marcas → modelos → versiones */
+.sheet .tpl-brand{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px}
+.tpl-brand b{font-size:16px;flex:1}.tpl-brand small{font-weight:600;opacity:.65;font-size:12px;text-align:right}.tpl-brand i{font-style:normal;font-size:22px;opacity:.7}
+.sheet .tpl-back{align-self:flex-start;min-height:40px;width:auto}
+.tpl-title{margin:4px 0 0}
+.tpl-model{border:1px solid var(--line);border-radius:12px;background:var(--raise);overflow:hidden}
+.tpl-model summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;cursor:pointer;list-style:none;min-height:50px}
+.tpl-model summary::-webkit-details-marker{display:none}
+.tpl-model summary b{font-size:15px;flex:1;overflow-wrap:anywhere}.tpl-model summary small{opacity:.65;font-weight:600;font-size:12px}
+.tpl-model summary::after{content:'▾';font-size:14px;opacity:.7;transition:transform .15s}
+.tpl-model[open] summary::after{transform:rotate(180deg)}
+.tpl-model>.col{padding:0 10px 10px;gap:8px}
+:root[data-look="if-prisma"] .tpl-model{border:3px solid #000;border-radius:0;background:#faf5ee}
+:root[data-look="if-espectro"] .tpl-model{border:2px solid #b84dff;box-shadow:0 0 10px #a02cff55;background:#0c0720}
 </style>
 
 <div class="app">
@@ -4224,20 +4238,41 @@ async function vehicleTemplates(){
   }
   vehicleTemplateLibrary=data.models;return vehicleTemplateLibrary;
 }
-async function openVehicleTemplates(){
+const templateBrand=v=>String(v.name).split(' ')[0];
+const templateModelName=v=>String(v.name).slice(templateBrand(v).length).trim()||v.name;
+async function openVehicleTemplates(startBrand=''){
   const pid=scope()||null;
   try{
-    const models=[...await vehicleTemplates()].sort((a,b)=>(a.name+" "+a.variant).localeCompare(b.name+" "+b.variant,"es"));
-    const m=openModal(`<div class="sheet"><h2>Plantillas comerciales</h2><p class="note">Elige una versión y una vista como base de diseño. La copia se guardará con tus fotos y podrás añadirle textos, dibujos y cotas.</p><label class="col"><span>Buscar marca, modelo o versión</span><input id="templateSearch" type="search" placeholder="Ej. Mercedes, Sprinter, L2H2" autocomplete="off"></label><button class="btn ghost" data-template-brand="Mercedes">Mercedes-Benz</button><div class="col">${models.map(v=>`<button class="btn ghost" data-template-model="${esc(v.id)}">${esc(v.name)} · ${esc(v.variant)}</button>`).join('')}</div><p class="note" id="templateCount" role="status">${models.length} ${models.length===1?'modelo disponible':'modelos disponibles'} en esta versión.</p><div class="row"><button class="btn ghost" data-template-close>Cerrar</button></div></div>`);
-    const search=m.wrap.querySelector('#templateSearch'),norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    search.oninput=()=>{const terms=norm(search.value).trim().split(/\s+/);let visible=0;m.wrap.querySelectorAll('[data-template-model]').forEach(b=>{b.hidden=!terms.every(t=>norm(b.textContent).includes(t));if(!b.hidden)visible++;});m.wrap.querySelector('#templateCount').textContent=visible+' versiones disponibles';};
+    const models=[...await vehicleTemplates()].sort((a,b)=>(a.name+" "+a.variant).localeCompare(b.name+" "+b.variant,"es",{numeric:true}));
+    const brands=[...new Set(models.map(templateBrand))].sort((a,b)=>a.localeCompare(b,'es'));
+    const m=openModal(`<div class="sheet"><h2>Plantillas comerciales</h2><p class="note">Elige marca, modelo y versión como base de diseño. La copia se guardará con tus fotos y podrás añadirle textos, dibujos y cotas.</p><label class="col"><span>Buscar marca, modelo o versión</span><input id="templateSearch" type="search" placeholder="Ej. Ducato, Sprinter, L2H2" autocomplete="off"></label><div class="col" id="templateBody"></div><p class="note" id="templateCount" role="status"></p><div class="row"><button class="btn ghost" data-template-close>Cerrar</button></div></div>`);
+    const body=m.wrap.querySelector('#templateBody'),count=m.wrap.querySelector('#templateCount'),search=m.wrap.querySelector('#templateSearch');
+    const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(),plural=(n,a,b)=>n+' '+(n===1?a:b);
+    let current=startBrand;
+    const showBrands=()=>{current='';
+      body.innerHTML=brands.map(b=>{const list=models.filter(v=>templateBrand(v)===b),kinds=new Set(list.map(templateModelName)).size;
+        return `<button class="btn ghost tpl-brand" data-template-brand="${esc(b)}"><b>${esc(b)}</b><small>${plural(kinds,'modelo','modelos')} · ${plural(list.length,'versión','versiones')}</small><i aria-hidden="true">›</i></button>`;}).join('');
+      count.textContent=plural(brands.length,'marca','marcas')+' · '+plural(models.length,'versión disponible','versiones disponibles');};
+    const showBrand=b=>{current=b;
+      const list=models.filter(v=>templateBrand(v)===b),groups=new Map();
+      for(const v of list){const k=templateModelName(v);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(v);}
+      body.innerHTML=`<button class="btn ghost tpl-back" data-template-back>‹ Todas las marcas</button><h3 class="tpl-title">${esc(b)}</h3>`+[...groups].map(([name,items])=>`<details class="tpl-model"${groups.size===1?' open':''}><summary><b>${esc(name)}</b><small>${plural(items.length,'versión','versiones')}</small></summary><div class="col">${items.map(v=>`<button class="btn ghost" data-template-model="${esc(v.id)}">${esc(v.variant)}</button>`).join('')}</div></details>`).join('');
+      count.textContent=plural(groups.size,'modelo','modelos')+' de '+b;};
+    const showSearch=q=>{const terms=norm(q).trim().split(/\s+/).filter(Boolean);
+      const hits=models.filter(v=>terms.every(t=>norm(v.name+' '+v.variant).includes(t)));
+      body.innerHTML=hits.length?hits.map(v=>`<button class="btn ghost" data-template-model="${esc(v.id)}">${esc(v.name)} · ${esc(v.variant)}</button>`).join(''):'<p class="note">No hay ninguna versión con esa búsqueda.</p>';
+      count.textContent=plural(hits.length,'versión encontrada','versiones encontradas');};
+    const refresh=()=>{if(search.value.trim())showSearch(search.value);else if(current)showBrand(current);else showBrands();};
+    search.oninput=refresh;
     m.wrap.addEventListener('click',e=>{
-      const brand=e.target.closest('[data-template-brand]');if(brand){search.value=brand.dataset.templateBrand;search.oninput();return;}
+      const brand=e.target.closest('[data-template-brand]');if(brand){search.value='';showBrand(brand.dataset.templateBrand);m.wrap.querySelector('.sheet').scrollTop=0;return;}
+      if(e.target.closest('[data-template-back]')){showBrands();return;}
       if(e.target.closest('[data-template-close]'))return m.close();
       const b=e.target.closest('[data-template-model]');if(!b)return;
       const model=models.find(v=>v.id===b.dataset.templateModel);if(!model)return;
       m.close(true);chooseVehicleTemplateView(model,pid);
     });
+    refresh();
   }catch(e){toast(e.message||'No se pudo abrir la biblioteca');}
 }
 function chooseVehicleTemplateView(model,pid){
@@ -4245,7 +4280,7 @@ function chooseVehicleTemplateView(model,pid){
   const views=['frontal','lateral','trasera','superior'].map(key=>[key,model.views[key]]);
   const m=openModal(`<div class="sheet"><h2>${esc(model.name)}</h2><p class="note">${esc(model.variant)} · escala exterior de referencia</p><div class="vehicle-template-grid">${views.map(([key,v])=>`<button class="vehicle-template-view" data-template-view="${esc(key)}"><svg viewBox="${v.clip.join(' ')}" aria-hidden="true"><defs><clipPath id="template-${esc(key)}"><rect x="${v.clip[0]}" y="${v.clip[1]}" width="${v.clip[2]}" height="${v.clip[3]}"/></clipPath></defs><image clip-path="url(#template-${esc(key)})" href="${esc(path)}" width="${model.atlasSize[0]}" height="${model.atlasSize[1]}"/></svg><b>${esc(v.label)}</b></button>`).join('')}</div><label class="row" style="margin-top:12px"><input type="checkbox" id="templateDimensions" checked> Añadir cotas exteriores</label><p class="note">${model.dimensionsMm.exteriorLength.toLocaleString('es-ES')} × ${model.dimensionsMm.exteriorWidth.toLocaleString('es-ES')} × ${model.dimensionsMm.exteriorHeight.toLocaleString('es-ES')} mm nominales. Ancho ${esc(model.widthConvention)}.</p><div class="row"><button class="btn ghost" data-template-close>Volver</button></div></div>`);
   m.wrap.addEventListener('click',async e=>{
-    if(e.target.closest('[data-template-close]')){m.close(true);openVehicleTemplates();return;}
+    if(e.target.closest('[data-template-close]')){m.close(true);openVehicleTemplates(templateBrand(model));return;}
     const b=e.target.closest('[data-template-view]');if(!b||b.disabled)return;
     m.wrap.querySelectorAll('[data-template-view]').forEach(x=>x.disabled=true);
     try{await importVehicleTemplate(model,b.dataset.templateView,pid,m.wrap.querySelector('#templateDimensions').checked);m.close(true);}

@@ -1,17 +1,36 @@
 {
   "id": "documented-mercedes-benz-citan-2026-l2",
-  "sourceUrl": "https://tools.mercedes-benz.co.uk/current/vans/pricelists/citan-panel-van.pdf",
-  "sourcePages": "20",
-  "sourceArchive": "citan-uk-oficial.pdf",
-  "sourceSha256": "6512e62c7556cbca24240601fded71841782b422333867dc5577a167a1e8718a",
-  "checkedAt": "2026-11-18",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux/datos-del-vehiculo/medidas-del-vehiculo",
+  "sourcePages": "Tabla web Medidas del vehículo (furgón)",
+  "sourceArchive": "citan-cotas-es-20261121.json",
+  "sourceSha256": "cf4660cbd2178d3bcffcac1ce38d810429942969e4bbad23a0fa4faa1086957c",
+  "checkedAt": "2026-11-21",
   "dimensionsMm": {
     "exteriorLength": 4922,
-    "exteriorWidth": 2159,
-    "exteriorHeight": 1916,
+    "exteriorWidth": 1859,
+    "exteriorHeight": 1866,
     "wheelbase": 3100
   },
-  "widthConvention": "con retrovisores extendidos",
-  "notes": "Dimensiones del Panel Van en catálogo británico enero2026; no usar altura1918 de Crew. Configuración exterior ilustrada orientativa; puertas y acabados pueden variar. No geometría de corte certificada.",
-  "validationIssues": []
+  "widthConvention": "sin retrovisores;2159mm con retrovisores",
+  "notes": "Manual español C420 febrero2025. Ancho1859 sin espejos y2159 con espejos. Altura nominal elegida: extremo superior del intervalo1852–1866mm; no es la altura universal de todos los acabados. Se conserva por separado la anterior referencia UK de1910/1916mm, cuyas condiciones no se equiparan al intervalo ES. Identificador estable heredado2026; la referencia vigente es el manual ES2025.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-of-manufacturer-range",
+    "heightRangeMm": [
+      1852,
+      1866
+    ]
+  },
+  "previousManufacturerReference": {
+    "dimensionsMm": {
+      "exteriorLength": 4922,
+      "exteriorWidth": 2159,
+      "exteriorHeight": 1916,
+      "wheelbase": 3100
+    },
+    "sourceUrl": "https://tools.mercedes-benz.co.uk/current/vans/pricelists/citan-panel-van.pdf",
+    "sourcePages": "20",
+    "widthConvention": "con retrovisores extendidos",
+    "variant": "W420 · Catálogo UK enero2026 · L2 · furgón"
+  }
 }

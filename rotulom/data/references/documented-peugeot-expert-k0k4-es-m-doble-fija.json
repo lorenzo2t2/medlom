@@ -1,0 +1,17 @@
+{
+  "id": "documented-peugeot-expert-k0k4-es-m-doble-fija",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+  "sourcePages": "4PDF",
+  "sourceArchive": "peugeot-expert-es-20261120.pdf",
+  "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4981,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1955,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "La tabla de doble cabina especifica M de4981. La oferta menciona XL, pero no se le atribuyen estas cotas sin su tabla propia.",
+  "validationIssues": []
+}

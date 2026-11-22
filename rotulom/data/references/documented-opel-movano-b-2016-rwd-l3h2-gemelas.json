@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-movano-b-2016-rwd-l3h2-gemelas",
+  "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Movano_B/2016_2021/2016/manual_user/om_movano_kta-2683_9-es_eu_my16_ed0615_16_es_es_online%5B_movano%5D.pdf",
+  "sourcePages": "229impresa;231PDF",
+  "sourceArchive": "opel-movano-b-2016-es.pdf",
+  "sourceSha256": "1538869ed5edb1c5a356aebf0249de498d1fae3dae3c75f0c277db60e9bae6fe",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 6198,
+    "exteriorWidth": 2070,
+    "exteriorHeight": 2549,
+    "wheelbase": 3682
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Vehículo comercial RWD; nota4 ruedas sencillas, nota5 gemelas. No mezclar alturas ni batalla con FWD. L4 solo columna de ruedas gemelas en esta tabla.",
+  "validationIssues": []
+}

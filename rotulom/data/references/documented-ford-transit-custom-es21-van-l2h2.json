@@ -1,0 +1,32 @@
+{
+  "id": "documented-ford-transit-custom-es21-van-l2h2",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+  "sourcePages": "8PDF /50 impresa · tabla Van",
+  "sourceArchive": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+  "sourceSha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 5340,
+    "exteriorWidth": 1986,
+    "exteriorHeight": 2403,
+    "wheelbase": 3300
+  },
+  "widthConvention": "sin retrovisores ni manecillas; con retrovisores2272mm",
+  "notes": "Edición española MY2021 obtenida del archivo2022, no modelo2022/2026. Altura2285–2403mm según carga mínima/máxima y carga útil: se elige extremo superior nominal, no un acabado exacto. Ancho1986 sin retrovisores NI manecillas,2272 con retrovisores. Van cerrado Ambiente orientativo; no Sport/Active/PHEV ni DCIV/Kombi. Uso de diseño y presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-2403-of-manufacturer-2285-2403-interval; load/payload-dependent",
+    "exteriorWidth": "manufacturer excludes both mirrors and door handles"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-esp_es_transit_custom_21-20220704162244.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+    "archiveUrl": "https://web.archive.org/web/20220704162244id_/https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-custom/esp_es_transit_custom_21.pdf",
+    "archiveTimestamp": "20220704162244",
+    "cdxDigest": "FK3UGF7WPVE64D4ODDU4XPSK2RTMZCV7",
+    "checkedAt": "2026-11-21",
+    "bytes": 5221824,
+    "sha256": "9d64d7fff592a84f952f31ab166680f17d93938a14d64ae72c2a7d915830a5e0"
+  }
+}

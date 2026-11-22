@@ -1,0 +1,22 @@
+{
+  "id": "documented-citroen-jumper-es2026-l3h2-h2539-cerrado",
+  "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumper.pdf",
+  "sourcePages": "6PDF",
+  "sourceArchive": "citroen-jumper-es-20261120.pdf",
+  "sourceSha256": "695501497ee59ecaea1cb0a6d661263ba3c548d6510a6afeb01e41e895a032d8",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5998,
+    "exteriorWidth": 2050,
+    "exteriorHeight": 2539,
+    "wheelbase": 4035
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Perfil dimensional extraído exclusivamente de filas Furgón. Se conservan las denominaciones originales de las variantes que comparten cotas. HD/Max y Electric presentan alturas diferentes; no se extrapola la altura de Boxer ni la de Jumper2015. Semiacristalado mantiene identidad distinta.",
+  "validationIssues": [],
+  "supportedManufacturerVariants": [
+    "Jumper Furgón 3.5 L3 H2 HD Diesel 140 S&S 6v",
+    "Jumper Furgón 3.5 L3 H2 HD Diesel 180 S&S EAT8"
+  ],
+  "vehicleClass": "panel-van"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "documented-kgm-musso-2026-corta-limited",
+  "sourceUrl": "https://kgm.com.es/uploads/documentacion/fichas_tecnicas/ficha-musso-2026.pdf",
+  "sourcePages": "1PDF",
+  "sourceArchive": "kgm-ficha-musso-2026.pdf",
+  "sourceSha256": "042548ac6c1e43d1bc585f111074487edc1bf79e128954b338c520c5a47f31a5",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5150,
+    "exteriorWidth": 1950,
+    "exteriorHeight": 1865,
+    "wheelbase": 3100,
+    "cargoLength": 1300,
+    "cargoWidth": 1570,
+    "cargoHeight": 570
+  },
+  "widthConvention": "anchura de carrocería; sin retrovisores según esquema",
+  "notes": "Tabla DIMENSIONES Y PESOS: el asterisco identifica caja larga. PRO1840/1850 y LIMITED1865 con rieles. No asignar el1865 del esquema genérico a todas las versiones. La caja larga no se publica como LIMITED en esta ficha.",
+  "validationIssues": [],
+  "vehicleClass": "pickup"
+}

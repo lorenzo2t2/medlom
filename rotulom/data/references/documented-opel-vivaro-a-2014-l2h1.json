@@ -1,0 +1,17 @@
+{
+  "id": "documented-opel-vivaro-a-2014-l2h1",
+  "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Vivaro/2011_2016/2014/manual_user/om_vivaro_kta-2682_6-es_eu_my14_ed0913_18_es_es_online%5Bvivaro%5D.pdf",
+  "sourcePages": "174impresa;176PDF",
+  "sourceArchive": "opel-vivaro-a-2014-es.pdf",
+  "sourceSha256": "43cc3b9ca3e8f845b4b6530ce10121f17e48a2528dfd717c0f5e90c32f627250",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5182,
+    "exteriorWidth": 1904,
+    "exteriorHeight": 1968,
+    "wheelbase": 3498
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Cotas de vehículo comercial sin carga y sin antena; sin retrovisores. No corresponden a Combi/Tour, doble cabina o cabina plataforma. Generación y techo explícitos.",
+  "validationIssues": []
+}

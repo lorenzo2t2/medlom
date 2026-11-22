@@ -1,0 +1,29 @@
+{
+  "id": "documented-seat-ibiza-ficha-es2026",
+  "sourceUrl": "https://www.seat-mediacenter.com/mediacenter_netstor/seat-media-center/Img/2025/modelos/Ficha-tecnica-Ibiza-2026.zip",
+  "sourcePages": "1PDF; documento2026 incluido enZIP de fabricante",
+  "sourceArchive": "seat-ibiza-ficha-2026-Ficha técnica NUEVO SEAT Ibiza (2026).pdf",
+  "sourceSha256": "873a1e96b149010d3118c130fcfc4cd2ddce7b929ae68b5b60c0107354029a3c",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4070,
+    "exteriorWidth": 1780,
+    "exteriorHeight": 1447,
+    "wheelbase": 2564
+  },
+  "widthConvention": "anchura publicada; retrovisores no especificados en la hoja",
+  "notes": "Ficha original SEAT2026, tabla CARROCERÍA. No sustituir por la edición anterior del mismoZIP: Ibiza2025 mide4059mm frente a4070mm en2026. La anchura1780 está publicada sin aclarar retrovisores. Ilustración nominal para diseño/presupuesto, no plantilla de corte.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-car",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/11/NP-AER-Matriculaciones-renting-octubre-2026_.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-octubre-2026.pdf",
+    "sourceSha256": "8f6e4d35ba77b1d8931050868715d2a20760be5bb7ecc85ea54a92571ee33d2c",
+    "sourcePage": 3,
+    "period": "2026-01/2026-10",
+    "rank": 2,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

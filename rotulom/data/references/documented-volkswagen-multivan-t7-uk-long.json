@@ -1,0 +1,18 @@
+{
+  "id": "documented-volkswagen-multivan-t7-uk-long",
+  "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/multivan/multivan-brochure.pdf",
+  "sourcePages": "18PDF",
+  "sourceArchive": "vw-multivan-uk-2026.pdf",
+  "sourceSha256": "e72d0e837da04305431d62438702a10932120f35f05cf4e52805fbfadeb5cae0",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5173,
+    "exteriorWidth": 1941,
+    "exteriorHeight": 1907,
+    "wheelbase": 3124
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "MultivanT7 Life/Style. Chasis normal1907; chasis rebajado1887. Largo4973/5173 sin enganche, batalla3124 en ambas. Ancho1941 de carrocería/2252 con espejos según esquema. No corresponde al Transporter2025 ni al MultivanT6.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-van"
+}

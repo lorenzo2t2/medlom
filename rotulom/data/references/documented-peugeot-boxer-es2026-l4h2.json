@@ -1,0 +1,17 @@
+{
+  "id": "documented-peugeot-boxer-es2026-l4h2",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Boxer-equipamientos-caracteristicas.pdf",
+  "sourcePages": "8PDF",
+  "sourceArchive": "peugeot-boxer-es-20261120.pdf",
+  "sourceSha256": "12f2d27e77bd7491184a3b141755ae4133f445e4d1a95f7c42b52ab0ee3f1467",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 6363,
+    "exteriorWidth": 2050,
+    "exteriorHeight": 2522,
+    "wheelbase": 4035
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla FURGONES de página8. Altura en orden de marcha indicativa, variable según versiones. L2H1 no se incorpora en este lote: su ancho aparece como45.383 en el documento, pendiente de corroboración propia de Peugeot.",
+  "validationIssues": []
+}

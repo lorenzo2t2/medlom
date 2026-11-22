@@ -1,0 +1,21 @@
+{
+  "id": "documented-nissan-env200-manual-es2021-pasajeros",
+  "sourceUrl": "https://libs-europe.nissan-cdn.net/nissan-prod-iom/es/es/e-nv200_me0_e0_2021/pdf/om21es-0me0e0eur.pdf",
+  "sourcePages": "337PDF · DIMENSIONES; identidad9-10PDF",
+  "sourceArchive": "nissan-env200-2021-manual-es.pdf",
+  "sourceSha256": "bf4d0227442f18e2bae19da5a353388504db7bc7a9b09ffd55c449115f18e2eb",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4560,
+    "exteriorWidth": 1755,
+    "exteriorHeight": 1850,
+    "wheelbase": 2725
+  },
+  "widthConvention": "anchura total publicada; retrovisores no especificados en el manual",
+  "notes": "Manual original español seleccionado por modelo/año en Nissan España. ME0 eléctrico:4560x1755; altura1855 Van y1850 Wagon según notas*1/*2 de su propia tabla. La anchura total está publicada sin precisar retrovisores en el manual. Puertas representadas: carga con doble hoja; pasajeros con portón, sin barras. Ilustración nominal de diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "manufacturer scalar for Wagon per note*1"
+  },
+  "vehicleClass": "passenger-van"
+}

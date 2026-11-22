@@ -1,0 +1,18 @@
+{
+  "id": "documented-renault-master-web2026-l3h2",
+  "sourceUrl": "https://empresas.renault.es/gama-master/master-furgon.html",
+  "sourcePages": "Tabla dimensional web capturada18/11/2026",
+  "sourceArchive": "master-furgon-tabla-2026.json",
+  "sourceSha256": "606597b4371b47b6e5c1896fde617b2aa909093f7fd9cd6406263101d4d4ba0a",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 6315,
+    "exteriorWidth": 2080,
+    "exteriorHeight": 2500,
+    "wheelbase": 4215,
+    "cargoLength": 3857
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Longitud sin estribo y ancho sin retrovisores. No corresponde al MasterIII de2010. Se mantienen distintas las versiones RWD simple y doble rueda (ancho2080/2095).",
+  "validationIssues": []
+}

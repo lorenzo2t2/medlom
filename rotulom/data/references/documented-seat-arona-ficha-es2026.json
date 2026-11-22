@@ -1,0 +1,32 @@
+{
+  "id": "documented-seat-arona-ficha-es2026",
+  "sourceUrl": "https://www.seat-mediacenter.com/mediacenter_netstor/seat-media-center/Img/2025/modelos/Ficha-tecnica-SEAT-Arona.zip",
+  "sourcePages": "1PDF; documento2026 incluido enZIP de fabricante",
+  "sourceArchive": "seat-arona-ficha-2026-Ficha-tecnica-SEAT-Arona-2026.pdf",
+  "sourceSha256": "1a4adfd3aa0976502c8661216d3c2af0ed11ee8c8b63bdc8c4a2291cd21b76ba",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4164,
+    "exteriorWidth": 1780,
+    "exteriorHeight": 1538,
+    "wheelbase": 2566
+  },
+  "widthConvention": "anchura publicada; retrovisores no especificados en la hoja",
+  "notes": "Ficha original SEAT2026, tabla CARROCERÍA. No sustituir por la edición anterior del mismoZIP: Arona anterior4154mm frente a4164mm en2026. La altura publicada es1538–1530mm sin reparto por acabados: se elige extremo superior nominal y no se certifica altura de cada unidad. La anchura1780 está publicada sin aclarar retrovisores. Ilustración nominal para diseño/presupuesto, no plantilla de corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-of-published-1530-1538-interval; trim mapping not specified"
+  },
+  "vehicleClass": "suv",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/11/NP-AER-Matriculaciones-renting-octubre-2026_.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-octubre-2026.pdf",
+    "sourceSha256": "8f6e4d35ba77b1d8931050868715d2a20760be5bb7ecc85ea54a92571ee33d2c",
+    "sourcePage": 3,
+    "period": "2026-01/2026-10",
+    "rank": 9,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

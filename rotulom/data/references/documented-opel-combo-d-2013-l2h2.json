@@ -1,0 +1,16 @@
+{
+  "id": "documented-opel-combo-d-2013-l2h2",
+  "sourceUrl": "https://public-servicebox.opel.com/OVddb/OV/es_ES/Combo_D/2012_2018/2013/manual_user/om_combod_kta-2730_1-es_eu_my13_ed0812_7_es_es_online%5Bcombod%5D.pdf",
+  "sourcePages": "172impresa;174PDF",
+  "sourceArchive": "opel-combo-d-2013-es.pdf",
+  "sourceSha256": "daaa503c7a1b24018087a247ba4f6cd8fdd2a9f9c330eae865e6ff1be8ac406f",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4740,
+    "exteriorWidth": 1832,
+    "exteriorHeight": 2125
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Vehículo comercial, no Combi/Tour. Altura sin antena y sin barras ni portaequipajes. Manual2013 ofrece techo alto corto2100 y largo2125. No se incorpora batalla numérica: la tabla solo indica corta/larga. No extrapolar la errata1685 del manual2012.",
+  "validationIssues": []
+}

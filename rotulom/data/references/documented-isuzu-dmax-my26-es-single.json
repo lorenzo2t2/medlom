@@ -1,0 +1,28 @@
+{
+  "id": "documented-isuzu-dmax-my26-es-single",
+  "sourceUrl": "https://www.isuzu.it/storage/uploads/11372ac2-9c93-4522-bdda-34ae9d6d169b/SINGLE_N60B-4X4-Euro-6e-bis-GSR-III-ES.pdf",
+  "sourcePages": "1PDF",
+  "sourceArchive": "isuzu-dmax-my26-es-1.pdf",
+  "sourceSha256": "327c9013728fccd9cf4c421fd94aec57a494a3f570c12be739ecc2307ab727e5",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5320,
+    "exteriorWidth": 1810,
+    "exteriorHeight": 1770,
+    "wheelbase": 3125,
+    "cargoLength": 2330,
+    "cargoWidth": 1590,
+    "cargoHeight": 465
+  },
+  "widthConvention": "ancho de cabina OW; retrovisores no especificados por la ficha",
+  "notes": "Tabla española MY2026: OW es ANCHO DE CABINA1810/1870; BW1760/1835 es ancho exterior de la caja, no el ancho máximo del vehículo. No sustituir OW por BW. La ficha no especifica retrovisores en la denominación OW; conservar esa limitación. Cabinas SINGLE/SPACE/CREW tienen cajas distintas.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorWidth": "cab-width-OW-mirror-inclusion-unspecified"
+  },
+  "manufacturerWidthFields": {
+    "cabWidthOW": 1810,
+    "loadBodyWidthBW": 1760
+  },
+  "vehicleClass": "pickup"
+}

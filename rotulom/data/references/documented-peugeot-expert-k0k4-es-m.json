@@ -1,0 +1,17 @@
+{
+  "id": "documented-peugeot-expert-k0k4-es-m",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/Expert-equipamientos-caracteristicas.pdf",
+  "sourcePages": "4PDF",
+  "sourceArchive": "peugeot-expert-es-20261120.pdf",
+  "sourceSha256": "b09e420852f2e60907257daa7fa0fce5f5347979dc6ccb318d182a5cf4dc9fdd",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4981,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1955,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla Furgón de la ficha K0 K4. Las columnas publican 4981/5331, ancho sin espejos1924, altura1955 y batalla3275. No corresponde al Expert2014. No trasladar las cotas del piso-cabina.",
+  "validationIssues": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "documented-toyota-proace-city-verso-my27-l2-family",
+  "sourceUrl": "https://www.toyota.es/coches/proace-city-verso/build.pf.epr.eee13b41-39c7-4269-bfe0-62eb9374cc1b?path=specs/74c690bd-868d-47df-9f4f-98277d13615c/eee13b41-39c7-4269-bfe0-62eb9374cc1b&u=b1aad99e-1040-4bd3-be7f-87a329323c46",
+  "sourcePages": "Configurador público ACTIVE-L diésel L2, apartado Dimensiones",
+  "sourceArchive": "toyota-city-verso-active-l-cotas-es-20261121.json",
+  "sourceSha256": "6c3ecf712fecb86c0b2b8912ad02c99b367333c90f25612c85a078437dd221c3",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4753,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1880,
+    "wheelbase": 2975
+  },
+  "widthConvention": "sin retrovisores; ancho de carrocería del esquema",
+  "notes": "Referencia propia ToyotaEspaña ACTIVE-L L2 diésel1.5D97kW8AT de siete plazas. La ficha web publica4753×1848×1880mm y batalla2975mm. ElPDFMY27 imprime2785 en la columna larga, dato que no cierra sus voladizos; se conserva la referencia anterior y su errata, sin usar medidas de otra marca o del furgón. FAMILY representada en acabado baseActive-L sin barras.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "wheelbase": "corroborated-by-specific-official-passenger-L2-configurator"
+  },
+  "previousManufacturerReference": {
+    "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city-verso/Catalogo-PROACE-CITY-VERSO-MY27.pdf",
+    "sourcePages": "10 y13PDF",
+    "sourceArchive": "toyota-proace-city-verso.pdf",
+    "sourceSha256": "b1cf8ba9f80fbaeb7c2d952b8faba36e2ec4f495a0aa0ca58db12fb03b3def7e",
+    "printedWheelbaseMm": 2785,
+    "issue": "Batalla L2: el PDF imprime2785mm, pero892+2785+886=4563mm frente a4753mm de longitud. No se incorpora la batalla hasta corroborarla en otra fuente propia de Toyota."
+  },
+  "vehicleClass": "passenger-van"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "documented-ford-courier-es-tourneo2024-active",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/cars/tourneo-courier/BRO-Tourneo_Courier_24MY.pdf",
+  "sourcePages": "7PDF · dimensiones",
+  "sourceArchive": "ford-es-BRO-Tourneo_Courier_24MY-20240612012504.pdf",
+  "sourceSha256": "fbba72940875d16a9bcdb83eff31e6322a89efa8ecea3fc08aa76baf40153363",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4343,
+    "exteriorWidth": 1813,
+    "exteriorHeight": 1836,
+    "wheelbase": 2692
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2076mm",
+  "notes": "Edición técnica española propia, año de creación del documento2024; la fecha posterior del archivo no identifica un nuevo año de modelo. ColumnaActive4343x1813x1836 del catálogoMY24; altura nominal con asterisco de carga/payload, no se inventa un intervalo que no está impreso. Ilustración de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "manufacturer nominal scalar; load/payload footnote applies"
+  },
+  "vehicleClass": "passenger-van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-BRO-Tourneo_Courier_24MY-20240612012504.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/cars/tourneo-courier/BRO-Tourneo_Courier_24MY.pdf",
+    "archiveUrl": "https://web.archive.org/web/20240612012504id_/https://www.ford.es/content/dam/guxeu/es/documents/brochures/cars/tourneo-courier/BRO-Tourneo_Courier_24MY.pdf",
+    "archiveTimestamp": "20240612012504",
+    "cdxDigest": "QXXRSFEBGNWF53ABIMDHYNXUHK2C5PNM",
+    "sha256": "fbba72940875d16a9bcdb83eff31e6322a89efa8ecea3fc08aa76baf40153363",
+    "pages": 12,
+    "partialArchive": false,
+    "checkedAt": "2026-11-22"
+  }
+}

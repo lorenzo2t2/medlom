@@ -1,0 +1,18 @@
+{
+  "id": "documented-toyota-proace-city-verso-my27-l1-family",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-city-verso/Catalogo-PROACE-CITY-VERSO-MY27.pdf",
+  "sourcePages": "10 y13PDF",
+  "sourceArchive": "toyota-proace-city-verso.pdf",
+  "sourceSha256": "b1cf8ba9f80fbaeb7c2d952b8faba36e2ec4f495a0aa0ca58db12fb03b3def7e",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4403,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1880,
+    "wheelbase": 2785
+  },
+  "widthConvention": "sin retrovisores; ancho de carrocería del esquema",
+  "notes": "Datos propios de pasajeros MY27. BUSINESS L1 lleva2PT y una puerta lateral; FAMILY porta portón y dos laterales. Altura1880 según tabla. La batalla L2 de la fuente es incoherente con la suma de voladizos y longitud: queda omitida, no se toma la de otra marca.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-van"
+}

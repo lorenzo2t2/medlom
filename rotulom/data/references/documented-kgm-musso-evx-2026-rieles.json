@@ -1,0 +1,25 @@
+{
+  "id": "documented-kgm-musso-evx-2026-rieles",
+  "sourceUrl": "https://kgm.com.es/uploads/modelos/musso-evx/ficha-tecnica-musso-evx.pdf",
+  "sourcePages": "1PDF",
+  "sourceArchive": "kgm-ficha-tecnica-musso-evx.pdf",
+  "sourceSha256": "8f36a37a16dc5da2627aeb837796618529db56f0fa17bf3b33297c7a24551db8",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5160,
+    "exteriorWidth": 1920,
+    "exteriorHeight": 1750,
+    "wheelbase": 3150,
+    "cargoLength": 1345,
+    "cargoWidth": 1515,
+    "cargoHeight": 510
+  },
+  "widthConvention": "anchura de carrocería; sin retrovisores según esquema",
+  "notes": "Altura1740 sin rieles y1750 con rieles según tabla. Las columnas4x2 y4x4 comparten cotas exteriores; no se crea una carrocería ficticia por motorización. No corresponde al Musso diésel.",
+  "validationIssues": [],
+  "supportedManufacturerVariants": [
+    "4x2",
+    "4x4"
+  ],
+  "vehicleClass": "pickup"
+}

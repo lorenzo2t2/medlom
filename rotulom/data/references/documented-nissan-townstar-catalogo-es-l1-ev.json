@@ -1,0 +1,17 @@
+{
+  "id": "documented-nissan-townstar-catalogo-es-l1-ev",
+  "sourceUrl": "https://www-europe.nissan-cdn.net/content/dam/Nissan/es/catalogos/catalogo-nissan-townstar-furgon.pdf",
+  "sourcePages": "14 (PDF)",
+  "sourceArchive": "nissan-townstar-furgon-es.pdf",
+  "sourceSha256": "89e4a671c0552cc643c667b655f44ec725e36e338ee215c04ae66552bb98158c",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4486,
+    "exteriorWidth": 1860,
+    "exteriorHeight": 1864,
+    "wheelbase": 2716
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Ancho de carrocería1860 yconretrovisores2159 según tabla. No se incorporan cotas interiores incoherentes de la tabla; las cotas exteriores están separadas por versión.",
+  "validationIssues": []
+}

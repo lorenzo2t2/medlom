@@ -1,0 +1,21 @@
+{
+  "id": "documented-smart-fortwo-450-city-coupe-es",
+  "sourceUrl": "https://www.manua.ls/smart/fortwo-2006/manual?p=277",
+  "sourcePages": "Manual original smart gmbh ·275impresa/277visor · Vehicle dimensions",
+  "sourceArchive": "smart-fortwo-450-manual-2006-p276-279.json",
+  "sourceSha256": "727330f147ee055ae4fd2417326be178450729031076ae4f2fdb877ba30599af",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 2500,
+    "exteriorWidth": 1515,
+    "exteriorHeight": 1549,
+    "wheelbase": 1812
+  },
+  "widthConvention": "ancho total publicado1515; el manual no precisa retrovisores",
+  "notes": "Smart clásico C450. Cuatro vistas City-Coupé original1998–2002 contrastadas con imagen histórica de smart España. Cotas nominales de la familia450 obtenidas de Operating instructions smart gmbh, edición2006,p275impresa/277visor:2500x1515x1549,batalla1812. Copia pública del manual del fabricante alojada por Manua.ls; NO se usa su descripción comercial ni respuestas de IA. La fuente dimensional es una edición posterior al frontal dibujado: referencia exterior nominal de familia, no certificación de la unidad ni contornos/piezas para corte. Verificar unidad física antes de presupuestos ajustados.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "referenceScope": "Nominal450 family dimensions from later2006 original manufacturer manual; image early1998–2002 identity. No cut/panel certification."
+  },
+  "vehicleClass": "passenger-car"
+}

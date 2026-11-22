@@ -1,0 +1,32 @@
+{
+  "id": "documented-nissan-qashqai-j12-facelift-web-es2026",
+  "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/qashqai.html",
+  "sourcePages": "Panel VER TODAS LAS DIMENSIONES · Dimensiones exteriores / Pesos y dimensiones",
+  "sourceArchive": "nissan-qashqai-cotas-web-es-20261121.json",
+  "sourceSha256": "d2c340db5a85db11dbd6f93e889e28a00443dddc604e0d8baa0cc82a1c833176",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4425,
+    "exteriorWidth": 1835,
+    "exteriorHeight": 1625
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2084mm",
+  "notes": "Cotas del panel específico de dimensiones Nissan España, no tarjeta promocional superior que muestra longitud4595. Ancho1835 sin/2084 con espejos. Se omite batalla: el PDF publica2665 pero tablas generales advierten datos pendientes de homologación. No se afirma homologación ni prestaciones con ese PDF. Ilustración nominal para presupuesto y presentación, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "wheelbase": "not included; pending independent primary corroboration",
+    "exteriorLength": "4425 in dedicated dimensions panel; marketing teaser4595 not used"
+  },
+  "vehicleClass": "suv",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/11/NP-AER-Matriculaciones-renting-octubre-2026_.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-octubre-2026.pdf",
+    "sourceSha256": "8f6e4d35ba77b1d8931050868715d2a20760be5bb7ecc85ea54a92571ee33d2c",
+    "sourcePage": 3,
+    "period": "2026-01/2026-10",
+    "rank": 5,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

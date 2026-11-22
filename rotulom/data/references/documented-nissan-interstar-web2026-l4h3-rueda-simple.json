@@ -1,0 +1,17 @@
+{
+  "id": "documented-nissan-interstar-web2026-l4h3-rueda-simple",
+  "sourceUrl": "https://www.nissan.es/vehiculos/nuevos-vehiculos/interstar/dimensiones.html",
+  "sourcePages": "Tabla web18, columna3",
+  "sourceArchive": "nissan-interstar-web-cotas-20261120.json",
+  "sourceSha256": "a05a258b92c6383e6d119e4efeb0ae00ddfe007fd5d34a540fa4d90d5fcc1af4",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 6979,
+    "exteriorWidth": 2080,
+    "exteriorHeight": 2778,
+    "wheelbase": 4215
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Nueva generación de carrocería. Longitud SIN parachoques escalonado:5685/6315/6979; con escalón5780/6410/7075. No utilizar para la generación anterior del PDF enlazado. Rueda simple y gemela conservan anchuras2080/2095. No se toman cargas útiles ni remolque pendientes como homologadas.",
+  "validationIssues": []
+}

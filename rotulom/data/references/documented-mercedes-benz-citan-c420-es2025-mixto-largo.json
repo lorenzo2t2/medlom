@@ -1,0 +1,24 @@
+{
+  "id": "documented-mercedes-benz-citan-c420-es2025-mixto-largo",
+  "sourceUrl": "https://www.mercedes-benz.es/vans/services/manuals.html/citan-furgoneta-2025-02-c420-mbux/datos-del-vehiculo/medidas-del-vehiculo",
+  "sourcePages": "Tabla web Mixto",
+  "sourceArchive": "citan-cotas-es-20261121.json",
+  "sourceSha256": "cf4660cbd2178d3bcffcac1ce38d810429942969e4bbad23a0fa4faa1086957c",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4922,
+    "exteriorWidth": 1859,
+    "exteriorHeight": 1855,
+    "wheelbase": 3100
+  },
+  "widthConvention": "sin retrovisores;2159mm con retrovisores",
+  "notes": "Tabla específica española deMixto largo. Altura nominal elegida: extremo superior del intervalo1838–1855mm, dependiente del equipamiento. No corresponde al furgón de carga sin acristalar. No se crea un Mixto corto no listado por el manual.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-of-manufacturer-range",
+    "heightRangeMm": [
+      1838,
+      1855
+    ]
+  }
+}

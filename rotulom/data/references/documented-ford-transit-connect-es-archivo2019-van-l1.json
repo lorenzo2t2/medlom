@@ -1,0 +1,41 @@
+{
+  "id": "documented-ford-transit-connect-es-archivo2019-van-l1",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-new-Transit_Connect.pdf",
+  "sourcePages": "2PDF · tabla Van /36-37 impresas",
+  "sourceArchive": "ford-es-FT-new-Transit_Connect-20191118043119.pdf",
+  "sourceSha256": "af54ff37a3513b876fe41c837efbf50f01c7a11377a5f382fbc488796d1ec94c",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4425,
+    "exteriorWidth": 2137,
+    "exteriorHeight": 1844,
+    "wheelbase": 2662
+  },
+  "widthConvention": "con retrovisores desplegados; ancho de carrocería no publicado en esta tabla",
+  "notes": "Fuente primaria española archivada2019; la copia archivada es parcial, pero página2 dimensional y portada son legibles y están verificadas, con huellaCDX coincidente. No se atribuye año de modelo exacto por fecha del archivo. Ancho2137 CON retrovisores desplegados, no ancho de chapa; no se inventa ancho de carrocería. Espejos plegados1835. Puertas ilustradas según gráfico del fabricante; verificar configuración de la unidad. Ilustración de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorWidth": "includes deployed mirrors; not body panel width",
+    "referenceYear": "archive year2019, not asserted model year"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-FT-new-Transit_Connect-20191118043119.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-new-Transit_Connect.pdf",
+    "archiveUrl": "https://web.archive.org/web/20191118043119id_/https://www.ford.es/content/dam/guxeu/es/documents/feature-pdfs/FT-new-Transit_Connect.pdf",
+    "archiveTimestamp": "20191118043119",
+    "cdxDigest": "TBAO6354ITB37GFGCMLCFU4KYLSTN6AX",
+    "sha256": "af54ff37a3513b876fe41c837efbf50f01c7a11377a5f382fbc488796d1ec94c",
+    "pages": 10,
+    "usable": true,
+    "checkedAt": "2026-11-22",
+    "partialArchive": true,
+    "originalPdfDeclaredBytes": 2417805,
+    "archivedBytes": 1048576,
+    "verifiedReadablePdfPages": [
+      1,
+      2
+    ],
+    "scope": "Primary dimensional page2 intact and visually reviewed; archived file incomplete, not claimed to be a full brochure."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "documented-toyota-chr-my27-business",
+  "sourceUrl": "https://www.toyota.es/coches/toyota-c-hr/caracteristicas",
+  "sourcePages": "Ficha web · Dimensiones · Business MY27",
+  "sourceArchive": "toyota-chr-business-cotas-es-20261121.json",
+  "sourceSha256": "d90a00741c4d61508e5cf2cbc3bc5fab3f2d82278539bb11b1f1ab48c148d7c5",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4362,
+    "exteriorWidth": 1832,
+    "exteriorHeight": 1558,
+    "wheelbase": 2640
+  },
+  "widthConvention": "anchura publicada; retrovisores no especificados",
+  "notes": "Ficha específica Business MY27 de Toyota España; anchura publicada sin indicación sobre espejos. No es C-HR+ eléctrico ni primera generación. Nominal para diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "vehicleClass": "suv",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/11/NP-AER-Matriculaciones-renting-octubre-2026_.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-octubre-2026.pdf",
+    "sourceSha256": "8f6e4d35ba77b1d8931050868715d2a20760be5bb7ecc85ea54a92571ee33d2c",
+    "sourcePage": 3,
+    "period": "2026-01/2026-10",
+    "rank": 10,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

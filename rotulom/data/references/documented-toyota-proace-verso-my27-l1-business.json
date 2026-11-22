@@ -1,0 +1,18 @@
+{
+  "id": "documented-toyota-proace-verso-my27-l1-business",
+  "sourceUrl": "https://www.toyota.es/content/dam/toyota/nmsc/spain/cross-model/new-cars/catalogos-precios/pdf/proace-verso/Catalogo-PROACE-VERSO-MY27.pdf",
+  "sourcePages": "10 y13PDF",
+  "sourceArchive": "toyota-proace-verso.pdf",
+  "sourceSha256": "1feb112a42cc46058bde3a1516b300e015f77f71df3df53d3cee3328ce19e12e",
+  "checkedAt": "2026-11-18",
+  "dimensionsMm": {
+    "exteriorLength": 4981,
+    "exteriorWidth": 1924,
+    "exteriorHeight": 1955,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores; ancho de carrocería del esquema",
+  "notes": "Tabla dimensional propia de pasajeros MY27. BUSINESS de9plazas con2PT y FAMILY con portón según parrilla de página10. No se aplica esta ficha al ProaceVerso2016 ni a Camper con conversión de techo. Misma longitud no implica igual cierre trasero.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-van"
+}

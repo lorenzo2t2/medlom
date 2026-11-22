@@ -1,0 +1,32 @@
+{
+  "id": "documented-peugeot-e2008-ficha-es2026",
+  "sourceUrl": "https://www.peugeot.es/content/dam/peugeot/spain/pdf/equipamientos-y-caracteristicas/2008-equipamientos-caracteristicas.pdf",
+  "sourcePages": "27PDF · DIMENSIONES; vehículo ilustrado eléctrico",
+  "sourceArchive": "peugeot-2008-es-20261121.pdf",
+  "sourceSha256": "0b4270c42f21f1b462d9d641c5b584008621ff90e9cc96d297d00cf2902f0592",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4304,
+    "exteriorWidth": 1775,
+    "exteriorHeight": 1550,
+    "wheelbase": 2605
+  },
+  "widthConvention": "ancho de carrocería del esquema, sin retrovisores",
+  "notes": "Esquema dimensional propio Peugeot España. AER acredita la familia2008, no ventas específicas de eléctrico. No aplicar E-208GTi ni generación anterior. Altura1523/1550 impresa sin reparto por versión: extremo superior1550 nominal; no certificar altura individual. Uso de presentación y presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "upper-bound-of-published-1523-1550-interval; version mapping not specified"
+  },
+  "vehicleClass": "suv",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/01/NP-AER-Matriculaciones-renting-diciembre-2025-.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-diciembre-2025.pdf",
+    "sourceSha256": "a3d0f6af5e9849f6a81049d10093ed915e5a1bd444f31a5548779f6b02fef304",
+    "sourcePage": 3,
+    "period": "2025-01/2025-12",
+    "rank": 7,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

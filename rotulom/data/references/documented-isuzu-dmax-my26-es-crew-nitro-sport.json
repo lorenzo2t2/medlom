@@ -1,0 +1,28 @@
+{
+  "id": "documented-isuzu-dmax-my26-es-crew-nitro-sport",
+  "sourceUrl": "https://www.isuzu.it/storage/uploads/0d66345a-7440-4714-8e31-e5cbe2423e5e/CREW_NITRO-SPORT-Euro6e-bis_MY26---GSR-III_SPA.pdf",
+  "sourcePages": "1PDF",
+  "sourceArchive": "isuzu-dmax-my26-es-9.pdf",
+  "sourceSha256": "0ff6b31849b725c81e83b246da8771711c81ff9a75b4b425af432139460df1c1",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5280,
+    "exteriorWidth": 1870,
+    "exteriorHeight": 1790,
+    "wheelbase": 3125,
+    "cargoLength": 1495,
+    "cargoWidth": 1530,
+    "cargoHeight": 490
+  },
+  "widthConvention": "ancho de cabina OW; retrovisores no especificados por la ficha",
+  "notes": "Tabla española MY2026: OW es ANCHO DE CABINA1810/1870; BW1760/1835 es ancho exterior de la caja, no el ancho máximo del vehículo. No sustituir OW por BW. La ficha no especifica retrovisores en la denominación OW; conservar esa limitación. Cabinas SINGLE/SPACE/CREW tienen cajas distintas.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorWidth": "cab-width-OW-mirror-inclusion-unspecified"
+  },
+  "manufacturerWidthFields": {
+    "cabWidthOW": 1870,
+    "loadBodyWidthBW": 1835
+  },
+  "vehicleClass": "pickup"
+}

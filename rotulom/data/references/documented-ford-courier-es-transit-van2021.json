@@ -1,0 +1,32 @@
+{
+  "id": "documented-ford-courier-es-transit-van2021",
+  "sourceUrl": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-courier/BRO-nueva_transit_courier.pdf",
+  "sourcePages": "18PDF · dimensiones /32-33 impresas",
+  "sourceArchive": "ford-es-BRO-nueva_transit_courier-20220606133159.pdf",
+  "sourceSha256": "8cae961aa843909b815c1eee5804c1265abe4fae3b0fed64aaf1d690fa17f630",
+  "checkedAt": "2026-11-22",
+  "dimensionsMm": {
+    "exteriorLength": 4157,
+    "exteriorWidth": 1764,
+    "exteriorHeight": 1770,
+    "wheelbase": 2489
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2112mm",
+  "notes": "Edición técnica española propia, año de creación del documento2021; la fecha posterior del archivo no identifica un nuevo año de modelo. Altura1770 descargado SIN raíles, Van de primera generación facelift. Ilustración de presentación/presupuesto, no corte.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "without roof rails"
+  },
+  "vehicleClass": "van",
+  "archivedManufacturerSource": {
+    "file": "ford-es-BRO-nueva_transit_courier-20220606133159.pdf",
+    "url": "https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-courier/BRO-nueva_transit_courier.pdf",
+    "archiveUrl": "https://web.archive.org/web/20220606133159id_/https://www.ford.es/content/dam/guxeu/es/documents/brochures/commercial-vehicles/new-transit-courier/BRO-nueva_transit_courier.pdf",
+    "archiveTimestamp": "20220606133159",
+    "cdxDigest": "RKMW6JOK5R6JQZAHEIQQZU4P7SRDZYDK",
+    "sha256": "8cae961aa843909b815c1eee5804c1265abe4fae3b0fed64aaf1d690fa17f630",
+    "pages": 23,
+    "partialArchive": false,
+    "checkedAt": "2026-11-22"
+  }
+}

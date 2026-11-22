@@ -1,0 +1,18 @@
+{
+  "id": "documented-volkswagen-transporter-2026-uk-swb",
+  "sourceUrl": "https://www.volkswagen-vans.co.uk/idhub/content/dam/onehub_nfz/importers/gb/downloads/brochures/transporter-panel-van/transporter-brochure.pdf",
+  "sourcePages": "33PDF",
+  "sourceArchive": "vw-transporter-uk-2026.pdf",
+  "sourceSha256": "eae2f332659e15d43cbb6e4c187ac678920f140f50c484fcb64786baddc2e7b6",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 5050,
+    "exteriorWidth": 2032,
+    "exteriorHeight": 2009,
+    "wheelbase": 3100
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Nueva generación Transporter2025+, no T5/T6. Tabla SWB/LWB normal; el esquema indica altura1978–2009 según variante/equipamiento, referencia nominal superior2009. Ancho2032 de carrocería/2275 con espejos. Tolerancia de altura±40mm. No se inventa una versión techo alto a partir del contorno aproximado2480 del esquema.",
+  "validationIssues": [],
+  "vehicleClass": "panel-van"
+}

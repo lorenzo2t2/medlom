@@ -1,0 +1,20 @@
+{
+  "id": "documented-citroen-berlingo-vp-es2026-xl-barras",
+  "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_NUEVO_BERLINGO.pdf",
+  "sourcePages": "11PDF",
+  "sourceArchive": "citroen-berlingo-vp-es-20261120.pdf",
+  "sourceSha256": "40d867682738f2e7170a39b81764e95db4600888e62464a0324a1a79abdf3332",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4760,
+    "exteriorWidth": 1848,
+    "exteriorHeight": 1818,
+    "wheelbase": 2975
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla de pasajeros: altura MÍNIMA en orden de funcionamiento, no una altura universal de todos los acabados. Ancho1848 sin espejos,1921 plegados y2107 desplegados. No confundir con furgón de4403/4753.",
+  "validationIssues": [],
+  "dimensionQualifications": {
+    "exteriorHeight": "minimum-in-running-order"
+  }
+}

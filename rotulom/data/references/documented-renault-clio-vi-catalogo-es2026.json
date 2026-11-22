@@ -1,0 +1,29 @@
+{
+  "id": "documented-renault-clio-vi-catalogo-es2026",
+  "sourceUrl": "https://cdn.group.renault.com/ren/es/modelos/clio/catalogo/clio.pdf.asset.pdf/1783584128492.pdf",
+  "sourcePages": "25PDF · dimensiones y volúmenes",
+  "sourceArchive": "renault-clio-es-20261121.pdf",
+  "sourceSha256": "9e442cf286b5699ede1ece786deb25a38823e6a9d38fc805613f38dc7f271321",
+  "checkedAt": "2026-11-21",
+  "dimensionsMm": {
+    "exteriorLength": 4116,
+    "exteriorWidth": 1768,
+    "exteriorHeight": 1451,
+    "wheelbase": 2591
+  },
+  "widthConvention": "sin retrovisores; con retrovisores2006mm",
+  "notes": "Sexta generación vigente en catálogo español. AER2025 acredita uso profesional de la familiaClio, no ventas de esta sexta generación ni motor concreto. Anchura1768 sin espejos,2006 con espejos. No extrapolar ClioV. Nominal para diseño/presupuesto, no corte.",
+  "validationIssues": [],
+  "vehicleClass": "passenger-car",
+  "professionalUseEvidence": {
+    "kind": "company-renting-ranking",
+    "sourceUrl": "https://ae-renting.es/wp-content/uploads/2026/01/NP-AER-Matriculaciones-renting-diciembre-2025-.pdf",
+    "sourceArchive": "investigacion/mercado-profesional/fuentes/aer-matriculaciones-diciembre-2025.pdf",
+    "sourceSha256": "a3d0f6af5e9849f6a81049d10093ed915e5a1bd444f31a5548779f6b02fef304",
+    "sourcePage": 3,
+    "period": "2025-01/2025-12",
+    "rank": 2,
+    "familyOnly": true,
+    "modelUnitCount": null
+  }
+}

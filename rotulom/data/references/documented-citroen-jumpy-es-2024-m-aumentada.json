@@ -1,0 +1,17 @@
+{
+  "id": "documented-citroen-jumpy-es-2024-m-aumentada",
+  "sourceUrl": "https://www.citroen.es/content/dam/citroen/spain/pdf/caracteristicas-tecnicas/CT_Jumpy.pdf",
+  "sourcePages": "8PDF",
+  "sourceArchive": "citroen-jumpy-es-20261120.pdf",
+  "sourceSha256": "04a737c013c5b749ee227b480183439d062850cd16cc42528612b2abaca4d9f7",
+  "checkedAt": "2026-11-20",
+  "dimensionsMm": {
+    "exteriorLength": 4983,
+    "exteriorWidth": 1920,
+    "exteriorHeight": 1930,
+    "wheelbase": 3275
+  },
+  "widthConvention": "sin retrovisores",
+  "notes": "Tabla de arquitectura fechada23/10/2023 con columnas2023 y2024. Longitudes2024 de4983/5333 propias de Jumpy, no4981/5331 de Expert. Altura ligada al chasis de carga útil indicado. XL no tiene referencia de carga estándar en la tabla: no se crea esa combinación. Ancho1920 sin espejos,2010 plegados y2204 abiertos.",
+  "validationIssues": []
+}
