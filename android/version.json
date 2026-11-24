@@ -1,12 +1,11 @@
 {
- "versionCode": 131,
- "versionName": "0.57.3",
+ "versionCode": 132,
+ "versionName": "0.57.4",
  "apk": "MedLoM.apk",
- "size": 39828805,
- "sha256": "66826a4e95afa9a48d61dc6d25916eb0e352675d93fb8a912431a69651910820",
+ "size": 39828810,
+ "sha256": "fc8d435fb657c5b953b69567a46df673cd67fffcf202d809eb25183ef0f8f8cc",
  "notes": [
-  "Prisma y demás interfaces ya se pueden usar con el móvil en horizontal",
-  "en Plano las paredes inclinadas se respetan en vez de ponerse en esquina",
-  "al terminar una foto nueva con Medir foto se abre Proyectos"
+  "En Plano, una inclinación pequeña al dibujar se endereza (hasta 20°)",
+  "una mayor se toma como pared inclinada"
  ]
 }

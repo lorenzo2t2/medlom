@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.3";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.4";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1309,9 +1309,9 @@ const RoomSketch=(()=>{
  }
  function orthogonalize(points,{freehand=false}={}){
   const n=points.length,px=Array.from({length:n},(_,i)=>i),py=px.slice(),find=(p,i)=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;},join=(p,i,j)=>{p[find(p,i)]=find(p,j);};
-  // Solo se enderezan las paredes casi horizontales o verticales (hasta 12° de desvío); las inclinadas se respetan.
+  // Una inclinación pequeña es un error al dibujar: hasta 20° de desvío se endereza; más que eso es una pared inclinada.
   // A mano alzada, los restos cortos de una esquina redondeada no cuentan como pared inclinada.
-  const SNAP=12*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*.1):0;
+  const SNAP=20*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*.1):0;
   const walls=points.map((a,i)=>{const b=points[(i+1)%n],dx=b.x-a.x,dy=b.y-a.y,vertical=Math.abs(dy)>Math.abs(dx),off=Math.atan2(vertical?Math.abs(dx):Math.abs(dy),vertical?Math.abs(dy):Math.abs(dx));
    if(off>SNAP&&Math.hypot(dx,dy)>=minSlant)return{ratio:Math.hypot(dx,dy),angle:Math.atan2(dy,dx)};
    join(vertical?px:py,i,(i+1)%n);return{ratio:Math.hypot(dx,dy),angle:vertical?(dy>0?Math.PI/2:-Math.PI/2):(dx>0?0:Math.PI)};});
