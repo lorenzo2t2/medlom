@@ -1,10 +1,10 @@
 {
- "versionCode": 133,
- "versionName": "0.57.5",
+ "versionCode": 136,
+ "versionName": "0.58.0",
  "apk": "MedLoM.apk",
- "size": 39828975,
- "sha256": "3abbe80f881b1a60ddecfa8879893c42bcb0e043f1c9db805751465cae2e7c3e",
+ "size": 39832606,
+ "sha256": "4fbf33f08063d2f619147fb8b4502da479959306ae007bc9d9912d1479fd153b",
  "notes": [
-  "Nuevo ajuste «Pared inclinada en Plano»: elige desde cuántos grados de desvío una pared se considera inclinada (10°, 15°, 20°, 30° o 40°)"
+  "Más ajustes: sección Plano (pared inclinada, restos de esquina, redondeo, tolerancia de cierre, altura por defecto, medidas habituales, detector, foto torcida, guía de cámara), destino tras la foto, orientación, botones grandes, prefijo de archivo y opciones del PDF del plano. Todo viene con los valores de siempre"
  ]
 }

@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.5";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.58.0";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -872,6 +872,9 @@ button.rot-job-card{padding:0;text-align:left;font:inherit;color:var(--fg);backg
 .tpl-brand b{grid-area:name;font-size:18px;line-height:1.15;overflow-wrap:normal;word-break:normal;white-space:normal}
 .tpl-brand small{grid-area:info;text-align:left;font-size:13px;white-space:normal}
 .tpl-brand i{grid-area:arrow}
+/* Ajuste «Botones grandes» */
+:root.big-btn :is(.btn,.ib,.tool,.srow,.interface-button,.pr-foot button){min-height:56px}
+:root.big-btn :is(.ib,.interface-icon){min-width:56px}
 </style>
 
 <div class="app">
@@ -1142,6 +1145,7 @@ const RoomPlan=(()=>{
   const finite=n=>typeof n==='number'&&Number.isFinite(n);
   const positive=n=>finite(n)&&n>0&&n<=200000;
   const identifier=s=>typeof s==='string'&&/^[a-z0-9:_-]{1,100}$/i.test(s);
+  const cfg=(k,d)=>{try{return typeof SET!=='undefined'&&SET&&SET[k]!=null?SET[k]:d}catch(e){return d}};
   const clone=r=>JSON.parse(JSON.stringify(r));
   const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
   const wall=(r,id)=>{const w=r.walls.find(x=>x.id===id);if(!w)throw Error('Pared no encontrada');return w;};
@@ -1171,7 +1175,8 @@ const RoomPlan=(()=>{
     let area=0;const walls=points.map((a,i)=>{const b=points[(i+1)%points.length],dx=b.x-a.x,dy=b.y-a.y;area+=a.x*b.y-b.x*a.y;if(Math.hypot(dx,dy)<2)throw Error('Hay esquinas demasiado próximas');return{id:id+':w'+i,angle:Math.atan2(dy,dx),ratio:Math.hypot(dx,dy),lengthMm:null,openings:[]};});
     if(Math.abs(area)<4)throw Error('El contorno necesita superficie');
     classify(walls);
-    return {v:1,id,name:name.trim().slice(0,128),heightMm:null,firstWallId:walls[0].id,referenceWallId:null,walls,created:Date.now(),updated:Date.now()};
+    const defH=Number(cfg('roomHeight',0));
+    return {v:1,id,name:name.trim().slice(0,128),heightMm:positive(defH)?defH:null,firstWallId:walls[0].id,referenceWallId:null,walls,created:Date.now(),updated:Date.now()};
   }
   function checkOpenings(w,height){
     const ids=new Set();
@@ -1206,12 +1211,12 @@ const RoomPlan=(()=>{
     const ref=r.walls.find(w=>w.id===r.referenceWallId&&w.lengthMm>0)||r.walls.find(w=>w.lengthMm>0),scale=ref?ref.lengthMm/ref.ratio:10;
     const points=[{x:0,y:0}],segments=[];let measured=0;
     for(const w of r.walls){const length=w.lengthMm??w.ratio*scale,a=points[points.length-1],b={x:a.x+Math.cos(w.angle)*length,y:a.y+Math.sin(w.angle)*length};if(w.lengthMm!==null)measured++;segments.push({id:w.id,a,b,length,estimated:w.lengthMm===null});points.push(b);}
-    const last=points[points.length-1],gapMm=Math.hypot(last.x,last.y),closed=gapMm<1;
+    const last=points[points.length-1],gapMm=Math.hypot(last.x,last.y),closed=gapMm<Math.max(1,Number(cfg('closeTol',1))||1);
     const polygon=points.slice(0,-1),intersects=crossing(closed?polygon:points,closed);
     let areaMm2=0;if(closed&&!intersects){for(let i=0;i<polygon.length;i++){const a=polygon[i],b=polygon[(i+1)%polygon.length];areaMm2+=a.x*b.y-b.x*a.y;}areaMm2=Math.abs(areaMm2)/2;}
     return {points,segments,gapMm,closed,intersects,areaMm2,measured,complete:measured===r.walls.length&&closed&&!intersects};
   }
-  function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');const n=clone(r),w=wall(n,id);w.lengthMm=value;delete w.pendingDiff;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
+  function setLength(r,id,value){if(!positive(value))throw Error('Introduce una longitud positiva');{const st=Number(cfg('roomRound',0));if(st>0){const q=Math.round(value/st)*st;if(positive(q))value=q;}}const n=clone(r),w=wall(n,id);w.lengthMm=value;delete w.pendingDiff;if(!n.referenceWallId)n.referenceWallId=id;checkOpenings(w,n.heightMm);return n;}
   function setHeight(r,value){if(!positive(value))throw Error('Introduce una altura positiva');const n=clone(r);n.walls.forEach(w=>checkOpenings(w,value));n.heightMm=value;return n;}
   function setFirst(r,id){wall(r,id);return {...clone(r),firstWallId:id};}
   function segmentLabel(r,wall,short=false){
@@ -1311,7 +1316,7 @@ const RoomSketch=(()=>{
   const n=points.length,px=Array.from({length:n},(_,i)=>i),py=px.slice(),find=(p,i)=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;},join=(p,i,j)=>{p[find(p,i)]=find(p,j);};
   // Una inclinación pequeña es un error al dibujar: hasta 20° de desvío se endereza; más que eso es una pared inclinada.
   // A mano alzada, los restos cortos de una esquina redondeada no cuentan como pared inclinada.
-  const SNAP=Math.max(5,Math.min(44,Number(typeof SET!=='undefined'&&SET.roomSnap)||20))*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*.1):0;
+  const SNAP=Math.max(5,Math.min(44,Number(typeof SET!=='undefined'&&SET.roomSnap)||20))*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*(Math.max(2,Math.min(40,Number(typeof SET!=='undefined'&&SET.roomCorner)||10))/100)):0;
   const walls=points.map((a,i)=>{const b=points[(i+1)%n],dx=b.x-a.x,dy=b.y-a.y,vertical=Math.abs(dy)>Math.abs(dx),off=Math.atan2(vertical?Math.abs(dx):Math.abs(dy),vertical?Math.abs(dy):Math.abs(dx));
    if(off>SNAP&&Math.hypot(dx,dy)>=minSlant)return{ratio:Math.hypot(dx,dy),angle:Math.atan2(dy,dx)};
    join(vertical?px:py,i,(i+1)%n);return{ratio:Math.hypot(dx,dy),angle:vertical?(dy>0?Math.PI/2:-Math.PI/2):(dx>0?0:Math.PI)};});
@@ -1338,7 +1343,7 @@ const RoomSketch=(()=>{
  return {detect,simplify,orthogonalize};
 })();
 /* ================= settings ================= */
-const DEF_SET={interfaceMode:'classic',tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,roomSnap:20,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
+const DEF_SET={interfaceMode:'classic',tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,roomSnap:20,roomRound:0,closeTol:1,roomHeight:0,roomCorner:10,roomQuick:false,detectSens:'normal',photoFix:'auto',camTol:'normal',camTip:true,afterPhoto:'projects',orient:'auto',bigButtons:false,roomPdfElev:'all',roomPdfName:false,filePrefix:'',haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -1396,6 +1401,8 @@ function applySettings(){
   else delete document.documentElement.dataset.theme;
   const cd=applyLook(resolved==='dark'||darkish.includes(resolved));
   window.dispatchEvent(new Event('medlom-appearance'));
+  document.documentElement.classList.toggle('big-btn',!!SET.bigButtons);
+  if(NATIVE){try{if(NATIVE.setOrient)NATIVE.setOrient(SET.orient||'auto')}catch(e){}try{if(NATIVE.setCamOpts)NATIVE.setCamOpts(SET.camTol||'normal',SET.camTip!==false)}catch(e){}}
   if(NATIVE){try{NATIVE.setTheme(cd!=null?cd:(darkish.includes(resolved)||resolved==='dark'))}catch(e){}}
 }
 
@@ -1628,6 +1635,7 @@ function askText(title,value,placeholder,ok){return new Promise(res=>{
   setTimeout(()=>{i.focus();i.select()},60);
 })}
 
+const filePre=n=>{const p=String((typeof SET!=='undefined'&&SET.filePrefix)||'').trim().replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,40);return p?p+' - '+n:n};
 /* navigation stack + phone back button */
 const stack=[{v:'gallery',scope:null}];let pushed=0,forceLeave=false,goProjectsAfter=false;
 function pushView(entry){exitSel();stack.push(entry);try{history.pushState({cf:stack.length},'');pushed++}catch(e){}show()}
@@ -2009,7 +2017,7 @@ async function exportEntries(entries,name,covers){
         else b=await toBlob(await renderAnnotated(rec,Q.max||undefined),'image/jpeg',Q.q);
         let base=safe(rec.name)+(clean?' (original)':''),fn=base+'.jpg',k=2;while(used.has(fn))fn=base+' '+(k++)+'.jpg';used.add(fn);files.push({blob:b,name:fn});await new Promise(r=>setTimeout(r,0))}
       m.close(true);if(files.length===1)previewExport(files[0].blob,files[0].name,entries,clean);else shareMany(files,entries);return}
-    else{out=await buildPdf(entries,covers,prog,clean);fname=safe(name)+(clean?' (originales)':'')+'.pdf'}
+    else{out=await buildPdf(entries,covers,prog,clean);fname=filePre(safe(name)+(clean?' (originales)':''))+'.pdf'}
     m.close(true);previewExport(out,fname,entries,clean);
   }catch(err){m.close(true);toast(err&&err.message==='pdf'?'No se pudo crear el PDF. Comprueba la conexión y vuelve a intentarlo.':'No se pudo preparar la exportación')}
 }
@@ -2168,7 +2176,7 @@ function saveEditor(){
   if(!rec)return Promise.resolve(false);
   if(editorSave)return editorSave;
   const photo=rec, image=src, revision=hist[hi], transformed=imgChanged;
-  if(photo.fresh)goProjectsAfter=true;
+  if(photo.fresh&&!(typeof SET!=='undefined'&&SET.afterPhoto==='home'))goProjectsAfter=true;
   const next={...photo,objs:structuredClone(objs),calib:structuredClone(calib),updated:stamp(photo.updated)};
   delete next.fresh;
   if(transformed){next.w=W;next.h=H;next.imgRev=(photo.imgRev||0)+1}
@@ -2471,7 +2479,7 @@ const FotoAuto=(()=>{
     for(let a=0;a<xs.length;a++)for(let b=a+1;b<xs.length;b++){const x1=xs[a],x2=xs[b];if(x2-x1<minW)continue;
       for(let c=0;c<ys.length;c++)for(let d=c+1;d<ys.length;d++){const y1=ys[c],y2=ys[d];if(y2-y1<minH)continue;
         const l=cv(x1,y1,y2);if(l<.6)continue;const r=cv(x2,y1,y2);if(r<.6)continue;const t=ch(y1,x1,x2);if(t<.6)continue;const bt=ch(y2,x1,x2);if(bt<.6)continue;
-        {const mc=Math.min(l,r,t,bt);if(mc>=.75)out.push({x1,y1,x2,y2,score:(l+r+t+bt)/4,mc})}}}
+        {const mc=Math.min(l,r,t,bt);if(mc>=(({strict:.85,loose:.62})[typeof SET!=='undefined'&&SET.detectSens]||.75))out.push({x1,y1,x2,y2,score:(l+r+t+bt)/4,mc})}}}
     return out;
   }
   function smallBoxes(M){   // enchufes e interruptores: contornos cerrados pequeños y casi cuadrados
@@ -3188,11 +3196,21 @@ async function renderSettings(){
     ${row('Lupa al dibujar','Aparece mientras dibujas a mano alzada.',swH('loupePen'))}
     ${row('Aumento de la lupa','',segH('loupeZoom',[[2,'2×'],[3,'3×'],[4,'4×'],[6,'6×']]))}
     ${row('Enderezar líneas','Ajusta a horizontal, vertical o 45° cuando la línea está casi recta. Los extremos quedan donde los sueltas.',swH('snap'))}
-    ${row('Pared inclinada en Plano','Al dibujar un plano, una pared que se desvía menos de estos grados de horizontal o vertical se endereza (error de dibujo); si se desvía más, se mantiene como pared inclinada.',segH('roomSnap',[[10,'10°'],[15,'15°'],[20,'20°'],[30,'30°'],[40,'40°']]))}
     ${row('Dejar hueco en las líneas','Corta la línea de debajo cuando dos cotas se cruzan o un número cae sobre una línea.',swH('dimBreak'))}
     ${SET.dimBreak!==false?row('Tamaño del hueco','',segH('dimGap',[['s','Pequeño'],['m','Normal'],['l','Grande'],['xl','Muy grande']])):''}
     ${row('Colocar los números automáticamente','Aparta los números de otras líneas y textos, y los reduce si no caben. Los que muevas tú no se tocan.',swH('declutter'))}
     ${row('Vibración','Al mantener pulsada una medida para moverla.',swH('haptic'))}
+  </div></div>
+  <div class="sgroup"><h3>Plano</h3><div class="scard">
+    ${row('Pared inclinada','Al dibujar un plano, una pared que se desvía menos de estos grados de horizontal o vertical se endereza (error de dibujo); si se desvía más, se mantiene como pared inclinada.',segH('roomSnap',[[10,'10°'],[15,'15°'],[20,'20°'],[30,'30°'],[40,'40°']]))}
+    ${row('Restos de esquina al dibujar a mano','Tramos más cortos que este porcentaje de la pared más larga se toman como esquina redondeada y no como pared inclinada.',segH('roomCorner',[[5,'5 %'],[10,'10 %'],[15,'15 %'],[20,'20 %']]))}
+    ${row('Redondear las medidas','Al escribir la longitud de una pared se redondea a este paso. Exacto no redondea.',segH('roomRound',[[0,'Exacto'],[1,'1 mm'],[5,'5 mm'],[10,'1 cm']]))}
+    ${row('Tolerancia de cierre','Diferencia máxima entre el principio y el final del contorno para darlo por cerrado.',segH('closeTol',[[1,'1 mm'],[5,'5 mm'],[10,'1 cm'],[20,'2 cm']]))}
+    ${row('Altura de pared por defecto','Se pone sola en los planos nuevos. Puedes cambiarla en cada plano.',segH('roomHeight',[[0,'Ninguna'],[2400,'2,40 m'],[2500,'2,50 m'],[2600,'2,60 m'],[2700,'2,70 m'],[3000,'3 m']]))}
+    ${row('Medidas habituales de puertas y ventanas','Al añadir un hueco, sugiere anchos y altos típicos. No rellena nada: tú escribes la medida.',swH('roomQuick'))}
+    ${row('Detector de puertas, ventanas y enchufes','Estricta encuentra menos huecos pero más seguros; amplia encuentra más y puede equivocarse.',segH('detectSens',[['strict','Estricta'],['normal','Normal'],['loose','Amplia']]))}
+    ${row('Foto torcida al medir una pared','Qué hacer cuando la foto de una pared sale inclinada: enderezarla sola, preguntar o dejarla como está.',segH('photoFix',[['auto','Automática'],['ask','Preguntar'],['off','No']]))}
+    ${NATIVE&&NATIVE.camGuideOn?row('Tolerancia de la guía de la cámara','Cuánto puedes inclinar el móvil para que la guía se ponga en verde.',segH('camTol',[['strict','Estricta'],['normal','Normal'],['loose','Amplia']]))+row('Consejo en la guía de la cámara','Muestra el texto fijo «A la altura del pecho · de frente…».',swH('camTip')):''}
   </div></div>
   <div class="sgroup"><h3>Rotulación y cálculo de material</h3><div class="scard">
     ${row('Materiales y precios','Tarifas fijas o tablas editables. Mínimo facturable de 1 m².','<button id="openRotMaterials" class="btn ghost">Editar</button>')}
@@ -3203,6 +3221,9 @@ async function renderSettings(){
     ${row('Tamaño de página del PDF','',segH('pdfPage',[['a4','A4'],['a3','A3'],['letter','Carta']]))}
     ${row('Personalizar PDF','Portada, logotipo, cabecera, pie de página, fotos por página y tabla de medidas.','<button class="btn primary" data-sact="pdfcfg">Personalizar</button>')}
     ${row('Nombre en los PDF','Aparece en la portada y en el pie de cada página.',`<input class="tin" aria-label="Nombre en los PDF" data-k="pdfAuthor" value="${esc(SET.pdfAuthor)}" placeholder="Tu nombre o empresa" maxlength="60">`)}
+    ${row('Prefijo del nombre de archivo','Se añade delante del nombre de los PDF y SVG que exportas, por ejemplo el cliente.',`<input class="tin" aria-label="Prefijo del nombre de archivo" data-k="filePrefix" value="${esc(SET.filePrefix||'')}" placeholder="Cliente o fecha" maxlength="40">`)}
+    ${row('PDF del plano: alzados','Cuántas páginas de alzados incluye el PDF de un plano.',segH('roomPdfElev',[['all','Uno por elemento'],['walls','Uno por pared'],['none','Ninguno']]))}
+    ${row('PDF del plano: tu nombre','Escribe «Nombre en los PDF» arriba a la derecha de cada página del plano.',swH('roomPdfName'))}
   </div></div>
   <div class="sgroup"><h3>Ayuda</h3><div class="scard">
     <div class="srow"><div class="sl"><b>Mano, mover y ampliar</b><small>Arrastra para mover la foto. Pellizca con dos dedos para acercar o alejar; usa el botón de encuadre para verla completa. La mano selecciona y mueve elementos sin dibujar.</small></div></div>
@@ -3248,6 +3269,7 @@ async function renderSettings(){
     'Datos':['datos','Copia de seguridad, tamaño de fotos y almacenamiento',`<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>`]};
   SECS['Rotulación y cálculo de material']=['rotulacion','Materiales y precios de rotulación','<rect x="3" y="7" width="18" height="11" rx="2"/><path d="M6 7V4h12v3M7 12h10M7 15h6"/>'];
   SECS['Acerca de MedLoM']=['acerca','Versión instalada y actualizaciones','<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>'];
+  SECS['Plano']=['plano','Paredes inclinadas, medidas, huecos y foto automática','<path d="M4 4h16v16H4zM4 14h6v6M14 4v6h6"/>'];
   SECS['Interfaz']=['interfaz','Espectro, Prisma, Mando y Rueda','<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 4v16M4 12h16"/>'];
   SECS['Ayuda']=['ayuda','Guía de cada herramienta y opción de MedLoM','<circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 4.4 1.3c-.9 1.2-2.1 1.5-2.1 3.2M12 17.5h.01"/>'];
   const groups=[...body.querySelectorAll('.sgroup')];
@@ -3271,7 +3293,7 @@ $('#settings').addEventListener('click',async e=>{
     if(SET.look===id){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson';toast('Tema quitado')}
     else{SET.look=id;if(SET.colors)SET.colors={...SET.colors,on:false};SET.btnShape=L.r<=4?'square':L.r>=26?'pill':'round';if(L.ft){SET.fontD='tema';SET.fontB='tema'}else{if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}toast('Tema: '+L.n)}
     saveSettings();applySettings();renderSettings();return}
-  if(sb){let k=sb.parentElement.dataset.k;const v=sb.dataset.v;if(k==='temaClasico')k='tema';if(k==='tema'){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}SET[k]=(k==='loupeZoom'||k==='roomSnap')?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
+  if(sb){let k=sb.parentElement.dataset.k;const v=sb.dataset.v;if(k==='temaClasico')k='tema';if(k==='tema'){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}SET[k]=(['loupeZoom','roomSnap','roomCorner','roomRound','closeTol','roomHeight'].includes(k))?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
   const la=e.target.closest('[data-laser]');
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}
@@ -3326,7 +3348,7 @@ $('#settings').addEventListener('click',async e=>{
 });
 // PC with a mouse: the wheel moves the theme rows sideways; at either end the page scrolls as usual
 $('#settings').addEventListener('wheel',e=>{const L=e.target.closest('.looks');if(!L||e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;const max=L.scrollWidth-L.clientWidth;if(max<=0)return;const d=e.deltaMode===1?e.deltaY*40:e.deltaY;if((d<0&&L.scrollLeft<=0)||(d>0&&L.scrollLeft>=max-1))return;e.preventDefault();L.scrollLeft+=d},{passive:false});
-$('#settings').addEventListener('change',e=>{const g=e.target.closest('input[data-camguide]');if(g){try{NATIVE.setCamGuide(g.checked)}catch(err){}return}const i=e.target.closest('input[type=checkbox][data-k]');if(i){SET[i.dataset.k]=i.checked;saveSettings();if(i.dataset.k==='toolNames')applySettings()}});
+$('#settings').addEventListener('change',e=>{const g=e.target.closest('input[data-camguide]');if(g){try{NATIVE.setCamGuide(g.checked)}catch(err){}return}const i=e.target.closest('input[type=checkbox][data-k]');if(i){SET[i.dataset.k]=i.checked;saveSettings();if(['toolNames','bigButtons','camTip'].includes(i.dataset.k))applySettings()}});
 $('#settings').addEventListener('input',e=>{const i=e.target.closest('input.tin[data-k]');if(i){SET[i.dataset.k]=i.value;saveSettings()}});
 
 /* ================= native async calls ================= */
@@ -4681,19 +4703,19 @@ async function exportRoom(kind){
  const draft=!RoomPlan.geometry(r).complete||!r.heightMm;
  if(kind==='svg'){
   const svg=ROOMUI.mode==='three'?RoomViews.three(r,ROOMUI.selected,ROOMUI.camera,true):ROOMUI.mode==='elevation'?RoomViews.elevation(r,ROOMUI.selected,u,true,ROOMUI.selectedOpening):ROOMUI.mode==='elevations'?RoomViews.elevations(r,u,true):RoomViews.plan(r,ROOMUI.selected,u,{},true);
-  shareSheet(new Blob([svg.replace('<g font-family=',`<title>${esc(r.name)}${draft?' · BORRADOR':''}</title><g font-family=`)],{type:'image/svg+xml'}),safe+'.svg',[]);return;
+  shareSheet(new Blob([svg.replace('<g font-family=',`<title>${esc(r.name)}${draft?' · BORRADOR':''}</title><g font-family=`)],{type:'image/svg+xml'}),filePre(safe)+'.svg',[]);return;
  }
  if(!window.jspdf?.jsPDF)throw Error('No está disponible el exportador PDF');
  const busy=openModal('<div class="sheet"><h2>Preparando planos…</h2><p class="note">Planta y alzados con sus cotas</p><div class="spin"></div></div>');
  try{
   const pdf=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'}),order=[...r.walls].sort((a,b)=>RoomPlan.number(r,a.id)-RoomPlan.number(r,b.id));
-  const pages=[{title:'Planta',svg:()=>RoomViews.plan(r,ROOMUI.selected,u,{},true)},{title:'Todos los alzados · desarrollo frontal',svg:()=>RoomViews.elevations(r,u,true)},...order.flatMap(w=>(w.openings.length?w.openings:[null]).map(o=>({title:'Alzado · '+RoomPlan.segmentLabel(r,w)+(o?' · '+roomElementName(o.type):''),svg:()=>RoomViews.elevation(r,w.id,u,true,o?.id)})))];
+  const pages=[{title:'Planta',svg:()=>RoomViews.plan(r,ROOMUI.selected,u,{},true)},{title:'Todos los alzados · desarrollo frontal',svg:()=>RoomViews.elevations(r,u,true)},...(SET.roomPdfElev==='none'?[]:order).flatMap(w=>((w.openings.length&&SET.roomPdfElev!=='walls')?w.openings:[null]).map(o=>({title:'Alzado · '+RoomPlan.segmentLabel(r,w)+(o?' · '+roomElementName(o.type):''),svg:()=>RoomViews.elevation(r,w.id,u,true,o?.id)})))];
   if(pages.length>128)throw Error('Hay demasiados elementos para un solo PDF; exporta las vistas SVG por separado');
   for(let i=0;i<pages.length;i++){
-   if(i)pdf.addPage('a4','landscape');pdf.setFont('helvetica','bold');pdf.setFontSize(15);pdf.text(r.name,14,14);pdf.setFont('helvetica','normal');pdf.setFontSize(10);pdf.text(pages[i].title+(draft?' · BORRADOR':''),14,22);
+   if(i)pdf.addPage('a4','landscape');pdf.setFont('helvetica','bold');pdf.setFontSize(15);pdf.text(r.name,14,14);if(SET.roomPdfName&&SET.pdfAuthor){pdf.setFont('helvetica','normal');pdf.setFontSize(9);pdf.text(String(SET.pdfAuthor),283,14,{align:'right'});pdf.setFont('helvetica','bold');pdf.setFontSize(15);}pdf.setFont('helvetica','normal');pdf.setFontSize(10);pdf.text(pages[i].title+(draft?' · BORRADOR':''),14,22);
    const image=await roomSvgRaster(pages[i].svg());const vb=pages[i].svg().match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/),ratio=vb?Number(vb[1])/Number(vb[2]):1000/660,iw=Math.min(269,177.54*ratio),ih=iw/ratio;pdf.addImage(image,'PNG',(297-iw)/2,27,iw,ih,undefined,'FAST');
   }
-  const blob=pdf.output('blob');busy.close(true);shareSheet(blob,safe+' - planta y alzados.pdf',[]);
+  const blob=pdf.output('blob');busy.close(true);shareSheet(blob,filePre(safe+' - planta y alzados')+'.pdf',[]);
  }catch(e){busy.close(true);throw e;}
 }
 /* Elementos de pared y referencias de acotación compartidas por planta/alzados. */
@@ -4717,6 +4739,8 @@ function roomOpeningForm(type,openingId=null){
  const field=(name,label,value,free)=>`<label class="col"><span>${label} (${esc(u)})</span><input name="${name}" type="number" step="any" min="0" inputmode="decimal" required ${free&&!current?`placeholder="${+n(value).toFixed(1)}" value=""`:`value="${n(value)}"`}></label>`;
  const m=openModal(`<form class="sheet" id="roomElementForm"><h2>${current?'Editar':'Añadir'} ${label.toLowerCase()} · ${RoomPlan.segmentLabel(r,w)}</h2><div class="room-opening-form">${field('width','Ancho',initial.widthMm,true)}${field('height','Alto',initial.heightMm,true)}<label class="col"><span>Referencia horizontal</span><select name="horizontal"><option value="start">Desde esquina izquierda al borde izquierdo</option><option value="end">Desde esquina derecha al borde derecho</option></select></label>${field('offset','Distancia a la esquina',current?RoomPlan.frontOffset(r,w.id,initial.offsetMm,initial.widthMm):0)}${type==='door'?'<p class="note">La puerta arranca desde el suelo.</p>':`<label class="col"><span>Referencia vertical</span><select name="vertical"><option value="floor">Desde suelo al borde inferior</option><option value="ceiling">Desde techo al borde superior</option></select></label>${field('sill','Distancia vertical',initial.sillMm)}`}<label class="col"><span>Acotar también respecto a otro elemento</span><select name="reference"><option value="">Solo esquinas, suelo y techo</option>${w.openings.filter(o=>o.id!==current?.id).map((o,i)=>`<option value="${esc(o.id)}" ${o.id===current?.referenceId?'selected':''}>${roomElementName(o.type)} ${i+1}</option>`).join('')}</select></label><p class="note" id="roomElementDistances" role="status"></p></div><div class="row">${current?'<button type="button" class="btn ghost danger" data-opening-delete>Eliminar</button>':''}<button type="button" class="btn ghost" data-cancel>Cancelar</button><button class="btn primary" type="submit">Guardar elemento</button></div></form>`);
  const form=m.wrap.querySelector('form'),f=form.elements;
+ if(SET.roomQuick){const L=fixture?{w:[60,80,100],h:[60,80,100]}:type==='door'?{w:[600,700,725,800,825,900,1000],h:[2000,2040,2100,2200,2500]}:{w:[500,600,800,900,1000,1200,1400,1500,1800,2000],h:[600,800,1000,1200,1400,1500,2000]};
+  for(const [nm,vals] of [['width',L.w],['height',L.h]]){const dl=document.createElement('datalist');dl.id='rq-'+nm;dl.innerHTML=vals.map(v=>`<option value="${+n(v).toFixed(1)}"></option>`).join('');form.append(dl);f[nm].setAttribute('list',dl.id);}}
  function read(){const widthMm=Number(f.width.value)*k,heightMm=Number(f.height.value)*k,offset=Number(f.offset.value)*k,sill=type==='door'?0:Number(f.sill.value)*k;return{id:current?.id||uid(),type,widthMm,heightMm,offsetMm:RoomPlan.frontOffset(r,w.id,f.horizontal.value==='end'?w.lengthMm-offset-widthMm:offset,widthMm),sillMm:type!=='door'&&f.vertical.value==='ceiling'?r.heightMm-sill-heightMm:sill,referenceId:f.reference.value||null};}
  function preview(){const o=read(),v=n=>RoomViews.value(n,u),left=RoomPlan.frontOffset(r,w.id,o.offsetMm,o.widthMm);m.wrap.querySelector('#roomElementDistances').textContent=`Esquina izquierda: ${v(left)} · esquina derecha: ${v(w.lengthMm-left-o.widthMm)} · suelo: ${v(o.sillMm)} · techo: ${v(r.heightMm-o.sillMm-o.heightMm)}`;}
  let horizontal='start',vertical='floor';
@@ -4764,7 +4788,10 @@ let interfaceFlash;
 function interfaceSettingsGroup(){
   const buttons=Object.entries(INTERFACES).map(([id,[label,desc]])=>
     `<button class="srow interface-option" data-interface-choice="${id}" aria-pressed="${interfaceMode()===id}"><span class="sl"><b>${label}</b><small>${desc}</small></span><span aria-hidden="true">${interfaceMode()===id?'●':'○'}</span></button>`).join('');
-  return `<div class="sgroup"><h3>Interfaz</h3><div class="scard">${buttons}</div></div>`;
+  const extra=row('Al terminar una foto nueva','Después de guardar una foto hecha con Medir foto desde la pantalla principal.',segH('afterPhoto',[['projects','Ir a Proyectos'],['home','Volver al inicio']]))
+    +(NATIVE?row('Orientación de la pantalla','Automática sigue el giro del móvil.',segH('orient',[['auto','Automática'],['portrait','Vertical'],['landscape','Horizontal']])):'')
+    +row('Botones grandes','Botones y filas más altos, más fáciles de pulsar con guantes o en obra.',swH('bigButtons'));
+  return `<div class="sgroup"><h3>Interfaz</h3><div class="scard">${buttons}${extra}</div></div>`;
 }
 function initInterface(){
   const mode=interfaceMode();
@@ -5020,10 +5047,11 @@ async function roomAfterPhoto(made){
   const r=ROOMUI.model,w=r&&r.walls.find(x=>x.id===ROOMUI.photoWall);ROOMUI.photoWall=null;
   if(!w){openEditor(made.rec,made.canvas);return}
   ROOMUI.selected=w.id;
-  const busy=openModal('<div class="sheet"><h2>Analizando la foto…</h2><div class="spin"></div></div>');
+  let busy=openModal('<div class="sheet"><h2>Analizando la foto…</h2><div class="spin"></div></div>');
   await new Promise(res=>setTimeout(res,60));
   let img=made.canvas,list=[],msg='';
-  try{const a=FotoAuto.analyze(img);msg=a.msg;if(a.level==='warn'||a.level==='bad'){const r2=pfRectify(img);if(r2!==img){img=r2;msg=`Foto enderezada automáticamente (inclinación ${a.tilt.toFixed(1)}°).`+(a.level==='bad'?' Para más precisión, repítela de frente.':'')}}list=FotoAuto.detect(img,null)}catch(err){}
+  try{const a=FotoAuto.analyze(img);msg=a.msg;const fixMode=(typeof SET!=='undefined'&&SET.photoFix)||'auto';let doFix=(a.level==='warn'||a.level==='bad')&&fixMode!=='off';if(doFix&&fixMode==='ask'){busy.close(true);doFix=(await dialog('Foto torcida','La foto está inclinada '+a.tilt.toFixed(1)+'°. ¿Enderezarla automáticamente para que las medidas sean más reales?',[{id:'y',label:'Enderezar',kind:'primary'},{id:'n',label:'Dejarla así'}]))==='y';busy=openModal('<div class="sheet"><h2>Analizando la foto…</h2><div class="spin"></div></div>');}
+  if(doFix){const r2=pfRectify(img);if(r2!==img){img=r2;msg=`Foto enderezada automáticamente (inclinación ${a.tilt.toFixed(1)}°).`+(a.level==='bad'?' Para más precisión, repítela de frente.':'')}}list=FotoAuto.detect(img,null)}catch(err){}
   busy.close(true);
   if(!list.length){dialog('Detectar huecos',(msg?msg+' ':'')+'No he encontrado puertas, ventanas ni enchufes claros. Prueba con la pared de frente y bien iluminada.',[{id:'ok',label:'Cerrar',kind:'primary'}]);return}
   if(msg)toast(msg,5000);
