@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.4";</script>
+<script>window.MEDLOM_PWA=1;window.MEDLOM_VER="0.57.5";</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head><body>
 <title>MedLoM</title>
@@ -1311,7 +1311,7 @@ const RoomSketch=(()=>{
   const n=points.length,px=Array.from({length:n},(_,i)=>i),py=px.slice(),find=(p,i)=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;},join=(p,i,j)=>{p[find(p,i)]=find(p,j);};
   // Una inclinación pequeña es un error al dibujar: hasta 20° de desvío se endereza; más que eso es una pared inclinada.
   // A mano alzada, los restos cortos de una esquina redondeada no cuentan como pared inclinada.
-  const SNAP=20*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*.1):0;
+  const SNAP=Math.max(5,Math.min(44,Number(typeof SET!=='undefined'&&SET.roomSnap)||20))*Math.PI/180,longest=Math.max(...points.map((a,i)=>distance(a,points[(i+1)%n]))),minSlant=freehand?Math.max(60,longest*.1):0;
   const walls=points.map((a,i)=>{const b=points[(i+1)%n],dx=b.x-a.x,dy=b.y-a.y,vertical=Math.abs(dy)>Math.abs(dx),off=Math.atan2(vertical?Math.abs(dx):Math.abs(dy),vertical?Math.abs(dy):Math.abs(dx));
    if(off>SNAP&&Math.hypot(dx,dy)>=minSlant)return{ratio:Math.hypot(dx,dy),angle:Math.atan2(dy,dx)};
    join(vertical?px:py,i,(i+1)%n);return{ratio:Math.hypot(dx,dy),angle:vertical?(dy>0?Math.PI/2:-Math.PI/2):(dx>0?0:Math.PI)};});
@@ -1338,7 +1338,7 @@ const RoomSketch=(()=>{
  return {detect,simplify,orthogonalize};
 })();
 /* ================= settings ================= */
-const DEF_SET={interfaceMode:'classic',tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
+const DEF_SET={interfaceMode:'classic',tema:'auto',thumb:'m',sort:'recent',unit:'cm',precision:'auto',loupeDim:true,loupePen:true,loupeZoom:3,confirmExit:true,declutter:true,dimBreak:true,dimGap:'m',snap:true,roomSnap:20,haptic:true,expQuality:'medium',photoRes:'normal',pdfPage:'a4',pdfAuthor:'',autoSync:true,wifiOnly:true,cloudFolder:'MedLoM',clouds:{gdrive:false,jotta:false},style:null,fontD:'barlow',fontB:'atkinson',btnShape:'round',btnFill:'filled',colors:null,icons:{},toolNames:true,look:null,autoUpdate:true,updLast:0,laserAuto:true};
 let SET={...DEF_SET};
 try{const s=JSON.parse(localStorage.getItem('medidaslom-settings'));if(s)SET={...SET,...s}}catch(e){}
 try{if(SET.loupe===false){SET.loupeDim=false;SET.loupePen=false}delete SET.loupe}catch(e){}
@@ -3188,6 +3188,7 @@ async function renderSettings(){
     ${row('Lupa al dibujar','Aparece mientras dibujas a mano alzada.',swH('loupePen'))}
     ${row('Aumento de la lupa','',segH('loupeZoom',[[2,'2×'],[3,'3×'],[4,'4×'],[6,'6×']]))}
     ${row('Enderezar líneas','Ajusta a horizontal, vertical o 45° cuando la línea está casi recta. Los extremos quedan donde los sueltas.',swH('snap'))}
+    ${row('Pared inclinada en Plano','Al dibujar un plano, una pared que se desvía menos de estos grados de horizontal o vertical se endereza (error de dibujo); si se desvía más, se mantiene como pared inclinada.',segH('roomSnap',[[10,'10°'],[15,'15°'],[20,'20°'],[30,'30°'],[40,'40°']]))}
     ${row('Dejar hueco en las líneas','Corta la línea de debajo cuando dos cotas se cruzan o un número cae sobre una línea.',swH('dimBreak'))}
     ${SET.dimBreak!==false?row('Tamaño del hueco','',segH('dimGap',[['s','Pequeño'],['m','Normal'],['l','Grande'],['xl','Muy grande']])):''}
     ${row('Colocar los números automáticamente','Aparta los números de otras líneas y textos, y los reduce si no caben. Los que muevas tú no se tocan.',swH('declutter'))}
@@ -3270,7 +3271,7 @@ $('#settings').addEventListener('click',async e=>{
     if(SET.look===id){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson';toast('Tema quitado')}
     else{SET.look=id;if(SET.colors)SET.colors={...SET.colors,on:false};SET.btnShape=L.r<=4?'square':L.r>=26?'pill':'round';if(L.ft){SET.fontD='tema';SET.fontB='tema'}else{if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}toast('Tema: '+L.n)}
     saveSettings();applySettings();renderSettings();return}
-  if(sb){let k=sb.parentElement.dataset.k;const v=sb.dataset.v;if(k==='temaClasico')k='tema';if(k==='tema'){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}SET[k]=(k==='loupeZoom')?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
+  if(sb){let k=sb.parentElement.dataset.k;const v=sb.dataset.v;if(k==='temaClasico')k='tema';if(k==='tema'){SET.look=null;if(SET.fontD==='tema')SET.fontD='barlow';if(SET.fontB==='tema')SET.fontB='atkinson'}SET[k]=(k==='loupeZoom'||k==='roomSnap')?+v:v;if(k==='tema'&&SET.colors)SET.colors={...SET.colors,on:false};if(k==='unit')lastUnit=v;saveSettings();applySettings();renderSettings();return}
   const la=e.target.closest('[data-laser]');
   if(la){const a=la.dataset.laser;
     if(a==='scan'||a==='scanall'){LASER.found=[];LASER.state='scanning';renderSettings();try{NATIVE.laserScan(a==='scanall')}catch(err){}}

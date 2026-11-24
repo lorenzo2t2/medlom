@@ -1,11 +1,10 @@
 {
- "versionCode": 132,
- "versionName": "0.57.4",
+ "versionCode": 133,
+ "versionName": "0.57.5",
  "apk": "MedLoM.apk",
- "size": 39828810,
- "sha256": "fc8d435fb657c5b953b69567a46df673cd67fffcf202d809eb25183ef0f8f8cc",
+ "size": 39828975,
+ "sha256": "3abbe80f881b1a60ddecfa8879893c42bcb0e043f1c9db805751465cae2e7c3e",
  "notes": [
-  "En Plano, una inclinación pequeña al dibujar se endereza (hasta 20°)",
-  "una mayor se toma como pared inclinada"
+  "Nuevo ajuste «Pared inclinada en Plano»: elige desde cuántos grados de desvío una pared se considera inclinada (10°, 15°, 20°, 30° o 40°)"
  ]
 }
